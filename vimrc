@@ -49,13 +49,13 @@ silent! set complete=.,w,b,u,t,i,k omnifunc=syntaxcomplete#Complete
 silent! set completeopt=menuone,preview,noinsert,noselect pumheight=10
 silent! set wildmenu wildoptions= wildignorecase
 silent! set updatetime=300 timeoutlen=1000 ttimeout ttimeoutlen=50 ttyfast lazyredraw
-" if executable('rg')
-"   set grepprg=rg\ --vimgrep " \ --no-heading
-"   set grepformat^=%f:%l:%c:%m
-" elseif executable('ag')
-"   set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
-"   set grepformat^=%f:%l:%c:%m
-" endif
+if executable('rg')
+  set grepprg=rg\ --vimgrep " \ --no-heading
+  set grepformat^=%f:%l:%c:%m
+elseif executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
+  set grepformat^=%f:%l:%c:%m
+endif
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 
@@ -162,8 +162,26 @@ map g* <Plug>(asterisk-gz*)
 map g# <Plug>(asterisk-gz#)
 let g:asterisk#keeppos = 1
 
-" traces
-let g:traces_preserve_view_state  = 1
+" ale lint
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)
+let g:ale_sign_error = '→'
+let g:ale_sign_warning = '→'
+let g:ale_sign_info = 'i'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_pattern_options_enabled = 1
+let g:ale_fixers = {
+      \ 'javascript': ['eslint'],
+      \ 'html': ['eslint']
+      \}
+let g:ale_fix_on_save = 1
+let g:ale_linters = {
+      \ 'javascript': ['eslint'],
+      \ 'html': ['eslint'],
+      \}
+let g:ale_linter_aliases = {
+      \ 'html': 'javascript',
+      \}
 
 " prettier
 let g:prettier#quickfix_enabled = 0
