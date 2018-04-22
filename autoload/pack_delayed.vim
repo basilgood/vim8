@@ -1,4 +1,4 @@
-function pack_delayed#plugins(...) abort
+function pack_delayed#plugins(...)
   packadd vim-repeat
   packadd vim-commentary
   packadd vim-surround
@@ -7,8 +7,7 @@ function pack_delayed#plugins(...) abort
   packadd vim-over
   packadd vim-filebeagle
   packadd vim-buffergator
-  packadd vim-indentwise
-  packadd vim-filesearch
-  packadd quickfix-reflector.vim
+  " packadd quickfix-reflector.vim
   packadd vim-prettier
+  packadd ferret
 endfunction
