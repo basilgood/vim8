@@ -18,7 +18,7 @@ let g:loaded_netrwPlugin = 1
 silent! set number nowrap
 silent! set noshowmatch matchtime=1 shortmess+=I
 silent! set noruler rulerformat= laststatus=2 statusline=%f\ %=\ %m%r%y%w\ %3l/%L:%-2c
-silent! set list listchars=tab:▷┅,eol:¬,trail:~,space:·,extends:»,precedes:«,nbsp:⦸ 
+silent! set list listchars=tab:▸\ ,eol:¬,trail:~,space:·,extends:»,precedes:«,nbsp:⦸ 
 silent! set splitbelow splitright switchbuf=useopen,usetab 
 silent! set scrolloff=5 sidescroll=1 sidescrolloff=5 nostartofline
 if &startofline
