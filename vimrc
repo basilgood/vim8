@@ -186,5 +186,14 @@ let g:prettier#quickfix_enabled = 0
 let g:prettier#config#bracket_spacing = 'false'
 let g:prettier#config#use_tabs = 'true'
 
+nmap <Space>/ <Plug>(hopping-start)
+let g:hopping#enable_migemo = 0
+let g:hopping#keymapping = {
+\	"\<C-n>" : "<Over>(hopping-next)",
+\	"\<C-p>" : "<Over>(hopping-prev)",
+\	"\<C-u>" : "<Over>(scroll-u)",
+\	"\<C-d>" : "<Over>(scroll-d)",
+\}
+
 filetype plugin indent on
 silent! syntax enable
