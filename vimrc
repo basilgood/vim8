@@ -106,13 +106,11 @@ inoremap <C-v> <ESC>"+gPa
 nnoremap <Space>s :OverCommandLine<CR>%s/
 nnoremap <Space>S :OverCommandLine<CR>s/
 vnoremap <Space>s :OverCommandLine<CR>s/
-nnoremap <Space>k :call SyntaxAttr()<CR>
 map <Leader><Leader> :set cursorline!<CR>
 nnoremap <silent> n nzz:call blink#Match()<CR>
 nnoremap <silent> N Nzz:call blink#Match()<CR>
 cnoremap <silent> <expr> <enter> center#Search()
 nnoremap gr :vimgrep <cword> *<CR>
-nnoremap ,f :GrepJob! '\b<C-R><C-W>\b'<CR>:cw<CR>
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 command! -nargs=+ -complete=file -bar Rg silent! grep! <args>|cwindow|redraw!
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
