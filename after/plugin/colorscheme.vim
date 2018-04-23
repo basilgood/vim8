@@ -11,7 +11,7 @@ hi TabLineFill      ctermbg=238  ctermfg=238
 hi TabLineSel       ctermbg=101  ctermfg=235
 hi IncSearch        ctermbg=131  ctermfg=231   cterm=NONE
 hi Search           ctermbg=233  ctermfg=93   cterm=NONE
-hi Directory ctermfg=73
+hi Directory ctermfg=68
 hi Type ctermfg=144
 hi String ctermfg=245
 hi Comment cterm=italic ctermbg=NONE term=NONE
