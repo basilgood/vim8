@@ -5,9 +5,10 @@ function pack_delayed#plugins(...)
   packadd vim-eunuch
   packadd hlyank.vim
   packadd vim-over
+  packadd vim-hopping
+  packadd vim-grepper
   packadd vim-filebeagle
   packadd vim-buffergator
-  " packadd quickfix-reflector.vim
+  packadd quickfix-reflector.vim
   packadd vim-prettier
-  packadd ferret
 endfunction
