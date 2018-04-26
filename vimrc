@@ -47,15 +47,8 @@ silent! set noswapfile nobackup
 silent! set incsearch hlsearch|nohlsearch
 silent! set complete=.,w,b,u,t,i,k omnifunc=syntaxcomplete#Complete
 silent! set completeopt=menuone,preview,noinsert,noselect pumheight=10
-silent! set wildmenu wildoptions= wildignorecase
-silent! set updatetime=300 timeoutlen=1000 ttimeout ttimeoutlen=50 ttyfast lazyredraw
-if executable('rg')
-  set grepprg=rg\ --vimgrep " \ --no-heading
-  set grepformat^=%f:%l:%c:%m
-elseif executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
-  set grepformat^=%f:%l:%c:%m
-endif
+silent! set wildmenu wildmode=longest:full,full wildoptions= wildignorecase
+silent! set updatetime=750 ttyfast ttyscroll=3 ttimeoutlen=50 timeoutlen=1200
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 
@@ -99,9 +92,9 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <Space><Space> :tabnew %<CR>
 nnoremap <Space>q :tabclose<CR>
-vnoremap <Space>y "+
-vnoremap <Space>p "+
-nnoremap <Space>p "+
+vnoremap <Space>y "+y
+vnoremap <Space>p "+p
+nnoremap <Space>p "+p
 inoremap <C-v> <ESC>"+gPa
 nnoremap <Space>s :OverCommandLine<CR>%s/
 nnoremap <Space>S :OverCommandLine<CR>s/
@@ -110,9 +103,6 @@ map <Leader><Leader> :set cursorline!<CR>
 nnoremap <silent> n nzz:call blink#Match()<CR>
 nnoremap <silent> N Nzz:call blink#Match()<CR>
 cnoremap <silent> <expr> <enter> center#Search()
-nnoremap gr :vimgrep <cword> *<CR>
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-command! -nargs=+ -complete=file -bar Rg silent! grep! <args>|cwindow|redraw!
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 map [1;5A <C-Up>
 map [1;5B <C-Down>
@@ -125,16 +115,12 @@ map [1;2D <S-Left>
 
 AutoCmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | silent! checktime | endif
 AutoCmd BufEnter * syntax sync minlines=99999
-AutoCmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | exe 'normal! g`"zz' | endif
+AutoCmd BufReadPost * silent! exec 'normal g`"'
 AutoCmd CmdLineEnter * packadd cmdline-completion
 AutoCmd BufWritePre * call mkdir#Easy()
-" AutoCmd QuickfixCmdPost [^l]* nested copen | wincmd p
-" AutoCmd QuickfixCmdPost l* nested lopen | wincmd p
+AutoCmd QuickfixCmdPost [^l]* nested copen | wincmd p
+AutoCmd QuickfixCmdPost l* nested lopen | wincmd p
 AutoCmd BufEnter * call timer_start(100, function('pack_delayed#plugins'))
-
-" buffergator
-let g:buffergator_suppress_keymaps = 1
-nnoremap <Bs> :BuffergatorOpen<CR>
 
 " editorconfig
 let g:editorconfig_root_chdir = 1
@@ -145,20 +131,13 @@ let g:editorconfig_blacklist = {
 
 " leaderf
 let g:Lf_ShortcutF = '<C-P>'
-" let g:Lf_ShortcutB = '<Bs>'
+let g:Lf_ShortcutB = '<Bs>'
 let g:Lf_WindowHeight = 0.20
 let g:Lf_DefaultMode = 'FullPath'
 let g:Lf_FollowLinks = 'yes'
 nnoremap <Leader>m :LeaderfMru<CR>
 nnoremap <Leader>n :LeaderfMruCwd<CR>
 nnoremap <Leader>k :LeaderfHistoryCmd<CR>
-
-" asterisk
-map *  <Plug>(asterisk-z*)
-map #  <Plug>(asterisk-z#)
-map g* <Plug>(asterisk-gz*)
-map g# <Plug>(asterisk-gz#)
-let g:asterisk#keeppos = 1
 
 " ale lint
 nmap <silent> [e <Plug>(ale_previous_wrap)
@@ -181,19 +160,21 @@ let g:ale_linter_aliases = {
       \ 'html': 'javascript',
       \}
 
+" asterisk
+map *  <Plug>(asterisk-z*)
+map #  <Plug>(asterisk-z#)
+map g* <Plug>(asterisk-gz*)
+map g# <Plug>(asterisk-gz#)
+let g:asterisk#keeppos = 1
+
 " prettier
 let g:prettier#quickfix_enabled = 0
 let g:prettier#config#bracket_spacing = 'false'
 let g:prettier#config#use_tabs = 'true'
 
-nmap <Space>/ <Plug>(hopping-start)
-let g:hopping#enable_migemo = 0
-let g:hopping#keymapping = {
-\	"\<C-n>" : "<Over>(hopping-next)",
-\	"\<C-p>" : "<Over>(hopping-prev)",
-\	"\<C-u>" : "<Over>(scroll-u)",
-\	"\<C-d>" : "<Over>(scroll-d)",
-\}
+nnoremap gr :<C-u>Ag!<Space>
+nnoremap <silent> K :<C-u>Ag!<CR>
+vnoremap <silent> K :Ag!<CR>
 
 filetype plugin indent on
 silent! syntax enable
