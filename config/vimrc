@@ -1,0 +1,21 @@
+set encoding=utf-8
+
+if &compatible
+  set nocompatible
+endif
+
+augroup MyVimrc
+  autocmd!
+augroup END
+command! -nargs=* AutoCmd autocmd MyVimrc <args>
+
+syntax enable
+filetype plugin indent on
+
+runtime! config/initconfig.vim
+runtime! config/options.vim
+runtime! config/mappings.vim
+runtime! config/plugins.vim
+runtime! config/theme.vim
+runtime! config/autocommands.vim
+runtime! config/abrev.vim

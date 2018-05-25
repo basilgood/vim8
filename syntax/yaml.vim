@@ -14,7 +14,7 @@
 " Convert to Canonical form:
 "map \c :%!python -c 'from yaml.redump import redump; import sys; print redump(sys.stdin.read()).rstrip()'
 
-if version < 600
+if v:version < 600
   syntax clear
 endif
 syntax clear
