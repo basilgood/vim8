@@ -17,10 +17,6 @@ onoremap H ^
 nnoremap L $
 xnoremap L $
 onoremap L $
-nnoremap <silent> <Space><Up> :resize -1<CR>
-nnoremap <silent> <Space><Down> :resize +1<CR>
-nnoremap <silent> <Space><Left> :vertical resize +1<CR>
-nnoremap <silent> <Space><Right> :vertical resize -1<CR>
 vnoremap . :normal .<CR>
 nnoremap ,w :set wrap!<cr>
 nnoremap <Leader>w :%s/\s\+$//e<CR>
@@ -36,6 +32,8 @@ vnoremap <Space>p "+p
 nnoremap <Space>P "+P
 vnoremap <Space>P "+P
 inoremap <C-v> <ESC>"+gPa
+nnoremap <C-n> <c-w><
+nnoremap <C-m> <c-w>>
 nnoremap <Space>s :OverCommandLine<CR>%s/
 nnoremap <Space>S :OverCommandLine<CR>s/
 vnoremap <Space>s :OverCommandLine<CR>s/
