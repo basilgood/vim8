@@ -3,15 +3,13 @@ set autoread
 set backspace=indent,eol,start
 set timeoutlen=1000 ttimeoutlen=100
 set updatetime=300
-set ttyfast
-set lazyredraw
 if !has('nvim')
   set ttymouse=xterm2
   set ttyscroll=2
 endif
 set mouse=a
-set hidden
 set number
+set hidden
 set noshowmode
 set showcmd
 set incsearch

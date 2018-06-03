@@ -1,4 +1,4 @@
-nnoremap <Esc><Esc> :nohlsearch<CR>
+nnoremap <Space><CR> :nohlsearch<CR>
 nnoremap [q :cprev<CR>
 nnoremap ]q :cnext<CR>
 nnoremap [Q :cfirst<CR>
@@ -39,16 +39,7 @@ inoremap <C-v> <ESC>"+gPa
 nnoremap <Space>s :OverCommandLine<CR>%s/
 nnoremap <Space>S :OverCommandLine<CR>s/
 vnoremap <Space>s :OverCommandLine<CR>s/
-map <Leader>l :set cursorline!<CR>
 nnoremap <silent> n nzz:call blink#Match()<CR>
 nnoremap <silent> N Nzz:call blink#Match()<CR>
 cnoremap <silent> <expr> <enter> center#Search()
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-map [1;5A <C-Up>
-map [1;5B <C-Down>
-map [1;5C <C-Left>
-map [1;5D <C-Right>
-map [1;2A <S-Up>
-map [1;2B <S-Down>
-map [1;2C <S-Right>
-map [1;2D <S-Left>
