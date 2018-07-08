@@ -10,7 +10,7 @@ endif
 set mouse=a
 set number
 set hidden
-set noshowmode
+set showmode
 set showcmd
 set incsearch
 set hlsearch|nohlsearch
@@ -25,11 +25,12 @@ set shiftwidth=2
 set shiftround
 set list listchars=tab:▸\ ,eol:¬,trail:~,space:·,extends:»,precedes:«,nbsp:⦸
 set noshowmatch
+set isfname-==
 set linebreak
 set showbreak=\
-set breakat=\ \	;:,!?
+set breakat=\ \ ;:,!?
 set breakindent
-set shortmess=Iat
+set shortmess=Iatc
 set nowritebackup
 set nobackup
 set noswapfile
@@ -37,8 +38,9 @@ set wildmenu
 set wildmode=longest:full,full
 set history=1000
 set viminfo=h,'500,<10000,s1000,/1000,:1000
-let g:did_install_default_menus = 1
-set completeopt=menuone,preview,noinsert,noselect
+set completeopt+=menuone
+set completeopt+=noselect
+set completeopt+=noinsert
 set complete=.,w,b,u,t,i,k
 set omnifunc=syntaxcomplete#Complete
 set pumheight=10
@@ -51,3 +53,13 @@ set splitright
 set switchbuf=useopen,usetab
 set display=lastline
 set laststatus=2
+set statusline=
+set statusline+=%(%{'help'!=&filetype?'\ \ '.bufnr('%'):''}\ %)
+set statusline+=%{fugitive#head()!=''?'\ \ '.fugitive#head().'\ ':''}
+set statusline+=\ %f
+set statusline+=\ %{&modified?'\ \ +':''}
+set statusline+=\ %{&readonly?'\ \ ':''}
+set statusline+=%=
+set statusline+=\ %{''!=#&filetype?&filetype:'none'}
+set statusline+=\ %5v/%l
+set statusline+=\ %4L

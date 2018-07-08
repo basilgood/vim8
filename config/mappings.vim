@@ -1,8 +1,4 @@
-nnoremap <Space><CR> :nohlsearch<CR>
-nnoremap [q :cprev<CR>
-nnoremap ]q :cnext<CR>
-nnoremap [Q :cfirst<CR>
-nnoremap ]Q :clast<CR>
+nnoremap <Space>n :nohlsearch<CR>
 nnoremap j gj
 nnoremap k gk
 vnoremap > >gv
@@ -11,20 +7,15 @@ nnoremap <C-s> :update<CR>
 inoremap <C-s> <Esc>:update<CR>
 xnoremap <C-s> <C-C>:<C-u>update<CR>
 nnoremap <expr> 0 virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
-nnoremap H ^
-xnoremap H ^
-onoremap H ^
-nnoremap L $
-xnoremap L $
-onoremap L $
 vnoremap . :normal .<CR>
+xnoremap <silent> il <Esc>^vg_
+onoremap <silent> il :<C-U>normal! ^vg_<CR>
 nnoremap ,w :set wrap!<cr>
-nnoremap <Leader>w :%s/\s\+$//e<CR>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-nnoremap <Space><Space> :tabnew %<CR>
+nnoremap <Space><Space> :tab split<CR>
 nnoremap <Space>q :tabclose<CR>
 vnoremap <Space>y "+y
 nnoremap <Space>p "+p
@@ -32,12 +23,4 @@ vnoremap <Space>p "+p
 nnoremap <Space>P "+P
 vnoremap <Space>P "+P
 inoremap <C-v> <ESC>"+gPa
-nnoremap <C-n> <c-w><
-nnoremap <C-m> <c-w>>
-nnoremap <Space>s :OverCommandLine<CR>%s/
-nnoremap <Space>S :OverCommandLine<CR>s/
-vnoremap <Space>s :OverCommandLine<CR>s/
-nnoremap <silent> n nzz:call blink#Match()<CR>
-nnoremap <silent> N Nzz:call blink#Match()<CR>
-cnoremap <silent> <expr> <enter> center#Search()
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"

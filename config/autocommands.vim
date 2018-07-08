@@ -6,7 +6,12 @@ AutoCmd BufWritePre * call mkdir#Easy()
 " AutoCmd QuickfixCmdPost [^l]* nested copen | wincmd p
 " AutoCmd QuickfixCmdPost l* nested lopen | wincmd p
 AutoCmd BufEnter * call timer_start(100, function('pack_delayed#plugins'))
+AutoCmd InsertLeave * silent! set nopaste
 
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+command! SP %s/\s\+$//e | normal! ``
+command! RN call rename#file()
+
+function! s:hl()
+  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
+endfunction
+command! HL call <SID>hl()
