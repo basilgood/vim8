@@ -4,4 +4,3 @@ function! mkdir#Easy()
     call mkdir(s:dir, 'p')
   endif
 endfunction
-

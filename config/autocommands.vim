@@ -7,9 +7,11 @@ AutoCmd BufWritePre * call mkdir#Easy()
 " AutoCmd QuickfixCmdPost l* nested lopen | wincmd p
 AutoCmd BufEnter * call timer_start(100, function('pack_delayed#plugins'))
 AutoCmd InsertLeave * silent! set nopaste
+AutoCmd BufLeave * if !&diff | let b:winview = winsaveview() | endif
+AutoCmd BufEnter * if exists('b:winview') && !&diff | call winrestview(b:winview) |
+  \ unlet! b:winview | endif
 
 command! SP %s/\s\+$//e | normal! ``
-command! RN call rename#file()
 
 function! s:hl()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')

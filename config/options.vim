@@ -1,7 +1,7 @@
 scriptencoding utf-8
 set autoread
 set backspace=indent,eol,start
-set timeoutlen=1000 ttimeoutlen=100
+set timeoutlen=1000 ttimeoutlen=10
 set updatetime=300
 if !has('nvim')
   set ttymouse=xterm2
@@ -10,8 +10,6 @@ endif
 set mouse=a
 set number
 set hidden
-set showmode
-set showcmd
 set incsearch
 set hlsearch|nohlsearch
 set nowrap
@@ -24,8 +22,6 @@ set softtabstop=2
 set shiftwidth=2
 set shiftround
 set list listchars=tab:▸\ ,eol:¬,trail:~,space:·,extends:»,precedes:«,nbsp:⦸
-set noshowmatch
-set isfname-==
 set linebreak
 set showbreak=\
 set breakat=\ \ ;:,!?
@@ -51,7 +47,7 @@ set sidescrolloff=5
 set splitbelow
 set splitright
 set switchbuf=useopen,usetab
-set display=lastline
+set display+=lastline
 set laststatus=2
 set statusline=
 set statusline+=%(%{'help'!=&filetype?'\ \ '.bufnr('%'):''}\ %)
