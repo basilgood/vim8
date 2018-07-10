@@ -88,6 +88,10 @@ cnoremap <silent> <expr> <enter> center#Search()
 nmap <Leader>g :Gstatus<CR>gg<c-n>
 nnoremap <Leader>d :Gvdiff<CR>
 
+" indentwise
+nnoremap <leader>] :call indentwise#level(1)<CR>
+nnoremap <leader>[ :call indentwise#level(-1)<CR>
+
 "mucomplete
 let g:mucomplete#always_use_completeopt = 1
 let g:mucomplete#spel#good_words = 1
