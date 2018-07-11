@@ -87,7 +87,3 @@ cnoremap <silent> <expr> <enter> center#Search()
 " fugitive
 nmap <Leader>g :Gstatus<CR>gg<c-n>
 nnoremap <Leader>d :Gvdiff<CR>
-
-"mucomplete
-let g:mucomplete#always_use_completeopt = 1
-let g:mucomplete#spel#good_words = 1
