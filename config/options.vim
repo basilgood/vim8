@@ -34,11 +34,10 @@ set wildmenu
 set wildmode=longest:full,full
 set history=1000
 set viminfo=h,'500,<10000,s1000,/1000,:1000
-set completeopt+=menuone
-set completeopt+=noselect
-set completeopt+=noinsert
-set complete=.,w,b,u,t,i,k
+set completeopt=menuone,noinsert,noselect
 set omnifunc=syntaxcomplete#Complete
+set completefunc=syntaxcomplete#Complete
+set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 set nostartofline
 set scrolloff=5

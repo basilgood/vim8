@@ -24,3 +24,5 @@ nnoremap <Space>P "+P
 vnoremap <Space>P "+P
 inoremap <C-v> <ESC>"+gPa
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+nnoremap <silent> <Leader>= :vertical resize +1<CR>
+nnoremap <silent> <Leader>- :vertical resize -1<CR>
