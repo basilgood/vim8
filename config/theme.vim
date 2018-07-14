@@ -24,11 +24,5 @@ if has('termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-colorscheme happy_hacking
 
-" let &g:statusline=%n
-" %{&ff}%y%\ %<%f
-      " \ . "%m%"
-      " \ . "%=%5l%"
-      " \ . "/%L%"
-      " \ . "%4v %"
+silent! colorscheme happy_hacking
