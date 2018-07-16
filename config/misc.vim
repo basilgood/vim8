@@ -9,5 +9,7 @@ set nowritebackup
 set nobackup
 set shortmess=Iatc
 set history=1000
-set viminfo=h,'500,<10000,s1000,/1000,:1000
+set viminfo=!,'20,<50,s10,h
+set tags+=tags;/,tags;~
 set display+=lastline
+set path+=**

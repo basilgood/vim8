@@ -25,4 +25,4 @@ if has('termguicolors')
   set termguicolors
 endif
 
-silent! colorscheme happy_hacking
+silent! colorscheme monokai-phoenix

@@ -1,4 +1,5 @@
 scriptencoding utf-8
+let skip_defaults_vim=1
 let g:loaded_2html_plugin       = 1
 let g:loaded_logiPat            = 1
 let g:loaded_getscriptPlugin    = 1

@@ -96,7 +96,7 @@ hi Special                    guifg=#EFEFEF guibg=NONE    gui=NONE      ctermfg=
 hi Statement                  guifg=#CCCCCC guibg=NONE    gui=NONE      ctermfg=250
 hi Title                      guifg=#CCCCCC guibg=NONE    gui=bold      ctermfg=250
 hi Type                       guifg=#64B2DB guibg=NONE    gui=NONE      ctermfg=039
-hi SpecialKey                 guifg=#40BDFF guibg=NONE    gui=NONE      ctermfg=039
+hi SpecialKey                 guifg=#6A6A6A guibg=NONE    gui=NONE      ctermfg=039
 hi Conditional                guifg=#64B2DB guibg=NONE    gui=NONE      ctermfg=039
 hi Operator                   guifg=#AAAAAA guibg=NONE    gui=NONE      ctermfg=246
 hi Exception                  guifg=#64B2DB guibg=NONE    gui=NONE      ctermfg=039
@@ -118,7 +118,7 @@ if s:accent == "red"
   hi Constant                 guifg=#FF3D23 guibg=NONE    gui=NONE      ctermfg=001
   hi Directory                guifg=#FF3D23 guibg=NONE    gui=NONE      ctermfg=001
   hi Type                     guifg=#C5282F guibg=NONE    gui=NONE      ctermfg=001
-  hi SpecialKey               guifg=#FF3D23 guibg=NONE    gui=NONE      ctermfg=001
+  hi SpecialKey               guifg=#6A6A6A guibg=NONE    gui=NONE      ctermfg=001
   hi Conditional              guifg=#C5282F guibg=NONE    gui=NONE      ctermfg=001
   hi Exception                guifg=#C5282F guibg=NONE    gui=NONE      ctermfg=001
   hi Label                    guifg=#C5282F guibg=NONE    gui=NONE      ctermfg=001
@@ -134,7 +134,7 @@ if s:accent == "green"
   hi Constant                 guifg=#87BF19 guibg=NONE    gui=NONE      ctermfg=002
   hi Directory                guifg=#87BF19 guibg=NONE    gui=NONE      ctermfg=002
   hi Type                     guifg=#65910F guibg=NONE    gui=NONE      ctermfg=002
-  hi SpecialKey               guifg=#87BF19 guibg=NONE    gui=NONE      ctermfg=002
+  hi SpecialKey               guifg=#6A6A6A guibg=NONE    gui=NONE      ctermfg=002
   hi Conditional              guifg=#65910F guibg=NONE    gui=NONE      ctermfg=002
   hi Exception                guifg=#65910F guibg=NONE    gui=NONE      ctermfg=002
   hi Label                    guifg=#65910F guibg=NONE    gui=NONE      ctermfg=002
@@ -150,7 +150,7 @@ if s:accent == "yellow"
   hi Constant                 guifg=#DEDD5A guibg=NONE    gui=NONE      ctermfg=226
   hi Directory                guifg=#DEDD5A guibg=NONE    gui=NONE      ctermfg=226
   hi Type                     guifg=#C3BA4D guibg=NONE    gui=NONE      ctermfg=226
-  hi SpecialKey               guifg=#DEDD5A guibg=NONE    gui=NONE      ctermfg=226
+  hi SpecialKey               guifg=#6A6A6A guibg=NONE    gui=NONE      ctermfg=226
   hi Conditional              guifg=#C3BA4D guibg=NONE    gui=NONE      ctermfg=226
   hi Exception                guifg=#C3BA4D guibg=NONE    gui=NONE      ctermfg=226
   hi Label                    guifg=#C3BA4D guibg=NONE    gui=NONE      ctermfg=226
@@ -166,7 +166,7 @@ if s:accent == "orange"
   hi Constant                 guifg=#C88623 guibg=NONE    gui=NONE      ctermfg=208
   hi Directory                guifg=#C88623 guibg=NONE    gui=NONE      ctermfg=208
   hi Type                     guifg=#FBBE1C guibg=NONE    gui=NONE      ctermfg=208
-  hi SpecialKey               guifg=#C88623 guibg=NONE    gui=NONE      ctermfg=208
+  hi SpecialKey               guifg=#6A6A6A guibg=NONE    gui=NONE      ctermfg=208
   hi Conditional              guifg=#FBBE1C guibg=NONE    gui=NONE      ctermfg=208
   hi Exception                guifg=#FBBE1C guibg=NONE    gui=NONE      ctermfg=208
   hi Label                    guifg=#FBBE1C guibg=NONE    gui=NONE      ctermfg=208
@@ -182,7 +182,7 @@ if s:accent == "purple"
   hi Constant                 guifg=#B294BB guibg=NONE    gui=NONE      ctermfg=013
   hi Directory                guifg=#B294BB guibg=NONE    gui=NONE      ctermfg=013
   hi Type                     guifg=#D1AFDD guibg=NONE    gui=NONE      ctermfg=013
-  hi SpecialKey               guifg=#B294BB guibg=NONE    gui=NONE      ctermfg=013
+  hi SpecialKey               guifg=#6A6A6A guibg=NONE    gui=NONE      ctermfg=013
   hi Conditional              guifg=#D1AFDD guibg=NONE    gui=NONE      ctermfg=013
   hi Exception                guifg=#D1AFDD guibg=NONE    gui=NONE      ctermfg=013
   hi Label                    guifg=#D1AFDD guibg=NONE    gui=NONE      ctermfg=013

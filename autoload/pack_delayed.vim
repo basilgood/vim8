@@ -1,4 +1,5 @@
 function pack_delayed#plugins(...)
+  packadd vim-multiple-cursors
   packadd vim-jsx-improve
   packadd vim-repeat
   packadd vim-commentary
@@ -10,8 +11,9 @@ function pack_delayed#plugins(...)
   packadd vim-choosewin
   packadd ack.vim
   packadd nerdtree
-  packadd QuickBuf
   packadd quickfix-reflector.vim
   packadd vim-prettier
   packadd ale
+  packadd vim-gutentags
+  packadd vim-picker
 endfunction

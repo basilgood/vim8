@@ -1,3 +1,3 @@
 scriptencoding utf-8
 
-nnoremap <Bs> :Ls<CR>
+" nnoremap <Bs> :Ls<CR>
