@@ -1,5 +1,7 @@
 .netrwhist
 pack
-session
+sessions
+files
+cache
 swap
 info/*
