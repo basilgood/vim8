@@ -204,8 +204,11 @@ if has('autocmd')
     " Quicfix on entire tab
     autocmd FileType qf wincmd J
 
+    " Quit netrw
+    autocmd FileType netrw nmap <silent> <buffer> <Esc> :bd<cr>
+
     " Quit help
-    autocmd FileType help nnoremap <silent><buffer> q :q<CR>
+    autocmd FileType help nnoremap <silent><buffer> <Esc> :q<CR>
 
     " In plain-text files and svn commit buffers, wrap autocmdtomatically at 78 chars
     autocmd FileType text,svn setlocal tw=78 fo+=t
