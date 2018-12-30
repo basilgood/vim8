@@ -13,7 +13,6 @@ start=(
   "cohama/agit.vim"
   "tpope/vim-vinegar"
   "markonm/traces.vim"
-  "whiteinge/diffconflicts"
   "haya14busa/vim-asterisk"
   "AndrewRadev/inline_edit.vim"
   "tpope/vim-dispatch"
@@ -48,9 +47,9 @@ opt=(
   "terryma/vim-expand-region"
   "stefandtw/quickfix-reflector.vim"
   "markonm/hlyank.vim"
+  "romainl/vim-cool"
   "simnalamburt/vim-mundo"
   "machakann/vim-swap"
-  "dyng/ctrlsf.vim"
 
 )
 
