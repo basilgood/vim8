@@ -41,11 +41,8 @@ set matchtime=2
 set report=0
 
 """" Searching and Patterns
-if !v:vim_did_enter
-  set hlsearch
-  nohlsearch
-endif
 set incsearch
+set hlsearch
 
 """" Windows, Buffers
 set hidden
@@ -188,6 +185,8 @@ set wildcharm=<C-Z>
 set notimeout
 set ttimeout
 set ttimeoutlen=10
+set ttyfast
+set lazyredraw
 
 """" Update time
 set updatetime=500
@@ -269,15 +268,13 @@ inoremap <C-e> <End>
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-r>=icr#ICR()\<CR>"
 xnoremap <silent> il <Esc>^vg_
 onoremap <silent> il :<C-U>normal! ^vg_<CR>
-nnoremap <C-J> :bnext<CR>
-nnoremap <C-K> :bprev<CR>
-nnoremap n nzzzv
-nnoremap N Nzzzv
+nnoremap n nzz
+nnoremap N Nzz
 nnoremap p p=`]<C-o>
 nnoremap P P=`]<C-o>
 nnoremap <Space>w viw"+p
-nnoremap <Space>p :put+<CR>
-nnoremap <Space>P :put+<CR>
+nnoremap <Space>p :put+<CR>=`]<C-o>
+nnoremap <Space>P :put+<CR>=`]<C-o>
 vnoremap <Space>y "+y
 vnoremap <Space>p "+p
 vnoremap <Space>P "+P
@@ -288,6 +285,8 @@ nnoremap <leader>r :%s/\<<C-r><C-w>\>/<C-r><C-w>
 vnoremap <leader>r :s/\<<C-r><C-w>\>/<C-r><C-w>
 nnoremap <Space>z :tab split<CR>
 nnoremap <Space>q :tabclose<CR>
+nnoremap ]b :bnext<CR>
+nnoremap [b :bprev<CR>
 nnoremap ]l :lnext<cr>
 nnoremap [l :lprevious<cr>
 nnoremap ]q :cnext<cr>
@@ -304,20 +303,3 @@ endif
 
 set background=dark
 silent! colorscheme kolor
-highlight Comment cterm=italic gui=italic
-highlight Search guibg=#1a561d guifg=#c9d7e0
-highlight IncSearch guibg=#edb825 guifg=#1a561d
-highlight SpecialKey guifg=#5c6370
-" highlight NonText guifg=#5c6370 guibg=NONE
-highlight LineNr guifg=#5c6370
-highlight Include ctermfg=81 guifg=#9A93E1 cterm=italic gui=italic
-highlight Keyword cterm=italic gui=italic
-highlight Type cterm=italic gui=italic
-highlight jsThis cterm=italic gui=italic
-highlight jsFunction cterm=italic gui=italic
-highlight jsModuleAsterisk cterm=italic gui=italic
-highlight jsStorageClass cterm=italic gui=italic
-highlight jsExportDefault cterm=italic gui=italic
-highlight jsObjectKey cterm=italic gui=italic
-highlight jsObjectFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
-highlight jsClassFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
