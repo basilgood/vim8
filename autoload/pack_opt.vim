@@ -9,6 +9,7 @@ function! pack_opt#plugins(...) abort
   packadd vim-cool
   packadd vim-mundo
   packadd vim-swap
+  packadd comfortable-motion.vim
   packadd ack.vim
   packadd quickfix-reflector.vim
   packadd cmdline-completion

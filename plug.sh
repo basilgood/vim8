@@ -20,7 +20,6 @@ start=(
   "djoshea/vim-autoread"
   "hauleth/asyncdo.vim"
   "ctrlpvim/ctrlp.vim"
-  "vim-scripts/sessionman.vim"
   "Shougo/neocomplete"
 )
 
@@ -50,7 +49,7 @@ opt=(
   "romainl/vim-cool"
   "simnalamburt/vim-mundo"
   "machakann/vim-swap"
-
+  "yuttie/comfortable-motion.vim"
 )
 
 for element in "${opt[@]}"; do
