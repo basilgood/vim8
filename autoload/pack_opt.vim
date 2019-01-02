@@ -1,19 +1,19 @@
 function! pack_opt#plugins(...) abort
-  packadd vim-jsx-improve
-  packadd LargeFile
+  packadd ale
+  packadd vim-quickrun
   packadd vim-repeat
   packadd vim-commentary
   packadd vim-surround
-  packadd vim-easymotion
+  packadd ack.vim
+  packadd LargeFile
+  packadd vim-jsx-improve
+  packadd cmdline-completion
+  packadd vim-alignta
+  packadd vim-expand-region
+  packadd quickfix-reflector.vim
   packadd hlyank.vim
   packadd vim-cool
   packadd vim-mundo
   packadd vim-swap
   packadd comfortable-motion.vim
-  packadd ack.vim
-  packadd quickfix-reflector.vim
-  packadd cmdline-completion
-  packadd vim-alignta
-  packadd vim-quickrun
-  packadd ale
 endfunction
