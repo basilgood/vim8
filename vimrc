@@ -2,7 +2,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-""" startup time
+"""" startup time
 if !v:vim_did_enter && has('reltime')
   let g:startuptime = reltime()
   augroup vimrc-startuptime
@@ -12,7 +12,39 @@ if !v:vim_did_enter && has('reltime')
   augroup END
 endif
 
-"""" arrow keyds
+"""" general group
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
+"""" termguicolors
+if !has('gui_running')
+      \ && exists('&termguicolors')
+  if !has('nvim')
+    let &t_8f = "\e[38;2;%lu;%lu;%lum"
+    let &t_8b = "\e[48;2;%lu;%lu;%lum"
+  endif
+  set termguicolors
+endif
+
+"""" environment
+let $CACHE = expand('$HOME/.cache/tmp')
+
+function! s:EnsureDirExists(path)
+  if !isdirectory(expand(a:path))
+    call mkdir(expand(a:path), 'p')
+  endif
+endfunction
+
+set directory=$CACHE/swap//
+set backupdir=$CACHE/backup//
+set undodir=$CACHE/undo//
+
+silent! call s:EnsureDirExists(&undodir)
+silent! call s:EnsureDirExists(&directory)
+silent! call s:EnsureDirExists(&backupdir)
+
+"""" arrow keys
 if (&term =~# '^tmux') || (&term =~# '^st')
   execute "set <xUp>=\e[1;*A"
   execute "set <xDown>=\e[1;*B"
@@ -20,7 +52,19 @@ if (&term =~# '^tmux') || (&term =~# '^st')
   execute "set <xLeft>=\e[1;*D"
 endif
 
-"""" Moving Around/Editing
+"""" viminfo
+set viminfo='100,n$CACHE/viminfo
+
+"""" backup
+set backup
+set backupext=-vimbackup
+set backupskip=
+
+"""" swap and undo
+set updatecount=100
+set undofile
+
+"""" moving around/editing
 set nostartofline
 set nowrap
 set virtualedit=block
@@ -37,36 +81,30 @@ set showmatch
 set matchtime=2
 set nrformats-=octal
 
-"""" Searching and Patterns
+"""" searching and patterns
 set incsearch
 set hlsearch
 
-"""" Windows, Buffers
+"""" windows, buffers
 set hidden
 set switchbuf=useopen,usetab
 set splitright
 set splitbelow
 
-"""" Sessions
+"""" sessions
 set sessionoptions-=options
 
-"""" Shell
+"""" shell
 if &shell =~# 'fish$'
   set shell=/usr/bin/env\ bash
 endif
 
-"""" Delete comment character when joining commented lines
-set formatoptions+=j
-
-"""" Grep
+"""" grep
 set grepprg=grep\ -nH
-" if executable('ag')
-"   set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --column
-"   set grepformat=%f:%l:%c:%m,%f:%l:%m
-" endif
 
 """" Insert completion
 set dictionary='$HOME/.vim/dict'
+set omnifunc=syntaxcomplete#Complete
 set completeopt-=preview
 set completeopt+=menuone
 set completeopt+=noinsert
@@ -74,29 +112,25 @@ set completeopt+=noselect
 set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 
-"""" Text Formatting
+"""" text formatting
 set formatoptions=q
+set formatoptions+=j
 set formatoptions+=n
 set formatoptions+=1
 
-"""" Display
+"""" display
 set number
 set mouse=a
 set cursorline
 
-if &encoding =~# '^u\(tf\|cs\)'
-  set list
-  let s:tab = nr2char(9655)
-  let s:dot = nr2char(8901)
-  let s:trail = nr2char(164)
-  let s:nbsp = nr2char(244)
-  exe 'set listchars=tab:'    . s:tab . '\ '
-  exe 'set listchars+=trail:' . s:trail
-  exe 'set listchars+=space:' . s:dot
-  exe 'set listchars+=nbsp:'  . s:nbsp
-endif
+"""" list
+set list
+let &listchars = 'tab:▸ ,space:·,extends:❯,precedes:❮,nbsp:ø'
+let &fillchars = 'vert: ,diff: '  " ▚
+autocmd MyAutoCmd InsertEnter * set listchars-=trail:⣿
+autocmd MyAutoCmd InsertLeave * set listchars+=trail:⣿
 
-"""" Messages, Info, Status
+"""" messages, info, status
 set visualbell t_vb=
 set confirm
 set showcmd
@@ -130,65 +164,39 @@ set statusline+=\ %Y
 set statusline+=%#CursorIM#
 set statusline+=\ %-2c:%3l/%L
 
-"""" Tabs/Indent Levels
+"""" tabs/indent levels
 set autoindent
 set softtabstop=2
 set tabstop=2
 set shiftwidth=2
 set expandtab
 
-"""" Reading/Writing
+"""" reading/writing
 set autoread
 set modeline
 set modelines=5
 set fileformats=unix,dos,mac
 
-"""" Backups/Swap Files
-function! EnsureDirExists (dir)
-  if !isdirectory(a:dir)
-    if exists('*mkdir')
-      call mkdir(a:dir,'p')
-      echo 'Created directory: ' . a:dir
-    else
-      echo 'Please create directory: ' . a:dir
-    endif
-  endif
-endfunction
-
-call EnsureDirExists($HOME . '/.vim/files/backup')
-set backup
-set backupdir=$HOME/.vim/files/backup/
-set backupext=-vimbackup
-set backupskip  =
-call EnsureDirExists($HOME . '/.vim/files/swap')
-set directory=$HOME/.vim/files/swap//
-set updatecount =100
-call EnsureDirExists($HOME . '/.vim/files/undo')
-set undofile
-set undodir=$HOME/.vim/files/undo/
-call EnsureDirExists($HOME . '/.vim/files/info')
-set viminfo='100,n$HOME/.vim/files/info/viminfo
-
-"""" Command Line
+"""" command line
 set history=1000
 set wildmenu
 set wildmode=full
 set wildcharm=<C-Z>
 
-"""" Time out on key codes but not mappings.
+"""" update time
+set updatetime=500
+
+"""" time out on key codes but not mappings.
 set notimeout
 set ttimeout
 set ttimeoutlen=10
 set ttyfast
 set lazyredraw
 
-"""" Update time
-set updatetime=500
-
 let g:is_bash = 1
 let g:sh_noisk = 1
 
-""" Mappings
+""" mappings
 nnoremap <Bs> :ls<CR>:b
 nnoremap <Space>n :nohlsearch<CR>
 nnoremap j gj
@@ -237,6 +245,11 @@ nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
 noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
 noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
+cnoremap $t <CR>:t''<CR>
+cnoremap $T <CR>:T''<CR>
+cnoremap $m <CR>:m''<CR>
+cnoremap $M <CR>:M''<CR>
+cnoremap $d <CR>:d<CR>``
 
 """" plugins
 """" netrw
@@ -248,10 +261,7 @@ function! KeysInNetrw()
   nmap <buffer> l qf
 endfunction
 
-augroup vimrcNetrw
-  autocmd!
-  autocmd FileType netrw call KeysInNetrw()
-augroup End
+autocmd MyAutoCmd FileType netrw call KeysInNetrw()
 
 """" bracketed paste
 let &t_ti .= "\<Esc>[?2004h"
@@ -272,13 +282,10 @@ cmap <f28> <nop>
 cmap <f29> <nop>
 
 """" mkdir
-augroup Mkdir
-  autocmd!
-  autocmd BufWritePre *
-        \ if !isdirectory(expand("<afile>:p:h")) |
-        \ call mkdir(expand("<afile>:p:h"), "p") |
-        \ endif
-augroup END
+autocmd MyAutoCmd BufWritePre *
+      \ if !isdirectory(expand("<afile>:p:h")) |
+      \ call mkdir(expand("<afile>:p:h"), "p") |
+      \ endif
 
 """" whitespace
 command! -nargs=0 WS
@@ -292,9 +299,9 @@ command! -nargs=0 WS
 
 """" sessions
 function! MakeSession()
-  let b:sessiondir = $HOME . '/.vim/sessions' . getcwd()
+  let b:sessiondir = $CACHE . '/sessions' . getcwd()
   if (filewritable(b:sessiondir) != 2)
-    exe 'silent !mkdir -p ' b:sessiondir
+    call mkdir(b:sessiondir,'p')
     redraw!
   endif
   let b:filename = b:sessiondir . '/session.vim'
@@ -302,7 +309,7 @@ function! MakeSession()
 endfunction
 
 function! LoadSession()
-  let b:sessiondir = $HOME . '/.vim/sessions' . getcwd()
+  let b:sessiondir = $CACHE . '/sessions' . getcwd()
   let b:sessionfile = b:sessiondir . '/session.vim'
   if (filereadable(b:sessionfile))
     exe 'source ' b:sessionfile
@@ -310,41 +317,9 @@ function! LoadSession()
     echo 'No session loaded.'
   endif
 endfunction
+command! -nargs=0 SL call LoadSession()
 
-augroup Session
-  autocmd!
-  if(argc() == 0)
-    autocmd VimEnter * nested :call LoadSession()
-  endif
-  autocmd VimLeave * :call MakeSession()
-augroup End
-
-"""" neocomplete
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#disable_auto_complete=1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_underbar_completion = 1
-let g:neocomplete#enable_camel_case_completion  =  1
-let g:neocomplete#keyword_patterns          = {'_': '\h\w*'}
-let g:neocomplete#sources#buffer#cache_limit_size  = 50000
-
-let g:neocomplete#sources#dictionary#dictionaries  = {
-      \    '_':          '',
-      \    'css':        $HOME . '/.vim/dict/css.dict',
-      \    'html':       $HOME . '/.vim/dict/html.dict',
-      \    'javascript': $HOME . '/.vim/dict/javascript.dict',
-      \    'vim':        $HOME . '/.vim/dict/vim.dict',
-      \    'php':        $HOME . '/.vim/dict/php.dict'
-      \}
-
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ neocomplete#start_manual_complete()
-
-function! s:check_back_space()
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+autocmd MyAutoCmd VimLeave * :call MakeSession()
 
 """" mundo
 let g:mundo_width = 30
@@ -401,7 +376,7 @@ let g:quickrun_config = {
       \}
 
 """" git modified files
-function! OpenChangedFiles()
+function! ModifiedFiles()
   only
   let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
   let filenames = split(status, "\n")
@@ -410,7 +385,7 @@ function! OpenChangedFiles()
     exec 'sp ' . filename
   endfor
 endfunction
-command! OpenChangedFiles :call OpenChangedFiles()
+command! MF :call ModifiedFiles()
 
 """" asterisk
 map *  <Plug>(asterisk-z*)
@@ -456,13 +431,10 @@ nmap <silent> <leader>j <Plug>(ale_previous_wrap)
 nmap <silent> <leader>k <Plug>(ale_next_wrap)
 
 """" agrep
-augroup aGrep
-  autocmd!
-  if !exists('s:agrep_cmd')
-    autocmd BufWinEnter Agrep setlocal nornu | setlocal nowrap
-    let s:agrep_cmd = 1
-  endif
-augroup END
+if !exists('s:agrep_cmd')
+  autocmd MyAutoCmd BufWinEnter Agrep setlocal nornu | setlocal nowrap
+  let s:agrep_cmd = 1
+endif
 
 let g:agrep_default_flags = '-I --exclude-dir=.{git,svn,tags} --exclude={tags,yarn.lock}'
 map <Leader>] :<C-U>exe v:count1.(bufwinnr('Agrep') == -1 ? 'cn' : 'Anext')<CR>
@@ -478,78 +450,67 @@ let g:ack_use_dispatch=1
 let g:ackhighlight = 1
 let g:ack_mappings = { 'o': '<CR>zz' }
 
-filetype plugin indent on
-
 """ Autocommands
-augroup fileType
-  autocmd!
-  autocmd BufNewFile,BufRead *.vim set filetype=vim
-  autocmd BufNewFile,BufRead *.txt set filetype=journal
-  autocmd BufNewFile,BufRead *.twig set filetype=html.twig
-  autocmd BufNewFile,BufRead *.nix set filetype=nix
-  autocmd BufNewFile,BufRead *.md set filetype=markdown
-  autocmd BufNewFile,BufRead *.ldg,*.ledger set filetype=ledger
-  autocmd BufNewFile,BufRead *.j2 set filetype=jinja
-  autocmd BufNewFile,BufRead *.js set filetype=javascript
-  autocmd BufNewFile,BufRead *.html set filetype=html
-  autocmd BufNewFile,BufRead *.fish setlocal filetype=fish
-  autocmd BufNewFile,BufRead *.config setlocal filetype=journal
-  autocmd BufNewFile,BufRead *.conf setlocal filetype=journal
-  autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-augroup END
+autocmd MyAutoCmd BufNewFile,BufRead *.vim set filetype=vim
+autocmd MyAutoCmd BufNewFile,BufRead *.txt set filetype=journal
+autocmd MyAutoCmd BufNewFile,BufRead *.twig set filetype=html.twig
+autocmd MyAutoCmd BufNewFile,BufRead *.nix set filetype=nix
+autocmd MyAutoCmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd MyAutoCmd BufNewFile,BufRead *.ldg,*.ledger set filetype=ledger
+autocmd MyAutoCmd BufNewFile,BufRead *.j2 set filetype=jinja
+autocmd MyAutoCmd BufNewFile,BufRead *.js set filetype=javascript
+autocmd MyAutoCmd BufNewFile,BufRead *.html set filetype=html
+autocmd MyAutoCmd BufNewFile,BufRead *.fish setlocal filetype=fish
+autocmd MyAutoCmd BufNewFile,BufRead *.config setlocal filetype=journal
+autocmd MyAutoCmd BufNewFile,BufRead *.conf setlocal filetype=journal
+autocmd MyAutoCmd BufNewFile,BufRead *.coffee set filetype=coffee
 
-augroup quickFix
-  autocmd!
-  autocmd FileType qf call AdjustWindowHeight(2, 8)
-augroup End
+" Quicfix on entire tab
+autocmd MyAutoCmd FileType qf wincmd J
+autocmd MyAutoCmd FileType qf nnoremap <silent><buffer> Q :q<CR>
+
+" Quit help
+autocmd MyAutoCmd FileType help nnoremap <silent><buffer> <Esc> :q<CR>
+
+autocmd MyAutoCmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd MyAutoCmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd MyAutoCmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd MyAutoCmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd MyAutoCmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+autocmd MyAutoCmd FileType qf call AdjustWindowHeight(2, 8)
+
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
 
-augroup vimrcEx
-  autocmd!
-  " Quicfix on entire tab
-  autocmd FileType qf wincmd J
-  autocmd FileType qf nnoremap <silent><buffer> <Esc> :q<CR>
+" Load opt plugins
+autocmd MyAutoCmd BufEnter * call timer_start(300, function('pack_opt#plugins'))
 
-  " Quit help
-  autocmd FileType help nnoremap <silent><buffer> <Esc> :q<CR>
+" Try to jump to the last spot the cursor was at in a file when reading it.
+autocmd MyAutoCmd BufReadPost *
+      \ if line("'\"") > 1 && line("'\"") <= line("$") |
+      \   silent! exe 'normal! g`"zzza' |
+      \ endif
 
-  " syntax highlight
-  autocmd BufEnter * syntax sync fromstart
+autocmd MyAutoCmd Syntax javascript setlocal isk+=$
+autocmd MyAutoCmd FileType javascript setlocal dictionary+=$HOME/.vim/dict/javascript.dict
+autocmd MyAutoCmd FileType vim setlocal dictionary+=$HOME/.vim/dict/vim.dict
 
-  " Load opt plugins
-  autocmd BufEnter * call timer_start(300, function('pack_opt#plugins'))
-
-  " Try to jump to the last spot the cursor was at in a file when reading it.
-  autocmd BufReadPost *
-        \ if line("'\"") > 1 && line("'\"") <= line("$") |
-        \   silent! exe 'normal! g`"zzza' |
-        \ endif
-
-  autocmd Syntax javascript setlocal isk+=$
-  autocmd FileType javascript setlocal dictionary+=$HOME/.vim/dict/javascript.dict
-  autocmd FileType vim setlocal dictionary+=$HOME/.vim/dict/vim.dict
-
-  autocmd FileType html setlocal iskeyword+=~ | let b:dispatch = ':OpenURL %'
-
-augroup END
+autocmd MyAutoCmd FileType html setlocal iskeyword+=~ | let b:dispatch = ':OpenURL %'
 
 syntax enable
+filetype plugin indent on
+
+autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
 """" Colorscheme
-if has('termguicolors')
-  set termguicolors
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
 set background=dark
-silent! colorscheme kolor
+silent! colorscheme molokai
 highlight Comment cterm=italic gui=italic
 highlight Search guibg=#1a561d guifg=#c9d7e0
 highlight IncSearch guibg=#edb825 guifg=#1a561d
-highlight SpecialKey guifg=#5c6370
+highlight SpecialKey guifg=#5c6370 guibg=NONE
 highlight Visual guifg=NONE guibg=#010101
 " highlight NonText guifg=#5c6370 guibg=NONE
 highlight LineNr guifg=#5c6370
