@@ -50,6 +50,7 @@ opt=(
   "simnalamburt/vim-mundo"
   "machakann/vim-swap"
   "yuttie/comfortable-motion.vim"
+  "boucherm/ShowMotion"
 )
 
 for element in "${opt[@]}"; do

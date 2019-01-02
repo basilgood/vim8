@@ -246,9 +246,7 @@ nnoremap [Q :cfirst<cr>
 noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
 noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 cnoremap $t <CR>:t''<CR>
-cnoremap $T <CR>:T''<CR>
 cnoremap $m <CR>:m''<CR>
-cnoremap $M <CR>:M''<CR>
 cnoremap $d <CR>:d<CR>``
 
 """" plugins
@@ -448,6 +446,20 @@ let g:ack_use_dispatch=1
 let g:ackhighlight = 1
 let g:ack_mappings = { 'o': '<CR>zz' }
 
+"""" show motion
+nmap w <Plug>(show-motion-w)
+nmap W <Plug>(show-motion-W)
+nmap b <Plug>(show-motion-b)
+nmap B <Plug>(show-motion-B)
+nmap e <Plug>(show-motion-e)
+nmap E <Plug>(show-motion-E)
+nmap f <Plug>(show-motion-f)
+nmap t <Plug>(show-motion-t)
+nmap F <Plug>(show-motion-F)
+nmap T <Plug>(show-motion-T)
+nmap ; <Plug>(show-motion-;)
+nmap , <Plug>(show-motion-,)
+
 """ Autocommands
 autocmd MyAutoCmd BufNewFile,BufRead *.vim set filetype=vim
 autocmd MyAutoCmd BufNewFile,BufRead *.txt set filetype=journal
@@ -466,6 +478,12 @@ autocmd MyAutoCmd BufNewFile,BufRead *.coffee set filetype=coffee
 " Quicfix on entire tab
 autocmd MyAutoCmd FileType qf wincmd J
 autocmd MyAutoCmd FileType qf nnoremap <silent><buffer> Q :q<CR>
+autocmd MyAutoCmd FileType qf call AdjustWindowHeight(2, 8)
+
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
+endfunction
+
 
 " Quit help
 autocmd MyAutoCmd FileType help nnoremap <silent><buffer> <Esc> :q<CR>
@@ -475,12 +493,6 @@ autocmd MyAutoCmd FileType html,markdown setlocal omnifunc=htmlcomplete#Complete
 autocmd MyAutoCmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd MyAutoCmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd MyAutoCmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-autocmd MyAutoCmd FileType qf call AdjustWindowHeight(2, 8)
-
-function! AdjustWindowHeight(minheight, maxheight)
-  exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
-endfunction
 
 " Load opt plugins
 autocmd MyAutoCmd BufEnter * call timer_start(300, function('pack_opt#plugins'))
@@ -504,7 +516,7 @@ autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
 """" Colorscheme
 set background=dark
-silent! colorscheme onehalfdark
+silent! colorscheme molokai
 highlight Comment cterm=italic gui=italic
 highlight Search guibg=#1a561d guifg=#c9d7e0
 highlight IncSearch guibg=#edb825 guifg=#1a561d

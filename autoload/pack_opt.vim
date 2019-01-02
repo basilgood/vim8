@@ -16,4 +16,5 @@ function! pack_opt#plugins(...) abort
   packadd vim-mundo
   packadd vim-swap
   packadd comfortable-motion.vim
+  packadd ShowMotion
 endfunction
