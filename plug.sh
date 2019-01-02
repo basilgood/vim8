@@ -11,6 +11,7 @@ start=(
   "sgur/vim-editorconfig"
   "tpope/vim-fugitive"
   "cohama/agit.vim"
+  "idanarye/vim-merginal"
   "airblade/vim-gitgutter"
   "tpope/vim-vinegar"
   "markonm/traces.vim"
@@ -19,7 +20,7 @@ start=(
   "tpope/vim-dispatch"
   "basilgood/agrep"
   "djoshea/vim-autoread"
-  "ctrlpvim/ctrlp.vim"
+  "troydm/asyncfinder.vim"
 )
 
 for element in "${start[@]}"; do

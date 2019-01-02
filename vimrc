@@ -351,13 +351,11 @@ else
   let &t_EI .= "\e[2 q"
 endif
 
-"""" ctrlp
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-if executable('fd')
-  let g:ctrlp_user_command = 'fd --type f --color never --hidden --exclude ".git" "" %s'
-  let g:ctrlp_use_caching = 0
-endif
+"""" asyncfinder
+let g:asyncfinder_initial_pattern = '*'
+let g:asyncfinder_grep_cmd = 'ag'
+let g:asyncfinder_ignore_dirs = "['.AppleDouble','.DS_Store','.git','.hg','.bzr','node_modules']"
+nnoremap <C-p> :AsyncFinder<cr>
 
 """" quickrun
 let g:quickrun_config = {
@@ -506,7 +504,7 @@ autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
 """" Colorscheme
 set background=dark
-silent! colorscheme molokai
+silent! colorscheme onehalfdark
 highlight Comment cterm=italic gui=italic
 highlight Search guibg=#1a561d guifg=#c9d7e0
 highlight IncSearch guibg=#edb825 guifg=#1a561d
