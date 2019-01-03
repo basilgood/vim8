@@ -391,6 +391,12 @@ map g# <Plug>(asterisk-gz#)
 
 let g:asterisk#keeppos = 1
 
+"""" anzu
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+
 """" ale
 let g:ale_linters_explicit = 1
 let g:ale_set_highlights = 0
@@ -516,13 +522,13 @@ autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
 """" Colorscheme
 set background=dark
-silent! colorscheme molokai
+silent! colorscheme molokayo
 highlight Comment cterm=italic gui=italic
 highlight Search guibg=#1a561d guifg=#c9d7e0
 highlight IncSearch guibg=#edb825 guifg=#1a561d
 highlight SpecialKey guifg=#5c6370 guibg=NONE
 highlight Visual guifg=NONE guibg=#010101
-" highlight NonText guifg=#5c6370 guibg=NONE
+highlight NonText guifg=#5c6370 guibg=NONE
 highlight LineNr guifg=#5c6370
 highlight Include ctermfg=81 guifg=#9A93E1 cterm=italic gui=italic
 highlight Keyword cterm=italic gui=italic

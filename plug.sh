@@ -21,6 +21,7 @@ start=(
   "basilgood/agrep"
   "djoshea/vim-autoread"
   "troydm/asyncfinder.vim"
+  "lzh9102/surround-textobj.vim"
 )
 
 for element in "${start[@]}"; do
@@ -51,6 +52,7 @@ opt=(
   "machakann/vim-swap"
   "yuttie/comfortable-motion.vim"
   "boucherm/ShowMotion"
+  "osyo-manga/vim-anzu"
 )
 
 for element in "${opt[@]}"; do
