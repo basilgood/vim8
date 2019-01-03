@@ -17,4 +17,5 @@ function! pack_opt#plugins(...) abort
   packadd vim-swap
   packadd comfortable-motion.vim
   packadd ShowMotion
+  packadd vim-anzu
 endfunction

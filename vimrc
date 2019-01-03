@@ -45,7 +45,7 @@ silent! call s:EnsureDirExists(&directory)
 silent! call s:EnsureDirExists(&backupdir)
 
 """" arrow keys
-if (&term =~# '^tmux') || (&term =~# '^st')
+if (&term =~# '^tmux') || (&term =~# '^alacritty')
   execute "set <xUp>=\e[1;*A"
   execute "set <xDown>=\e[1;*B"
   execute "set <xRight>=\e[1;*C"
@@ -61,7 +61,8 @@ set backupext=-vimbackup
 set backupskip=
 
 """" swap and undo
-set updatecount=100
+" set updatecount=100
+set noswapfile
 set undofile
 
 """" moving around/editing
@@ -408,10 +409,8 @@ let g:ale_pattern_options = {
       \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
       \}
 let g:ale_fix_on_save = 1
-let g:ale_sign_error = '⬥ '
-let g:ale_sign_warning = '⬥ '
-highlight ALEWarningSign guibg=#282c34 guifg=DarkYellow
-highlight ALEErrorSign guibg=#282c34 guifg=DarkMagenta
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
 
 let g:ale_fixers = {
       \ 'javascript': ['eslint'],
@@ -419,12 +418,13 @@ let g:ale_fixers = {
       \}
 
 let g:ale_linter_aliases = {
-      \ 'html': 'javascript'
+      \ 'html': 'javascript',
+      \ 'yaml': 'ansible'
       \}
 
 let g:ale_linters = {
       \ 'javascript': ['eslint'],
-      \ 'yaml': ['yamllint'],
+      \ 'yaml': ['ansible-lint'],
       \ 'vim': ['vint'],
       \ 'nix': ['nix'],
       \ 'html': ['elsint']
@@ -480,6 +480,7 @@ autocmd MyAutoCmd BufNewFile,BufRead *.fish setlocal filetype=fish
 autocmd MyAutoCmd BufNewFile,BufRead *.config setlocal filetype=journal
 autocmd MyAutoCmd BufNewFile,BufRead *.conf setlocal filetype=journal
 autocmd MyAutoCmd BufNewFile,BufRead *.coffee set filetype=coffee
+autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
 
 " Quicfix on entire tab
 autocmd MyAutoCmd FileType qf wincmd J
@@ -522,7 +523,7 @@ autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
 """" Colorscheme
 set background=dark
-silent! colorscheme molokayo
+silent! colorscheme onehalfdark
 highlight Comment cterm=italic gui=italic
 highlight Search guibg=#1a561d guifg=#c9d7e0
 highlight IncSearch guibg=#edb825 guifg=#1a561d
@@ -541,3 +542,5 @@ highlight jsExportDefault cterm=italic gui=italic
 highlight jsObjectKey cterm=italic gui=italic
 highlight jsObjectFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
 highlight jsClassFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
+highlight ALEWarningSign guibg=#282c34 guifg=DarkYellow
+highlight ALEErrorSign guibg=#282c34 guifg=DarkMagenta
