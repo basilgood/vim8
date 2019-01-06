@@ -223,7 +223,7 @@ xnoremap <silent> il <Esc>^vg_
 onoremap <silent> il :<C-U>normal! ^vg_<CR>
 nnoremap p p=`]<C-o>
 nnoremap P P=`]<C-o>
-" paste from clipboard
+" paste from clipboard to a word
 nnoremap <Space>w viw"+p
 " paste from clipboard
 nnoremap <Space>p :put+<CR>=`]<C-o>
@@ -384,6 +384,10 @@ let g:quickrun_config = {
       \'hook/quickfix_replace_tempname_to_bufnr/priority_exit' : -10,
       \},
       \}
+
+"""" tagbar
+" set g:tagbar_ctags_bin
+nnoremap <leader>t :TagbarOpenAutoClose<cr>
 
 """" git modified files
 function! ModifiedFiles()

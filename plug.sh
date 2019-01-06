@@ -52,6 +52,7 @@ opt=(
   "yuttie/comfortable-motion.vim"
   "boucherm/ShowMotion"
   "osyo-manga/vim-anzu"
+  "majutsushi/tagbar"
 )
 
 for element in "${opt[@]}"; do

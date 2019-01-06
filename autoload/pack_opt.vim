@@ -18,4 +18,5 @@ function! pack_opt#plugins(...) abort
   packadd comfortable-motion.vim
   packadd ShowMotion
   packadd vim-anzu
+  packadd tagbar
 endfunction
