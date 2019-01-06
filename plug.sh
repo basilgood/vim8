@@ -21,7 +21,6 @@ start=(
   "basilgood/agrep"
   "djoshea/vim-autoread"
   "troydm/asyncfinder.vim"
-  "lzh9102/surround-textobj.vim"
 )
 
 for element in "${start[@]}"; do
