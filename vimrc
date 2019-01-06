@@ -28,7 +28,7 @@ if !has('gui_running')
 endif
 
 """" environment
-let $CACHE = expand('$HOME/.cache/tmp')
+let $CACHE = expand('$HOME/.cache/vimcache')
 
 function! s:EnsureDirExists(path)
   if !isdirectory(expand(a:path))
@@ -36,34 +36,39 @@ function! s:EnsureDirExists(path)
   endif
 endfunction
 
-set directory=$CACHE/swap//
-set backupdir=$CACHE/backup//
-set undodir=$CACHE/undo//
-
 silent! call s:EnsureDirExists(&undodir)
-silent! call s:EnsureDirExists(&directory)
-silent! call s:EnsureDirExists(&backupdir)
 
 """" arrow keys
-if (&term =~# '^tmux') || (&term =~# '^alacritty')
+if (&term =~# '^tmux') || (&term =~# '^st-256color') || (&term =~# '^alacritty-256color')
   execute "set <xUp>=\e[1;*A"
   execute "set <xDown>=\e[1;*B"
   execute "set <xRight>=\e[1;*C"
   execute "set <xLeft>=\e[1;*D"
 endif
 
+"""" cursorshape
+if exists('$TMUX')
+  let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[6 q\<Esc>\\"
+  let &t_SR .= "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
+  let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+else
+  let &t_SI .= "\e[6 q"
+  let &t_SR .= "\e[4 q"
+  let &t_EI .= "\e[2 q"
+endif
+
 """" viminfo
-set viminfo='100,n$CACHE/viminfo
+set viminfo=!,'100,h,n$CACHE/viminfo
 
 """" backup
-set backup
-set backupext=-vimbackup
-set backupskip=
+set nobackup
+set nowritebackup
 
 """" swap and undo
-" set updatecount=100
 set noswapfile
+set history=1000
 set undofile
+set undodir=$CACHE/undo//
 
 """" moving around/editing
 set nostartofline
@@ -84,7 +89,7 @@ set nrformats-=octal
 
 """" searching and patterns
 set incsearch
-set hlsearch
+set hlsearch|nohlsearch
 
 """" windows, buffers
 set hidden
@@ -148,22 +153,21 @@ function! StatuslineGit()
   let l:branchname = GitBranch()
   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
-set statusline+=\ %n
-set statusline+=%#Visual#
+set statusline+=\ \%#Visual#
 set statusline+=%{&paste?'\ PASTE\ ':''}
 set statusline+=%{&spell?'\ SPELL\ ':''}
 set statusline+=%#CursorIM#
 set statusline+=%R
-set statusline+=%#Error#
-set statusline+=%M
-set statusline+=%#CursorIM#
-set statusline+=\ %f
+set statusline+=%#IsModified#
+set statusline+=%{&mod?expand('%:t'):''}%*
+set statusline+=%{&mod?'':expand('%:t')}%*
 set statusline+=%=
 set statusline+=%#CursorIM#
-set statusline+=\ \%{StatuslineGit()}
-set statusline+=\ %Y
+set statusline+=%*\ \%{StatuslineGit()}%*
+set statusline+=%y
 set statusline+=%#CursorIM#
 set statusline+=\ %-2c:%3l/%L
+set statusline+=\ %*
 
 """" tabs/indent levels
 set autoindent
@@ -179,7 +183,6 @@ set modelines=5
 set fileformats=unix,dos,mac
 
 """" command line
-set history=1000
 set wildmenu
 set wildmode=full
 set wildcharm=<C-Z>
@@ -219,23 +222,29 @@ inoremap <C-e> <End>
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-r>=icr#ICR()\<CR>"
 xnoremap <silent> il <Esc>^vg_
 onoremap <silent> il :<C-U>normal! ^vg_<CR>
-nnoremap n nzz
-nnoremap N Nzz
 nnoremap p p=`]<C-o>
 nnoremap P P=`]<C-o>
+" paste from clipboard
 nnoremap <Space>w viw"+p
+" paste from clipboard
 nnoremap <Space>p :put+<CR>=`]<C-o>
-nnoremap <Space>P :put+<CR>=`]<C-o>
-vnoremap <Space>y "+y
 vnoremap <Space>p "+p
+nnoremap <Space>P :put+<CR>=`]<C-o>
 vnoremap <Space>P "+P
+" yank to clipboard
+vnoremap <Space>y "+y
+" substitute
 nnoremap <leader>ss :%s/
 nnoremap <leader>sa :s/
 vnoremap <leader>ss :s/
-nnoremap <leader>r :%s/\<<C-r><C-w>\>/<C-r><C-w>
-vnoremap <leader>r :s/\<<C-r><C-w>\>/<C-r><C-w>
+" append text
+nnoremap <leader>a :%s/\<<C-r><C-w>\>/<C-r><C-w>
+" zoom buffer
 nnoremap <Space>z :tab split<CR>
 nnoremap <Space>q :tabclose<CR>
+" Yank from cursor position to end of line
+nnoremap Y y$
+
 nnoremap ]b :bnext<CR>
 nnoremap [b :bprev<CR>
 nnoremap ]l :lnext<cr>
@@ -244,11 +253,14 @@ nnoremap ]q :cnext<cr>
 nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
-noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
-noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 cnoremap $t <CR>:t''<CR>
 cnoremap $m <CR>:m''<CR>
-cnoremap $d <CR>:d<CR>``
+nnoremap <expr> <C-k><C-s> ':%s/\m\C\<' . expand('<cword>') . '\>/'
+nnoremap <expr> <C-k>s ':%s/\m\C\<' . expand('<cword>') . '\>/' . expand('<cword>')
+
+" auto escape in command-line mode
+cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
 
 """" plugins
 """" netrw
@@ -261,6 +273,7 @@ function! KeysInNetrw()
 endfunction
 
 autocmd MyAutoCmd FileType netrw call KeysInNetrw()
+autocmd MyAutoCmd FileType netrw nmap <buffer> <space>q :bdelete<CR>
 
 """" bracketed paste
 let &t_ti .= "\<Esc>[?2004h"
@@ -326,8 +339,19 @@ let g:mundo_preview_height = 20
 let g:mundo_right = 1
 let g:mundo_preview_bottom = 1
 
+"""" alingta
+vnoremap i: :Alignta =><Space>
+vnoremap <silent> i= :Alignta => =/1<CR>
+
 """" jsx
 let g:jsx_ext_required = 0
+
+"""" highlightedyank
+let g:highlightedyank_highlight_duration = 200
+
+"""" comfortable motion
+noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
+noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
 """" inline edit
 let g:inline_edit_new_buffer_command = 'tabedit'
@@ -338,17 +362,6 @@ let g:editorconfig_verbose = 1
 let g:editorconfig_blacklist = {
       \ 'filetype': ['git.*', 'fugitive'],
       \ 'pattern': ['\.un~$']}
-
-"""" cursorshape
-if exists('$TMUX')
-  let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[6 q\<Esc>\\"
-  let &t_SR .= "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
-  let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
-else
-  let &t_SI .= "\e[6 q"
-  let &t_SR .= "\e[4 q"
-  let &t_EI .= "\e[2 q"
-endif
 
 """" asyncfinder
 let g:asyncfinder_initial_pattern = '*'
@@ -393,10 +406,17 @@ map g# <Plug>(asterisk-gz#)
 let g:asterisk#keeppos = 1
 
 """" anzu
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
+nmap n <Plug>(anzu-n-with-echo)zz
+nmap N <Plug>(anzu-N-with-echo)zz
+nmap * <Plug>(anzu-star-with-echo)zz
+nmap # <Plug>(anzu-sharp-with-echo)zz
+
+"""" editorconfig
+let g:editorconfig_root_chdir = 1
+let g:editorconfig_verbose = 1
+let g:editorconfig_blacklist = {
+      \ 'filetype': ['git.*', 'fugitive'],
+      \ 'pattern': ['\.un~$']}
 
 """" ale
 let g:ale_linters_explicit = 1
@@ -466,7 +486,15 @@ nmap T <Plug>(show-motion-T)
 nmap ; <Plug>(show-motion-;)
 nmap , <Plug>(show-motion-,)
 
-""" Autocommands
+" yank with keeping cursor position in visual mode
+function! s:keepcursor_visual_wrapper(command)
+  exec 'normal! gv' . a:command
+  exec "normal! gv\<ESC>"
+endfunction
+xnoremap <silent> y :<C-u>call <SID>keepcursor_visual_wrapper('y')<CR>
+xnoremap <silent> Y :<C-u>call <SID>keepcursor_visual_wrapper('Y')<CR>
+
+"""" filetype
 autocmd MyAutoCmd BufNewFile,BufRead *.vim set filetype=vim
 autocmd MyAutoCmd BufNewFile,BufRead *.txt set filetype=journal
 autocmd MyAutoCmd BufNewFile,BufRead *.twig set filetype=html.twig
@@ -482,18 +510,12 @@ autocmd MyAutoCmd BufNewFile,BufRead *.conf setlocal filetype=journal
 autocmd MyAutoCmd BufNewFile,BufRead *.coffee set filetype=coffee
 autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
 
-" Quicfix on entire tab
+" quicfix on entire tab
 autocmd MyAutoCmd FileType qf wincmd J
-autocmd MyAutoCmd FileType qf nnoremap <silent><buffer> Q :q<CR>
-autocmd MyAutoCmd FileType qf call AdjustWindowHeight(2, 8)
+autocmd MyAutoCmd FileType qf nnoremap <silent><buffer> <space>q :q<CR>
 
-function! AdjustWindowHeight(minheight, maxheight)
-  exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
-endfunction
-
-
-" Quit help
-autocmd MyAutoCmd FileType help nnoremap <silent><buffer> <Esc> :q<CR>
+" quit help
+autocmd MyAutoCmd FileType help nnoremap <silent><buffer> <space>q :q<CR>
 
 autocmd MyAutoCmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd MyAutoCmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -501,10 +523,10 @@ autocmd MyAutoCmd FileType javascript setlocal omnifunc=javascriptcomplete#Compl
 autocmd MyAutoCmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd MyAutoCmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-" Load opt plugins
+" load opt plugins
 autocmd MyAutoCmd BufEnter * call timer_start(300, function('pack_opt#plugins'))
 
-" Try to jump to the last spot the cursor was at in a file when reading it.
+" jump to the last spot the cursor was at in a file when reading it.
 autocmd MyAutoCmd BufReadPost *
       \ if line("'\"") > 1 && line("'\"") <= line("$") |
       \   silent! exe 'normal! g`"zzza' |
@@ -523,15 +545,19 @@ autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
 """" Colorscheme
 set background=dark
-silent! colorscheme onehalfdark
+silent! colorscheme kolor
+highlight Normal guibg=#1c1b1a guifg=#ebdbb2
+highlight EndOfBuffer guibg=#141413
+" highlight Search guibg=#1a561d guifg=#c9d7e0
+" highlight IncSearch guibg=#edb825 guifg=#1a561d
 highlight Comment cterm=italic gui=italic
-highlight Search guibg=#1a561d guifg=#c9d7e0
-highlight IncSearch guibg=#edb825 guifg=#1a561d
-highlight SpecialKey guifg=#5c6370 guibg=NONE
-highlight Visual guifg=NONE guibg=#010101
+" highlight SpecialKey guifg=#5c6370 guibg=NONE
+" highlight Visual guifg=NONE guibg=#010101
 highlight NonText guifg=#5c6370 guibg=NONE
-highlight LineNr guifg=#5c6370
-highlight Include ctermfg=81 guifg=#9A93E1 cterm=italic gui=italic
+" highlight VertSplit guibg=#111111 guifg=#111111 ctermbg=233  ctermfg=233
+highlight LineNr guibg=#141413 guifg=#5c6370
+highlight CursorLineNr guifg=#ebdbb2
+highlight Include guifg=#9A93E1 ctermfg=81 cterm=italic gui=italic
 highlight Keyword cterm=italic gui=italic
 highlight Type cterm=italic gui=italic
 highlight jsThis cterm=italic gui=italic
@@ -542,5 +568,11 @@ highlight jsExportDefault cterm=italic gui=italic
 highlight jsObjectKey cterm=italic gui=italic
 highlight jsObjectFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
 highlight jsClassFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
-highlight ALEWarningSign guibg=#282c34 guifg=DarkYellow
-highlight ALEErrorSign guibg=#282c34 guifg=DarkMagenta
+highlight ALEWarningSign guibg=NONE guifg=DarkYellow
+highlight ALEErrorSign guibg=NONE guifg=DarkMagenta
+" highlight DiffAdd    cterm=bold ctermbg=DarkGreen   gui=bold guibg=DarkGreen
+" highlight DiffChange            ctermbg=DarkMagenta          guibg=DarkMagenta
+" highlight DiffDelete            ctermbg=DarkRed              guibg=DarkRed
+" highlight DiffText   cterm=bold ctermbg=Blue        gui=bold guibg=Blue
+highlight IsModified guibg=DarkMagenta
+highlight IsNotModified guibg=DarkGreen
