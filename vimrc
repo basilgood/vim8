@@ -36,8 +36,6 @@ function! s:EnsureDirExists(path)
   endif
 endfunction
 
-silent! call s:EnsureDirExists(&undodir)
-
 """" arrow keys
 if (&term =~# '^tmux') || (&term =~# '^st-256color') || (&term =~# '^alacritty-256color')
   execute "set <xUp>=\e[1;*A"
@@ -69,6 +67,7 @@ set noswapfile
 set history=1000
 set undofile
 set undodir=$CACHE/undo//
+silent! call s:EnsureDirExists(&undodir)
 
 """" moving around/editing
 set nostartofline
@@ -242,7 +241,7 @@ nnoremap <leader>a :%s/\<<C-r><C-w>\>/<C-r><C-w>
 " zoom buffer
 nnoremap <Space>z :tab split<CR>
 nnoremap <Space>q :tabclose<CR>
-" Yank from cursor position to end of line
+" yank from cursor position to end of line
 nnoremap Y y$
 
 nnoremap ]b :bnext<CR>
@@ -253,10 +252,11 @@ nnoremap ]q :cnext<cr>
 nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
-cnoremap $t <CR>:t''<CR>
-cnoremap $m <CR>:m''<CR>
+
 nnoremap <expr> <C-k><C-s> ':%s/\m\C\<' . expand('<cword>') . '\>/'
 nnoremap <expr> <C-k>s ':%s/\m\C\<' . expand('<cword>') . '\>/' . expand('<cword>')
+
+nnoremap <leader>l :vimgrep! //j %<BAR>cw<s-left><s-left><right>
 
 " auto escape in command-line mode
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
@@ -570,9 +570,9 @@ highlight jsObjectFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
 highlight jsClassFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
 highlight ALEWarningSign guibg=NONE guifg=DarkYellow
 highlight ALEErrorSign guibg=NONE guifg=DarkMagenta
-" highlight DiffAdd    cterm=bold ctermbg=DarkGreen   gui=bold guibg=DarkGreen
-" highlight DiffChange            ctermbg=DarkMagenta          guibg=DarkMagenta
-" highlight DiffDelete            ctermbg=DarkRed              guibg=DarkRed
-" highlight DiffText   cterm=bold ctermbg=Blue        gui=bold guibg=Blue
+highlight DiffAdd    ctermbg=DarkGreen   guibg=DarkGreen
+highlight DiffChange ctermbg=DarkMagenta guibg=DarkMagenta
+highlight DiffDelete ctermbg=DarkRed     guibg=DarkRed
+highlight DiffText   ctermbg=Blue        guibg=Blue
 highlight IsModified guibg=DarkMagenta
 highlight IsNotModified guibg=DarkGreen
