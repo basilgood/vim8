@@ -15,12 +15,10 @@ start=(
   "airblade/vim-gitgutter"
   "tpope/vim-vinegar"
   "markonm/traces.vim"
-  "haya14busa/vim-asterisk"
   "AndrewRadev/inline_edit.vim"
-  "tpope/vim-dispatch"
   "basilgood/agrep"
   "djoshea/vim-autoread"
-  "troydm/asyncfinder.vim"
+  "sgur/vim-fzfp"
 )
 
 for element in "${start[@]}"; do
@@ -46,12 +44,12 @@ opt=(
   "terryma/vim-expand-region"
   "stefandtw/quickfix-reflector.vim"
   "markonm/hlyank.vim"
-  "romainl/vim-cool"
+  "pgdouyon/vim-evanesco"
   "simnalamburt/vim-mundo"
   "machakann/vim-swap"
   "yuttie/comfortable-motion.vim"
   "boucherm/ShowMotion"
-  "osyo-manga/vim-anzu"
+  "pgdouyon/vim-apparate"
   "majutsushi/tagbar"
 )
 

@@ -12,11 +12,11 @@ function! pack_opt#plugins(...) abort
   packadd vim-expand-region
   packadd quickfix-reflector.vim
   packadd hlyank.vim
-  packadd vim-cool
+  packadd vim-evanesco
   packadd vim-mundo
   packadd vim-swap
   packadd comfortable-motion.vim
   packadd ShowMotion
-  packadd vim-anzu
+  packadd vim-apparate
   packadd tagbar
 endfunction

@@ -232,20 +232,23 @@ nnoremap <Space>P :put+<CR>=`]<C-o>
 vnoremap <Space>P "+P
 " yank to clipboard
 vnoremap <Space>y "+y
-" substitute
-nnoremap <leader>ss :%s/
-nnoremap <leader>sa :s/
-vnoremap <leader>ss :s/
+" global substitution
+nnoremap gs :%s/
+vnoremap gs :s/
+nnoremap gl :s/
+" substitute word under the cursor
+nnoremap gw :%s/\<<c-r><c-w>\>/
 " append text
-nnoremap <leader>a :%s/\<<C-r><C-w>\>/<C-r><C-w>
+nnoremap ga :%s/\<<C-r><C-w>\>/<C-r><C-w>
 " zoom buffer
 nnoremap <Space>z :tab split<CR>
 nnoremap <Space>q :tabclose<CR>
 " yank from cursor position to end of line
 nnoremap Y y$
-
+" prev and next buffer
 nnoremap ]b :bnext<CR>
 nnoremap [b :bprev<CR>
+" lists
 nnoremap ]l :lnext<cr>
 nnoremap [l :lprevious<cr>
 nnoremap ]q :cnext<cr>
@@ -253,9 +256,7 @@ nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
 
-nnoremap <expr> <C-k><C-s> ':%s/\m\C\<' . expand('<cword>') . '\>/'
-nnoremap <expr> <C-k>s ':%s/\m\C\<' . expand('<cword>') . '\>/' . expand('<cword>')
-
+"""" search with vimgrep in buffer
 nnoremap <leader>l :vimgrep! //j %<BAR>cw<s-left><s-left><right>
 
 " auto escape in command-line mode
@@ -364,10 +365,7 @@ let g:editorconfig_blacklist = {
       \ 'pattern': ['\.un~$']}
 
 """" asyncfinder
-let g:asyncfinder_initial_pattern = '*'
-let g:asyncfinder_grep_cmd = 'ag'
-let g:asyncfinder_ignore_dirs = "['.AppleDouble','.DS_Store','.git','.hg','.bzr','node_modules']"
-nnoremap <C-p> :AsyncFinder<cr>
+nnoremap <C-p> :FzfpFiles<cr>
 
 """" quickrun
 let g:quickrun_config = {
@@ -386,7 +384,6 @@ let g:quickrun_config = {
       \}
 
 """" tagbar
-" set g:tagbar_ctags_bin
 nnoremap <leader>t :TagbarOpenAutoClose<cr>
 
 """" git modified files
@@ -400,20 +397,6 @@ function! ModifiedFiles()
   endfor
 endfunction
 command! MF :call ModifiedFiles()
-
-"""" asterisk
-map *  <Plug>(asterisk-z*)
-map #  <Plug>(asterisk-z#)
-map g* <Plug>(asterisk-gz*)
-map g# <Plug>(asterisk-gz#)
-
-let g:asterisk#keeppos = 1
-
-"""" anzu
-nmap n <Plug>(anzu-n-with-echo)zz
-nmap N <Plug>(anzu-N-with-echo)zz
-nmap * <Plug>(anzu-star-with-echo)zz
-nmap # <Plug>(anzu-sharp-with-echo)zz
 
 """" editorconfig
 let g:editorconfig_root_chdir = 1
@@ -472,7 +455,6 @@ map [n :<C-U>exe v:count1.(bufwinnr('Agrep') == -1 ? 'cp' : 'Apfile')<CR>
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
-let g:ack_use_dispatch=1
 let g:ackhighlight = 1
 let g:ack_mappings = { 'o': '<CR>zz' }
 
@@ -540,8 +522,6 @@ autocmd MyAutoCmd Syntax javascript setlocal isk+=$
 autocmd MyAutoCmd FileType javascript setlocal dictionary+=$HOME/.vim/dict/javascript.dict
 autocmd MyAutoCmd FileType vim setlocal dictionary+=$HOME/.vim/dict/vim.dict
 
-autocmd MyAutoCmd FileType html setlocal iskeyword+=~ | let b:dispatch = ':OpenURL %'
-
 syntax enable
 filetype plugin indent on
 
@@ -555,7 +535,7 @@ highlight EndOfBuffer guibg=#141413
 " highlight Search guibg=#1a561d guifg=#c9d7e0
 " highlight IncSearch guibg=#edb825 guifg=#1a561d
 highlight Comment cterm=italic gui=italic
-" highlight SpecialKey guifg=#5c6370 guibg=NONE
+highlight SpecialKey guifg=#5c6370 guibg=NONE
 " highlight Visual guifg=NONE guibg=#010101
 highlight NonText guifg=#5c6370 guibg=NONE
 " highlight VertSplit guibg=#111111 guifg=#111111 ctermbg=233  ctermfg=233
