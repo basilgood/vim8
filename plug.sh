@@ -18,7 +18,6 @@ start=(
   "AndrewRadev/inline_edit.vim"
   "basilgood/agrep"
   "djoshea/vim-autoread"
-  "sgur/vim-fzfp"
 )
 
 for element in "${start[@]}"; do
@@ -51,6 +50,7 @@ opt=(
   "boucherm/ShowMotion"
   "pgdouyon/vim-apparate"
   "majutsushi/tagbar"
+  "sgur/vim-fzfp"
 )
 
 for element in "${opt[@]}"; do

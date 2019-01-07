@@ -19,4 +19,5 @@ function! pack_opt#plugins(...) abort
   packadd ShowMotion
   packadd vim-apparate
   packadd tagbar
+  packadd vim-fzfp
 endfunction
