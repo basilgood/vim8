@@ -21,4 +21,5 @@ function! pack_opt#plugins(...) abort
   packadd tagbar
   packadd vim-fzfp
   packadd vim-signify
+  packadd ctrlp.vim
 endfunction

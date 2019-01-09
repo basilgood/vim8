@@ -50,7 +50,7 @@ opt=(
   "boucherm/ShowMotion"
   "pgdouyon/vim-apparate"
   "majutsushi/tagbar"
-  "sgur/vim-fzfp"
+  "ctrlpvim/ctrlp.vim"
 )
 
 for element in "${opt[@]}"; do

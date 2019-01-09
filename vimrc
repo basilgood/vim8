@@ -367,8 +367,16 @@ let g:editorconfig_blacklist = {
       \ 'filetype': ['git.*', 'fugitive'],
       \ 'pattern': ['\.un~$']}
 
-"""" asyncfinder
-nnoremap <C-p> :FzfpFiles<cr>
+"""" ctrlp
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+if executable('fd')
+  let g:ctrlp_user_command = 'fd --type f --color never "" %s'
+  let g:ctrlp_use_caching = 0
+endif
+let g:ctrlp_by_filename = 1
+let g:ctrlp_regexp      = 1
+let g:ctrlp_mruf_max    = 2000
 
 """" quickrun
 let g:quickrun_config = {
