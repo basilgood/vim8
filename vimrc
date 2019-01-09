@@ -343,10 +343,6 @@ let g:mundo_preview_height = 20
 let g:mundo_right = 1
 let g:mundo_preview_bottom = 1
 
-"""" signify
-let g:signify_vcs_list = [ 'git', 'hg' ]
-let g:signify_update_on_focusgained = 1
-
 """" alingta
 vnoremap i: :Alignta =><Space>
 vnoremap <silent> i= :Alignta => =/1<CR>

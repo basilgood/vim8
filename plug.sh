@@ -12,7 +12,7 @@ start=(
   "tpope/vim-fugitive"
   "cohama/agit.vim"
   "idanarye/vim-merginal"
-  # "airblade/vim-gitgutter"
+  "airblade/vim-gitgutter"
   "tpope/vim-vinegar"
   "markonm/traces.vim"
   "AndrewRadev/inline_edit.vim"
@@ -51,7 +51,6 @@ opt=(
   "pgdouyon/vim-apparate"
   "majutsushi/tagbar"
   "sgur/vim-fzfp"
-  "mhinz/vim-signify"
 )
 
 for element in "${opt[@]}"; do
