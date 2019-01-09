@@ -89,6 +89,7 @@ set nrformats-=octal
 """" searching and patterns
 set incsearch
 set hlsearch|nohlsearch
+set gdefault
 
 """" windows, buffers
 set hidden
@@ -207,8 +208,6 @@ nnoremap k gk
 vnoremap > >gv
 vnoremap < <gv
 vnoremap . :normal .<CR>
-nnoremap <silent> <M--> :vertical resize +1<CR>
-nnoremap <silent> <M-=> :vertical resize -1<CR>
 nnoremap <C-s> :update<CR>
 inoremap <C-s> <Esc>:update<CR>
 xnoremap <C-s> <C-C>:<C-u>update<CR>
@@ -226,9 +225,9 @@ nnoremap P P=`]<C-o>
 " paste from clipboard to a word
 nnoremap <Space>w viw"+p
 " paste from clipboard
-nnoremap <Space>p :put+<CR>=`]<C-o>
+nnoremap <Space>p :put+<CR>
 vnoremap <Space>p "+p
-nnoremap <Space>P :put+<CR>=`]<C-o>
+nnoremap <Space>P :put!+<CR>
 vnoremap <Space>P "+P
 " yank to clipboard
 vnoremap <Space>y "+y
@@ -255,6 +254,10 @@ nnoremap ]q :cnext<cr>
 nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
+
+" add a blank line above/below
+nnoremap ]<space> m`o<Esc>``
+nnoremap [<space> m`O<Esc>``
 
 """" search with vimgrep in buffer
 nnoremap <leader>l :vimgrep! //j %<BAR>cw<s-left><s-left><right>
@@ -425,13 +428,12 @@ let g:ale_fixers = {
       \}
 
 let g:ale_linter_aliases = {
-      \ 'html': 'javascript',
-      \ 'yaml': 'ansible'
+      \ 'html': 'javascript'
       \}
 
 let g:ale_linters = {
       \ 'javascript': ['eslint'],
-      \ 'yaml': ['ansible-lint'],
+      \ 'yaml': ['yamllint'],
       \ 'vim': ['vint'],
       \ 'nix': ['nix'],
       \ 'html': ['elsint']
@@ -529,34 +531,34 @@ autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
 """" Colorscheme
 set background=dark
-silent! colorscheme kolor
-highlight Normal guibg=#1c1b1a guifg=#ebdbb2
-highlight EndOfBuffer guibg=#141413
+silent! colorscheme apprentice
+" highlight Normal guibg=#1d2021 guifg=#ebdbb2
+" highlight EndOfBuffer guibg=#141413
 " highlight Search guibg=#1a561d guifg=#c9d7e0
 " highlight IncSearch guibg=#edb825 guifg=#1a561d
-highlight Comment cterm=italic gui=italic
-highlight SpecialKey guifg=#5c6370 guibg=NONE
+" highlight Comment cterm=italic gui=italic
+" highlight SpecialKey guifg=#5c6370 guibg=NONE
 " highlight Visual guifg=NONE guibg=#010101
-highlight NonText guifg=#5c6370 guibg=NONE
+" highlight NonText guifg=#5c6370 guibg=NONE
 " highlight VertSplit guibg=#111111 guifg=#111111 ctermbg=233  ctermfg=233
-highlight LineNr guibg=#141413 guifg=#5c6370
-highlight CursorLineNr guifg=#ebdbb2
-highlight Include guifg=#9A93E1 ctermfg=81 cterm=italic gui=italic
-highlight Keyword cterm=italic gui=italic
-highlight Type cterm=italic gui=italic
-highlight jsThis cterm=italic gui=italic
-highlight jsFunction cterm=italic gui=italic
-highlight jsModuleAsterisk cterm=italic gui=italic
-highlight jsStorageClass cterm=italic gui=italic
-highlight jsExportDefault cterm=italic gui=italic
-highlight jsObjectKey cterm=italic gui=italic
-highlight jsObjectFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
-highlight jsClassFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
-highlight ALEWarningSign guibg=NONE guifg=DarkYellow
-highlight ALEErrorSign guibg=NONE guifg=DarkMagenta
-highlight DiffAdd    ctermbg=DarkGreen   guibg=DarkGreen
-highlight DiffChange ctermbg=DarkMagenta guibg=DarkMagenta
-highlight DiffDelete ctermbg=DarkRed     guibg=DarkRed
-highlight DiffText   ctermbg=Blue        guibg=Blue
+" highlight LineNr guibg=#141413 guifg=#5c6370
+" highlight CursorLineNr guifg=#ebdbb2
+" highlight Include guifg=#9A93E1 ctermfg=81 cterm=italic gui=italic
+" highlight Keyword cterm=italic gui=italic
+" highlight Type cterm=italic gui=italic
+" highlight jsThis cterm=italic gui=italic
+" highlight jsFunction cterm=italic gui=italic
+" highlight jsModuleAsterisk cterm=italic gui=italic
+" highlight jsStorageClass cterm=italic gui=italic
+" highlight jsExportDefault cterm=italic gui=italic
+" highlight jsObjectKey cterm=italic gui=italic
+" highlight jsObjectFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
+" highlight jsClassFuncName cterm=italic gui=italic ctermfg=14 guifg=#83AFE5
+" highlight ALEWarningSign guibg=NONE guifg=DarkYellow
+" highlight ALEErrorSign guibg=NONE guifg=DarkMagenta
+" highlight DiffAdd    ctermbg=DarkGreen   guibg=DarkGreen
+" highlight DiffChange ctermbg=DarkMagenta guibg=DarkMagenta
+" highlight DiffDelete ctermbg=DarkRed     guibg=DarkRed
+" highlight DiffText   ctermbg=Blue        guibg=Blue
 highlight IsModified guibg=DarkMagenta
 highlight IsNotModified guibg=DarkGreen
