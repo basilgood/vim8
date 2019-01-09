@@ -345,7 +345,6 @@ let g:mundo_preview_bottom = 1
 
 """" signify
 let g:signify_vcs_list = [ 'git', 'hg' ]
-let g:signify_realtime = 1
 let g:signify_update_on_focusgained = 1
 
 """" alingta
