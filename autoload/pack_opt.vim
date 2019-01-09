@@ -20,4 +20,5 @@ function! pack_opt#plugins(...) abort
   packadd vim-apparate
   packadd tagbar
   packadd vim-fzfp
+  packadd vim-signify
 endfunction
