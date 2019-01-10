@@ -43,14 +43,14 @@ opt=(
   "terryma/vim-expand-region"
   "stefandtw/quickfix-reflector.vim"
   "markonm/hlyank.vim"
-  "pgdouyon/vim-evanesco"
+  "romainl/vim-cool"
   "simnalamburt/vim-mundo"
-  "machakann/vim-swap"
   "yuttie/comfortable-motion.vim"
   "boucherm/ShowMotion"
-  "pgdouyon/vim-apparate"
   "majutsushi/tagbar"
   "ctrlpvim/ctrlp.vim"
+  "lucidstack/ctrlp-tmux.vim"
+  "haya14busa/vim-asterisk"
 )
 
 for element in "${opt[@]}"; do

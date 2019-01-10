@@ -201,7 +201,7 @@ let g:is_bash = 1
 let g:sh_noisk = 1
 
 """ mappings
-nnoremap <Bs> :ls<CR>:b
+" nnoremap <Bs> :ls<CR>:b
 nnoremap <Space>n :nohlsearch<CR>
 nnoremap j gj
 nnoremap k gk
@@ -371,12 +371,12 @@ let g:editorconfig_blacklist = {
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 if executable('fd')
-  let g:ctrlp_user_command = 'fd --type f --color never "" %s'
+  let g:ctrlp_user_command = 'fd -t f -H -E "{*.git}" --color never "" %s'
   let g:ctrlp_use_caching = 0
 endif
-let g:ctrlp_by_filename = 1
-let g:ctrlp_regexp      = 1
-let g:ctrlp_mruf_max    = 2000
+
+nnoremap <BS> :CtrlPBuffer<cr>
+nnoremap <leader>s :CtrlPTmux<cr>
 
 """" quickrun
 let g:quickrun_config = {
@@ -396,6 +396,9 @@ let g:quickrun_config = {
 
 """" tagbar
 nnoremap <leader>t :TagbarOpenAutoClose<cr>
+
+"""" cool
+let g:CoolTotalMatches = 1
 
 """" git modified files
 function! ModifiedFiles()
@@ -489,6 +492,15 @@ function! s:keepcursor_visual_wrapper(command)
 endfunction
 xnoremap <silent> y :<C-u>call <SID>keepcursor_visual_wrapper('y')<CR>
 xnoremap <silent> Y :<C-u>call <SID>keepcursor_visual_wrapper('Y')<CR>
+
+"""" asterisk
+let g:asterisk#keeppos = 1
+map *  <Plug>(asterisk-z*)zz
+map #  <Plug>(asterisk-z#)zz
+map g* <Plug>(asterisk-gz*)zz
+map g# <Plug>(asterisk-gz#)zz
+nnoremap n nzz
+nnoremap N Nzz
 
 """" filetype
 autocmd MyAutoCmd BufNewFile,BufRead *.vim set filetype=vim
