@@ -44,6 +44,18 @@ if (&term =~# '^tmux') || (&term =~# '^st-256color') || (&term =~# '^alacritty-2
   execute "set <xLeft>=\e[1;*D"
 endif
 
+"""" Alt-arrows move between windows
+nnoremap <silent> [1;3A <C-w><Up>
+nnoremap <silent> [1;3B <C-w><Down>
+nnoremap <silent> [1;3C <C-w><Right>
+nnoremap <silent> [1;3D <C-w><Left>
+
+"""" Alt-hjkl resize windows
+nnoremap <silent> l :vertical resize +5<cr>
+nnoremap <silent> h :vertical resize -5<cr>
+nnoremap <silent> j :resize +5<cr>
+nnoremap <silent> k :resize -5<cr>
+
 """" cursorshape
 if exists('$TMUX')
   let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[6 q\<Esc>\\"
