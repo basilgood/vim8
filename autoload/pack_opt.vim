@@ -17,8 +17,7 @@ function! pack_opt#plugins(...) abort
   packadd comfortable-motion.vim
   packadd ShowMotion
   packadd tagbar
-  packadd ctrlp.vim
-  packadd ctrlp-tmux.vim
+  packadd vim-picker
   packadd vim-asterisk
   packadd codi.vim
   packadd vim-polyglot

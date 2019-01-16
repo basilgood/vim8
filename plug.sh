@@ -31,7 +31,7 @@ cd ../opt/
 opt=(
   "w0rp/ale"
   "thinca/vim-quickrun"
-  "kana/vim-repeat"
+  "tpope/vim-repeat"
   "tpope/vim-commentary"
   "tpope/vim-surround"
   "mileszs/ack.vim"
@@ -47,8 +47,7 @@ opt=(
   "yuttie/comfortable-motion.vim"
   "boucherm/ShowMotion"
   "majutsushi/tagbar"
-  "ctrlpvim/ctrlp.vim"
-  "lucidstack/ctrlp-tmux.vim"
+  "srstevenson/vim-picker"
   "haya14busa/vim-asterisk"
   "metakirby5/codi.vim"
   "sheerun/vim-polyglot"

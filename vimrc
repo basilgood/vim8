@@ -386,16 +386,9 @@ let g:editorconfig_blacklist = {
       \ 'filetype': ['git.*', 'fugitive'],
       \ 'pattern': ['\.un~$']}
 
-"""" ctrlp
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-if executable('fd')
-  let g:ctrlp_user_command = 'fd -t f -H -E "{*.git}" --color never "" %s'
-  let g:ctrlp_use_caching = 0
-endif
-
-nnoremap <BS> :CtrlPBuffer<cr>
-nnoremap <leader>s :CtrlPTmux<cr>
+"""" picker
+nnoremap <c-p> :PickerEdit<cr>
+nnoremap <BS> :PickerBuffer<cr>
 
 """" quickrun
 let g:quickrun_config = {
@@ -406,6 +399,7 @@ let g:quickrun_config = {
       \'outputter/error/error'   : 'quickfix',
       \'outputter/quickfix/open_cmd' : 'copen',
       \'outputter/buffer/split' : ':botright 8sp',
+      \'outputter/buffer/close_on_empty': 1,
       \'hook/quickfix_status_enable/enable_exit' : 1,
       \'hook/quickfix_replace_tempname_to_bufnr/enable' : 1,
       \'hook/quickfix_replace_tempname_to_bufnr/enable_exit' : 1,
@@ -567,8 +561,8 @@ autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
 """" Colorscheme
 set background=dark
-silent! colorscheme apprentice
-highlight Normal guibg=#1d2021 guifg=#ebdbb2
+silent! colorscheme onehalfdark
+" highlight Normal guibg=#1d2021 guifg=#ebdbb2
 " highlight Normal guifg=#ebdbb2
 " highlight EndOfBuffer guibg=#141413
 highlight Search guibg=#1a561d guifg=#c9d7e0
@@ -579,7 +573,6 @@ highlight SpecialKey guifg=#5c6370 guibg=NONE
 highlight NonText guifg=#5c6370 guibg=NONE
 " highlight VertSplit guibg=#111111 guifg=#111111 ctermbg=233  ctermfg=233
 " highlight LineNr guibg=#141413 guifg=#5c6370
-highlight LineNr guibg=#141413 guifg=#5c6370
 " highlight CursorLineNr guifg=#ebdbb2
 highlight Include guifg=#9A93E1 ctermfg=81 cterm=italic gui=italic
 highlight Keyword cterm=italic gui=italic
@@ -600,8 +593,8 @@ highlight Type cterm=italic gui=italic
 " highlight DiffText   ctermbg=Blue        guibg=Blue
 " highlight IsModified guibg=DarkMagenta
 " highlight IsNotModified guibg=DarkGreen
-highlight StatusLine                cterm=none ctermfg=255 ctermbg=237 guifg=#e6e3d8 guibg=#373737 gui=none
-highlight StatusLineNC              cterm=none ctermfg=243 ctermbg=238 guifg=#857b6f guibg=#404040 gui=none
+" highlight StatusLine                cterm=none ctermfg=255 ctermbg=237 guifg=#e6e3d8 guibg=#373737 gui=none
+" highlight StatusLineNC              cterm=none ctermfg=243 ctermbg=238 guifg=#857b6f guibg=#404040 gui=none
 highlight VemStatusLineMode         cterm=bold ctermfg=192 ctermbg=237 guifg=#cae682 guibg=#373737 gui=bold
 highlight VemStatusLineModeInsert   cterm=bold ctermfg=117 ctermbg=237 guifg=#8ac6f2 guibg=#373737 gui=bold
 highlight VemStatusLineBranch       cterm=none ctermfg=246 ctermbg=237 guifg=#999999 guibg=#373737 gui=none
