@@ -16,7 +16,6 @@ start=(
   "tpope/vim-vinegar"
   "markonm/traces.vim"
   "AndrewRadev/inline_edit.vim"
-  "basilgood/agrep"
   "djoshea/vim-autoread"
 )
 
@@ -51,6 +50,11 @@ opt=(
   "ctrlpvim/ctrlp.vim"
   "lucidstack/ctrlp-tmux.vim"
   "haya14busa/vim-asterisk"
+  "metakirby5/codi.vim"
+  "sheerun/vim-polyglot"
+  "pacha/vem-statusline"
+  "tpope/vim-flatfoot"
+  "basilgood/agrep"
 )
 
 for element in "${opt[@]}"; do

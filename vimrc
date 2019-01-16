@@ -94,6 +94,7 @@ let &showbreak = '↳ '
 set breakindent
 set breakindentopt=sbr
 set backspace=2
+set noshowmode
 set showmatch
 set matchtime=2
 set nrformats-=octal
@@ -118,7 +119,13 @@ if &shell =~# 'fish$'
 endif
 
 """" grep
-set grepprg=grep\ -nH
+" set grepprg=grep\ -rn
+" set grepformat=%f:%l:%c:%m
+" set grepformat=%f:%l:%m,%f:%l%m,%f
+" if executable('ag')
+"   set grepprg=ag\ -s\ \ --vimgrep\ $*
+"   set grepformat=%f:%l:%c:%m
+" endif
 
 """" Insert completion
 set dictionary='$HOME/.vim/dict'
@@ -157,29 +164,29 @@ set shortmess+=aI
 set ruler
 set laststatus=2
 
-set statusline=
-function! GitBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-function! StatuslineGit()
-  let l:branchname = GitBranch()
-  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-endfunction
-set statusline+=\ \%#Visual#
-set statusline+=%{&paste?'\ PASTE\ ':''}
-set statusline+=%{&spell?'\ SPELL\ ':''}
-set statusline+=%#CursorIM#
-set statusline+=%R
-set statusline+=%#IsModified#
-set statusline+=%{&mod?expand('%:t'):''}%*
-set statusline+=%{&mod?'':expand('%:t')}%*
-set statusline+=%=
-set statusline+=%#CursorIM#
-set statusline+=%*\ \%{StatuslineGit()}%*
-set statusline+=%y
-set statusline+=%#CursorIM#
-set statusline+=\ %-2c:%3l/%L
-set statusline+=\ %*
+" set statusline=
+" function! GitBranch()
+"   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+" endfunction
+" function! StatuslineGit()
+"   let l:branchname = GitBranch()
+"   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+" endfunction
+" set statusline+=\ \%#Visual#
+" set statusline+=%{&paste?'\ PASTE\ ':''}
+" set statusline+=%{&spell?'\ SPELL\ ':''}
+" set statusline+=%#CursorIM#
+" set statusline+=%R
+" set statusline+=%#IsModified#
+" set statusline+=%{&mod?expand('%:t'):''}%*
+" set statusline+=%{&mod?'':expand('%:t')}%*
+" set statusline+=%=
+" set statusline+=%#CursorIM#
+" set statusline+=%*\ \%{StatuslineGit()}%*
+" set statusline+=%y
+" set statusline+=%#CursorIM#
+" set statusline+=\ %-2c:%3l/%L
+" set statusline+=\ %*
 
 """" tabs/indent levels
 set autoindent
@@ -490,12 +497,6 @@ nmap b <Plug>(show-motion-b)
 nmap B <Plug>(show-motion-B)
 nmap e <Plug>(show-motion-e)
 nmap E <Plug>(show-motion-E)
-nmap f <Plug>(show-motion-f)
-nmap t <Plug>(show-motion-t)
-nmap F <Plug>(show-motion-F)
-nmap T <Plug>(show-motion-T)
-nmap ; <Plug>(show-motion-;)
-nmap , <Plug>(show-motion-,)
 
 " yank with keeping cursor position in visual mode
 function! s:keepcursor_visual_wrapper(command)
@@ -513,6 +514,9 @@ map g* <Plug>(asterisk-gz*)zz
 map g# <Plug>(asterisk-gz#)zz
 nnoremap n nzz
 nnoremap N Nzz
+
+"""" vem statusline
+let g:vem_statusline_parts =  'mbfienp'
 
 """" filetype
 autocmd MyAutoCmd BufNewFile,BufRead *.vim set filetype=vim
@@ -564,20 +568,22 @@ autocmd MyAutoCmd BufEnter * syntax sync fromstart
 """" Colorscheme
 set background=dark
 silent! colorscheme apprentice
-" highlight Normal guibg=#1d2021 guifg=#ebdbb2
+highlight Normal guibg=#1d2021 guifg=#ebdbb2
+" highlight Normal guifg=#ebdbb2
 " highlight EndOfBuffer guibg=#141413
-" highlight Search guibg=#1a561d guifg=#c9d7e0
-" highlight IncSearch guibg=#edb825 guifg=#1a561d
-" highlight Comment cterm=italic gui=italic
-" highlight SpecialKey guifg=#5c6370 guibg=NONE
+highlight Search guibg=#1a561d guifg=#c9d7e0
+highlight IncSearch guibg=#edb825 guifg=#1a561d
+highlight Comment cterm=italic gui=italic
+highlight SpecialKey guifg=#5c6370 guibg=NONE
 " highlight Visual guifg=NONE guibg=#010101
-" highlight NonText guifg=#5c6370 guibg=NONE
+highlight NonText guifg=#5c6370 guibg=NONE
 " highlight VertSplit guibg=#111111 guifg=#111111 ctermbg=233  ctermfg=233
 " highlight LineNr guibg=#141413 guifg=#5c6370
+highlight LineNr guibg=#141413 guifg=#5c6370
 " highlight CursorLineNr guifg=#ebdbb2
-" highlight Include guifg=#9A93E1 ctermfg=81 cterm=italic gui=italic
-" highlight Keyword cterm=italic gui=italic
-" highlight Type cterm=italic gui=italic
+highlight Include guifg=#9A93E1 ctermfg=81 cterm=italic gui=italic
+highlight Keyword cterm=italic gui=italic
+highlight Type cterm=italic gui=italic
 " highlight jsThis cterm=italic gui=italic
 " highlight jsFunction cterm=italic gui=italic
 " highlight jsModuleAsterisk cterm=italic gui=italic
@@ -592,5 +598,14 @@ silent! colorscheme apprentice
 " highlight DiffChange ctermbg=DarkMagenta guibg=DarkMagenta
 " highlight DiffDelete ctermbg=DarkRed     guibg=DarkRed
 " highlight DiffText   ctermbg=Blue        guibg=Blue
-highlight IsModified guibg=DarkMagenta
-highlight IsNotModified guibg=DarkGreen
+" highlight IsModified guibg=DarkMagenta
+" highlight IsNotModified guibg=DarkGreen
+highlight StatusLine                cterm=none ctermfg=255 ctermbg=237 guifg=#e6e3d8 guibg=#373737 gui=none
+highlight StatusLineNC              cterm=none ctermfg=243 ctermbg=238 guifg=#857b6f guibg=#404040 gui=none
+highlight VemStatusLineMode         cterm=bold ctermfg=192 ctermbg=237 guifg=#cae682 guibg=#373737 gui=bold
+highlight VemStatusLineModeInsert   cterm=bold ctermfg=117 ctermbg=237 guifg=#8ac6f2 guibg=#373737 gui=bold
+highlight VemStatusLineBranch       cterm=none ctermfg=246 ctermbg=237 guifg=#999999 guibg=#373737 gui=none
+highlight VemStatusLineFileModified cterm=bold ctermfg=192 ctermbg=237 guifg=#cae682 guibg=#373737 gui=bold
+highlight VemStatusLineFileRO       cterm=bold ctermfg=192 ctermbg=237 guifg=#e5786d guibg=#373737 gui=bold
+highlight VemStatusLineSeparator    cterm=none ctermfg=246 ctermbg=237 guifg=#999999 guibg=#373737 gui=none
+highlight VemStatusLinePosition     cterm=bold ctermfg=255 ctermbg=237 guifg=#f6f3e8 guibg=#373737 gui=bold

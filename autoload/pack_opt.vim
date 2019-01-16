@@ -17,9 +17,12 @@ function! pack_opt#plugins(...) abort
   packadd comfortable-motion.vim
   packadd ShowMotion
   packadd tagbar
-  packadd vim-fzfp
-  packadd vim-signify
   packadd ctrlp.vim
   packadd ctrlp-tmux.vim
   packadd vim-asterisk
+  packadd codi.vim
+  packadd vim-polyglot
+  packadd vem-statusline
+  packadd vim-flatfoot
+  packadd agrep
 endfunction
