@@ -45,14 +45,11 @@ opt=(
   "romainl/vim-cool"
   "simnalamburt/vim-mundo"
   "yuttie/comfortable-motion.vim"
-  "boucherm/ShowMotion"
   "majutsushi/tagbar"
   "srstevenson/vim-picker"
   "haya14busa/vim-asterisk"
   "metakirby5/codi.vim"
   "sheerun/vim-polyglot"
-  "pacha/vem-statusline"
-  "tpope/vim-flatfoot"
   "basilgood/agrep"
 )
 

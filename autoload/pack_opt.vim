@@ -15,13 +15,10 @@ function! pack_opt#plugins(...) abort
   packadd vim-cool
   packadd vim-mundo
   packadd comfortable-motion.vim
-  packadd ShowMotion
   packadd tagbar
   packadd vim-picker
   packadd vim-asterisk
   packadd codi.vim
   packadd vim-polyglot
-  packadd vem-statusline
-  packadd vim-flatfoot
   packadd agrep
 endfunction
