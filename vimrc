@@ -218,7 +218,7 @@ let g:is_bash = 1
 let g:sh_noisk = 1
 
 """ mappings
-" nnoremap <Bs> :ls<CR>:b
+nnoremap <Bs> :ls<CR>:b
 nnoremap <Space>n :nohlsearch<CR>
 nnoremap j gj
 nnoremap k gk
