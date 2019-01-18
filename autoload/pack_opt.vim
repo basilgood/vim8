@@ -16,9 +16,9 @@ function! pack_opt#plugins(...) abort
   packadd vim-mundo
   packadd comfortable-motion.vim
   packadd tagbar
-  packadd vim-picker
   packadd vim-asterisk
   packadd codi.vim
   packadd vim-polyglot
   packadd agrep
+  packadd asyncrun.vim
 endfunction

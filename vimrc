@@ -183,7 +183,6 @@ set statusline+=%=
 set statusline+=%#CursorIM#
 set statusline+=%*\ \%{StatuslineGit()}%*
 set statusline+=%*ft:%{strlen(&ft)?&ft:'none'}%*
-set statusline+=%#CursorIM#
 set statusline+=\ %-2c:%3l/%L
 set statusline+=\ %*
 
@@ -385,9 +384,20 @@ let g:editorconfig_blacklist = {
       \ 'filetype': ['git.*', 'fugitive'],
       \ 'pattern': ['\.un~$']}
 
-"""" picker
-nnoremap <c-p> :PickerEdit<cr>
-nnoremap <BS> :PickerBuffer<cr>
+"""" fzy
+function! FzyCommand(choice_command, vim_command)
+  try
+    let output = system(a:choice_command . ' | fzy ')
+  catch /Vim:Interrupt/
+    " Swallow errors from ^C, allow redraw! below
+  endtry
+  redraw!
+  if v:shell_error == 0 && !empty(output)
+    exec a:vim_command . ' ' . output
+  endif
+endfunction
+
+nnoremap <c-p> :call FzyCommand("fd --type f --hidden --exclude '.git' .", ":e")<cr>
 
 """" quickrun
 let g:quickrun_config = {
@@ -476,6 +486,10 @@ map <Leader>[ :<C-U>exe v:count1.(bufwinnr('Agrep') == -1 ? 'cp' : 'Aprev')<CR>
 map ]n :<C-U>exe v:count1.(bufwinnr('Agrep') == -1 ? 'cn' : 'Anfile')<CR>
 map [n :<C-U>exe v:count1.(bufwinnr('Agrep') == -1 ? 'cp' : 'Apfile')<CR>
 
+"""" asyncrun
+let g:asyncrun_open = 8
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+
 """" ack
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
@@ -553,18 +567,18 @@ autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
 """" Colorscheme
 set background=dark
-silent! colorscheme apprentice
+silent! colorscheme gruvbox8_hard
 " highlight Normal guibg=#1d2021 guifg=#ebdbb2
 " highlight Normal guifg=#ebdbb2
-" highlight EndOfBuffer guibg=#141413
-highlight Search guibg=#1a561d guifg=#c9d7e0
-highlight IncSearch guibg=#edb825 guifg=#1a561d
+highlight EndOfBuffer guibg=#141413
+" highlight Search guibg=#1a561d guifg=#c9d7e0
+" highlight IncSearch guibg=#edb825 guifg=#1a561d
 highlight Comment cterm=italic gui=italic
 highlight SpecialKey guifg=#5c6370 guibg=NONE
 " highlight Visual guifg=NONE guibg=#010101
 highlight NonText guifg=#5c6370 guibg=NONE
-" highlight VertSplit guibg=#111111 guifg=#111111 ctermbg=233  ctermfg=233
-" highlight LineNr guibg=#141413 guifg=#5c6370
+highlight VertSplit guibg=#111111 guifg=#111111 ctermbg=233  ctermfg=233
+highlight LineNr guibg=#141413 guifg=#5c6370
 " highlight CursorLineNr guifg=#ebdbb2
 highlight Include guifg=#9A93E1 ctermfg=81 cterm=italic gui=italic
 highlight Keyword cterm=italic gui=italic
@@ -581,5 +595,5 @@ highlight Type cterm=italic gui=italic
 " highlight ALEErrorSign guibg=NONE guifg=DarkMagenta
 highlight IsModified guibg=DarkMagenta
 " highlight IsNotModified guibg=DarkGreen
-highlight StatusLine                cterm=none ctermfg=255 ctermbg=237 guifg=#e6e3d8 guibg=#373737 gui=none
-highlight StatusLineNC              cterm=none ctermfg=243 ctermbg=238 guifg=#857b6f guibg=#404040 gui=none
+" highlight StatusLine                cterm=none ctermfg=255 ctermbg=237 guifg=#e6e3d8 guibg=#373737 gui=none
+" highlight StatusLineNC              cterm=none ctermfg=243 ctermbg=238 guifg=#857b6f guibg=#404040 gui=none

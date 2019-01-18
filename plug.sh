@@ -46,11 +46,11 @@ opt=(
   "simnalamburt/vim-mundo"
   "yuttie/comfortable-motion.vim"
   "majutsushi/tagbar"
-  "srstevenson/vim-picker"
   "haya14busa/vim-asterisk"
   "metakirby5/codi.vim"
   "sheerun/vim-polyglot"
   "basilgood/agrep"
+  "skywind3000/asyncrun.vim"
 )
 
 for element in "${opt[@]}"; do
