@@ -8,15 +8,15 @@ fi
 cd pack/bundle/start/
 
 start=(
-  "sgur/vim-editorconfig"
-  "tpope/vim-fugitive"
-  "cohama/agit.vim"
-  "idanarye/vim-merginal"
-  "airblade/vim-gitgutter"
-  "tpope/vim-vinegar"
-  "markonm/traces.vim"
-  "AndrewRadev/inline_edit.vim"
-  "djoshea/vim-autoread"
+   "sgur/vim-editorconfig"
+   "tpope/vim-fugitive"
+   "gregsexton/gitv"
+   "idanarye/vim-merginal"
+   "airblade/vim-gitgutter"
+   "tpope/vim-vinegar"
+   "markonm/traces.vim"
+   "AndrewRadev/inline_edit.vim"
+   "itchyny/vim-grep"
 )
 
 for element in "${start[@]}"; do
@@ -29,28 +29,24 @@ done
 cd ../opt/
 
 opt=(
-  "w0rp/ale"
-  "thinca/vim-quickrun"
-  "tpope/vim-repeat"
-  "tpope/vim-commentary"
-  "tpope/vim-surround"
-  "mileszs/ack.vim"
-  "PanagiotisS/LargeFile"
-  "neoclide/vim-jsx-improve"
-  "sgur/cmdline-completion"
-  "h1mesuke/vim-alignta"
-  "terryma/vim-expand-region"
-  "stefandtw/quickfix-reflector.vim"
-  "markonm/hlyank.vim"
-  "romainl/vim-cool"
-  "simnalamburt/vim-mundo"
-  "yuttie/comfortable-motion.vim"
-  "majutsushi/tagbar"
-  "haya14busa/vim-asterisk"
-  "metakirby5/codi.vim"
-  "sheerun/vim-polyglot"
-  "basilgood/agrep"
-  "skywind3000/asyncrun.vim"
+   "w0rp/ale"
+   "thinca/vim-quickrun"
+   "tpope/vim-repeat"
+   "tpope/vim-commentary"
+   "tpope/vim-surround"
+#  "mileszs/ack.vim"
+   "PanagiotisS/LargeFile"
+   "neoclide/vim-jsx-improve"
+   "sgur/cmdline-completion"
+   "h1mesuke/vim-alignta"
+   "terryma/vim-expand-region"
+   "stefandtw/quickfix-reflector.vim"
+   "markonm/hlyank.vim"
+   "romainl/vim-cool"
+   "simnalamburt/vim-mundo"
+   "yuttie/comfortable-motion.vim"
+   "majutsushi/tagbar"
+   "darfink/starsearch.vim"
 )
 
 for element in "${opt[@]}"; do
