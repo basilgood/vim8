@@ -16,7 +16,6 @@ start=(
    "tpope/vim-vinegar"
    "markonm/traces.vim"
    "AndrewRadev/inline_edit.vim"
-   "itchyny/vim-grep"
 )
 
 for element in "${start[@]}"; do

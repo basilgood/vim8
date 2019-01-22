@@ -339,7 +339,32 @@ nnoremap [<space> m`O<Esc>``
 
 """" search with vimgrep in buffer
 nnoremap <leader>l :vimgrep //j %<BAR>cw<s-left><s-left><right>
-nnoremap <leader>g :vimgrep //j *<BAR>cw<s-left><s-left><right>
+nnoremap <leader>g :vimgrep //j **<BAR>cw<s-left><s-left><right>
+
+" if executable('git')
+"   command! -nargs=+ -complete=file_in_path -bar Ggr silent grep! --exclude-dir=.git --exclude=tags -HIsir <q-args> | redraw!
+" else
+"   set grepprg=git\ grep\ -HIin
+"   command! -nargs=+ Ggr execute 'silent grep!' <q-args> | cw | redraw!
+" endif
+
+"""" grep
+" let gitdir=system('git rev-parse --show-toplevel')
+" let isnotgitdir=matchstr(gitdir, '^fatal:.*')
+if !executable('git')
+  let g:grep_command = 'grep --exclude-dir=.git --exclude=tags -nHIsir '
+else
+  let g:grep_command = 'git grep -HIin '
+endif
+
+function! s:GitGrep(terms)
+  let expr = g:grep_command.'"'.a:terms.'"'
+  cgetexpr system(expr)
+  cwin
+  echo 'Number of matches: ' . len(getqflist())
+endfunction
+
+command! -nargs=+ GG     :call s:GitGrep(<q-args>)
 
 " auto escape in command-line mode
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
