@@ -61,13 +61,13 @@ endfun
 
 " User interface colors {
 call s:h("Normal", s:fg, s:bg, "")
-call s:h("NonText", s:fg, "", "")
+call s:h("NonText", s:comment_fg, "", "")
 
 call s:h("Cursor", s:bg, s:blue, "")
 call s:h("CursorColumn", "", s:cursor_line, "")
 call s:h("CursorLine", "", s:cursor_line, "")
 
-call s:h("LineNr", s:gutter_fg, s:gutter_bg, "")
+call s:h("LineNr", s:comment_fg, s:gutter_bg, "")
 call s:h("CursorLineNr", s:fg, "", "")
 
 call s:h("DiffAdd", s:green, "", "")
@@ -75,7 +75,7 @@ call s:h("DiffChange", s:yellow, "", "")
 call s:h("DiffDelete", s:red, "", "")
 call s:h("DiffText", s:blue, "", "")
 
-call s:h("IncSearch", s:bg, s:yellow, "")
+call s:h("IncSearch", s:bg, s:purple, "")
 call s:h("Search", s:bg, s:yellow, "")
 
 call s:h("ErrorMsg", s:fg, "", "")
@@ -112,14 +112,14 @@ call s:h("FoldColumn", s:fg, "", "")
 call s:h("SignColumn", s:fg, "", "")
 
 call s:h("MatchParen", s:blue, "", "underline")
-call s:h("SpecialKey", s:fg, "", "")
+call s:h("SpecialKey", s:comment_fg, "", "")
 call s:h("Title", s:green, "", "")
 call s:h("WildMenu", s:fg, "", "")
 " }
 
 
 " Syntax colors {
-call s:h("Comment", s:comment_fg, "", "")
+call s:h("Comment", s:comment_fg, "", "italic")
 call s:h("Constant", s:cyan, "", "")
 call s:h("String", s:green, "", "")
 call s:h("Character", s:green, "", "")

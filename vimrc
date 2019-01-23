@@ -192,32 +192,13 @@ set statusline=
 let &g:statusline=
       \ "%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}"
+      \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}\ "
+      \ . "on:%{exists('g:loaded_fugitive')?fugitive#head():''}"
       \ . "\ %=%{(winnr('$')==1 || winnr('#')!=winnr()) ?
       \ '['.(&filetype!=''?&filetype.',':'')"
       \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
-      \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
-" function! GitBranch()
-"   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-" endfunction
-" function! StatuslineGit()
-"   let l:branchname = GitBranch()
-"   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-" endfunction
-" set statusline+=\ \%#Visual#
-" set statusline+=%{&paste?'\ PASTE\ ':''}
-" set statusline+=%{&spell?'\ SPELL\ ':''}
-" set statusline+=%#CursorIM#
-" set statusline+=%R
-" set statusline+=%#IsModified#
-" set statusline+=%{&mod?expand('%:t'):''}%*
-" set statusline+=%{&mod?'':expand('%:t')}%*
-" set statusline+=%=
-" set statusline+=%#CursorIM#
-" set statusline+=%*\ \%{StatuslineGit()}%*
-" set statusline+=%*ft:%{strlen(&ft)?&ft:'none'}%*
-" set statusline+=\ %-2c:%3l/%L
-" set statusline+=\ %*
+      \ . "%{&modified ? '  +++' : ''}"
+      \ . "%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
 """" tabs/indent levels
 set autoindent
@@ -534,13 +515,15 @@ autocmd MyAutoCmd FileType vim setlocal dictionary+=$HOME/.vim/dict/vim.dict
 
 " Update diff.
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
-autocmd MyAutoCmd FocusGained,CursorHold * checktime
+autocmd MyAutoCmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
 
 """" Colorscheme
 set background=dark
-silent! colorscheme molokai
-highlight ALEWarningSign guibg=NONE guifg=DarkYellow
-highlight ALEErrorSign guibg=NONE guifg=DarkMagenta
+let g:gruvbox_plugin_hi_groups = 1
+let g:gruvbox_filetype_hi_groups = 1
+let g:gruvbox_italic = 1
+let g:gruvbox_italicize_strings = 1
+silent! colorscheme gruvbox8_hard
 highlight IsModified guibg=DarkMagenta
 
 set secure
