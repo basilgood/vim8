@@ -189,16 +189,20 @@ set shortmess+=Ia
 set laststatus=2
 
 set statusline=
-let &g:statusline=
-      \ "%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
-      \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}\ "
-      \ . "on:%{exists('g:loaded_fugitive')?fugitive#head():''}"
-      \ . "\ %=%{(winnr('$')==1 || winnr('#')!=winnr()) ?
-      \ '['.(&filetype!=''?&filetype.',':'')"
-      \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
-      \ . "%{&modified ? '  +++' : ''}"
-      \ . "%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
+set statusline+=%(%{&buflisted?bufnr('%'):''}\ \ %)
+set statusline+=%<
+set statusline+=%t
+set statusline+=%{&modified?'\ +':''}
+set statusline+=%{&readonly?'\ ':''}
+set statusline+=\ %1*
+set statusline+=%=
+set statusline+=%*
+set statusline+=\ %{exists('g:loaded_fugitive')?\ fugitive#head():''}
+set statusline+=\ %*
+set statusline+=\ %{&filetype!=#''?&filetype:'none'}
+set statusline+=\ %*
+set statusline+=\ %-3c
+set statusline+=:%{printf('%'.(len(line('$'))).'d/%d',line('.'),line('$'))}
 
 """" tabs/indent levels
 set autoindent
@@ -322,18 +326,9 @@ nnoremap [<space> m`O<Esc>``
 nnoremap <leader>l :vimgrep //j %<BAR>cw<s-left><s-left><right>
 nnoremap <leader>g :vimgrep //j **<BAR>cw<s-left><s-left><right>
 
-" if executable('git')
-"   command! -nargs=+ -complete=file_in_path -bar Ggr silent grep! --exclude-dir=.git --exclude=tags -HIsir <q-args> | redraw!
-" else
-"   set grepprg=git\ grep\ -HIin
-"   command! -nargs=+ Ggr execute 'silent grep!' <q-args> | cw | redraw!
-" endif
-
 """" grep
-" let gitdir=system('git rev-parse --show-toplevel')
-" let isnotgitdir=matchstr(gitdir, '^fatal:.*')
 if !executable('git')
-  let g:grep_command = 'grep --exclude-dir=.git --exclude=tags -nHIsir '
+  let g:grep_command = 'grep --exclude-dir=.git --exclude=tags -nHIsi '
 else
   let g:grep_command = 'git grep -HIin '
 endif
@@ -525,5 +520,8 @@ let g:gruvbox_italic = 1
 let g:gruvbox_italicize_strings = 1
 silent! colorscheme gruvbox8_hard
 highlight IsModified guibg=DarkMagenta
+hi StatusLine cterm=reverse gui=reverse ctermfg=14 ctermbg=8 guifg=#3b3f3f guibg=#ffffff
+hi StatusLineNC cterm=reverse gui=reverse ctermfg=11 ctermbg=0 guifg=#3e4647 guibg=#073642
+hi User1 ctermfg=14 ctermbg=0 guifg=#3b3f3f guibg=#262730
 
 set secure
