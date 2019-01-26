@@ -327,20 +327,23 @@ nnoremap <leader>l :vimgrep //j %<BAR>cw<s-left><s-left><right>
 nnoremap <leader>g :vimgrep //j **<BAR>cw<s-left><s-left><right>
 
 """" grep
-if !executable('git')
-  let g:grep_command = 'grep --exclude-dir=.git --exclude=tags -nHIsi '
-else
-  let g:grep_command = 'git grep -HIin '
-endif
+" if !executable('git')
+"   let g:grep_command = 'grep --exclude-dir=.git --exclude=tags -nHIsi '
+" else
+"   let g:grep_command = 'git grep -HIin '
+" endif
 
-function! s:GitGrep(terms)
-  let expr = g:grep_command.'"'.a:terms.'"'
-  cgetexpr system(expr)
-  cwin
-  echo 'Number of matches: ' . len(getqflist())
-endfunction
+" function! s:GitGrep(terms)
+"   let expr = g:grep_command.'"'.a:terms.'"'
+"   cgetexpr system(expr)
+"   cwin
+"   echo 'Number of matches: ' . len(getqflist())
+" endfunction
 
-command! -nargs=+ GG     :call s:GitGrep(<q-args>)
+" command! -nargs=+ GG     :call s:GitGrep(<q-args>)
+command! -bang -nargs=* -complete=file Make call asyncdo#run(<bang>0, &makeprg, <f-args>)
+let g:grepper = {}
+let g:grepper.highlight = 1
 
 " auto escape in command-line mode
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
@@ -519,7 +522,6 @@ let g:gruvbox_filetype_hi_groups = 1
 let g:gruvbox_italic = 1
 let g:gruvbox_italicize_strings = 1
 silent! colorscheme gruvbox8_hard
-highlight IsModified guibg=DarkMagenta
 hi StatusLine cterm=reverse gui=reverse ctermfg=14 ctermbg=8 guifg=#3b3f3f guibg=#ffffff
 hi StatusLineNC cterm=reverse gui=reverse ctermfg=11 ctermbg=0 guifg=#3e4647 guibg=#073642
 hi User1 ctermfg=14 ctermbg=0 guifg=#3b3f3f guibg=#262730
