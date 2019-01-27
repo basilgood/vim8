@@ -333,7 +333,7 @@ function! s:vgrep(args)
   cgetexpr system(expr)
   cwindow
   let @/=a:args
-  set hlsearch
+  setlocal hlsearch
   echo 'Number of matches: ' . len(getqflist())
 endfunction
 
