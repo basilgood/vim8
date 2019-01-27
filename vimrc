@@ -339,6 +339,7 @@ endfunction
 
 command! -nargs=+ VG :call s:vgrep(<q-args>)
 
+"""" grepper
 let g:grepper = {}
 let g:grepper.highlight = 1
 

@@ -35,7 +35,6 @@ opt=(
    "tpope/vim-repeat"
    "tpope/vim-commentary"
    "tpope/vim-surround"
-#  "mileszs/ack.vim"
    "PanagiotisS/LargeFile"
    "neoclide/vim-jsx-improve"
    "sgur/cmdline-completion"
