@@ -253,7 +253,7 @@ function! LoadSession()
     echo 'No session loaded.'
   endif
 endfunction
-command! -nargs=0 SL call LoadSession()
+command! -nargs=0 SS call LoadSession()
 
 autocmd MyAutoCmd VimLeave * :call MakeSession()
 
@@ -327,21 +327,18 @@ nnoremap <leader>l :vimgrep //j %<BAR>cw<s-left><s-left><right>
 nnoremap <leader>g :vimgrep //j **<BAR>cw<s-left><s-left><right>
 
 """" grep
-" if !executable('git')
-"   let g:grep_command = 'grep --exclude-dir=.git --exclude=tags -nHIsi '
-" else
-"   let g:grep_command = 'git grep -HIin '
-" endif
+function! s:vgrep(args)
+  let l:grep_command = 'grep --exclude-dir={.git,tag} -nHRI '
+  let expr = l:grep_command.'"'.a:args.'"'
+  cgetexpr system(expr)
+  cwindow
+  let @/=a:args
+  set hlsearch
+  echo 'Number of matches: ' . len(getqflist())
+endfunction
 
-" function! s:GitGrep(terms)
-"   let expr = g:grep_command.'"'.a:terms.'"'
-"   cgetexpr system(expr)
-"   cwin
-"   echo 'Number of matches: ' . len(getqflist())
-" endfunction
+command! -nargs=+ VG :call s:vgrep(<q-args>)
 
-" command! -nargs=+ GG     :call s:GitGrep(<q-args>)
-command! -bang -nargs=* -complete=file Make call asyncdo#run(<bang>0, &makeprg, <f-args>)
 let g:grepper = {}
 let g:grepper.highlight = 1
 
