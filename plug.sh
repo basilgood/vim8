@@ -16,8 +16,6 @@ start=(
    "tpope/vim-vinegar"
    "markonm/traces.vim"
    "AndrewRadev/inline_edit.vim"
-   "mhinz/vim-grepper"
-   "edkolev/vim-amake"
 )
 
 for element in "${start[@]}"; do
@@ -47,6 +45,7 @@ opt=(
    "yuttie/comfortable-motion.vim"
    "majutsushi/tagbar"
    "darfink/starsearch.vim"
+   "mhinz/vim-grepper"
 )
 
 for element in "${opt[@]}"; do

@@ -17,4 +17,5 @@ function! pack_opt#plugins(...) abort
   packadd comfortable-motion.vim
   packadd tagbar
   packadd starsearch.vim
+  packadd vim-grepper
 endfunction
