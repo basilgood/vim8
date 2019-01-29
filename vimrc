@@ -99,10 +99,10 @@ silent! call s:EnsureDirExists($CACHE)
 set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
 
 """" shell
-set shell=/usr/bin/env\ bash\ -l
+set shell=/bin/sh
 
 """" path
-set path=.,**
+set path& | let &path .= '**'
 
 " Default home directory.
 let t:cwd = getcwd()
@@ -115,8 +115,8 @@ set nowritebackup
 set directory-=.
 set noswapfile
 set history=1000
-set undofile
 set undodir=$CACHE/undo//
+set undofile
 silent! call s:EnsureDirExists(&undodir)
 
 """" moving around/editing
@@ -326,10 +326,13 @@ nnoremap [<space> m`O<Esc>``
 nnoremap <leader>l :vimgrep //j %<BAR>cw<s-left><s-left><right>
 nnoremap <leader>g :vimgrep //j **<BAR>cw<s-left><s-left><right>
 
-"""" grep
+"""" whitespace
+command! WS %s/\s\+$// | normal! ``
+
+" """" grep
 function! s:vgrep(args)
-  let l:grep_command = 'grep --exclude-dir={.git,tag} -nHRI '
-  let expr = l:grep_command.'"'.a:args.'"'
+  let l:grep_command = 'grep --exclude-dir={.git,tag} -nHRI'
+  let expr = l:grep_command.' '.a:args
   cgetexpr system(expr)
   cwindow
   let @/=a:args
@@ -420,10 +423,9 @@ noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
 noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
 """" mundo
-let g:mundo_width = 30
-let g:mundo_preview_height = 20
-let g:mundo_right = 1
-let g:mundo_preview_bottom = 1
+let g:undotree_WindowLayout = 4
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_ShortIndicators = 1
 
 """" alingta
 vnoremap i: :Alignta =><Space>

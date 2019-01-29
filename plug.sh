@@ -41,7 +41,7 @@ opt=(
    "stefandtw/quickfix-reflector.vim"
    "markonm/hlyank.vim"
    "romainl/vim-cool"
-   "simnalamburt/vim-mundo"
+   "mbbill/undotree"
    "yuttie/comfortable-motion.vim"
    "majutsushi/tagbar"
    "darfink/starsearch.vim"

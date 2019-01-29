@@ -13,7 +13,7 @@ function! pack_opt#plugins(...) abort
   packadd quickfix-reflector.vim
   packadd hlyank.vim
   packadd vim-cool
-  packadd vim-mundo
+  packadd undotree
   packadd comfortable-motion.vim
   packadd tagbar
   packadd starsearch.vim
