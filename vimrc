@@ -261,7 +261,7 @@ let g:is_bash = 1
 let g:sh_noisk = 1
 
 """ mappings
-nnoremap <Bs> :ls<CR>:b
+" nnoremap <Bs> :ls<CR>:b
 nnoremap <space>b :b <C-d>
 nnoremap <leader>f :find *
 nnoremap j gj
@@ -342,10 +342,6 @@ endfunction
 
 command! -nargs=+ VG :call s:vgrep(<q-args>)
 
-"""" grepper
-let g:grepper = {}
-let g:grepper.highlight = 1
-
 " auto escape in command-line mode
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
@@ -418,6 +414,14 @@ endfunction
 
 nnoremap <c-p> :call FzyCommand("fd --type f --hidden --exclude '.git' .", ":e")<cr>
 
+"""" grepper
+let g:grepper = {}
+let g:grepper.highlight = 1
+
+"""" bufferhint
+nnoremap <Bs> :call bufferhint#Popup()<cr>
+nnoremap \' :call bufferhint#LoadPrevious()<cr>
+
 """" comfortable motion
 noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
 noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
@@ -476,8 +480,8 @@ nnoremap <silent> zP :<c-u>call ZeroPaste('P')<cr>
 let g:jsx_ext_required = 0
 
 """" filetype
+autocmd MyAutoCmd BufRead,BufNewFile *  setfiletype txt
 autocmd MyAutoCmd BufNewFile,BufRead *.vim set filetype=vim
-autocmd MyAutoCmd BufNewFile,BufRead *.txt set filetype=journal
 autocmd MyAutoCmd BufNewFile,BufRead *.twig set filetype=html.twig
 autocmd MyAutoCmd BufNewFile,BufRead *.nix set filetype=nix
 autocmd MyAutoCmd BufNewFile,BufRead *.md set filetype=markdown
@@ -486,8 +490,6 @@ autocmd MyAutoCmd BufNewFile,BufRead *.j2 set filetype=jinja
 autocmd MyAutoCmd BufNewFile,BufRead *.js set filetype=javascript
 autocmd MyAutoCmd BufNewFile,BufRead *.html set filetype=html
 autocmd MyAutoCmd BufNewFile,BufRead *.fish setlocal filetype=fish
-autocmd MyAutoCmd BufNewFile,BufRead *.config setlocal filetype=journal
-autocmd MyAutoCmd BufNewFile,BufRead *.conf setlocal filetype=journal
 autocmd MyAutoCmd BufNewFile,BufRead *.coffee set filetype=coffee
 autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
 
