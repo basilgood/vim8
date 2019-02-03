@@ -67,6 +67,7 @@ nnoremap <silent>v  :<C-u>vsplit<CR>
 nnoremap <silent>s  :<C-u>split<CR>
 nnoremap <silent>o  :<C-u>only<CR>
 nnoremap <silent>c  :<C-u>close<CR>
+nnoremap <silent>t  :<C-u>tab split<CR>
 
 """" Alt-hjkl resize windows
 nnoremap <silent> l :vertical resize +5<cr>
@@ -292,16 +293,12 @@ vnoremap <space>P "+P
 " yank to clipboard
 vnoremap <space>y "+y
 " substitute
-nnoremap gs :%s/
-xnoremap gs :s//<Left>
-nnoremap gl :s//g<Left><Left>
+nnoremap <leader>s :%s/
+vnoremap <leader>s :s/
 " substitute word under the cursor
-nnoremap gw :%s/\<<c-r><c-w>\>/
+nnoremap <leader>w :%s/\<<c-r><c-w>\>/
 " append text
-nnoremap ga :%s/\<<C-r><C-w>\>/<C-r><C-w>
-" zoom buffer
-nnoremap <space>z :tab split<CR>
-nnoremap <space>q :tabclose<CR>
+nnoremap <leader>a :%s/\<<C-r><C-w>\>/<C-r><C-w>
 " yank from cursor position to end of line
 nnoremap Y y$
 " prev and next buffer
@@ -324,7 +321,6 @@ nnoremap [<space> m`O<Esc>``
 
 """" search with vimgrep in buffer
 nnoremap <leader>l :vimgrep //j %<BAR>cw<s-left><s-left><right>
-nnoremap <leader>g :vimgrep //j **<BAR>cw<s-left><s-left><right>
 
 """" whitespace
 command! WS %s/\s\+$// | normal! ``
@@ -426,7 +422,7 @@ nnoremap \' :call bufferhint#LoadPrevious()<cr>
 noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
 noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
-"""" mundo
+"""" undotree
 let g:undotree_WindowLayout = 4
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
