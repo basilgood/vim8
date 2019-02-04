@@ -477,6 +477,7 @@ let g:jsx_ext_required = 0
 
 """" filetype
 autocmd MyAutoCmd BufRead,BufNewFile *  setfiletype txt
+autocmd MyAutoCmd BufRead,BufNewFile *.gitignore  set filetype=gitignore
 autocmd MyAutoCmd BufNewFile,BufRead *.vim set filetype=vim
 autocmd MyAutoCmd BufNewFile,BufRead *.twig set filetype=html.twig
 autocmd MyAutoCmd BufNewFile,BufRead *.nix set filetype=nix
@@ -488,6 +489,7 @@ autocmd MyAutoCmd BufNewFile,BufRead *.html set filetype=html
 autocmd MyAutoCmd BufNewFile,BufRead *.fish setlocal filetype=fish
 autocmd MyAutoCmd BufNewFile,BufRead *.coffee set filetype=coffee
 autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
+autocmd MyAutoCmd BufNewFile,BufRead *.yml set filetype=yaml
 
 " quickfix on entire tab
 autocmd MyAutoCmd FileType qf wincmd J
