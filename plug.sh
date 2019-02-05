@@ -10,7 +10,7 @@ cd pack/bundle/start/
 start=(
    "sgur/vim-editorconfig"
    "tpope/vim-fugitive"
-   "gregsexton/gitv"
+   "junegunn/gv.vim"
    "idanarye/vim-merginal"
    "airblade/vim-gitgutter"
    "tpope/vim-vinegar"
