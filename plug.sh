@@ -17,6 +17,7 @@ start=(
    "markonm/traces.vim"
    "AndrewRadev/inline_edit.vim"
    "bsdelf/bufferhint"
+   "iberianpig/tig-explorer.vim"
 )
 
 for element in "${start[@]}"; do
