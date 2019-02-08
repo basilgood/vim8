@@ -51,7 +51,7 @@ if !has('gui_running')
 endif
 
 """" arrow keys
-if (&term =~# '^tmux') || (&term =~# '^st-256color')
+if (&term =~# '^tmux') || (&term =~# '^xterm-kitty')
   execute "set <xUp>=\e[1;*A"
   execute "set <xDown>=\e[1;*B"
   execute "set <xRight>=\e[1;*C"

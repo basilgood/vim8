@@ -10,8 +10,6 @@ cd pack/bundle/start/
 start=(
    "sgur/vim-editorconfig"
    "tpope/vim-fugitive"
-   "junegunn/gv.vim"
-   "idanarye/vim-merginal"
    "airblade/vim-gitgutter"
    "tpope/vim-vinegar"
    "markonm/traces.vim"
@@ -47,7 +45,6 @@ opt=(
    "majutsushi/tagbar"
    "darfink/starsearch.vim"
    "mhinz/vim-grepper"
-   "cohama/agit.vim"
 )
 
 for element in "${opt[@]}"; do
