@@ -316,7 +316,7 @@ nnoremap [Q :cfirst<cr>
 " nohlsearch
 nnoremap <space>n :nohlsearch<CR>
 
-" add a blank line above/below
+"""" add a blank line above/below
 nnoremap ]<space> m`o<Esc>``
 nnoremap [<space> m`O<Esc>``
 
@@ -326,7 +326,7 @@ nnoremap <leader>l :vimgrep //j %<BAR>cw<s-left><s-left><right>
 """" whitespace
 command! WS %s/\s\+$// | normal! ``
 
-" """" grep
+"""" grep
 function! s:vgrep(args)
   let l:grep_command = 'grep --exclude-dir={.git,tag} -nHRI'
   let expr = l:grep_command.' '.a:args
@@ -346,15 +346,16 @@ cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
 """" plugins
 """" netrw
 let g:netrw_localrmdir='rm -r'
+let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
 
-function! KeysInNetrw()
-  nmap <buffer> <Right> <CR>
-  nmap <buffer> <Left> -
+function! InNetrw()
+  nmap <buffer> <right> <cr>
+  nmap <buffer> <left> -
+  nmap <buffer> = G<cr>
   nmap <buffer> l qf
 endfunction
 
-autocmd MyAutoCmd FileType netrw call KeysInNetrw()
-autocmd MyAutoCmd FileType netrw nmap <buffer> <space>q :bdelete<CR>
+autocmd MyAutoCmd FileType netrw call InNetrw()
 
 """" editorconfig
 let g:editorconfig_root_chdir = 1
@@ -492,12 +493,9 @@ autocmd MyAutoCmd BufNewFile,BufRead *.coffee set filetype=coffee
 autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.yml set filetype=yaml
 
-" quickfix on entire tab
+"""" quickfix on entire tab
 autocmd MyAutoCmd FileType qf wincmd J
 autocmd MyAutoCmd FileType qf nnoremap <silent><buffer> <space>q :q<CR>
-
-" quit help
-autocmd MyAutoCmd FileType help nnoremap <silent><buffer> <space>q :q<CR>
 
 " load opt plugins
 autocmd MyAutoCmd BufEnter * call timer_start(300, function('pack_opt#plugins'))
@@ -512,7 +510,7 @@ autocmd MyAutoCmd Syntax javascript setlocal isk+=$
 autocmd MyAutoCmd FileType javascript setlocal dictionary+=$HOME/.vim/dict/javascript.dict
 autocmd MyAutoCmd FileType vim setlocal dictionary+=$HOME/.vim/dict/vim.dict
 
-" Update diff.
+" Update diff
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
 autocmd MyAutoCmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
 
