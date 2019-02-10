@@ -22,24 +22,6 @@ filetype plugin indent on
 
 autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
-"""" bracketed paste
-let &t_ti .= "\<Esc>[?2004h"
-let &t_te = "\e[?2004l" . &t_te
-
-function! XTermPasteBegin(ret)
-  set pastetoggle=<f29>
-  set paste
-  return a:ret
-endfunction
-
-execute "set <f28>=\<Esc>[200~"
-execute "set <f29>=\<Esc>[201~"
-map <expr> <f28> XTermPasteBegin("i")
-imap <expr> <f28> XTermPasteBegin("")
-vmap <expr> <f28> XTermPasteBegin("c")
-cmap <f28> <nop>
-cmap <f29> <nop>
-
 """" termguicolors
 if !has('gui_running')
       \ && exists('+termguicolors')
@@ -57,23 +39,6 @@ if (&term =~# '^tmux') || (&term =~# '^xterm-kitty')
   execute "set <xRight>=\e[1;*C"
   execute "set <xLeft>=\e[1;*D"
 endif
-
-"""" Alt-arrows move between windows
-nnoremap <silent> [1;3A <C-w><Up>
-nnoremap <silent> [1;3B <C-w><Down>
-nnoremap <silent> [1;3C <C-w><Right>
-nnoremap <silent> [1;3D <C-w><Left>
-nnoremap <silent>v  :<C-u>vsplit<CR>
-nnoremap <silent>s  :<C-u>split<CR>
-nnoremap <silent>o  :<C-u>only<CR>
-nnoremap <silent>c  :<C-u>close<CR>
-nnoremap <silent>t  :<C-u>tab split<CR>
-
-"""" Alt-hjkl resize windows
-nnoremap <silent> l :vertical resize +5<cr>
-nnoremap <silent> h :vertical resize -5<cr>
-nnoremap <silent> j :resize +5<cr>
-nnoremap <silent> k :resize -5<cr>
 
 """" cursorshape
 if exists('$TMUX')
@@ -105,7 +70,7 @@ set shell=/bin/sh
 """" path
 set path& | let &path .= '**'
 
-" Default home directory.
+" default home directory.
 let t:cwd = getcwd()
 
 """" backup
@@ -177,7 +142,6 @@ set ruler
 """" list
 set list
 let &listchars = 'tab:▸ ,space:·,extends:❯,precedes:❮,nbsp:ø'
-let &fillchars = 'vert: ,diff: '  " ▚
 autocmd MyAutoCmd InsertEnter * set listchars-=trail:⣿
 autocmd MyAutoCmd InsertLeave * set listchars+=trail:⣿
 
@@ -234,30 +198,6 @@ set ttimeout
 set ttimeoutlen=10
 set ttyfast
 set lazyredraw
-
-"""" sessions
-function! MakeSession()
-  let b:sessiondir = $CACHE . '/sessions' . getcwd()
-  if (filewritable(b:sessiondir) != 2)
-    call mkdir(b:sessiondir,'p')
-    redraw!
-  endif
-  let b:filename = b:sessiondir . '/session.vim'
-  exe 'mksession! ' . b:filename
-endfunction
-
-function! LoadSession()
-  let b:sessiondir = $CACHE . '/sessions' . getcwd()
-  let b:sessionfile = b:sessiondir . '/session.vim'
-  if (filereadable(b:sessionfile))
-    exe 'source ' b:sessionfile
-  else
-    echo 'No session loaded.'
-  endif
-endfunction
-command! -nargs=0 SS call LoadSession()
-
-autocmd MyAutoCmd VimLeave * :call MakeSession()
 
 let g:is_bash = 1
 let g:sh_noisk = 1
@@ -323,47 +263,7 @@ nnoremap [<space> m`O<Esc>``
 """" search with vimgrep in buffer
 nnoremap <leader>l :vimgrep //j %<BAR>cw<s-left><s-left><right>
 
-"""" whitespace
-command! WS %s/\s\+$// | normal! ``
-
-"""" grep
-function! s:vgrep(args)
-  let l:grep_command = 'grep --exclude-dir={.git,tag} -nHRI'
-  let expr = l:grep_command.' '.a:args
-  cgetexpr system(expr)
-  cwindow
-  let @/=a:args
-  setlocal hlsearch
-  echo 'Number of matches: ' . len(getqflist())
-endfunction
-
-command! -nargs=+ VG :call s:vgrep(<q-args>)
-
-" auto escape in command-line mode
-cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
-cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
-
 """" plugins
-"""" netrw
-let g:netrw_localrmdir='rm -r'
-let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
-
-function! InNetrw()
-  nmap <buffer> <right> <cr>
-  nmap <buffer> <left> -
-  nmap <buffer> = G<cr>
-  nmap <buffer> l qf
-endfunction
-
-autocmd MyAutoCmd FileType netrw call InNetrw()
-
-"""" editorconfig
-let g:editorconfig_root_chdir = 1
-let g:editorconfig_verbose = 1
-let g:editorconfig_blacklist = {
-      \ 'filetype': ['git.*', 'fugitive'],
-      \ 'pattern': ['\.un~$']}
-
 """" ale
 let g:ale_linters_explicit = 1
 let g:ale_set_highlights = 0
@@ -397,21 +297,6 @@ let g:ale_linters = {
 nmap <silent> <leader>j <Plug>(ale_previous_wrap)
 nmap <silent> <leader>k <Plug>(ale_next_wrap)
 
-"""" fzy
-function! FzyCommand(choice_command, vim_command)
-  try
-    let output = system(a:choice_command . ' | fzy ')
-  catch /Vim:Interrupt/
-    " Swallow errors from ^C, allow redraw! below
-  endtry
-  redraw!
-  if v:shell_error == 0 && !empty(output)
-    exec a:vim_command . ' ' . output
-  endif
-endfunction
-
-nnoremap <c-p> :call FzyCommand("fd --type f --hidden --exclude '.git' .", ":e")<cr>
-
 """" grepper
 let g:grepper = {}
 let g:grepper.highlight = 1
@@ -439,40 +324,8 @@ let g:highlightedyank_highlight_duration = 200
 """" tagbar
 nnoremap <leader>t :TagbarOpenAutoClose<cr>
 
-"""" quickrun
-let g:quickrun_config = {
-      \'_': {
-      \'runner': 'job',
-      \'outputter' : 'error',
-      \'outputter/error/success' : 'buffer',
-      \'outputter/error/error'   : 'quickfix',
-      \'outputter/quickfix/open_cmd' : 'copen',
-      \'outputter/buffer/split' : ':botright 8sp',
-      \'outputter/buffer/close_on_empty': 1,
-      \'hook/quickfix_status_enable/enable_exit' : 1,
-      \'hook/quickfix_replace_tempname_to_bufnr/enable' : 1,
-      \'hook/quickfix_replace_tempname_to_bufnr/enable_exit' : 1,
-      \'hook/quickfix_replace_tempname_to_bufnr/priority_exit' : -10,
-      \},
-      \}
-
 """" cool
 let g:CoolTotalMatches = 1
-
-"""" search
-cnoremap <expr> <Tab>   getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-z>"
-cnoremap <expr> <S-Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>?<C-r>/" : "<S-Tab>"
-
-"""" paste inline
-function! ZeroPaste(p)
-  let l:original_reg = getreg(v:register)
-  let l:stripped_reg = substitute(l:original_reg, '\v^%(\n|\s)*(.{-})%(\n|\s)*$', '\1', '')
-  call setreg(v:register, l:stripped_reg, 'c')
-  exe 'normal "' . v:register . a:p
-  call setreg(v:register, l:original_reg)
-endfunction
-nnoremap <silent> zp :<c-u>call ZeroPaste('p')<cr>
-nnoremap <silent> zP :<c-u>call ZeroPaste('P')<cr>
 
 """" jsx
 let g:jsx_ext_required = 0
@@ -492,10 +345,6 @@ autocmd MyAutoCmd BufNewFile,BufRead *.fish setlocal filetype=fish
 autocmd MyAutoCmd BufNewFile,BufRead *.coffee set filetype=coffee
 autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.yml set filetype=yaml
-
-"""" quickfix on entire tab
-autocmd MyAutoCmd FileType qf wincmd J
-autocmd MyAutoCmd FileType qf nnoremap <silent><buffer> <space>q :q<CR>
 
 " load opt plugins
 autocmd MyAutoCmd BufEnter * call timer_start(300, function('pack_opt#plugins'))
