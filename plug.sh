@@ -10,11 +10,13 @@ cd pack/bundle/start/
 start=(
    "sgur/vim-editorconfig"
    "tpope/vim-fugitive"
+   "idanarye/vim-merginal"
    "airblade/vim-gitgutter"
    "tpope/vim-vinegar"
    "markonm/traces.vim"
    "AndrewRadev/inline_edit.vim"
    "bsdelf/bufferhint"
+   "junegunn/vim-after-object"
 )
 
 for element in "${start[@]}"; do

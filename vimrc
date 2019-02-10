@@ -273,10 +273,11 @@ let g:ale_pattern_options_enabled = 1
 let g:ale_pattern_options = {
       \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
       \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+      \ 'node_modules/': { 'ale_enabled': 0 },
       \}
 let g:ale_fix_on_save = 1
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
+let g:ale_sign_warning = '──'
+let g:ale_sign_error = '══'
 
 let g:ale_fixers = {
       \ 'javascript': ['eslint'],
@@ -294,8 +295,8 @@ let g:ale_linters = {
       \ 'nix': ['nix'],
       \ 'html': ['elsint']
       \}
-nmap <silent> <leader>j <Plug>(ale_previous_wrap)
-nmap <silent> <leader>k <Plug>(ale_next_wrap)
+nmap ]a <Plug>(ale_next_wrap)
+nmap [a <Plug>(ale_previous_wrap)
 
 """" grepper
 let g:grepper = {}
@@ -313,10 +314,14 @@ noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 let g:undotree_WindowLayout = 4
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
+nnoremap U :UndotreeToggle<CR>
 
 """" alingta
 vnoremap i: :Alignta =><Space>
 vnoremap <silent> i= :Alignta => =/1<CR>
+
+"""" after-object
+autocmd MyAutoCmd VimEnter * call after_object#enable('=', ':', '-', '|', ' ', '*', '#')
 
 """" highlightedyank
 let g:highlightedyank_highlight_duration = 200
