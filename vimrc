@@ -264,6 +264,19 @@ nnoremap [<space> m`O<Esc>``
 nnoremap <leader>l :vimgrep //j %<BAR>cw<s-left><s-left><right>
 
 """" plugins
+let g:netrw_localrmdir='rm -r'
+let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
+let g:netrw_sort_dotfiles_first = 1
+
+function! InNetrw()
+  nmap <buffer> <right> <cr>
+  nmap <buffer> <left> -
+  nmap <buffer> = G<cr>
+  nmap <buffer> l qf
+endfunction
+
+autocmd MyAutoCmd FileType netrw call InNetrw()
+
 """" ale
 let g:ale_linters_explicit = 1
 let g:ale_set_highlights = 0
@@ -320,9 +333,6 @@ nnoremap U :UndotreeToggle<CR>
 vnoremap i: :Alignta =><Space>
 vnoremap <silent> i= :Alignta => =/1<CR>
 
-"""" after-object
-autocmd MyAutoCmd VimEnter * call after_object#enable('=', ':', '-', '|', ' ', '*', '#')
-
 """" highlightedyank
 let g:highlightedyank_highlight_duration = 200
 
@@ -336,13 +346,13 @@ let g:CoolTotalMatches = 1
 let g:jsx_ext_required = 0
 
 """" filetype
-autocmd MyAutoCmd BufRead,BufNewFile *  setfiletype txt
+autocmd MyAutoCmd BufRead,BufNewFile * setfiletype txt
 autocmd MyAutoCmd BufRead,BufNewFile *.gitignore  set filetype=gitignore
 autocmd MyAutoCmd BufNewFile,BufRead *.vim set filetype=vim
 autocmd MyAutoCmd BufNewFile,BufRead *.twig set filetype=html.twig
 autocmd MyAutoCmd BufNewFile,BufRead *.nix set filetype=nix
 autocmd MyAutoCmd BufNewFile,BufRead *.md set filetype=markdown
-autocmd MyAutoCmd BufNewFile,BufRead *.ldg,*.ledger set filetype=ledger
+autocmd MyAutoCmd BufNewFile,BufRead .ledger set filetype=ledger
 autocmd MyAutoCmd BufNewFile,BufRead *.j2 set filetype=jinja
 autocmd MyAutoCmd BufNewFile,BufRead *.js set filetype=javascript
 autocmd MyAutoCmd BufNewFile,BufRead *.html set filetype=html
@@ -364,9 +374,19 @@ autocmd MyAutoCmd Syntax javascript setlocal isk+=$
 autocmd MyAutoCmd FileType javascript setlocal dictionary+=$HOME/.vim/dict/javascript.dict
 autocmd MyAutoCmd FileType vim setlocal dictionary+=$HOME/.vim/dict/vim.dict
 
-" Update diff
+" update diff
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
+
+" external changes
 autocmd MyAutoCmd FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
+
+" keep clipboard content
+autocmd MyAutoCmd VimLeave * call system("xclip -sel clip -i", getreg('+'))
+
+" qf and help keep widow full width
+autocmd MyAutoCmd FileType qf wincmd J
+autocmd MyAutoCmd BufWinEnter * if &ft == 'help' | wincmd J | end
+
 
 """" Colorscheme
 set background=dark
@@ -379,6 +399,5 @@ hi StatusLine cterm=reverse gui=reverse ctermfg=14 ctermbg=8 guifg=#3b3f3f guibg
 hi StatusLineNC cterm=reverse gui=reverse ctermfg=11 ctermbg=0 guifg=#3e4647 guibg=#073642
 hi User1 ctermfg=14 ctermbg=0 guifg=#3b3f3f guibg=#262730
 highlight IsModified ctermbg=237 ctermfg=160
-
 
 set secure
