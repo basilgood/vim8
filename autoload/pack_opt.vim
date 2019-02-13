@@ -18,4 +18,5 @@ function! pack_opt#plugins(...) abort
   packadd tagbar
   packadd starsearch.vim
   packadd vim-grepper
+  packadd vim-matchup
 endfunction

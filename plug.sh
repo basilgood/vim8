@@ -46,6 +46,7 @@ opt=(
    "majutsushi/tagbar"
    "darfink/starsearch.vim"
    "mhinz/vim-grepper"
+   "andymass/vim-matchup"
 )
 
 for element in "${opt[@]}"; do
