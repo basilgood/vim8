@@ -28,13 +28,13 @@ if &background ==# 'dark'
     hi CursorLineNr ctermfg=214 ctermbg=NONE guifg=#fabd2f guibg=NONE guisp=NONE cterm=NONE gui=NONE
     hi FoldColumn ctermfg=102 ctermbg=NONE guifg=#928374 guibg=NONE guisp=NONE cterm=NONE gui=NONE
     hi SignColumn ctermfg=187 ctermbg=NONE guifg=#ebdbb2 guibg=NONE guisp=NONE cterm=NONE gui=NONE
-    hi VertSplit ctermfg=59 ctermbg=NONE guifg=#808080 guibg=#080808 guisp=NONE cterm=NONE gui=NONE
+    hi VertSplit ctermfg=247 ctermbg=247 guifg=#080808 guibg=#080808 guisp=NONE cterm=NONE gui=NONE
   else
     hi Normal ctermfg=187 ctermbg=234 guifg=#ebdbb2 guibg=#1d2021 guisp=NONE cterm=NONE gui=NONE
     hi CursorLineNr ctermfg=214 ctermbg=237 guifg=#fabd2f guibg=#3c3836 guisp=NONE cterm=NONE gui=NONE
     hi FoldColumn ctermfg=102 ctermbg=237 guifg=#928374 guibg=#3c3836 guisp=NONE cterm=NONE gui=NONE
     hi SignColumn ctermfg=187 ctermbg=237 guifg=#ebdbb2 guibg=#3c3836 guisp=NONE cterm=NONE gui=NONE
-    hi VertSplit ctermfg=59 ctermbg=234 guifg=#808080 guibg=#080808 guisp=NONE cterm=NONE gui=NONE
+    hi VertSplit ctermfg=247 ctermbg=247 guifg=#080808 guibg=#080808 guisp=NONE cterm=NONE gui=NONE
   endif
   hi ColorColumn ctermfg=NONE ctermbg=237 guifg=NONE guibg=#3c3836 guisp=NONE cterm=NONE gui=NONE
   hi Conceal ctermfg=109 ctermbg=NONE guifg=#83a598 guibg=NONE guisp=NONE cterm=NONE gui=NONE
@@ -51,7 +51,7 @@ if &background ==# 'dark'
   hi ErrorMsg ctermfg=234 ctermbg=203 guifg=#1d2021 guibg=#fb4934 guisp=NONE cterm=NONE,bold gui=NONE,bold
   hi Folded ctermfg=102 ctermbg=237 guifg=#928374 guibg=#3c3836 guisp=NONE cterm=NONE gui=NONE,italic
   hi IncSearch ctermfg=208 ctermbg=234 guifg=#fe8019 guibg=#1d2021 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
-  hi LineNr ctermfg=243 ctermbg=NONE guifg=#7c6f64 guibg=NONE guisp=NONE cterm=NONE gui=NONE
+  hi LineNr           ctermbg=234  ctermfg=242  guibg=#141413 guifg=#5c6370 cterm=NONE           gui=NONE
   hi MatchParen ctermfg=NONE ctermbg=59 guifg=NONE guibg=#665c54 guisp=NONE cterm=NONE,bold gui=NONE,bold
   hi ModeMsg ctermfg=214 ctermbg=NONE guifg=#fabd2f guibg=NONE guisp=NONE cterm=NONE,bold gui=NONE,bold
   hi MoreMsg ctermfg=214 ctermbg=NONE guifg=#fabd2f guibg=NONE guisp=NONE cterm=NONE,bold gui=NONE,bold
@@ -618,13 +618,13 @@ if !has('gui_running') && get(g:, 'gruvbox_transp_bg', 0)
   hi CursorLineNr ctermfg=172 ctermbg=NONE guifg=#b57614 guibg=NONE guisp=NONE cterm=NONE gui=NONE
   hi FoldColumn ctermfg=102 ctermbg=NONE guifg=#928374 guibg=NONE guisp=NONE cterm=NONE gui=NONE
   hi SignColumn ctermfg=237 ctermbg=NONE guifg=#3c3836 guibg=NONE guisp=NONE cterm=NONE gui=NONE
-  hi VertSplit ctermfg=144 ctermbg=NONE guifg=#808080 guibg=NONE guisp=NONE cterm=NONE gui=NONE
+  hi VertSplit ctermfg=247 ctermbg=247 guifg=#080808 guibg=#080808 guisp=NONE cterm=NONE gui=NONE
 else
   hi Normal ctermfg=237 ctermbg=229 guifg=#3c3836 guibg=#f9f5d7 guisp=NONE cterm=NONE gui=NONE
   hi CursorLineNr ctermfg=172 ctermbg=187 guifg=#b57614 guibg=#ebdbb2 guisp=NONE cterm=NONE gui=NONE
   hi FoldColumn ctermfg=102 ctermbg=187 guifg=#928374 guibg=#ebdbb2 guisp=NONE cterm=NONE gui=NONE
   hi SignColumn ctermfg=237 ctermbg=187 guifg=#3c3836 guibg=#ebdbb2 guisp=NONE cterm=NONE gui=NONE
-  hi VertSplit ctermfg=144 ctermbg=229 guifg=#808080 guibg=#f9f5d7 guisp=NONE cterm=NONE gui=NONE
+  hi VertSplit ctermfg=247 ctermbg=247 guifg=#080808 guibg=#080808 guisp=NONE cterm=NONE gui=NONE
 endif
 hi ColorColumn ctermfg=NONE ctermbg=187 guifg=NONE guibg=#ebdbb2 guisp=NONE cterm=NONE gui=NONE
 hi Conceal ctermfg=23 ctermbg=NONE guifg=#076678 guibg=NONE guisp=NONE cterm=NONE gui=NONE
@@ -641,7 +641,7 @@ hi Error ctermfg=124 ctermbg=229 guifg=#9d0006 guibg=#f9f5d7 guisp=NONE cterm=NO
 hi ErrorMsg ctermfg=229 ctermbg=124 guifg=#f9f5d7 guibg=#9d0006 guisp=NONE cterm=NONE,bold gui=NONE,bold
 hi Folded ctermfg=102 ctermbg=187 guifg=#928374 guibg=#ebdbb2 guisp=NONE cterm=NONE gui=NONE,italic
 hi IncSearch ctermfg=124 ctermbg=229 guifg=#af3a03 guibg=#f9f5d7 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
-hi LineNr ctermfg=137 ctermbg=NONE guifg=#a89984 guibg=NONE guisp=NONE cterm=NONE gui=NONE
+hi LineNr           ctermbg=234  ctermfg=242  guibg=#141413 guifg=#5c6370 cterm=NONE           gui=NONE
 hi MatchParen ctermfg=NONE ctermbg=144 guifg=NONE guibg=#bdae93 guisp=NONE cterm=NONE,bold gui=NONE,bold
 hi ModeMsg ctermfg=172 ctermbg=NONE guifg=#b57614 guibg=NONE guisp=NONE cterm=NONE,bold gui=NONE,bold
 hi MoreMsg ctermfg=172 ctermbg=NONE guifg=#b57614 guibg=NONE guisp=NONE cterm=NONE,bold gui=NONE,bold
