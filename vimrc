@@ -290,8 +290,8 @@ let g:ale_pattern_options = {
       \ 'node_modules/': { 'ale_enabled': 0 },
       \}
 let g:ale_fix_on_save = 1
-let g:ale_sign_warning = '──'
-let g:ale_sign_error = '══'
+let g:ale_sign_warning = '◉'
+let g:ale_sign_error = '◉'
 
 let g:ale_fixers = {
       \ 'javascript': ['eslint'],
@@ -324,12 +324,6 @@ nnoremap \' :call bufferhint#LoadPrevious()<cr>
 noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
 noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
-"""" undotree
-let g:undotree_WindowLayout = 4
-let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_ShortIndicators = 1
-nnoremap U :UndotreeToggle<CR>
-
 """" alingta
 vnoremap i: :Alignta =><Space>
 vnoremap <silent> i= :Alignta => =/1<CR>
@@ -340,14 +334,16 @@ let g:highlightedyank_highlight_duration = 200
 """" tagbar
 nnoremap <leader>t :TagbarOpenAutoClose<cr>
 
-"""" cool
-let g:CoolTotalMatches = 1
-
 """" jsx
 let g:jsx_ext_required = 0
 
-"""" matchup
-let g:matchup_matchparen_deferred = 1
+"""" layers
+runtime layers/vim-cool.vim
+runtime layers/undotree.vim
+runtime layers/vim-matchup.vim
+runtime layers/cmdline-completion.vim
+runtime layers/hlyank.vim
+runtime layers/ale.vim
 
 """" filetype
 autocmd MyAutoCmd BufRead,BufNewFile * setfiletype txt
@@ -390,7 +386,6 @@ autocmd MyAutoCmd VimLeave * call system("xclip -sel clip -i", getreg('+'))
 " qf and help keep widow full width
 autocmd MyAutoCmd FileType qf wincmd J
 autocmd MyAutoCmd BufWinEnter * if &ft == 'help' | wincmd J | end
-
 
 """" Colorscheme
 set background=dark
