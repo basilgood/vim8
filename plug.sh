@@ -33,6 +33,7 @@ opt=(
    "tpope/vim-repeat"
    "tpope/vim-commentary"
    "tpope/vim-surround"
+   "tpope/vim-scriptease"
    "PanagiotisS/LargeFile"
    "neoclide/vim-jsx-improve"
    "sgur/cmdline-completion"
@@ -47,6 +48,7 @@ opt=(
    "darfink/starsearch.vim"
    "mhinz/vim-grepper"
    "andymass/vim-matchup"
+   "tommcdo/vim-exchange"
 )
 
 for element in "${opt[@]}"; do
