@@ -8,15 +8,15 @@ fi
 cd pack/bundle/start/
 
 start=(
-   "sgur/vim-editorconfig"
-   "tpope/vim-fugitive"
-   "idanarye/vim-merginal"
-   "airblade/vim-gitgutter"
-   "tpope/vim-vinegar"
-   "markonm/traces.vim"
-   "AndrewRadev/inline_edit.vim"
-   "bsdelf/bufferhint"
-   "tpope/vim-repeat"
+  "sgur/vim-editorconfig"
+  "tpope/vim-fugitive"
+  "idanarye/vim-merginal"
+  "airblade/vim-gitgutter"
+  "tpope/vim-vinegar"
+  "markonm/traces.vim"
+  "AndrewRadev/inline_edit.vim"
+  "bsdelf/bufferhint"
+  "tpope/vim-repeat"
 )
 
 for element in "${start[@]}"; do
@@ -29,26 +29,26 @@ done
 cd ../opt/
 
 opt=(
-   "w0rp/ale"
-   "thinca/vim-quickrun"
-   "tpope/vim-commentary"
-   "tpope/vim-surround"
-   "tpope/vim-scriptease"
-   "PanagiotisS/LargeFile"
-   "neoclide/vim-jsx-improve"
-   "sgur/cmdline-completion"
-   "terryma/vim-expand-region"
-   "stefandtw/quickfix-reflector.vim"
-   "markonm/hlyank.vim"
-   "romainl/vim-cool"
-   "mbbill/undotree"
-   "yuttie/comfortable-motion.vim"
-   "majutsushi/tagbar"
-   "darfink/starsearch.vim"
-   "mhinz/vim-grepper"
-   "andymass/vim-matchup"
-   "tommcdo/vim-exchange"
-   "junegunn/vim-easy-align"
+  "w0rp/ale"
+  "thinca/vim-quickrun"
+  "tpope/vim-commentary"
+  "tpope/vim-surround"
+  "tpope/vim-scriptease"
+  "PanagiotisS/LargeFile"
+  "neoclide/vim-jsx-improve"
+  "sgur/cmdline-completion"
+  "terryma/vim-expand-region"
+  "stefandtw/quickfix-reflector.vim"
+  "markonm/hlyank.vim"
+  "romainl/vim-cool"
+  "mbbill/undotree"
+  "yuttie/comfortable-motion.vim"
+  "majutsushi/tagbar"
+  "darfink/starsearch.vim"
+  "mhinz/vim-grepper"
+  "andymass/vim-matchup"
+  "tommcdo/vim-exchange"
+  "junegunn/vim-easy-align"
 )
 
 for element in "${opt[@]}"; do
