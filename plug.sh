@@ -16,6 +16,7 @@ start=(
    "markonm/traces.vim"
    "AndrewRadev/inline_edit.vim"
    "bsdelf/bufferhint"
+   "tpope/vim-repeat"
 )
 
 for element in "${start[@]}"; do
@@ -30,14 +31,12 @@ cd ../opt/
 opt=(
    "w0rp/ale"
    "thinca/vim-quickrun"
-   "tpope/vim-repeat"
    "tpope/vim-commentary"
    "tpope/vim-surround"
    "tpope/vim-scriptease"
    "PanagiotisS/LargeFile"
    "neoclide/vim-jsx-improve"
    "sgur/cmdline-completion"
-   "h1mesuke/vim-alignta"
    "terryma/vim-expand-region"
    "stefandtw/quickfix-reflector.vim"
    "markonm/hlyank.vim"
@@ -49,6 +48,7 @@ opt=(
    "mhinz/vim-grepper"
    "andymass/vim-matchup"
    "tommcdo/vim-exchange"
+   "junegunn/vim-easy-align"
 )
 
 for element in "${opt[@]}"; do
