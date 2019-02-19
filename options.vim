@@ -68,23 +68,6 @@ set report=0
 set shortmess+=Ia
 set laststatus=2
 
-set statusline=
-set statusline+=%(%{&buflisted?bufnr('%'):''}\ \ %)
-set statusline+=%<
-set statusline+=%t
-set statusline+=%#IsModified#%{&mod?'\ +\ +\ +':''}
-set statusline+=%#IsNotModified#%{&mod?'\ ':''}
-set statusline+=%{&readonly?'\ ':''}
-set statusline+=\ %1*
-set statusline+=%=
-set statusline+=%*
-set statusline+=\ %{exists('g:loaded_fugitive')?\ fugitive#head():''}
-set statusline+=\ %*
-set statusline+=\ %{&filetype!=#''?&filetype:'none'}
-set statusline+=\ %*
-set statusline+=\ %-3c
-set statusline+=:%{printf('%'.(len(line('$'))).'d/%d',line('.'),line('$'))}
-
 """" tabs/indent levels
 set autoindent
 set softtabstop=2
