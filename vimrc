@@ -34,7 +34,7 @@ if !has('gui_running')
 endif
 
 """" arrow keys
-if (&term =~# '^tmux') || (&term =~# '^xterm-kitty')
+if (&term =~# '^tmux') || (&term =~# '^alacritty-256color')
   execute "set <xUp>=\e[1;*A"
   execute "set <xDown>=\e[1;*B"
   execute "set <xRight>=\e[1;*C"
@@ -66,7 +66,7 @@ silent! call s:EnsureDirExists($CACHE)
 set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
 
 """" shell
-set shell=/bin/sh
+set shell=/usr/bin/env\ bash
 
 """" path
 set path& | let &path .= '**'
@@ -89,11 +89,7 @@ silent! call s:EnsureDirExists(&undodir)
 let g:is_bash = 1
 let g:sh_noisk = 1
 
-"""" search with vimgrep in buffer
-nnoremap <leader>l :vimgrep //j %<BAR>cw<s-left><s-left><right>
-
 """" plugins
-
 """" grepper
 let g:grepper = {}
 let g:grepper.highlight = 1
@@ -101,13 +97,6 @@ let g:grepper.highlight = 1
 """" bufferhint
 nnoremap <Bs> :call bufferhint#Popup()<cr>
 nnoremap \' :call bufferhint#LoadPrevious()<cr>
-
-"""" comfortable motion
-noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
-noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
-
-"""" tagbar
-nnoremap <leader>t :TagbarOpenAutoClose<cr>
 
 """" layers
 runtime options.vim

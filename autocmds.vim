@@ -16,9 +16,6 @@ autocmd MyAutoCmd BufNewFile,BufRead *.coffee set filetype=coffee
 autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.yml set filetype=yaml
 
-" load opt plugins
-autocmd MyAutoCmd BufEnter * call timer_start(300, function('pack_opt#plugins'))
-
 " jump to the last spot the cursor was at in a file when reading it.
 autocmd MyAutoCmd BufReadPost *
       \ if line("'\"") > 1 && line("'\"") <= line("$") |
