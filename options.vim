@@ -52,13 +52,12 @@ set formatoptions+=1
 set number
 set mouse=a
 set cursorline
-set ruler
 
 """" list
 set list
-let &listchars = 'tab:▸ ,space:·,extends:❯,precedes:❮,nbsp:ø'
-autocmd MyAutoCmd InsertEnter * set listchars-=trail:⣿
-autocmd MyAutoCmd InsertLeave * set listchars+=trail:⣿
+let &listchars = 'tab:▸ ,space:‧,extends:❯,precedes:❮,nbsp:⁙'
+autocmd MyAutoCmd InsertEnter * set listchars-=trail:჻
+autocmd MyAutoCmd InsertLeave * set listchars+=trail:჻
 
 """" messages, info, status
 set visualbell t_vb=

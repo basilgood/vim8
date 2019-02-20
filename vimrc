@@ -71,9 +71,6 @@ set shell=/usr/bin/env\ bash
 """" path
 set path& | let &path .= '**'
 
-" default home directory.
-let t:cwd = getcwd()
-
 """" backup
 set nobackup
 set nowritebackup

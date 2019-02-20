@@ -17,7 +17,7 @@ let g:colors_name="onehalfdark"
 let colors_name="onehalfdark"
 
 
-let s:black       = { "gui": "#282c34", "cterm": "236" }
+let s:black       = { "gui": "#1d2026", "cterm": "236" }
 let s:red         = { "gui": "#e06c75", "cterm": "168" }
 let s:green       = { "gui": "#98c379", "cterm": "114" }
 let s:yellow      = { "gui": "#e5c07b", "cterm": "180" }
@@ -173,6 +173,9 @@ call s:h("diffAdded", s:green, "", "")
 call s:h("diffRemoved", s:red, "", "")
 " }
 
+" ALE lint
+call s:h("ALEWarningSign", s:yellow, s:gutter_bg, "")
+call s:h("ALEErrorSign", s:red, s:gutter_bg, "")
 
 " Git {
 call s:h("gitcommitComment", s:comment_fg, "", "")
@@ -187,13 +190,6 @@ call s:h("gitcommitDiscardedFile", s:red, "", "")
 call s:h("gitcommitSelectedFile", s:green, "", "")
 call s:h("gitcommitUnmergedFile", s:yellow, "", "")
 call s:h("gitcommitFile", s:fg, "", "")
-hi link gitcommitNoBranch gitcommitBranch
-hi link gitcommitUntracked gitcommitComment
-hi link gitcommitDiscarded gitcommitComment
-hi link gitcommitSelected gitcommitComment
-hi link gitcommitDiscardedArrow gitcommitDiscardedFile
-hi link gitcommitSelectedArrow gitcommitSelectedFile
-hi link gitcommitUnmergedArrow gitcommitUnmergedFile
 " }
 
 " Fix colors in neovim terminal buffers {
