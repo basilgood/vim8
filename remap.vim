@@ -56,3 +56,9 @@ nnoremap <space>n :nohlsearch<CR>
 """" add a blank line above/below
 nnoremap ]<space> m`o<Esc>``
 nnoremap [<space> m`O<Esc>``
+
+"""" mistype
+cabbrev Qa qa
+cabbrev QA qa
+cabbrev Wq wq
+cabbrev WQ wq

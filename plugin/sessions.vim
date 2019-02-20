@@ -20,5 +20,6 @@ function! LoadSession()
   endif
 endfunction
 command! -nargs=0 SS call LoadSession()
+cabbrev ss SS
 
 autocmd MyAutoCmd VimLeave * :call MakeSession()

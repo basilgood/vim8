@@ -10,4 +10,4 @@ function! s:vgrep(args)
   echo 'Number of matches: ' . len(getqflist())
 endfunction
 
-command! -nargs=+ VG :call s:vgrep(<q-args>)
+command! -nargs=+ Ack :call s:vgrep(<q-args>)
