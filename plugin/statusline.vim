@@ -1,6 +1,5 @@
 scriptencoding utf-8
 
-set laststatus=2
 highlight User1 ctermbg=236 guibg=#303030 ctermfg=10  guifg=#42cf89 gui=NONE | " green
 highlight User2 ctermbg=236 guibg=#303030 ctermfg=4   guifg=#80a0ff gui=NONE | " blue
 highlight User3 ctermbg=9   guibg=#f74782 ctermfg=234 guifg=#1c1c1c gui=NONE | " red
