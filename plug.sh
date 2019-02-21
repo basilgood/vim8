@@ -49,6 +49,7 @@ opt=(
   "andymass/vim-matchup"
   "tommcdo/vim-exchange"
   "junegunn/vim-easy-align"
+  "benmills/vimux"
 )
 
 for element in "${opt[@]}"; do
