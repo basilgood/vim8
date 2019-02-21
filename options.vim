@@ -65,7 +65,6 @@ set confirm
 set showcmd
 set report=0
 set shortmess+=Ia
-set laststatus=2
 
 """" tabs/indent levels
 set autoindent

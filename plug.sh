@@ -17,7 +17,6 @@ start=(
   "AndrewRadev/inline_edit.vim"
   "bsdelf/bufferhint"
   "tpope/vim-repeat"
-  "basilgood/vim-moonfly-statusline"
 )
 
 for element in "${start[@]}"; do
