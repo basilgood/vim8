@@ -17,6 +17,9 @@ start=(
   "AndrewRadev/inline_edit.vim"
   "bsdelf/bufferhint"
   "tpope/vim-repeat"
+  "basilgood/agrep"
+  "itchyny/vim-parenmatch"
+  "kana/vim-textobj-user"
 )
 
 for element in "${start[@]}"; do
@@ -46,10 +49,15 @@ opt=(
   "majutsushi/tagbar"
   "darfink/starsearch.vim"
   "mhinz/vim-grepper"
-  "andymass/vim-matchup"
   "tommcdo/vim-exchange"
   "junegunn/vim-easy-align"
   "benmills/vimux"
+  "itchyny/vim-winfix"
+  "itchyny/vim-cmdline-ranges"
+  "itchyny/vim-tmpbuffer"
+  "beloglazov/vim-textobj-quotes"
+  "kana/vim-textobj-line"
+  "kana/vim-textobj-jabraces"
 )
 
 for element in "${opt[@]}"; do

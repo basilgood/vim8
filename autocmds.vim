@@ -22,6 +22,7 @@ autocmd MyAutoCmd BufReadPost *
       \   silent! exe 'normal! g`"zzza' |
       \ endif
 
+"""" autocompletion
 autocmd MyAutoCmd Syntax javascript setlocal isk+=$
 autocmd MyAutoCmd FileType javascript setlocal dictionary+=$HOME/.vim/dict/javascript.dict
 autocmd MyAutoCmd FileType vim setlocal dictionary+=$HOME/.vim/dict/vim.dict

@@ -20,7 +20,7 @@ augroup END
 syntax enable
 filetype plugin indent on
 
-let g:loaded_matchit = 1
+let g:loaded_matchparen = 1
 autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
 """" termguicolors
@@ -34,7 +34,7 @@ if !has('gui_running')
 endif
 
 """" arrow keys
-if (&term =~# '^tmux') || (&term =~# '^alacritty-256color')
+if (&term =~# '^tmux') || (&term =~# '^alacritty')
   execute "set <xUp>=\e[1;*A"
   execute "set <xDown>=\e[1;*B"
   execute "set <xRight>=\e[1;*C"
@@ -70,6 +70,9 @@ set shell=/usr/bin/env\ bash
 
 """" path
 set path& | let &path .= '**'
+
+"""" per project vimrc
+set exrc
 
 """" backup
 set nobackup
