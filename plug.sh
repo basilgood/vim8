@@ -20,6 +20,8 @@ start=(
   "basilgood/agrep"
   "itchyny/vim-parenmatch"
   "kana/vim-textobj-user"
+  "drmikehenry/vim-fixkey"
+  "prettier/vim-prettier"
 )
 
 for element in "${start[@]}"; do
