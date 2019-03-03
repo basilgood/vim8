@@ -51,7 +51,6 @@ opt=(
   "yuttie/comfortable-motion.vim"
   "majutsushi/tagbar"
   "darfink/starsearch.vim"
-  "mhinz/vim-grepper"
   "tommcdo/vim-exchange"
   "junegunn/vim-easy-align"
   "benmills/vimux"
@@ -61,7 +60,6 @@ opt=(
   "kana/vim-textobj-line"
   "rhysd/vim-textobj-anyblock"
   "osyo-manga/vim-precious"
-  "junegunn/vim-peekaboo"
 )
 
 for element in "${opt[@]}"; do
