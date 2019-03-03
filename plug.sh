@@ -22,6 +22,7 @@ start=(
   "kana/vim-textobj-user"
   "drmikehenry/vim-fixkey"
   "prettier/vim-prettier"
+  "Shougo/context_filetype.vim"
 )
 
 for element in "${start[@]}"; do
@@ -57,9 +58,10 @@ opt=(
   "itchyny/vim-winfix"
   "itchyny/vim-cmdline-ranges"
   "itchyny/vim-tmpbuffer"
-  "beloglazov/vim-textobj-quotes"
   "kana/vim-textobj-line"
-  "kana/vim-textobj-jabraces"
+  "rhysd/vim-textobj-anyblock"
+  "osyo-manga/vim-precious"
+  "junegunn/vim-peekaboo"
 )
 
 for element in "${opt[@]}"; do
