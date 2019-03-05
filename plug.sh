@@ -12,7 +12,7 @@ start=(
   "tpope/vim-fugitive"
   "idanarye/vim-merginal"
   "airblade/vim-gitgutter"
-  "tpope/vim-vinegar"
+  # "tpope/vim-vinegar"
   "markonm/traces.vim"
   "bsdelf/bufferhint"
   "tpope/vim-repeat"
@@ -22,7 +22,7 @@ start=(
   "drmikehenry/vim-fixkey"
   "prettier/vim-prettier"
   "Shougo/context_filetype.vim"
-  "osyo-manga/vim-hopping"
+  "cocopon/vaffle.vim"
 )
 
 for element in "${start[@]}"; do
@@ -53,7 +53,6 @@ opt=(
   "darfink/starsearch.vim"
   "tommcdo/vim-exchange"
   "h1mesuke/vim-alignta"
-  "benmills/vimux"
   "itchyny/vim-winfix"
   "itchyny/vim-cmdline-ranges"
   "itchyny/vim-tmpbuffer"
