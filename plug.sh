@@ -60,6 +60,7 @@ opt=(
   "kana/vim-textobj-line"
   "rhysd/vim-textobj-anyblock"
   "osyo-manga/vim-precious"
+  "wesQ3/vim-windowswap"
 )
 
 for element in "${opt[@]}"; do
