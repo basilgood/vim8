@@ -17,7 +17,6 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
-syntax enable
 filetype plugin indent on
 
 let g:loaded_matchparen = 1
@@ -95,6 +94,8 @@ runtime options.vim
 runtime remap.vim
 runtime! layers/*
 runtime autocmds.vim
+
+syntax enable
 runtime theme.vim
 
 set secure
