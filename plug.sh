@@ -53,7 +53,6 @@ opt=(
   "darfink/starsearch.vim"
   "tommcdo/vim-exchange"
   "h1mesuke/vim-alignta"
-  "itchyny/vim-winfix"
   "itchyny/vim-cmdline-ranges"
   "itchyny/vim-tmpbuffer"
   "kana/vim-textobj-line"
