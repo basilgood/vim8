@@ -32,7 +32,7 @@ vnoremap <space>y "+y
 nnoremap <leader>s :%s/
 vnoremap <leader>s :s/
 " substitute word under the cursor
-nnoremap <leader>w :%s/\<<c-r><c-w>\>/
+" nnoremap <leader>w :%s/\<<c-r><c-w>\>/
 " append text
 nnoremap <leader>a :%s/\<<C-r><C-w>\>/<C-r><C-w>
 " yank from cursor position to end of line
