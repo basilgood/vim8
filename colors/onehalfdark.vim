@@ -76,7 +76,7 @@ call s:h('DiffDelete', s:red, '', '')
 call s:h('DiffText', s:cyan, '', 'reverse')
 
 call s:h('IncSearch', s:bg, s:purple, '')
-call s:h('Search', s:bg, s:yellow, '')
+call s:h('Search', s:bg, s:green, 'bold')
 
 call s:h('ErrorMsg', s:fg, '', '')
 call s:h('ModeMsg', s:fg, '', '')
