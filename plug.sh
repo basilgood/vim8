@@ -22,6 +22,7 @@ start=(
   "drmikehenry/vim-fixkey"
   "prettier/vim-prettier"
   "Shougo/context_filetype.vim"
+  "osyo-manga/vim-hopping"
 )
 
 for element in "${start[@]}"; do
@@ -51,7 +52,7 @@ opt=(
   "majutsushi/tagbar"
   "darfink/starsearch.vim"
   "tommcdo/vim-exchange"
-  "junegunn/vim-easy-align"
+  "h1mesuke/vim-alignta"
   "benmills/vimux"
   "itchyny/vim-winfix"
   "itchyny/vim-cmdline-ranges"
