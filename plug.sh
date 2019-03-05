@@ -14,7 +14,6 @@ start=(
   "airblade/vim-gitgutter"
   "tpope/vim-vinegar"
   "markonm/traces.vim"
-  "AndrewRadev/inline_edit.vim"
   "bsdelf/bufferhint"
   "tpope/vim-repeat"
   "basilgood/agrep"
