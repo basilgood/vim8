@@ -20,7 +20,6 @@ augroup END
 filetype plugin indent on
 
 let g:loaded_matchparen = 1
-autocmd MyAutoCmd BufEnter * syntax sync fromstart
 
 """" termguicolors
 if !has('gui_running')
@@ -57,7 +56,7 @@ silent! call s:EnsureDirExists($CACHE)
 set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
 
 """" shell
-set shell=/usr/bin/env\ bash
+" set shell=/bin/sh
 
 """" path
 set path& | let &path .= '**'
@@ -80,15 +79,6 @@ silent! call s:EnsureDirExists(&undodir)
 let g:is_bash = 1
 let g:sh_noisk = 1
 
-"""" plugins
-"""" grepper
-let g:grepper = {}
-let g:grepper.highlight = 1
-
-"""" bufferhint
-nnoremap <Bs> :call bufferhint#Popup()<cr>
-nnoremap \' :call bufferhint#LoadPrevious()<cr>
-
 """" layers
 runtime options.vim
 runtime remap.vim
@@ -96,6 +86,7 @@ runtime! layers/*
 runtime autocmds.vim
 
 syntax enable
+autocmd MyAutoCmd BufEnter * syntax sync fromstart
 runtime theme.vim
 
 set secure
