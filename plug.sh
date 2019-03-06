@@ -20,7 +20,6 @@ start=(
   "itchyny/vim-parenmatch"
   "kana/vim-textobj-user"
   "drmikehenry/vim-fixkey"
-  "prettier/vim-prettier"
   "Shougo/context_filetype.vim"
   "cocopon/vaffle.vim"
 )
