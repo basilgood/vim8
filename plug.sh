@@ -12,7 +12,7 @@ start=(
   "tpope/vim-fugitive"
   "idanarye/vim-merginal"
   "airblade/vim-gitgutter"
-  # "tpope/vim-vinegar"
+  "tpope/vim-vinegar"
   "markonm/traces.vim"
   "bsdelf/bufferhint"
   "tpope/vim-repeat"
@@ -21,7 +21,6 @@ start=(
   "kana/vim-textobj-user"
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
-  "cocopon/vaffle.vim"
 )
 
 for element in "${start[@]}"; do
