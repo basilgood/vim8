@@ -37,7 +37,6 @@ opt=(
   "thinca/vim-quickrun"
   "tpope/vim-commentary"
   "tpope/vim-surround"
-  "tpope/vim-scriptease"
   "PanagiotisS/LargeFile"
   "neoclide/vim-jsx-improve"
   "sgur/cmdline-completion"
