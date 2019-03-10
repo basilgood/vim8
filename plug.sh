@@ -50,13 +50,14 @@ opt=(
   "majutsushi/tagbar"
   "darfink/starsearch.vim"
   "tommcdo/vim-exchange"
-  "h1mesuke/vim-alignta"
+  "tommcdo/vim-lion"
   "itchyny/vim-cmdline-ranges"
   "itchyny/vim-tmpbuffer"
   "kana/vim-textobj-line"
   "rhysd/vim-textobj-anyblock"
   "osyo-manga/vim-precious"
   "tpope/vim-dispatch"
+  "tpope/vim-ragtag"
 )
 
 for element in "${opt[@]}"; do
