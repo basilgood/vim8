@@ -26,6 +26,7 @@ nnoremap <space>p :put+<CR>
 vnoremap <space>p "+p
 nnoremap <space>P :put!+<CR>
 vnoremap <space>P "+P
+inoremap <silent> <C-r> <C-r><C-p>
 " yank to clipboard
 vnoremap <space>y "+y
 " substitute
