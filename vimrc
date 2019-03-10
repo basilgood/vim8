@@ -19,8 +19,6 @@ augroup END
 
 filetype plugin indent on
 
-let g:loaded_matchparen = 1
-
 """" termguicolors
 if !has('gui_running')
       \ && exists('+termguicolors')
@@ -61,9 +59,6 @@ set shell=/usr/bin/env\ bash
 """" path
 set path& | let &path .= '**'
 
-"""" per project vimrc
-set exrc
-
 """" backup
 set nobackup
 set nowritebackup
@@ -88,5 +83,3 @@ runtime autocmds.vim
 syntax enable
 autocmd MyAutoCmd BufEnter * syntax sync fromstart
 runtime theme.vim
-
-set secure

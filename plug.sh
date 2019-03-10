@@ -17,7 +17,6 @@ start=(
   "bsdelf/bufferhint"
   "tpope/vim-repeat"
   "basilgood/agrep"
-  "itchyny/vim-parenmatch"
   "kana/vim-textobj-user"
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
@@ -57,6 +56,7 @@ opt=(
   "osyo-manga/vim-precious"
   "tpope/vim-dispatch"
   "tpope/vim-ragtag"
+  "thinca/vim-localrc"
 )
 
 for element in "${opt[@]}"; do
