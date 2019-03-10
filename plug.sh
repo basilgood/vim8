@@ -49,7 +49,7 @@ opt=(
   "majutsushi/tagbar"
   "darfink/starsearch.vim"
   "tommcdo/vim-exchange"
-  "tommcdo/vim-lion"
+  "godlygeek/tabular"
   "itchyny/vim-cmdline-ranges"
   "itchyny/vim-tmpbuffer"
   "kana/vim-textobj-line"
