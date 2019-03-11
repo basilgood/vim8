@@ -51,6 +51,7 @@ opt=(
   "godlygeek/tabular"
   "itchyny/vim-cmdline-ranges"
   "itchyny/vim-tmpbuffer"
+  "jkerian/HiCursorWords"
   "kana/vim-textobj-line"
   "rhysd/vim-textobj-anyblock"
   "osyo-manga/vim-precious"
