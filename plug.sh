@@ -55,8 +55,8 @@ opt=(
   "rhysd/vim-textobj-anyblock"
   "osyo-manga/vim-precious"
   "tpope/vim-dispatch"
-  "tpope/vim-ragtag"
   "thinca/vim-localrc"
+  "Shougo/neocomplete.vim"
 )
 
 for element in "${opt[@]}"; do
