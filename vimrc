@@ -17,6 +17,8 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
+let g:loaded_matchparen = 1
+
 filetype plugin indent on
 
 """" termguicolors

@@ -16,10 +16,10 @@ start=(
   "markonm/traces.vim"
   "bsdelf/bufferhint"
   "tpope/vim-repeat"
-  "basilgood/agrep"
   "kana/vim-textobj-user"
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
+  "itchyny/vim-parenmatch"
 )
 
 for element in "${start[@]}"; do
