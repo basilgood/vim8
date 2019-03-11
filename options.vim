@@ -64,7 +64,7 @@ set visualbell t_vb=
 set confirm
 set showcmd
 set report=0
-set shortmess+=Ia
+set shortmess+=Iac
 set laststatus=2
 
 """" tabs/indent levels
