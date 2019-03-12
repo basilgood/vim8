@@ -10,13 +10,13 @@ function! MyStatusLine(mode)
 
   if a:mode ==# 'Enter'
     let statusline.='%2* %n '
-    let statusline.='%1*᚛ '
+    let statusline.='%1*⏵ '
     let statusline.='%4*%{pathshorten(expand("%:~:."))}'
     let statusline.=' %h%r'
-    let statusline.=' %1*%{exists("g:loaded_fugitive")?"₼:".fugitive#head():""}'
+    let statusline.=' %1*%{exists("g:loaded_fugitive")?"⏶ ".fugitive#head():""}'
     let statusline.=' %3*%{&mod?" + ":""}%1*'
     let statusline.='%='
-    let statusline.=' %1*%{&filetype!=#""?&filetype:"none"}'
+    let statusline.=' %1*%{&filetype!=#""?"⏴ ".&filetype:"none"}'
     let statusline.=' %2*%12(%c:%l/%L%)'
     let statusline.=' %*'
   endif
