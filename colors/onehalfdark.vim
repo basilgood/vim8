@@ -161,6 +161,14 @@ call s:h('Error', s:red, s:gutter_bg, '')
 call s:h('Todo', s:purple, '', '')
 " }
 
+" Langs
+" Javascript
+call s:h('jsThis', s:cyan, '', 'italic')
+call s:h('jsFunction', '', '', 'italic')
+call s:h('jsStorageClass', '', '', 'italic')
+call s:h('jsClassFuncName', s:yellow, '', 'italic')
+call s:h('jsObjectKey', s:cyan, '', 'italic')
+call s:h('jsObjectFuncName', s:cyan, '', 'italic')
 
 " Plugins {
 " GitGutter
