@@ -551,6 +551,7 @@ propertyIsEnumerable
 propertyName
 protocol
 prototype
+props
 push
 pushState
 queryCommandEnabled
