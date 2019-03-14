@@ -95,4 +95,3 @@ set ttimeout
 set ttimeoutlen=10
 set ttyfast
 set lazyredraw
-
