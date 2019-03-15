@@ -53,12 +53,6 @@ set number
 set mouse=a
 set cursorline
 
-"""" list
-set list
-let &listchars = 'tab:▸ ,space:‧,extends:❯,precedes:❮,nbsp:␣'
-autocmd MyAutoCmd InsertEnter * set listchars-=trail:჻
-autocmd MyAutoCmd InsertLeave * set listchars+=trail:჻
-
 """" messages, info, status
 set visualbell t_vb=
 set confirm
@@ -86,12 +80,12 @@ set wildmenu
 set wildmode=longest:full,full
 set wildcharm=<C-Z>
 
-"""" update time
-set updatetime=500
-
 """" time out on key codes but not mappings.
 set notimeout
 set ttimeout
 set ttimeoutlen=10
 set ttyfast
 set lazyredraw
+
+"""" update time
+set updatetime=500
