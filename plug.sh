@@ -10,6 +10,7 @@ cd pack/bundle/start/
 start=(
   "sgur/vim-editorconfig"
   "tpope/vim-fugitive"
+  "tpope/vim-vinegar"
   "idanarye/vim-merginal"
   "airblade/vim-gitgutter"
   "markonm/traces.vim"
@@ -20,7 +21,7 @@ start=(
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
   "itchyny/vim-parenmatch"
-  "cocopon/vaffle.vim"
+  "ferranpm/vim-autopairs"
 )
 
 for element in "${start[@]}"; do
