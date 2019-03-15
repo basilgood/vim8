@@ -56,6 +56,7 @@ opt=(
   "basilgood/HiCursorWords"
   "kana/vim-textobj-line"
   "kana/vim-textobj-entire"
+  "kana/vim-niceblock"
   "osyo-manga/vim-precious"
   "tpope/vim-dispatch"
   "thinca/vim-localrc"
