@@ -61,6 +61,7 @@ opt=(
   "tpope/vim-dispatch"
   "thinca/vim-localrc"
   "Shougo/neocomplete.vim"
+  "alvan/vim-closetag"
 )
 
 for element in "${opt[@]}"; do
