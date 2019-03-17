@@ -51,6 +51,7 @@ set formatoptions+=1
 """" display
 set number
 set mouse=a
+set ttymouse=sgr
 set cursorline
 
 """" messages, info, status
