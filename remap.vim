@@ -29,13 +29,6 @@ vnoremap <space>P "+P
 inoremap <silent> <C-r> <C-r><C-p>
 " yank to clipboard
 vnoremap <space>y "+y
-" substitute
-nnoremap <leader>s :%s/
-vnoremap <leader>s :s/
-" substitute word under the cursor
-" nnoremap <leader>w :%s/\<<c-r><c-w>\>/
-" append text
-nnoremap <leader>a :%s/\<<C-r><C-w>\>/<C-r><C-w>
 " yank from cursor position to end of line
 nnoremap Y y$
 " prev and next buffer
