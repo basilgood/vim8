@@ -35,6 +35,7 @@ set sessionoptions-=options
 """" Insert completion
 set dictionary='$HOME/.vim/dict'
 set omnifunc=syntaxcomplete#Complete
+set completefunc=syntaxcomplete#Complete
 set completeopt-=preview
 set completeopt+=menuone
 set completeopt+=noinsert
