@@ -80,6 +80,8 @@ set fileformats=unix,dos,mac
 """" command line
 set wildmenu
 set wildmode=longest:full,full
+set wildoptions=tagfile
+set wildignore+=tags,*/pack/*
 set wildcharm=<C-Z>
 
 """" time out on key codes but not mappings.
