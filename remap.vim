@@ -56,3 +56,5 @@ cabbrev Qa qa
 cabbrev QA qa
 cabbrev Wq wq
 cabbrev WQ wq
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprev<CR>
