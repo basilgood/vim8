@@ -19,6 +19,8 @@ inoremap <C-e> <End>
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 nnoremap p p=`]<C-o>
 nnoremap P P=`]<C-o>
+" word under cursor
+cnoremap <M-w> <C-R><C-W>
 " replace a word with clipboard
 nnoremap <space>w viw"+p
 " paste from clipboard
