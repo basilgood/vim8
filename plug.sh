@@ -60,7 +60,6 @@ opt=(
   "osyo-manga/vim-precious"
   "tpope/vim-dispatch"
   "thinca/vim-localrc"
-  "Shougo/neocomplete.vim"
   "alvan/vim-closetag"
 )
 
