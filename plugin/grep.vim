@@ -11,3 +11,4 @@ function! s:vgrep(args)
 endfunction
 
 command! -nargs=+ Ack :call s:vgrep(<q-args>)
+nnoremap <M-f> :Ack<space>
