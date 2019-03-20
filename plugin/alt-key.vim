@@ -9,6 +9,7 @@ nnoremap <silent> <M-v> :<C-u>vsplit<CR>
 nnoremap <silent> <M-s> :<C-u>split<CR>
 nnoremap <silent> <M-o> :<C-u>only<CR>
 nnoremap <silent> <M-c> :<C-u>close<CR>
+nnoremap <silent> <M-d> :<C-u>bd<CR>
 nnoremap <silent> <M-t> :<C-u>tab split<CR>
 
 """" Alt-hjkl resize windows
