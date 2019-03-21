@@ -25,10 +25,22 @@ start=(
 
 for element in "${start[@]}"; do
   if ! [ -d "${element#*/}" ]; then
-    echo "cloning '$element'"
+    echo "cloning '$element' in start folder"
     git clone --quiet https://github.com/$element.git &
   fi
 done
+
+clean_start() {
+  local repo="${start[@]}"
+  local dirs="$(find . -maxdepth 1 -a -type d)"
+  for dir in $dirs; do
+    echo "$repo" | grep -q ${dir} && continue
+    rm -rf $dir
+    echo "removed $dir from start folder"
+  done
+}
+
+clean_start
 
 cd ../opt/
 
@@ -65,7 +77,19 @@ opt=(
 
 for element in "${opt[@]}"; do
   if ! [ -d "${element#*/}" ]; then
-    echo "cloning '$element'"
+    echo "cloning '$element' in opt folder"
     git clone --quiet https://github.com/$element.git &
   fi
 done
+
+clean_opt() {
+  local repo="${opt[@]}"
+  local dirs="$(find . -maxdepth 1 -a -type d)"
+  for dir in $dirs; do
+    echo "$repo" | grep -q ${dir} && continue
+    rm -rf $dir
+    echo "removed $dir from opt folder"
+  done
+}
+
+clean_opt
