@@ -21,7 +21,6 @@ start=(
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
   "itchyny/vim-parenmatch"
-  "ferranpm/vim-autopairs"
 )
 
 for element in "${start[@]}"; do
@@ -61,6 +60,7 @@ opt=(
   "tpope/vim-dispatch"
   "thinca/vim-localrc"
   "alvan/vim-closetag"
+  "paradigm/SkyBison"
 )
 
 for element in "${opt[@]}"; do
