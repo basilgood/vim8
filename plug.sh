@@ -72,7 +72,7 @@ opt=(
   "tpope/vim-dispatch"
   "thinca/vim-localrc"
   "alvan/vim-closetag"
-  "paradigm/SkyBison"
+  "paradigm/TextObjectify"
 )
 
 for element in "${opt[@]}"; do
