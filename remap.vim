@@ -17,18 +17,19 @@ cnoremap <C-e> <End>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-nnoremap p p=`]<C-o>
-nnoremap P P=`]<C-o>
+" paste after/before and adjust current indent
+nnoremap p p`[=`]
+nnoremap P P`[=`]
 " word under cursor
 cnoremap <M-w> <C-R><C-W>
-" replace a word with clipboard
-nnoremap <space>w viw"+p
 " paste from clipboard
 nnoremap <space>p :put+<CR>
 vnoremap <space>p "+p
 nnoremap <space>P :put!+<CR>
 vnoremap <space>P "+P
 inoremap <silent> <C-r> <C-r><C-p>
+" replace a word with clipboard
+nnoremap <space>w viw"+p
 " yank to clipboard
 vnoremap <space>y "+y
 " yank from cursor position to end of line
