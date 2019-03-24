@@ -21,27 +21,6 @@ let g:loaded_matchparen = 1
 
 filetype plugin indent on
 
-"""" termguicolors
-if !has('gui_running')
-      \ && exists('+termguicolors')
-  if !has('nvim')
-    let &t_8f = "\e[38;2;%lu;%lu;%lum"
-    let &t_8b = "\e[48;2;%lu;%lu;%lum"
-  endif
-  set termguicolors
-endif
-
-"""" cursorshape
-if exists('$TMUX')
-  let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[6 q\<Esc>\\"
-  let &t_SR .= "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
-  let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
-else
-  let &t_SI .= "\e[6 q"
-  let &t_SR .= "\e[4 q"
-  let &t_EI .= "\e[2 q"
-endif
-
 """" environment
 function! s:EnsureDirExists(path)
   if !isdirectory(expand(a:path))
