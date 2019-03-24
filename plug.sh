@@ -73,6 +73,7 @@ opt=(
   "thinca/vim-localrc"
   "alvan/vim-closetag"
   "paradigm/TextObjectify"
+  "jiangmiao/auto-pairs"
 )
 
 for element in "${opt[@]}"; do
