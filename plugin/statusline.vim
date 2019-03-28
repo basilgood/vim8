@@ -1,9 +1,9 @@
 scriptencoding utf-8
 
-highlight User1 ctermbg=236 guibg=#040f28 ctermfg=10  guifg=#42cf89 gui=NONE | " green
-highlight User2 ctermbg=236 guibg=#040f28 ctermfg=4   guifg=#80a0ff gui=NONE | " blue
-highlight User3 ctermbg=9   guibg=#f74782 ctermfg=234 guifg=#1c1c1c gui=NONE | " red
-highlight User4 ctermbg=236 guibg=#040f28 ctermfg=251 guifg=#c5c5c5 gui=NONE | " white
+highlight User1 ctermbg=236 guibg=#071423 ctermfg=10  guifg=#00a045 gui=NONE | " green
+highlight User2 ctermbg=236 guibg=#071423 ctermfg=4   guifg=#3e819b gui=NONE | " blue
+highlight User3 ctermbg=9   guibg=#ff2c4b ctermfg=196 guifg=#d9cec3 gui=NONE | " red
+highlight User4 ctermbg=236 guibg=#071423 ctermfg=251 guifg=#c5c5c5 gui=NONE | " white
 highlight User5 ctermbg=236 guibg=#0f3851 ctermfg=251 guifg=#111111 gui=NONE | " white
 
 function! MyStatusLine(mode)
