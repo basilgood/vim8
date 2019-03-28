@@ -10,7 +10,7 @@ cd pack/bundle/start/
 start=(
   "sgur/vim-editorconfig"
   "tpope/vim-fugitive"
-  "manasthakur/vim-vinegar"
+  # "manasthakur/vim-vinegar"
   "idanarye/vim-merginal"
   "airblade/vim-gitgutter"
   "markonm/traces.vim"
@@ -21,6 +21,8 @@ start=(
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
   "itchyny/vim-parenmatch"
+  "lambdalisue/fila.vim"
+  "wellle/targets.vim"
 )
 
 for element in "${start[@]}"; do
@@ -72,7 +74,6 @@ opt=(
   "tpope/vim-dispatch"
   "thinca/vim-localrc"
   "alvan/vim-closetag"
-  "paradigm/TextObjectify"
   "jiangmiao/auto-pairs"
 )
 
