@@ -74,6 +74,7 @@ opt=(
   "tpope/vim-dispatch"
   "thinca/vim-localrc"
   "alvan/vim-closetag"
+  "wellle/targets.vim"
 )
 
 for element in "${opt[@]}"; do
