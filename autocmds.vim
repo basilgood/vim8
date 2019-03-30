@@ -15,6 +15,7 @@ autocmd MyAutoCmd BufNewFile,BufRead *.fish setlocal filetype=fish
 autocmd MyAutoCmd BufNewFile,BufRead *.coffee set filetype=coffee
 autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.yml set filetype=yaml
+autocmd MyAutoCmd BufNewFile,BufRead *.vifm,vifmrc set filetype=vim
 
 " jump to the last spot the cursor was at in a file when reading it.
 autocmd MyAutoCmd BufReadPost *
