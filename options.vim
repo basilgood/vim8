@@ -49,6 +49,9 @@ set formatoptions+=j
 set formatoptions+=n
 set formatoptions+=1
 
+"""" diff
+set diffopt+=internal,algorithm:patience
+
 """" display
 set number
 set mouse=a
