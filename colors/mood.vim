@@ -73,13 +73,10 @@ call s:h('CursorLine', '', s:cursor_line, '')
 call s:h('LineNr', s:comment_fg, s:gutter_bg, '')
 call s:h('CursorLineNr', s:fg, '', '')
 
-call s:h('DiffAdd', s:green, '', '')
-call s:h('DiffChange', s:yellow, '', '')
-call s:h('DiffDelete', s:red, '', '')
-call s:h('DiffText', s:cyan, '', 'reverse')
-call s:h('diffAdded', s:lightgreen, s:lgreen, '', '')
-call s:h('diffRemoved', s:fred, s:bred, '', '')
-hi link diffLine Constant
+call s:h('DiffAdd', s:green, s:bg, 'reverse')
+call s:h('DiffChange', s:yellow, s:bg, 'reverse')
+call s:h('DiffDelete', s:red, s:bg, 'reverse')
+call s:h('DiffText', s:cyan, s:bg, 'reverse')
 
 call s:h('IncSearch', s:bg, s:orange, '')
 call s:h('Search', s:bg, s:green, 'bold')
