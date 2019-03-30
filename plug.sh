@@ -10,17 +10,15 @@ cd pack/bundle/start/
 start=(
   "sgur/vim-editorconfig"
   "tpope/vim-fugitive"
-  "manasthakur/vim-vinegar"
-  "idanarye/vim-merginal"
   "airblade/vim-gitgutter"
   "markonm/traces.vim"
   "bsdelf/bufferhint"
-  "tpope/vim-repeat"
   "kana/vim-textobj-user"
   "junegunn/vim-after-object"
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
   "itchyny/vim-parenmatch"
+  "vifm/neovim-vifm"
 )
 
 for element in "${start[@]}"; do
@@ -48,6 +46,7 @@ opt=(
   "w0rp/ale"
   "thinca/vim-quickrun"
   "tpope/vim-commentary"
+  "tpope/vim-repeat"
   "tpope/vim-surround"
   "PanagiotisS/LargeFile"
   "neoclide/vim-jsx-improve"
