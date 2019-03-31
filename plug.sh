@@ -18,7 +18,6 @@ start=(
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
   "itchyny/vim-parenmatch"
-  "vifm/neovim-vifm"
 )
 
 for element in "${start[@]}"; do
@@ -72,6 +71,8 @@ opt=(
   "thinca/vim-localrc"
   "alvan/vim-closetag"
   "wellle/targets.vim"
+  "troydm/easybuffer.vim"
+  "vifm/neovim-vifm"
 )
 
 for element in "${opt[@]}"; do

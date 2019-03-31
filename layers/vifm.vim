@@ -1,3 +1,3 @@
 scriptencoding utf-8
 
-nnoremap - :Vifm %:p:h<cr>
+nnoremap - :packadd neovim-vifm<cr>:Vifm %:p:h<cr>
