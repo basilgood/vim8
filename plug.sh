@@ -73,6 +73,7 @@ opt=(
   "wellle/targets.vim"
   "troydm/easybuffer.vim"
   "vifm/neovim-vifm"
+  "vim-scripts/fuzzee.vim"
 )
 
 for element in "${opt[@]}"; do
