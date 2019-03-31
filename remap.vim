@@ -1,8 +1,5 @@
 scriptencoding utf-8
 
-" nnoremap <Bs> :ls<CR>:b
-nnoremap <space>b :b <C-d>
-nnoremap <leader>f :find **/*
 nnoremap j gj
 nnoremap k gk
 vnoremap > >gv
