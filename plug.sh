@@ -56,7 +56,6 @@ opt=(
   "romainl/vim-cool"
   "mbbill/undotree"
   "yuttie/comfortable-motion.vim"
-  "majutsushi/tagbar"
   "darfink/starsearch.vim"
   "tommcdo/vim-exchange"
   "godlygeek/tabular"
