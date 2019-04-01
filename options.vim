@@ -37,7 +37,7 @@ set dictionary='$HOME/.vim/dict'
 set omnifunc=syntaxcomplete#Complete
 set completefunc=syntaxcomplete#Complete
 set completeopt-=preview
-set completeopt+=menuone
+set completeopt+=menu
 set completeopt+=noinsert
 set completeopt+=noselect
 set complete=.,w,b,u,U,t,i,d,k
@@ -76,6 +76,16 @@ set expandtab
 """" reading/writing
 set autoread
 
+"""" spell
+set helplang=en
+set nospell
+set spelllang=en_us
+
+"""" view
+set viewoptions&
+      \ viewoptions-=curdir
+      \ viewoptions-=options
+
 set modeline
 set modelines=5
 set fileformats=unix,dos,mac
@@ -84,6 +94,8 @@ set fileformats=unix,dos,mac
 set wildmenu
 set wildmode=longest:full,full
 set wildoptions=tagfile
+set wildignore+=*/node_modules/*
+set wildignore+=*/bower_components/*
 set wildcharm=<C-Z>
 
 """" time out on key codes but not mappings.
