@@ -23,6 +23,12 @@ autocmd MyAutoCmd BufReadPost *
       \   silent! exe 'normal! g`"zzza' |
       \ endif
 
+" manage swapfiles
+if exists('##CursorHold')
+  autocmd MyAutoCmd CursorHold,BufWritePost,BufReadPost,BufLeave *
+        \ if !$VIMSWAP && isdirectory(expand('<amatch>:h')) | let &swapfile = &modified | endif
+endif
+
 """" autocompletion
 autocmd MyAutoCmd Syntax javascript setlocal isk+=$
 autocmd MyAutoCmd FileType javascript setlocal dictionary+=$HOME/.vim/dict/javascript.dict

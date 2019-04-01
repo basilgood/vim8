@@ -45,8 +45,8 @@ set nobackup
 set nowritebackup
 
 """" swap and undo
-set directory-=.
-set noswapfile
+set directory=$CACHE/swap//
+silent! call s:EnsureDirExists(&directory)
 set history=1000
 set undodir=$CACHE/undo//
 set undofile
