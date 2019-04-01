@@ -1,3 +1,3 @@
 scriptencoding utf-8
 
-nnoremap <leader>f :packadd fuzzee.vim<cr>:F */
+nnoremap <leader><leader> :packadd vim-fuzzee<cr>:F */
