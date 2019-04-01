@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-function! MakeSession()
+function! s:MakeSession()
   let b:sessiondir = $CACHE . '/sessions' . getcwd()
   if (filewritable(b:sessiondir) != 2)
     call mkdir(b:sessiondir,'p')
@@ -10,7 +10,7 @@ function! MakeSession()
   exe 'mksession! ' . b:filename
 endfunction
 
-function! LoadSession()
+function! s:LoadSession()
   let b:sessiondir = $CACHE . '/sessions' . getcwd()
   let b:sessionfile = b:sessiondir . '/session.vim'
   if (filereadable(b:sessionfile))
@@ -19,7 +19,7 @@ function! LoadSession()
     echo 'No session loaded.'
   endif
 endfunction
-command! -nargs=0 SS call LoadSession()
+command! -nargs=0 SS call s:LoadSession()
 cabbrev ss SS
 
-autocmd MyAutoCmd VimLeave * :call MakeSession()
+autocmd MyAutoCmd VimLeavePre * call s:MakeSession()
