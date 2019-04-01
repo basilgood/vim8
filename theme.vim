@@ -1,6 +1,5 @@
 scriptencoding utf-8
 
-"""" termguicolors
 if !has('gui_running')
       \ && exists('+termguicolors')
   if !has('nvim')
@@ -11,8 +10,5 @@ if !has('gui_running')
 endif
 
 set background=dark
-let g:gruvbox_plugin_hi_groups = 1
-let g:gruvbox_filetype_hi_groups = 1
-let g:gruvbox_italic = 1
-let g:gruvbox_italicize_strings = 1
+
 silent! colorscheme mood
