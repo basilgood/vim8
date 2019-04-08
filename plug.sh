@@ -18,6 +18,7 @@ start=(
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
   "itchyny/vim-parenmatch"
+  "sheerun/vim-polyglot"
 )
 
 for element in "${start[@]}"; do
