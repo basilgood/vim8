@@ -75,6 +75,8 @@ opt=(
   "troydm/easybuffer.vim"
   "vifm/neovim-vifm"
   "mattsacks/vim-fuzzee"
+  "ludovicchabant/vim-gutentags"
+  "Quramy/tsuquyomi"
 )
 
 for element in "${opt[@]}"; do
