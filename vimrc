@@ -34,9 +34,6 @@ silent! call s:EnsureDirExists($CACHE)
 """" viminfo
 set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
 
-"""" shell
-set shell=/usr/bin/env\ bash
-
 """" path
 set path& | let &path .= '**'
 
