@@ -19,7 +19,6 @@ start=(
   "Shougo/context_filetype.vim"
   "itchyny/vim-parenmatch"
   "sheerun/vim-polyglot"
-  "manasthakur/vim-vinegar"
 )
 
 for element in "${start[@]}"; do
@@ -72,10 +71,10 @@ opt=(
   "thinca/vim-localrc"
   "alvan/vim-closetag"
   "wellle/targets.vim"
-  "troydm/easybuffer.vim"
   "mattsacks/vim-fuzzee"
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"
+  "vifm/neovim-vifm"
 )
 
 for element in "${opt[@]}"; do
