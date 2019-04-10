@@ -62,7 +62,6 @@ opt=(
   "tommcdo/vim-exchange"
   "godlygeek/tabular"
   "itchyny/vim-cmdline-ranges"
-  "itchyny/vim-tmpbuffer"
   "basilgood/HiCursorWords"
   "kana/vim-textobj-line"
   "kana/vim-textobj-entire"
