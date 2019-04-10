@@ -17,6 +17,11 @@ autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.yml set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.vifm,vifmrc set filetype=vim
 
+"""" add current folder to completion path
+autocmd MyAutoCmd BufRead *
+      \ let s:tempPath=escape(escape(expand("%:p:h"), ' '), '\ ') |
+      \ exec "set path+=".s:tempPath
+
 " jump to the last spot the cursor was at in a file when reading it.
 autocmd MyAutoCmd BufReadPost *
       \ if line("'\"") > 1 && line("'\"") <= line("$") |
