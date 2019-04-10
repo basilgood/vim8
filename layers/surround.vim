@@ -5,3 +5,6 @@ if !exists('g:loaded_surround')
 endif
 
 let surround_indent=1
+nmap ss ysiw
+nmap sl yss
+vmap s S
