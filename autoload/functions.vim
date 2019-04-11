@@ -103,3 +103,7 @@ function! functions#getfilesize() abort
   endfor
   return size . 'GB'
 endfunction
+
+function! functions#hl()
+  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
+endfunction
