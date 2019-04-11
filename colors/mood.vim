@@ -16,7 +16,7 @@ let colors_name='mood'
 
 
 let s:black       = { 'gui': '#1d2021', 'cterm': '234' }
-let s:red         = { 'gui': '#fade3e', 'cterm': '221' }
+let s:red         = { 'gui': '#f93d3d', 'cterm': '196' }
 let s:fred        = { 'gui': '#d78787', 'cterm': '' }
 let s:bred        = { 'gui': '#af5f5f', 'cterm': '' }
 let s:pink        = { 'gui': '#d3869b', 'cterm': '175' }
