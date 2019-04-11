@@ -19,6 +19,8 @@ start=(
   "Shougo/context_filetype.vim"
   "itchyny/vim-parenmatch"
   "sheerun/vim-polyglot"
+  "justinmk/vim-dirvish"
+  "kristijanhusak/vim-dirvish-git"
 )
 
 for element in "${start[@]}"; do
@@ -48,6 +50,7 @@ opt=(
   "tpope/vim-commentary"
   "tpope/vim-repeat"
   "tpope/vim-surround"
+  "tpope/vim-eunuch"
   "PanagiotisS/LargeFile"
   "neoclide/vim-jsx-improve"
   "sgur/cmdline-completion"
@@ -74,7 +77,6 @@ opt=(
   "mattsacks/vim-fuzzee"
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"
-  "vifm/neovim-vifm"
 )
 
 for element in "${opt[@]}"; do
