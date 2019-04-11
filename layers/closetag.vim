@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 if !exists('g:loaded_closetag')
-  autocmd MyAutoCmd BufEnter * call timer_start(300, {-> plug#plug('vim-closetag')}, {'repeat': 0})
+  autocmd MyAutoCmd BufEnter * call timer_start(300, {-> functions#plug('vim-closetag')}, {'repeat': 0})
 endif
 
 let g:closetag_emptyTags_caseSensitive = 1

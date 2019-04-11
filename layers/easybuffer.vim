@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-" nnoremap <bs> :call plug#plug('easybuffer.vim')<cr>:EasyBufferHorizontalBelow<cr>
+" nnoremap <bs> :call functions#plug('easybuffer.vim')<cr>:EasyBufferHorizontalBelow<cr>
 
 " " let g:easybuffer_botright_height = '&lines/4'
 " let g:easybuffer_bufname = "fnamemodify(expand('#'.bnr.'%'), ':~:.')"
