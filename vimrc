@@ -18,6 +18,8 @@ augroup MyAutoCmd
 augroup END
 
 let g:loaded_matchparen = 1
+let g:loaded_rrhelper = 1
+let g:did_install_default_menus = 1
 
 filetype plugin indent on
 

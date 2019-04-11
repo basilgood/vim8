@@ -17,10 +17,8 @@ start=(
   "junegunn/vim-after-object"
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
-  "itchyny/vim-parenmatch"
-  "sheerun/vim-polyglot"
   "justinmk/vim-dirvish"
-  "kristijanhusak/vim-dirvish-git"
+  "itchyny/vim-parenmatch"
 )
 
 for element in "${start[@]}"; do
@@ -77,6 +75,7 @@ opt=(
   "mattsacks/vim-fuzzee"
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"
+  "sheerun/vim-polyglot"
 )
 
 for element in "${opt[@]}"; do
