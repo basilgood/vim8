@@ -7,3 +7,5 @@ let g:undotree_ShortIndicators = 1
 if !exists('g:loaded_undotree')
   autocmd MyAutoCmd BufEnter * call timer_start(300, {-> functions#plug('undotree')}, {'repeat': 0})
 endif
+
+nnoremap U :UndotreeToggle<cr>
