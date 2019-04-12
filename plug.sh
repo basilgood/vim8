@@ -14,7 +14,6 @@ start=(
   "markonm/traces.vim"
   "bsdelf/bufferhint"
   "kana/vim-textobj-user"
-  "junegunn/vim-after-object"
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
   "justinmk/vim-dirvish"
@@ -76,6 +75,7 @@ opt=(
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"
   "sheerun/vim-polyglot"
+  "junegunn/vim-after-object"
 )
 
 for element in "${opt[@]}"; do
