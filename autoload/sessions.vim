@@ -23,3 +23,6 @@ command! -nargs=0 SS call s:LoadSession()
 cabbrev ss SS
 
 autocmd MyAutoCmd VimLeavePre * call s:MakeSession()
+
+function! sessions#sessions() abort
+endfunction
