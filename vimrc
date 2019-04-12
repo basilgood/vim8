@@ -20,6 +20,9 @@ augroup END
 let g:loaded_matchparen = 1
 let g:loaded_rrhelper = 1
 let g:did_install_default_menus = 1
+let g:is_bash = 1
+let g:sh_noisk = 1
+
 
 filetype plugin indent on
 
@@ -51,14 +54,11 @@ set undodir=$CACHE/undo//
 set undofile
 silent! call s:EnsureDirExists(&undodir)
 
-let g:is_bash = 1
-let g:sh_noisk = 1
-
 """" layers
-runtime options.vim
-runtime remap.vim
+call timer_start(300, {-> options#options()}, {'repeat': 0})
+call timer_start(300, {-> remap#keybinds()}, {'repeat': 0})
 runtime! layers/*
-runtime autocmds.vim
+call timer_start(300, {-> autocmds#autocmd()}, {'repeat': 0})
 
 syntax enable
 autocmd MyAutoCmd BufEnter * syntax sync fromstart

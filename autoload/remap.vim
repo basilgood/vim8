@@ -74,3 +74,6 @@ nnoremap <silent> <M-l> :vertical resize +5<cr>
 nnoremap <silent> <M-h> :vertical resize -5<cr>
 nnoremap <silent> <M-j> :resize +5<cr>
 nnoremap <silent> <M-k> :resize -5<cr>
+
+function! remap#keybinds() abort
+endfunction

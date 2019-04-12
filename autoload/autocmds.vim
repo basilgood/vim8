@@ -51,3 +51,6 @@ autocmd MyAutoCmd VimLeave * call system("xclip -sel clip -i", getreg('+'))
 " qf and help keep widow full width
 autocmd MyAutoCmd FileType qf wincmd J
 autocmd MyAutoCmd BufWinEnter * if &ft == 'help' | wincmd J | end
+
+function! autocmds#autocmd() abort
+endfunction

@@ -94,8 +94,8 @@ set fileformats=unix,dos,mac
 set wildmenu
 set wildmode=longest:full,full
 set wildoptions=tagfile
-set wildignore+=*/node_modules/*
-set wildignore+=*/bower_components/*
+set wildignore+=**/node_modules/**
+set wildignore+=**/bower_components/**
 set wildcharm=<C-Z>
 
 """" time out on key codes but not mappings.
@@ -107,3 +107,6 @@ set lazyredraw
 
 """" update time
 set updatetime=500
+
+function! options#options() abort
+endfunction
