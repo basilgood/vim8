@@ -49,7 +49,6 @@ opt=(
   "tpope/vim-surround"
   "tpope/vim-eunuch"
   "PanagiotisS/LargeFile"
-  "neoclide/vim-jsx-improve"
   "sgur/cmdline-completion"
   "terryma/vim-expand-region"
   "stefandtw/quickfix-reflector.vim"
@@ -74,8 +73,10 @@ opt=(
   "mattsacks/vim-fuzzee"
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"
-  "sheerun/vim-polyglot"
   "junegunn/vim-after-object"
+  "LnL7/vim-nix"
+  "lumiliet/vim-twig"
+  "neoclide/vim-jsx-improve"
 )
 
 for element in "${opt[@]}"; do
