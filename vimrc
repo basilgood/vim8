@@ -56,6 +56,7 @@ silent! call s:EnsureDirExists(&undodir)
 
 """" layers
 call timer_start(300, {-> options#options()}, {'repeat': 0})
+call statusline#statusline()
 call timer_start(300, {-> remap#keybinds()}, {'repeat': 0})
 runtime! layers/*
 call timer_start(300, {-> autocmds#autocmd()}, {'repeat': 0})

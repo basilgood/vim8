@@ -44,32 +44,6 @@ function functions#mkdirifnotexist()
   endif
 endfunction
 
-function! functions#mystatusline(mode)
-  let statusline=''
-
-  if a:mode ==# 'Enter'
-    let statusline.='%2* %n '
-    let statusline.='%1*⏵ '
-    let statusline.='%4*%{pathshorten(expand("%:~:."))}'
-    let statusline.=' %h%r'
-    let statusline.=' %1*%{exists("g:loaded_fugitive")?"⏶ ".fugitive#head():""}'
-    let statusline.=' %3*%{&mod?" + ":""}%1*'
-    let statusline.='%='
-    let statusline.=' %1*%{&filetype!=#""?&filetype:"none"}'
-    let statusline.=' %2*%12(%c:%l/%L%)%1* ⏴ '
-    let statusline.=' %*'
-  endif
-
-  if a:mode ==# 'Leave'
-    let statusline.='%5*%n '
-    let statusline.='%5*%t'
-    let statusline.='%='
-    let statusline.='%{&filetype!=#""?&filetype:"none"} '
-  endif
-
-  return statusline
-endfunction
-
 function! functions#fzycommand(choice_command, vim_command)
   try
     let output = system(a:choice_command . ' | fzy ')
