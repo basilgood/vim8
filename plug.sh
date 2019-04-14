@@ -18,12 +18,6 @@ start=(
   "manasthakur/vim-vinegar"
   "itchyny/vim-parenmatch"
   "LnL7/vim-nix"
-  "lumiliet/vim-twig"
-  "lepture/vim-jinja"
-  "neoclide/vim-jsx-improve"
-  "gabrielelana/vim-markdown"
-  "kchmck/vim-coffee-script"
-  "vim-scripts/txt.vim"
 )
 
 for element in "${start[@]}"; do
@@ -81,6 +75,12 @@ opt=(
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"
   "junegunn/vim-after-object"
+  "lumiliet/vim-twig"
+  "lepture/vim-jinja"
+  "neoclide/vim-jsx-improve"
+  "tpope/vim-markdown"
+  "kchmck/vim-coffee-script"
+  "vim-scripts/txt.vim"
 )
 
 for element in "${opt[@]}"; do
