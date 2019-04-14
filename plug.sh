@@ -9,7 +9,6 @@ cd pack/bundle/start/
 
 start=(
   "sgur/vim-editorconfig"
-  "airblade/vim-gitgutter"
   "markonm/traces.vim"
   "bsdelf/bufferhint"
   "kana/vim-textobj-user"
@@ -75,6 +74,7 @@ opt=(
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"
   "junegunn/vim-after-object"
+  "airblade/vim-gitgutter"
   "lumiliet/vim-twig"
   "lepture/vim-jinja"
   "neoclide/vim-jsx-improve"
