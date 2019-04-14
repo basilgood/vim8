@@ -18,6 +18,14 @@ start=(
   "Shougo/context_filetype.vim"
   "manasthakur/vim-vinegar"
   "itchyny/vim-parenmatch"
+  "LnL7/vim-nix"
+  "lumiliet/vim-twig"
+  "lepture/vim-jinja"
+  "neoclide/vim-jsx-improve"
+  "gabrielelana/vim-markdown"
+  "kchmck/vim-coffee-script"
+  "vim-scripts/txt.vim"
+  "sodapopcan/vim-twiggy"
 )
 
 for element in "${start[@]}"; do
@@ -74,9 +82,6 @@ opt=(
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"
   "junegunn/vim-after-object"
-  "LnL7/vim-nix"
-  "lumiliet/vim-twig"
-  "neoclide/vim-jsx-improve"
 )
 
 for element in "${opt[@]}"; do
