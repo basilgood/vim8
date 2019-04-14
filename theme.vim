@@ -11,4 +11,4 @@ endif
 
 set background=dark
 
-silent! colorscheme mood
+silent! colorscheme simple
