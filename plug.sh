@@ -9,7 +9,6 @@ cd pack/bundle/start/
 
 start=(
   "sgur/vim-editorconfig"
-  "tpope/vim-fugitive"
   "airblade/vim-gitgutter"
   "markonm/traces.vim"
   "bsdelf/bufferhint"
@@ -50,6 +49,7 @@ cd ../opt/
 
 opt=(
   "w0rp/ale"
+  "tpope/vim-fugitive"
   "thinca/vim-quickrun"
   "tpope/vim-commentary"
   "tpope/vim-repeat"
