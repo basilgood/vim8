@@ -25,7 +25,6 @@ start=(
   "gabrielelana/vim-markdown"
   "kchmck/vim-coffee-script"
   "vim-scripts/txt.vim"
-  "sodapopcan/vim-twiggy"
 )
 
 for element in "${start[@]}"; do
