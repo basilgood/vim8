@@ -16,7 +16,7 @@ start=(
   "kana/vim-textobj-user"
   "drmikehenry/vim-fixkey"
   "Shougo/context_filetype.vim"
-  "justinmk/vim-dirvish"
+  "manasthakur/vim-vinegar"
   "itchyny/vim-parenmatch"
 )
 
