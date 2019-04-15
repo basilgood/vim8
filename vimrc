@@ -60,7 +60,7 @@ call statusline#statusline()
 call timer_start(300, {-> remap#keybinds()}, {'repeat': 0})
 call timer_start(300, {-> sessions#sessions()}, {'repeat': 0})
 runtime! layers/*
-call autocmds#autocmd()
+call autocmds#autocmds()
 
 syntax enable
 autocmd MyAutoCmd BufEnter * syntax sync fromstart

@@ -52,5 +52,5 @@ autocmd MyAutoCmd VimLeave * call system("xclip -sel clip -i", getreg('+'))
 autocmd MyAutoCmd FileType qf wincmd J
 autocmd MyAutoCmd BufWinEnter * if &ft == 'help' | wincmd J | end
 
-function! autocmds#autocmd() abort
+function! autocmds#autocmds() abort
 endfunction
