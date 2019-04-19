@@ -10,3 +10,4 @@ autocmd MyAutoCmd FileType jinja packadd vim-jinja
 autocmd MyAutoCmd FileType twig packadd vim-twig
 autocmd MyAutoCmd FileType coffee packadd vim-coffee-script
 autocmd MyAutoCmd BufEnter * call timer_start(300, {-> functions#plug('txt.vim')}, {'repeat': 0})
+autocmd MyAutoCmd BufRead,BufNewFile *.ts,tsx packadd tscompletejob
