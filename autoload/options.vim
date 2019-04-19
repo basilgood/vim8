@@ -7,7 +7,6 @@ set virtualedit=block
 set scrolloff=3
 set sidescrolloff=10
 set sidescroll=1
-set nostartofline
 let &showbreak = '↳ '
 set breakat=\ \ ;:,!?
 set breakindent
@@ -24,7 +23,7 @@ set hlsearch|nohlsearch
 set gdefault
 
 """" windows, buffers
-set hidden
+" set hidden
 set switchbuf=useopen,usetab
 set splitright
 set splitbelow
