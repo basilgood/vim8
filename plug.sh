@@ -63,7 +63,6 @@ opt=(
   "kana/vim-textobj-line"
   "kana/vim-textobj-entire"
   "kana/vim-textobj-indent"
-  "kana/vim-niceblock"
   "osyo-manga/vim-precious"
   "thinca/vim-localrc"
   "alvan/vim-closetag"

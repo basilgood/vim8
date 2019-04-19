@@ -41,7 +41,9 @@ nnoremap ]q :cnext<cr>
 nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
-
+" niceblock
+xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
+xnoremap <expr> A (mode()=~#'[vV]'?'<C-v>0o$A':'A')
 " nohlsearch
 nnoremap <space>n :nohlsearch<CR>
 
