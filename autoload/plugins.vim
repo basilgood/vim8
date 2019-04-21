@@ -205,6 +205,11 @@ if !exists('g:loaded_targets')
   autocmd MyAutoCmd BufRead * packadd targets.vim
 endif
 
+"""" traces
+if !exists('g:loaded_traces_plugin')
+  autocmd MyAutoCmd BufRead * packadd traces.vim
+endif
+
 """" langs
 autocmd MyAutoCmd BufRead,BufNewFile *.js,.jsx packadd vim-jsx-improve
 let g:jsx_ext_required = 0
