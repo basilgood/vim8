@@ -44,8 +44,8 @@ function! s:load_fugitive()
   endif
 endfunction
 augroup load_fugitive
-  au!
-  au BufWinEnter * packadd vim-fugitive
+  autocmd!
+  autocmd BufWinEnter * packadd vim-fugitive
 augroup END
 
 """" commentary
