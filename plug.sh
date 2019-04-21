@@ -37,6 +37,7 @@ cd ../opt/
 opt=(
   "tpope/vim-vinegar"
   "jeetsukumaran/vim-buffergator"
+  "w0rp/ale"
   "tpope/vim-fugitive"
   "wellle/targets.vim"
   "thinca/vim-quickrun"

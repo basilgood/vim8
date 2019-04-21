@@ -24,7 +24,7 @@ autocmd MyAutoCmd FileType netrw call InNetrw()
 nnoremap <bs> :packadd vim-buffergator<cr>:BuffergatorToggle<cr>
 
 let g:buffergator_suppress_keymaps = 1
-let g:buffergator_viewport_split_policy = "B"
+let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_autoupdate = 1
 let g:buffergator_show_full_directory_path = 0
 
