@@ -8,7 +8,7 @@ endfunction
 autocmd MyAutoCmd BufWinEnter * call timer_start(300, {-> s:pluginsPlug('vim-vinegar')}, {'repeat': 0})
 
 let g:netrw_localrmdir='rm -rf'
-let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl hidden'
+let g:netrw_bufsettings = 'nomodifiable nomodified number nowrap readonly nobuflisted hidden'
 let g:netrw_sort_dotfiles_first = 1
 let g:netrw_altfile = 1
 let g:netrw_home = $CACHE
