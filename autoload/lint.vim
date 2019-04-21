@@ -10,7 +10,7 @@ let g:ale_sign_info = 'ℹ'
 let g:ale_echo_msg_error_str='[ERROR]'
 let g:ale_echo_msg_info_str='[INFO]'
 let g:ale_echo_msg_warning_str='[WARNING]'
-let g:ale_echo_msg_format = '%severity% %linter% -> [%code%] -> %s'
+let g:ale_echo_msg_format = '%severity% %linter% %code% -> %s'
 let g:ale_pattern_options_enabled = 1
 let g:ale_pattern_options = {
       \   '\.min\.(js\|css)$': {
