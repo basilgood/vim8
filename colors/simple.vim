@@ -39,7 +39,7 @@ highlight Folded         guifg=#555555 guibg=#111111 gui=NONE cterm=NONE
 highlight QuickFixLine   guifg=#fb4934 guibg=NONE
 
 highlight Cursor         guifg=#000000 guibg=#99ff99 gui=NONE cterm=NONE
-highlight CursorLine     guifg=NONE    guibg=#333333 gui=NONE cterm=NONE
+highlight CursorLine     guifg=NONE    guibg=#323232 gui=NONE cterm=NONE
 highlight CursorLineNr   guifg=#83a598 guibg=NONE    gui=NONE cterm=NONE
 highlight CursorColumn   guifg=NONE    guibg=#333333 gui=NONE cterm=NONE
 highlight ColorColumn    guifg=NONE    guibg=#333333 gui=NONE cterm=NONE
