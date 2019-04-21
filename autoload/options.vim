@@ -4,7 +4,6 @@ scriptencoding utf-8
 set nostartofline
 set nowrap
 set virtualedit=block
-set scrolloff=3
 set sidescrolloff=10
 set sidescroll=1
 let &showbreak = '↳ '
@@ -13,7 +12,8 @@ set breakindent
 set breakindentopt=sbr
 set backspace=indent,eol,start
 set showmatch
-set matchtime=2
+set matchtime=1
+set matchpairs&
 set nrformats-=octal
 set display=lastline
 
@@ -23,7 +23,6 @@ set hlsearch|nohlsearch
 set gdefault
 
 """" windows, buffers
-" set hidden
 set switchbuf=useopen,usetab
 set splitright
 set splitbelow
@@ -48,7 +47,7 @@ set formatoptions+=j
 set formatoptions+=n
 set formatoptions+=1
 
-"""" diff
+""""" diff
 set diffopt+=internal,algorithm:patience
 
 """" display
@@ -56,17 +55,22 @@ set number
 set mouse=a
 set ttymouse=sgr
 set cursorline
+set list
+let &g:listchars = 'tab:▸ ,space:·,extends:❯,precedes:❮,nbsp:⦸'
+autocmd MyAutoCmd InsertEnter * set listchars-=trail:•
+autocmd MyAutoCmd InsertLeave * set listchars+=trail:•
 
 """" messages, info, status
 set visualbell t_vb=
 set confirm
 set showcmd
-set report=0
-set shortmess+=Iac
+set shortmess+=IiatTFc
 set laststatus=2
 
 """" tabs/indent levels
 set autoindent
+set copyindent
+set preserveindent
 set softtabstop=2
 set tabstop=2
 set shiftwidth=2
@@ -79,30 +83,21 @@ set autoread
 set helplang=en
 set nospell
 set spelllang=en_us
+set fileformats=unix,dos,mac
 
-"""" view
+""" view
 set viewoptions&
       \ viewoptions-=curdir
       \ viewoptions-=options
 
-set modeline
-set modelines=5
-set fileformats=unix,dos,mac
-
 """" command line
+set history=1000
 set wildmenu
 set wildmode=longest:full,full
 set wildoptions=tagfile
 set wildignore+=**/node_modules/**
 set wildignore+=**/bower_components/**
 set wildcharm=<C-Z>
-
-"""" time out on key codes but not mappings.
-set notimeout
-set ttimeout
-set ttimeoutlen=10
-set ttyfast
-set lazyredraw
 
 """" update time
 set updatetime=500

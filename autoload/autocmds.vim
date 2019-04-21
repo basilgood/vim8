@@ -1,7 +1,6 @@
 scriptencoding utf-8
 
 """" filetype
-autocmd MyAutoCmd BufRead,BufNewFile * setfiletype txt
 autocmd MyAutoCmd BufRead,BufNewFile *.gitignore  set filetype=gitignore
 autocmd MyAutoCmd BufNewFile,BufRead *.vim set filetype=vim
 autocmd MyAutoCmd BufNewFile,BufRead *.twig set filetype=html.twig
@@ -17,11 +16,6 @@ autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.yml set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.vifm,vifmrc set filetype=vim
 
-"""" add current folder to completion path
-autocmd MyAutoCmd BufRead *
-      \ let s:tempPath=escape(escape(expand("%:p:h"), ' '), '\ ') |
-      \ exec "set path+=".s:tempPath
-
 " jump to the last spot the cursor was at in a file when reading it.
 autocmd MyAutoCmd BufReadPost *
       \ if line("'\"") > 1 && line("'\"") <= line("$") |
@@ -34,10 +28,13 @@ if exists('##CursorHold')
         \ if !$VIMSWAP && isdirectory(expand('<amatch>:h')) | let &swapfile = &modified | endif
 endif
 
-"""" autocompletion
+"""" syntax
+autocmd MyAutoCmd BufEnter * syntax sync fromstart
+
+"""" completion
 autocmd MyAutoCmd Syntax javascript setlocal isk+=$
-autocmd MyAutoCmd FileType javascript setlocal dictionary+=$HOME/.vim/dict/javascript.dict
-autocmd MyAutoCmd FileType vim setlocal dictionary+=$HOME/.vim/dict/vim.dict
+autocmd MyAutoCmd BufRead,BufNewFile *.js,.jsx setlocal dictionary+=$HOME/.vim/dict/javascript.dict
+autocmd MyAutoCmd BufRead,BufNewFile *.vim setlocal dictionary+=$HOME/.vim/dict/vim.dict
 
 " update diff
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
@@ -47,6 +44,13 @@ autocmd MyAutoCmd FocusGained,CursorHold,CursorHoldI * if !bufexists("[Command L
 
 " keep clipboard content
 autocmd MyAutoCmd VimLeave * call system("xclip -sel clip -i", getreg('+'))
+
+"""" cursorline
+autocmd MyAutoCmd InsertLeave,VimEnter,WinEnter * setlocal cursorline
+autocmd MyAutoCmd InsertEnter,WinLeave * setlocal nocursorline
+
+"""" mkdir
+autocmd MyAutoCmd BufWritePre * call functions#mkdirifnotexist()
 
 " qf and help keep widow full width
 autocmd MyAutoCmd FileType qf wincmd J

@@ -9,3 +9,6 @@ else
   let &t_SR .= "\e[4 q"
   let &t_EI .= "\e[2 q"
 endif
+
+function! cursorshape#cursor() abort
+endfunction

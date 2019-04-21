@@ -1,8 +1,6 @@
-"""" vimrc
 set encoding=utf-8
 scriptencoding utf-8
 
-"""" startup time
 if !v:vim_did_enter && has('reltime')
   let g:startuptime = reltime()
   augroup vimrc-startuptime
@@ -12,29 +10,46 @@ if !v:vim_did_enter && has('reltime')
   augroup END
 endif
 
-"""" general group
-augroup MyAutoCmd
-  autocmd!
-augroup END
+if !has('gui_running')
+      \ && exists('&termguicolors')
+      \ && $COLORTERM =~# '^\%(truecolor\|24bit\)$'
+  if !has('nvim')
+    let &t_8f = "\e[38;2;%lu;%lu;%lum"
+    let &t_8b = "\e[48;2;%lu;%lu;%lum"
+  endif
+  set termguicolors
+endif
+
+"""" time out on key codes but not mappings.
+set notimeout
+set ttimeout
+set ttimeoutlen=10
 
 let g:loaded_matchparen = 1
-let g:loaded_rrhelper = 1
+let g:loaded_rrhelper          = 1
 let g:did_install_default_menus = 1
 let g:is_bash = 1
 let g:sh_noisk = 1
 
-
-filetype plugin indent on
-
-"""" environment
-function! s:EnsureDirExists(path)
-  if !isdirectory(expand(a:path))
-    call mkdir(expand(a:path), 'p')
+"""" tools
+function! s:mkdir(...) abort
+  if isdirectory(a:1)
+    return
   endif
+  return call('mkdir', a:000)
 endfunction
 
-let $CACHE = expand('$HOME/.cache/vimcache')
-silent! call s:EnsureDirExists($CACHE)
+let $CACHE=expand('$HOME/.cache/vim')
+set directory=$CACHE/swap//
+set viewdir=$CACHE/view//
+set undodir=$CACHE/undo//
+set undofile
+set spellfile=$CACHE/spell/spellfile.utf-8.add
+
+call s:mkdir(&directory, 'p')
+call s:mkdir(&viewdir, 'p')
+call s:mkdir(&undodir, 'p')
+call s:mkdir(fnamemodify(&spellfile, ':p:h'), 'p')
 
 """" viminfo
 set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
@@ -46,22 +61,27 @@ set path& | let &path .= '**'
 set nobackup
 set nowritebackup
 
-"""" swap and undo
-set directory=$CACHE/swap//
-silent! call s:EnsureDirExists(&directory)
-set history=1000
-set undodir=$CACHE/undo//
-set undofile
-silent! call s:EnsureDirExists(&undodir)
+"""" general group autocmds
+augroup MyAutoCmd
+  autocmd!
+augroup END
 
-"""" layers
 call options#options()
+call cursorshape#cursor()
+call remap#map()
 call statusline#statusline()
-call timer_start(300, {-> remap#keybinds()}, {'repeat': 0})
-call timer_start(300, {-> sessions#sessions()}, {'repeat': 0})
-runtime! layers/*
+call plugins#load()
 call autocmds#autocmds()
+call commands#commands()
+call sessions#sessions()
+call fzy#fzy()
 
 syntax enable
-autocmd MyAutoCmd BufEnter * syntax sync fromstart
-runtime theme.vim
+filetype plugin indent on
+
+set background=dark
+colorscheme simple
+highlight ParenMatch term=underline cterm=underline gui=underline
+
+
+set secure

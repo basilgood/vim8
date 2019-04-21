@@ -45,7 +45,7 @@ highlight CursorColumn   guifg=NONE    guibg=#333333 gui=NONE cterm=NONE
 highlight ColorColumn    guifg=NONE    guibg=#333333 gui=NONE cterm=NONE
 highlight LineNr         guifg=#555555 guibg=#111111 gui=NONE ctermfg=238 ctermbg=NONE
 highlight CursorIM       guifg=#000000 guibg=#cc9999 gui=NONE cterm=NONE
-highlight MatchParen     guifg=#000000 guibg=#339933 gui=underline cterm=underline
+highlight MatchParen     guifg=#fade3e guibg=NONE    gui=underline cterm=underline
 
 highlight IncSearch      guifg=#1d2021 guibg=#fb4934 gui=NONE cterm=NONE
 highlight Search         guifg=#282828 guibg=#8ec07c gui=bold
@@ -85,6 +85,9 @@ highlight DiffText       guifg=#56b6c2 guibg=#1d2021 cterm=reverse
 " ALE lint
 highlight ALEWarningSign guifg=#fabd2f guibg=#111111 gui=NONE cterm=NONE
 highlight ALEErrorSign   guifg=#f93d3d guibg=#111111 gui=NONE cterm=NONE
+
+" ParenMatch
+highlight ParenMatch term=underline cterm=underline gui=underline
 
 hi link Boolean Constant
 hi link Character Constant
