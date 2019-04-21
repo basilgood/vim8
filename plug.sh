@@ -8,7 +8,6 @@ fi
 cd pack/bundle/start/
 
 start=(
-  "sgur/vim-editorconfig"
   "markonm/traces.vim"
   "LnL7/vim-nix"
 )
@@ -35,6 +34,7 @@ clean_start
 cd ../opt/
 
 opt=(
+  "sgur/vim-editorconfig"
   "tpope/vim-vinegar"
   "jeetsukumaran/vim-buffergator"
   "w0rp/ale"

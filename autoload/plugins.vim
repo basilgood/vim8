@@ -29,6 +29,9 @@ let g:buffergator_autoupdate = 1
 let g:buffergator_show_full_directory_path = 0
 
 """" editorconfig
+if !exists('g:loaded_editorconfig')
+  autocmd MyAutoCmd BufReadPre * packadd vim-editorconfig
+endif
 let g:editorconfig_root_chdir = 1
 let g:editorconfig_verbose = 1
 let g:editorconfig_blacklist = {
