@@ -6,6 +6,7 @@ command! -range=% -nargs=0 Space2Tab execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)
 command! -nargs=0 WS %s/\s\+$// | normal! ``
 command! -nargs=0 HL call functions#hl()
 command! -nargs=+ -complete=file Ack :call grep#vgrep(<q-args>)
+cnoremap // Ack<space>
 
 command! -nargs=1 TX
   \ call system('tmux split-window -d -l 16 '.<q-args>)
