@@ -210,6 +210,18 @@ if !exists('g:loaded_traces_plugin')
   autocmd MyAutoCmd BufRead * packadd traces.vim
 endif
 
+"""" expand region
+if !exists('g:expand_region_init')
+  autocmd MyAutoCmd BufRead * packadd vim-expand-region
+endif
+
+autocmd MyAutoCmd BUfRead * call timer_start(500, {-> expand_region#custom_text_objects({
+      \ "\/\\n\\n\<CR>": 1,
+      \ 'a]' :1,
+      \ 'ab' :1,
+      \ 'aB' :1
+      \ })})
+
 """" langs
 autocmd MyAutoCmd BufRead,BufNewFile *.js,.jsx packadd vim-jsx-improve
 let g:jsx_ext_required = 0
