@@ -12,7 +12,6 @@ endif
 
 if !has('gui_running')
       \ && exists('&termguicolors')
-      \ && $COLORTERM =~# '^\%(truecolor\|24bit\)$'
   if !has('nvim')
     let &t_8f = "\e[38;2;%lu;%lu;%lum"
     let &t_8b = "\e[48;2;%lu;%lu;%lum"
