@@ -228,6 +228,14 @@ autocmd MyAutoCmd BUfRead * call timer_start(500, {-> expand_region#custom_text_
       \ 'aB' :1
       \ })})
 
+"""" tmux-runner
+let g:VtrOrientation = 'h'
+let g:VtrPercentage = 25
+nnoremap <leader>o :packadd vim-tmux-runner<cr>:VtrOpenRunner<cr>
+nnoremap <leader>t :VtrSendCommandToRunner<cr>
+nnoremap <leader>c :VtrFlushCommand<cr>
+nnoremap <leader>q :VtrKillRunner<cr>
+
 """" langs
 autocmd MyAutoCmd BufRead,BufNewFile *.js,.jsx packadd vim-jsx-improve
 let g:jsx_ext_required = 0

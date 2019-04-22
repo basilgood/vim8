@@ -67,6 +67,7 @@ opt=(
   "kchmck/vim-coffee-script"
   "itchyny/vim-parenmatch"
   "terryma/vim-expand-region"
+  "christoomey/vim-tmux-runner"
 )
 
 for element in "${opt[@]}"; do
