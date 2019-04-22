@@ -161,6 +161,11 @@ let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript,twig'
 
 """" fuzee
 nnoremap <leader><leader> :packadd vim-fuzzee<cr>:F */
+if !exists('g:loaded_fuzzee')
+  nnoremap <leader><leader> :packadd vim-fuzzee<cr>:F */
+else
+  nnoremap <leader><leader> :F */
+endif
 
 """" gutentags
 if !exists('g:loaded_gutentags')

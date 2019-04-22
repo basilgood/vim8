@@ -74,7 +74,6 @@ call lint#linter()
 call autocmds#autocmds()
 call commands#commands()
 call sessions#sessions()
-call fzy#fzy()
 
 syntax enable
 filetype plugin indent on
@@ -82,6 +81,5 @@ filetype plugin indent on
 set background=dark
 colorscheme simple
 highlight ParenMatch term=underline cterm=underline gui=underline
-
 
 set secure

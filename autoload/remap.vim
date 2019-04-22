@@ -4,25 +4,25 @@ nnoremap j gj
 nnoremap k gk
 vnoremap > >gv
 vnoremap < <gv
-vnoremap . :normal .<CR>
-nnoremap <C-s> :update<CR>
-inoremap <C-s> <Esc>:update<CR>
-xnoremap <C-s> <C-C>:<C-u>update<CR>
+vnoremap . :normal .<cr>
+nnoremap <C-s> :update<cr>
+inoremap <C-s> <Esc>:update<cr>
+xnoremap <C-s> <C-C>:<C-u>update<cr>
 nnoremap <expr> 0 virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 
 " paste after/before and adjust current indent
 nnoremap p p`[=`]
 nnoremap P P`[=`]
 
 " paste from clipboard
-nnoremap <space>p :put+<CR>
+nnoremap <space>p :put+<cr>
 vnoremap <space>p "+p
-nnoremap <space>P :put!+<CR>
+nnoremap <space>P :put!+<cr>
 vnoremap <space>P "+P
 inoremap <silent> <C-r> <C-r><C-p>
 
@@ -36,8 +36,8 @@ vnoremap <space>y "+y
 nnoremap Y y$
 
 " prev and next buffer
-nnoremap ]b :bnext<CR>
-nnoremap [b :bprev<CR>
+nnoremap ]b :bnext<cr>
+nnoremap [b :bprev<cr>
 
 " substitute
 nnoremap <leader>s :%s/
@@ -57,20 +57,26 @@ nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
 
+" close and keep layout
+nnoremap q :bn<cr>:bd#<cr>
+
+" ctrlp
+nnoremap <c-p> :call fzy#find("fd --type f --hidden --exclude '.git' .", ":e")<cr>
+
 " niceblock
 xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
 xnoremap <expr> A (mode()=~#'[vV]'?'<C-v>0o$A':'A')
 
 " innerline
 xnoremap <silent> il <Esc>^vg_
-onoremap <silent> il :<C-U>normal! ^vg_<CR>
+onoremap <silent> il :<C-U>normal! ^vg_<cr>
 
 " entire
 xnoremap <silent> ie gg0oG$
-onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<CR>
+onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 
 " mapping for spelling correction
-nnoremap <space>s :set spell!<CR>
+nnoremap <space>s :set spell!<cr>
 nnoremap <space>z 1z=
 
 " file size
@@ -89,12 +95,12 @@ nnoremap <silent> <M-Up> <C-w><Up>
 nnoremap <silent> <M-Down> <C-w><Down>
 
 """" Alt split
-nnoremap <silent> v :<C-u>vsplit<CR>
-nnoremap <silent> s :<C-u>split<CR>
-nnoremap <silent> o :<C-u>only<CR>
-nnoremap <silent> c :<C-u>close<CR>
-nnoremap <silent> d :<C-u>bd<CR>
-nnoremap <silent> t :<C-u>tab split<CR>
+nnoremap <silent> v :<C-u>vsplit<cr>
+nnoremap <silent> s :<C-u>split<cr>
+nnoremap <silent> o :<C-u>only<cr>
+nnoremap <silent> c :<C-u>close<cr>
+nnoremap <silent> d :<C-u>bd<cr>
+nnoremap <silent> t :<C-u>tab split<cr>
 
 """" Alt-hjkl resize windows
 nnoremap <silent> l :vertical resize +5<cr>
