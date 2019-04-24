@@ -67,12 +67,12 @@ augroup END
 
 call options#options()
 call cursorshape#cursor()
-call remap#map()
+call timer_start(300, {-> remap#map()}, {'repeat': 0})
 call statusline#statusline()
-call plugins#load()
+call timer_start(300, {-> plugins#load()}, {'repeat': 0})
 call lint#linter()
 call autocmds#autocmds()
-call commands#commands()
+call timer_start(300, {-> commands#commands()}, {'repeat': 0})
 call sessions#sessions()
 
 syntax enable
