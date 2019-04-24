@@ -18,6 +18,7 @@ let g:netrw_home = $CACHE
 function! InNetrw()
   nmap <buffer> <right> <cr>
   nmap <buffer> <left> -
+  nmap <buffer> qq :bn<bar>bd#<cr>
 endfunction
 
 autocmd MyAutoCmd FileType netrw call InNetrw()
