@@ -10,6 +10,3 @@ function! fzy#find(choice_command, vim_command) abort
     exec a:vim_command . ' ' . output
   endif
 endfunction
-
-" command! -nargs=0 Fzy call s:fzyFind("fd --type f --hidden --exclude '.git' .", ":e")
-" nnoremap <c-p> :Fzy<cr>
