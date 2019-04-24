@@ -11,7 +11,7 @@ set breakat=\ \ ;:,!?
 set breakindent
 set breakindentopt=sbr
 set backspace=indent,eol,start
-set showmatch
+set noshowmatch
 set matchtime=1
 set matchpairs&
 set nrformats-=octal
