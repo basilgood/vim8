@@ -58,6 +58,7 @@ opt=(
   "mattsacks/vim-fuzzee"
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"
+  "HerringtonDarkholme/yats.vim"
   "airblade/vim-gitgutter"
   "lumiliet/vim-twig"
   "lepture/vim-jinja"

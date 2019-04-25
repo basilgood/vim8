@@ -231,17 +231,5 @@ nnoremap <leader>t :VtrSendCommandToRunner<cr>
 nnoremap <leader>c :VtrFlushCommand<cr>
 nnoremap <leader>q :VtrKillRunner<cr>
 
-"""" langs
-autocmd MyAutoCmd BufRead,BufNewFile *.js,.jsx packadd vim-jsx-improve
-let g:jsx_ext_required = 0
-
-autocmd MyAutoCmd BufRead,BufNewFile *.md,.markdown packadd vim-markdown
-let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']
-
-autocmd MyAutoCmd BufRead,BufNewFile *.jinja,.jinja2 packadd vim-jinja
-autocmd MyAutoCmd BufRead,BufNewFile *.twig packadd vim-twig
-autocmd MyAutoCmd BufRead,BufNewFile *.coffee packadd vim-coffee-script
-autocmd MyAutoCmd BufRead,BufNewFile *.ts,tsx packadd tscompletejob
-
 function! plugins#load() abort
 endfunction
