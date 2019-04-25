@@ -48,7 +48,6 @@ opt=(
   "sgur/cmdline-completion"
   "stefandtw/quickfix-reflector.vim"
   "markonm/hlyank.vim"
-  "romainl/vim-cool"
   "mbbill/undotree"
   "darfink/starsearch.vim"
   "tommcdo/vim-exchange"

@@ -70,12 +70,6 @@ nmap ss ysiw
 nmap sl yss
 vmap s S
 
-"""' cool
-if !exists('g:CoolTotalMatches')
-  autocmd MyAutoCmd CmdlineEnter * packadd vim-cool
-endif
-let g:CoolTotalMatches = 1
-
 """" cmdline completion
 if !exists('loaded_cmdline_completion')
   autocmd MyAutoCmd CmdlineEnter * packadd cmdline-completion
