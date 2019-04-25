@@ -195,7 +195,7 @@ let g:gitgutter_sign_removed_first_line = '┃'
 let g:gitgutter_sign_modified_removed = '┃'
 let g:gitgutter_max_signs = 1000
 
-autocmd MyAutoCmd CursorHold,CursorHoldI * call gitgutter#all(1)
+autocmd MyAutoCmd CursorHold,CursorHoldI * if line('$') == 1 && getline(1) == '' | echo "empty buffer" | else | call gitgutter#all(1) | endif
 
 """" parenmatch
 if !exists('g:loaded_parenmatch')
