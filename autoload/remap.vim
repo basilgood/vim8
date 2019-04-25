@@ -82,6 +82,12 @@ nnoremap <space>z 1z=
 " file size
 nnoremap <F3> :echo functions#getfilesize()<cr>
 
+" hlnext
+nnoremap <silent> n :call functions#searchnext()<CR>zz
+nnoremap <silent> N :call functions#searchprevious()<CR>zz
+nnoremap <silent> <space>n :silent! call matchdelete(b:ring)<CR>:nohlsearch<CR>
+
+
 """" mistype
 cabbrev Qa qa
 cabbrev QA qa
