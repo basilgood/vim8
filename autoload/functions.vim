@@ -42,7 +42,7 @@ fun! functions#searchnext()
     try
         execute 'normal! ' . 'Nn'[v:searchforward]
     catch /E385:/
-        echohl IncSearch | echo "E385: search hit BOTTOM without match for: " . @/ | echohl None
+        echohl IncSearch | echo 'E385: search hit BOTTOM without match for: ' . @/ | echohl None
     endtry
     call SearchHighlight()
 endfun
@@ -51,7 +51,7 @@ fun! functions#searchprevious()
     try
         execute 'normal! ' . 'nN'[v:searchforward]
     catch /E384:/
-        echohl IncSearch | echo "E384: search hit TOP without match for: " . @/ | echohl None
+        echohl IncSearch | echo 'E384: search hit TOP without match for: ' . @/ | echohl None
     endtry
     call SearchHighlight()
 endfun
