@@ -79,7 +79,7 @@ syntax enable
 filetype plugin indent on
 
 set background=dark
-colorscheme hydrangea
+colorscheme simple
 highlight ParenMatch term=underline cterm=underline gui=underline
 
 set secure
