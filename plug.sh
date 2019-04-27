@@ -63,7 +63,7 @@ opt=(
   "lumiliet/vim-twig"
   "lepture/vim-jinja"
   "jelera/vim-javascript-syntax"
-  "neoclide/vim-jsx-improve"
+  "MaxMEllon/vim-jsx-pretty"
   "tpope/vim-markdown"
   "kchmck/vim-coffee-script"
   "itchyny/vim-parenmatch"

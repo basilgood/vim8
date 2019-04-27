@@ -8,7 +8,6 @@ autocmd MyAutoCmd BufNewFile,BufRead *.html set filetype=html
 autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.yml set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.vifm,vifmrc set filetype=vim
-let g:jsx_ext_required = 0
 
 autocmd MyAutoCmd BufRead,BufNewFile *.md,.markdown packadd vim-markdown
 let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']
@@ -16,9 +15,8 @@ let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=
 autocmd MyAutoCmd BufReadPre,BufNewFile *.j2 packadd vim-jinja | setlocal filetype=jinja
 autocmd MyAutoCmd BufReadPre,BufNewFile *.twig packadd vim-twig | setlocal filetype=twig.html
 autocmd MyAutoCmd BufReadPre,BufNewFile *.coffee packadd vim-coffee-script | setlocal filetype=coffee
-autocmd MyAutoCmd BufReadPre,BufNewFile *.ts packadd tscompletejob | packadd yats.vim | setlocal filetype=typescript
-autocmd MyAutoCmd BufNewFile,BufRead *.js packadd vim-javascript-syntax | set filetype=javascript
-autocmd MyAutoCmd BufRead,BufNewFile *.js,.jsx packadd vim-jsx-improve
+autocmd MyAutoCmd BufReadPre,BufNewFile *.ts,*.tsx packadd tscompletejob | packadd yats.vim | packadd vim-jsx-pretty | setlocal filetype=typescript
+autocmd MyAutoCmd BufReadPre,BufNewFile *.js,*.jsx packadd vim-javascript-syntax | packadd vim-jsx-pretty | set filetype=javascript
 
 " jump to the last spot the cursor was at in a file when reading it.
 autocmd MyAutoCmd BufReadPost *
