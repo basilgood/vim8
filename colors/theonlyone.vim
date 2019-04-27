@@ -12,7 +12,7 @@ hi LineNr           guifg=#5c5c5c guibg=#1c1c1c gui=NONE
 hi FoldColumn       guifg=#5c5c5c guibg=#1c1c1c gui=NONE
 hi Folded           guifg=#5c5c5c guibg=#1c1c1c gui=NONE
 hi MatchParen       guifg=#fade3e guibg=NONE    gui=underline cterm=underline
-hi signColumn       guifg=#6c6c6c guibg=#1c1c1c gui=NONE
+hi SignColumn       guifg=#6c6c6c guibg=#1c1c1c gui=NONE
 
 hi Comment          guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 hi Conceal          guifg=#ebdbb2 guibg=NONE    gui=NONE cterm=NONE
@@ -90,7 +90,7 @@ hi SpellRare        guibg=NONE    guifg=#ff8700 gui=undercurl guisp=NONE
 
 hi ColorColumn      guibg=#1c1c1c guifg=NONE    gui=NONE
 
-hi ALEWarningSign guifg=#fabd2f guibg=#111111 gui=NONE cterm=NONE
-hi ALEErrorSign   guifg=#f93d3d guibg=#111111 gui=NONE cterm=NONE
+hi ALEWarningSign guifg=#fabd2f guibg=#1c1c1c gui=NONE cterm=NONE
+hi ALEErrorSign   guifg=#f93d3d guibg=#1c1c1c gui=NONE cterm=NONE
 
 hi ParenMatch term=underline cterm=underline gui=underline
