@@ -97,8 +97,6 @@ hi ALEErrorSign   guifg=#f93d3d guibg=#1c1c1c gui=NONE cterm=NONE
 hi ParenMatch term=underline cterm=underline gui=underline
 
 hi link javascriptObjectKey Label
-hi link javascriptGlobalObjects Type
-hi link javascriptBoolean SpellRare
 hi link yamlBool SpellRare
 hi link nixAttributeDefinition Type
 hi link nixAttribute Type
