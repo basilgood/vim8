@@ -62,6 +62,7 @@ opt=(
   "airblade/vim-gitgutter"
   "lumiliet/vim-twig"
   "lepture/vim-jinja"
+  "jelera/vim-javascript-syntax"
   "neoclide/vim-jsx-improve"
   "tpope/vim-markdown"
   "kchmck/vim-coffee-script"

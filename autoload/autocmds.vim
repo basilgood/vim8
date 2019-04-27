@@ -4,14 +4,10 @@ scriptencoding utf-8
 autocmd MyAutoCmd BufRead,BufNewFile *.gitignore  set filetype=gitignore
 autocmd MyAutoCmd BufNewFile,BufRead *.vim set filetype=vim
 autocmd MyAutoCmd BufNewFile,BufRead *.nix set filetype=nix
-autocmd MyAutoCmd BufNewFile,BufRead .ledger set filetype=ledger
-autocmd MyAutoCmd BufNewFile,BufRead *.js set filetype=javascript
 autocmd MyAutoCmd BufNewFile,BufRead *.html set filetype=html
-autocmd MyAutoCmd BufNewFile,BufRead *.fish setlocal filetype=fish
 autocmd MyAutoCmd BufNewFile,BufRead *.yamllint set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.yml set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.vifm,vifmrc set filetype=vim
-autocmd MyAutoCmd BufRead,BufNewFile *.js,.jsx packadd vim-jsx-improve
 let g:jsx_ext_required = 0
 
 autocmd MyAutoCmd BufRead,BufNewFile *.md,.markdown packadd vim-markdown
@@ -21,6 +17,8 @@ autocmd MyAutoCmd BufReadPre,BufNewFile *.j2 packadd vim-jinja | setlocal filety
 autocmd MyAutoCmd BufReadPre,BufNewFile *.twig packadd vim-twig | setlocal filetype=twig.html
 autocmd MyAutoCmd BufReadPre,BufNewFile *.coffee packadd vim-coffee-script | setlocal filetype=coffee
 autocmd MyAutoCmd BufReadPre,BufNewFile *.ts packadd tscompletejob | packadd yats.vim | setlocal filetype=typescript
+autocmd MyAutoCmd BufNewFile,BufRead *.js packadd vim-javascript-syntax | set filetype=javascript
+autocmd MyAutoCmd BufRead,BufNewFile *.js,.jsx packadd vim-jsx-improve
 
 " jump to the last spot the cursor was at in a file when reading it.
 autocmd MyAutoCmd BufReadPost *
