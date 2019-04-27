@@ -11,7 +11,7 @@ hi Terminal         guifg=#ebdbb2 guibg=#1d2021 gui=NONE cterm=NONE
 hi LineNr           guifg=#5c5c5c guibg=#1c1c1c gui=NONE
 hi FoldColumn       guifg=#5c5c5c guibg=#1c1c1c gui=NONE
 hi Folded           guifg=#5c5c5c guibg=#1c1c1c gui=NONE
-hi MatchParen       guifg=#fade3e guibg=NONE    gui=underline cterm=underline
+hi MatchParen       guifg=#e91e63 guibg=NONE    gui=underline ctermfg=197 ctermbg=NONE cterm=underline
 hi SignColumn       guifg=#6c6c6c guibg=#1c1c1c gui=NONE
 
 hi Comment          guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
@@ -27,6 +27,7 @@ hi String           guifg=#98C379 guibg=NONE    gui=NONE cterm=NONE
 hi Todo             guifg=NONE    guibg=NONE    gui=reverse cterm=reverse
 hi Type             guifg=#E5C07B guibg=NONE    gui=NONE cterm=NONE
 hi Underlined       guifg=NONE    guibg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
+hi Label            guifg=#E06C75 guibg=NONE    gui=NONE cterm=NONE
 
 hi NonText          guifg=#3b4048 guibg=NONE    gui=NONE cterm=NONE
 
@@ -94,3 +95,15 @@ hi ALEWarningSign guifg=#fabd2f guibg=#1c1c1c gui=NONE cterm=NONE
 hi ALEErrorSign   guifg=#f93d3d guibg=#1c1c1c gui=NONE cterm=NONE
 
 hi ParenMatch term=underline cterm=underline gui=underline
+
+hi link javascriptObjectKey Label
+hi link javascriptGlobalObjects Type
+hi link javascriptBoolean SpellRare
+hi link yamlBool SpellRare
+hi link nixAttributeDefinition Type
+hi link nixAttribute Type
+hi link nixPath String
+hi link nixBoolean SpellRare
+hi link nixArgumentDefinition Normal
+hi link nixURI String
+hi link nixSimpleFunctionArgument Normal
