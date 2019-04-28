@@ -1,3 +1,5 @@
+" after apprentice layout and onedark colours
+
 hi clear
 if exists('syntax_on')
   syntax reset
@@ -8,11 +10,11 @@ set background=dark
 
 hi Normal           guifg=#abb2bf guibg=#21252c gui=NONE cterm=NONE
 hi Terminal         guifg=#ebdbb2 guibg=#1d2021 gui=NONE cterm=NONE
-hi LineNr           guifg=#5c5c5c guibg=#1c1c1c gui=NONE
-hi FoldColumn       guifg=#5c5c5c guibg=#1c1c1c gui=NONE
-hi Folded           guifg=#5c5c5c guibg=#1c1c1c gui=NONE
+hi LineNr           guifg=#5c5c5c guibg=#14171c gui=NONE
+hi FoldColumn       guifg=#5c5c5c guibg=#14171c gui=NONE
+hi Folded           guifg=#5c5c5c guibg=#14171c gui=NONE
 hi MatchParen       guifg=#e91e63 guibg=NONE    gui=underline ctermfg=197 ctermbg=NONE cterm=underline
-hi SignColumn       guifg=#6c6c6c guibg=#1c1c1c gui=NONE
+hi SignColumn       guifg=#6c6c6c guibg=#14171c gui=NONE
 
 hi Comment          guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 hi Conceal          guifg=#ebdbb2 guibg=NONE    gui=NONE cterm=NONE
@@ -55,7 +57,7 @@ hi CursorColumn     guifg=NONE    guibg=#2a303b gui=NONE cterm=NONE
 hi helpLeadBlank    guibg=NONE    guifg=NONE    gui=NONE
 hi helpNormal       guibg=NONE    guifg=NONE    gui=NONE
 
-hi StatusLine       guifg=#1d1d1d guibg=#777777 gui=bold cterm=bold
+hi StatusLine       guifg=#14171c guibg=#777777 gui=bold cterm=bold
 hi StatusLineNC     guifg=#999999 guibg=#444444 gui=NONE cterm=NONE
 
 hi StatusLineTerm   guibg=#87875f guifg=#262626 gui=NONE
@@ -89,10 +91,10 @@ hi SpellCap         guibg=NONE    guifg=#5fafaf gui=undercurl guisp=NONE
 hi SpellLocal       guibg=NONE    guifg=#5f875f gui=undercurl guisp=NONE
 hi SpellRare        guibg=NONE    guifg=#ff8700 gui=undercurl guisp=NONE
 
-hi ColorColumn      guibg=#1c1c1c guifg=NONE    gui=NONE
+hi ColorColumn      guibg=#14171c guifg=NONE    gui=NONE
 
-hi ALEWarningSign guifg=#fabd2f guibg=#1c1c1c gui=NONE cterm=NONE
-hi ALEErrorSign   guifg=#f93d3d guibg=#1c1c1c gui=NONE cterm=NONE
+hi ALEWarningSign guifg=#fabd2f guibg=#14171c gui=NONE cterm=NONE
+hi ALEErrorSign   guifg=#f93d3d guibg=#14171c gui=NONE cterm=NONE
 
 hi ParenMatch term=underline cterm=underline gui=underline
 
