@@ -176,25 +176,6 @@ let g:gutentags_ctags_exclude = [
       \ '*/application/vendor', '*/vendor/ckeditor', '*/media/vendor'
       \ ]
 
-"""" gitgutter
-if !exists('g:loaded_gitgutter')
-  autocmd MyAutoCmd BufReadPre * packadd vim-gitgutter
-endif
-
-let g:gitgutter_grep_command = executable('ag') ? 'ag' : 'grep'
-let g:gitgutter_sign_added = '┃'
-let g:gitgutter_sign_modified = '┃'
-let g:gitgutter_sign_removed = '┃'
-let g:gitgutter_sign_removed_first_line = '┃'
-let g:gitgutter_sign_modified_removed = '┃'
-let g:gitgutter_max_signs = 1000
-
-" autocmd MyAutoCmd CursorHold,CursorHoldI * if line('$') == 1 && getline(1) == '' | echo "empty buffer" | else | call gitgutter#all(1) | endif
-
-if exists('g:loaded_gitgutter')
-  autocmd MyAutoCmd CursorHold * if &filetype ==? '' | echo "empty buffer" | else | call gitgutter#all(1) | endif
-endif
-
 """" parenmatch
 if !exists('g:loaded_parenmatch')
   autocmd MyAutoCmd BufRead * packadd vim-parenmatch

@@ -8,7 +8,8 @@ fi
 cd pack/bundle/start/
 
 start=(
-  "LnL7/vim-nix"
+  "airblade/vim-gitgutter"
+  # "LnL7/vim-nix"
 )
 
 for element in "${start[@]}"; do
@@ -59,7 +60,6 @@ opt=(
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"
   "HerringtonDarkholme/yats.vim"
-  "airblade/vim-gitgutter"
   "lumiliet/vim-twig"
   "lepture/vim-jinja"
   "jelera/vim-javascript-syntax"

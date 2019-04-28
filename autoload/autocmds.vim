@@ -42,7 +42,7 @@ autocmd MyAutoCmd BufRead,BufNewFile *.vim setlocal dictionary+=$HOME/.vim/dict/
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
 
 " external changes
-autocmd MyAutoCmd FocusGained,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
+autocmd MyAutoCmd FocusGained,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | GitGutterAll | endif
 
 " keep clipboard content
 autocmd MyAutoCmd VimLeave * call system("xclip -sel clip -i", getreg('+'))
