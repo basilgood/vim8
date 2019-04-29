@@ -30,25 +30,19 @@ let g:did_install_default_menus = 1
 let g:is_bash = 1
 let g:sh_noisk = 1
 
-"""" tools
-function! s:mkdir(...) abort
-  if isdirectory(a:1)
-    return
-  endif
-  return call('mkdir', a:000)
-endfunction
-
+"""" vim cache directory
 let $CACHE=expand('$HOME/.cache/vim')
+if ! isdirectory(expand($CACHE))
+  call mkdir(expand('$CACHE/swap'), 'p')
+  call mkdir(expand('$CACHE/backup'), 'p')
+  call mkdir(expand('$CACHE/view'), 'p')
+  call mkdir(expand('$CACHE/undo'), 'p')
+endif
+set undofile swapfile backup writebackup
 set directory=$CACHE/swap//
-set viewdir=$CACHE/view//
+set backupdir=$CACHE/backup/
 set undodir=$CACHE/undo//
-set undofile
-set spellfile=$CACHE/spell/spellfile.utf-8.add
-
-call s:mkdir(&directory, 'p')
-call s:mkdir(&viewdir, 'p')
-call s:mkdir(&undodir, 'p')
-call s:mkdir(fnamemodify(&spellfile, ':p:h'), 'p')
+set viewdir=$CACHE/view/
 
 """" viminfo
 set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
@@ -57,8 +51,8 @@ set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
 set path& | let &path .= '**'
 
 """" backup
-set nobackup
-set nowritebackup
+set backup
+set writebackup
 
 """" general group autocmds
 augroup MyAutoCmd
