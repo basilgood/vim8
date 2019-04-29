@@ -138,10 +138,10 @@ if !exists('g:loaded_closetag')
 endif
 
 let g:closetag_emptyTags_caseSensitive = 1
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js,.*twig'
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,.*js,.*twig'
-let g:closetag_filetypes = 'html,xhtml,phtml,jsx,javascript,twig'
-let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript,twig'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js,*.twig,*.html.twig'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js,*.twig,*.html.twig'
+let g:closetag_filetypes = 'html,xhtml,phtml,jsx,javascript,twig,html.twig'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript,twig,html.twig'
 
 """" gutentags
 if !exists('g:loaded_gutentags')
