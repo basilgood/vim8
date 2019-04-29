@@ -45,7 +45,7 @@ opt=(
   "tpope/vim-commentary"
   "tpope/vim-repeat"
   "tpope/vim-surround"
-  "PanagiotisS/LargeFile"
+  "bootleq/LargeFile"
   "sgur/cmdline-completion"
   "stefandtw/quickfix-reflector.vim"
   "markonm/hlyank.vim"
