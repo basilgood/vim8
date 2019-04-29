@@ -55,7 +55,6 @@ opt=(
   "itchyny/vim-cmdline-ranges"
   "thinca/vim-localrc"
   "alvan/vim-closetag"
-  "mattsacks/vim-fuzzee"
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"
   "HerringtonDarkholme/yats.vim"
