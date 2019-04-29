@@ -31,7 +31,7 @@ if exists('##CursorHold')
 endif
 
 """" syntax
-autocmd MyAutoCmd BufEnter * syntax sync fromstart
+autocmd MyAutoCmd BufRead * syntax sync fromstart
 
 """" completion
 autocmd MyAutoCmd Syntax javascript setlocal isk+=$
