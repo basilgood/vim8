@@ -183,25 +183,5 @@ if !exists('g:loaded_traces_plugin')
   autocmd MyAutoCmd BufRead * packadd traces.vim
 endif
 
-"""" expand region
-if !exists('g:expand_region_init')
-  autocmd MyAutoCmd BufRead * packadd vim-expand-region
-endif
-
-autocmd MyAutoCmd BufRead * call timer_start(500, {-> expand_region#custom_text_objects({
-      \ "\/\\n\\n\<CR>": 1,
-      \ 'a]' :1,
-      \ 'ab' :1,
-      \ 'aB' :1
-      \ })})
-
-"""" tmux-runner
-let g:VtrOrientation = 'h'
-let g:VtrPercentage = 25
-nnoremap <leader>o :packadd vim-tmux-runner<cr>:VtrOpenRunner<cr>
-nnoremap <leader>t :VtrSendCommandToRunner<cr>
-nnoremap <leader>c :VtrFlushCommand<cr>
-nnoremap <leader>q :VtrKillRunner<cr>
-
 function! plugins#load() abort
 endfunction
