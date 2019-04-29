@@ -36,10 +36,11 @@ cd ../opt/
 
 opt=(
   "sgur/vim-editorconfig"
+  "w0rp/ale"
   "tpope/vim-vinegar"
   "jeetsukumaran/vim-buffergator"
+  "itchyny/vim-parenmatch"
   "markonm/traces.vim"
-  "w0rp/ale"
   "wellle/targets.vim"
   "thinca/vim-quickrun"
   "tpope/vim-commentary"
@@ -64,7 +65,6 @@ opt=(
   "MaxMEllon/vim-jsx-pretty"
   "tpope/vim-markdown"
   "kchmck/vim-coffee-script"
-  "itchyny/vim-parenmatch"
 )
 
 for element in "${opt[@]}"; do
