@@ -68,7 +68,6 @@ augroup END
 call options#options()
 call cursorshape#cursor()
 call timer_start(300, {-> remap#map()}, {'repeat': 0})
-call statusline#statusline()
 call timer_start(300, {-> plugins#load()}, {'repeat': 0})
 call lint#linter()
 call autocmds#autocmds()

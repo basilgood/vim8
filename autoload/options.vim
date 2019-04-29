@@ -65,7 +65,18 @@ set visualbell t_vb=
 set confirm
 set showcmd
 set shortmess+=IiatTFc
+
+"""" statusline
 set laststatus=2
+let &statusline=''
+let &statusline=' ⏵ %{winnr("$")>1?winnr().":".winnr("$").(winnr("#")==?winnr()?"#":""):""} '
+let &statusline.='%{pathshorten(expand("%:~:."))} '
+let &statusline.='%h%r'
+let &statusline.='%{exists("g:loaded_fugitive")?"⏶ ".fugitive#head():""} '
+let &statusline.='%{&mod?" + ":""}'
+let &statusline.='%='
+let &statusline.='%{&filetype!=#""?&filetype:""} '
+let &statusline.='%12(%c:%l/%L%) ⏴ '
 
 """" tabs/indent levels
 set autoindent
