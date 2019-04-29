@@ -68,15 +68,14 @@ set shortmess+=IiatTFc
 
 """" statusline
 set laststatus=2
-let &statusline=''
-let &statusline=' ⏵ %{winnr("$")>1?winnr().":".winnr("$").(winnr("#")==?winnr()?"#":""):""} '
-let &statusline.='%{pathshorten(expand("%:~:."))} '
-let &statusline.='%h%r'
-let &statusline.='%{exists("g:loaded_fugitive")?"⏶ ".fugitive#head():""} '
-let &statusline.='%{&mod?" + ":""}'
-let &statusline.='%='
-let &statusline.='%{&filetype!=#""?&filetype:""} '
-let &statusline.='%12(%c:%l/%L%) ⏴ '
+let &g:statusline=''
+let &g:statusline.=' ⏵ %{pathshorten(expand("%:~:."))} '
+let &g:statusline.='%h%r'
+let &g:statusline.='%{exists("g:loaded_fugitive")?"⏶ ".fugitive#head():""} '
+let &g:statusline.='%{&mod?" ✚ ":"✔"} '
+let &g:statusline.='%='
+let &g:statusline.='%{&filetype!=#""?&filetype:""} '
+let &g:statusline.='%12(%c:%l/%L%) ⏴ '
 
 """" tabs/indent levels
 set autoindent
