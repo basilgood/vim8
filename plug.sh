@@ -8,8 +8,9 @@ fi
 cd pack/bundle/start/
 
 start=(
+  "tpope/vim-fugitive"
   "airblade/vim-gitgutter"
-  # "LnL7/vim-nix"
+  "LnL7/vim-nix"
 )
 
 for element in "${start[@]}"; do
@@ -39,7 +40,6 @@ opt=(
   "jeetsukumaran/vim-buffergator"
   "markonm/traces.vim"
   "w0rp/ale"
-  "tpope/vim-fugitive"
   "wellle/targets.vim"
   "thinca/vim-quickrun"
   "tpope/vim-commentary"

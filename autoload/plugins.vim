@@ -45,11 +45,6 @@ let g:editorconfig_blacklist = {
       \ 'filetype': ['git.*', 'fugitive'],
       \ 'pattern': ['\.un~$']}
 
-"""" fugitive
-if !exists('g:loaded_fugitive')
-  autocmd MyAutoCmd BufWinEnter * packadd vim-fugitive | call fugitive#detect(expand('%:p'))
-endif
-
 """" commentary
 if !exists('g:loaded_commentary')
   autocmd MyAutoCmd BufRead * packadd vim-commentary
