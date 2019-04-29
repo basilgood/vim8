@@ -24,11 +24,18 @@ set gdefault
 
 """" windows, buffers
 set switchbuf=useopen,usetab
+set switchbuf+=vsplit
 set splitright
 set splitbelow
 
 """" sessions
 set sessionoptions-=options
+set sessionoptions-=blank
+set sessionoptions-=globals
+set sessionoptions-=folds
+set sessionoptions-=help
+set sessionoptions-=buffers
+set sessionoptions+=tabpages
 
 """" Insert completion
 set dictionary='$HOME/.vim/dict'
@@ -95,7 +102,7 @@ set nospell
 set spelllang=en_us
 set fileformats=unix,dos,mac
 
-""" view
+"""" What to save for views:
 set viewoptions&
       \ viewoptions-=curdir
       \ viewoptions-=options

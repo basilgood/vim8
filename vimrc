@@ -48,7 +48,7 @@ set viewdir=$CACHE/view/
 set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
 
 """" path
-set path& | let &path .= '**'
+set path=.,**
 
 """" backup
 set backup
