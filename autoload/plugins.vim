@@ -122,11 +122,6 @@ if !exists('g:loaded_starsearch')
   autocmd MyAutoCmd BufRead * packadd starsearch.vim
 endif
 
-"""" exchange
-if !exists('g:exchange_no_mappings')
-  autocmd MyAutoCmd BufRead * packadd vim-exchange
-endif
-
 """" tabular
 if !exists('g:tabular_loaded')
   autocmd MyAutoCmd CmdlineEnter * packadd tabular

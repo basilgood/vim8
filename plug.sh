@@ -51,7 +51,6 @@ opt=(
   "markonm/hlyank.vim"
   "mbbill/undotree"
   "darfink/starsearch.vim"
-  "tommcdo/vim-exchange"
   "godlygeek/tabular"
   "itchyny/vim-cmdline-ranges"
   "thinca/vim-localrc"
