@@ -153,14 +153,6 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,.*js,.*twig'
 let g:closetag_filetypes = 'html,xhtml,phtml,jsx,javascript,twig'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript,twig'
 
-"""" fuzee
-nnoremap <leader><leader> :packadd vim-fuzzee<cr>:F */
-if !exists('g:loaded_fuzzee')
-  nnoremap <leader><leader> :packadd vim-fuzzee<cr>:F */
-else
-  nnoremap <leader><leader> :F */
-endif
-
 """" gutentags
 if !exists('g:loaded_gutentags')
   autocmd MyAutoCmd BufReadPre * packadd vim-gutentags
