@@ -24,7 +24,6 @@ set gdefault
 
 """" windows, buffers
 set switchbuf=useopen,usetab
-set switchbuf+=vsplit
 set splitright
 set splitbelow
 
