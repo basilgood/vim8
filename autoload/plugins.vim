@@ -143,21 +143,6 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js,*.twig,*.html.twig
 let g:closetag_filetypes = 'html,xhtml,phtml,jsx,javascript,twig,html.twig'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript,twig,html.twig'
 
-"""" gutentags
-if !exists('g:loaded_gutentags')
-  autocmd MyAutoCmd BufReadPre * packadd vim-gutentags
-endif
-
-let g:gutentags_cache_dir = $HOME .'/.cache/vim/guten_tags'
-let g:gutentags_generate_on_write = 1
-let g:gutentags_generate_on_missing = 1
-let g:gutentags_generate_on_new = 1
-let g:gutentags_ctags_exclude_wildignore = 1
-let g:gutentags_ctags_exclude = [
-      \ '*/wp-admin', '*/wp-content', '*/wp-includes',
-      \ '*/application/vendor', '*/vendor/ckeditor', '*/media/vendor'
-      \ ]
-
 """" parenmatch
 if !exists('g:loaded_parenmatch')
   autocmd MyAutoCmd BufRead * packadd vim-parenmatch
@@ -178,16 +163,10 @@ if !exists('g:loaded_traces_plugin')
   autocmd MyAutoCmd BufRead * packadd traces.vim
 endif
 
-"""" complimentary
-if !exists('g:loaded_complimentary')
-  autocmd MyAutoCmd BufRead * packadd vim-complimentary
+"""" spotlightify
+if !exists('g:loaded_spotlightify')
+  autocmd MyAutoCmd BufRead * packadd vim-spotlightify
 endif
-
-"""" cool
-if !exists('g:loaded_cool')
-  autocmd MyAutoCmd BufRead * packadd vim-cool
-endif
-let g:CoolTotalMatches = 1
 
 function! plugins#load() abort
 endfunction
