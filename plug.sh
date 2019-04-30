@@ -10,6 +10,7 @@ cd pack/bundle/start/
 start=(
   "tpope/vim-fugitive"
   "airblade/vim-gitgutter"
+  "terryma/vim-smooth-scroll"
   "LnL7/vim-nix"
 )
 
