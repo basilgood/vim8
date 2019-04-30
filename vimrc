@@ -23,6 +23,7 @@ endif
 set notimeout
 set ttimeout
 set ttimeoutlen=10
+set lazyredraw
 
 let g:loaded_matchparen = 1
 let g:loaded_rrhelper          = 1
