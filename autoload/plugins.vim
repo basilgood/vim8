@@ -178,5 +178,10 @@ if !exists('g:loaded_traces_plugin')
   autocmd MyAutoCmd BufRead * packadd traces.vim
 endif
 
+"""" traces
+if !exists('g:loaded_spotlightify')
+  autocmd MyAutoCmd BufRead * packadd vim-spotlightify
+endif
+
 function! plugins#load() abort
 endfunction
