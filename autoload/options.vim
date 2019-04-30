@@ -70,14 +70,16 @@ autocmd MyAutoCmd InsertLeave * set listchars+=trail:•
 set visualbell t_vb=
 set confirm
 set showcmd
+set noshowmode
 set shortmess+=IiatTFc
 
 """" statusline
 set laststatus=2
 let &g:statusline=''
+let &g:statusline.=' ⏴ %{toupper(mode())}'
 let &g:statusline.=' ⏵ %{pathshorten(expand("%:~:."))} '
 let &g:statusline.='%h%r'
-let &g:statusline.=' %{exists("g:loaded_fugitive")?"⏶ ".fugitive#head():""} '
+let &g:statusline.=' %{exists("g:loaded_fugitive")?" ".fugitive#head():""} '
 let &g:statusline.=' %{&mod?" ✚ ":" ✔ "}'
 let &g:statusline.='%='
 let &g:statusline.='%{&filetype!=#""?&filetype:""} '
