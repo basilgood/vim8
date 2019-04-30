@@ -178,6 +178,9 @@ if !exists('g:loaded_traces_plugin')
   autocmd MyAutoCmd BufRead * packadd traces.vim
 endif
 
+"""" complimentary
+if !exists('g:loaded_complimentary')
+  autocmd MyAutoCmd BufRead * packadd vim-complimentary
 endif
 
 function! plugins#load() abort

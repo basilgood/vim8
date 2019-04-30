@@ -41,6 +41,7 @@ opt=(
   "tpope/vim-vinegar"
   "jeetsukumaran/vim-buffergator"
   "itchyny/vim-parenmatch"
+  "fcpg/vim-complimentary"
   "markonm/traces.vim"
   "wellle/targets.vim"
   "thinca/vim-quickrun"
