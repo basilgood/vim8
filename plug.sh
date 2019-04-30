@@ -57,6 +57,7 @@ opt=(
   "godlygeek/tabular"
   "itchyny/vim-cmdline-ranges"
   "thinca/vim-localrc"
+  "romainl/vim-cool"
   "alvan/vim-closetag"
   "ludovicchabant/vim-gutentags"
   "runoshun/tscompletejob"

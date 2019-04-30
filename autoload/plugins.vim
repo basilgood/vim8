@@ -183,5 +183,11 @@ if !exists('g:loaded_complimentary')
   autocmd MyAutoCmd BufRead * packadd vim-complimentary
 endif
 
+"""" cool
+if !exists('g:loaded_cool')
+  autocmd MyAutoCmd BufRead * packadd vim-cool
+endif
+let g:CoolTotalMatches = 1
+
 function! plugins#load() abort
 endfunction
