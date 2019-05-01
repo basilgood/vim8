@@ -33,7 +33,6 @@ set sessionoptions-=blank
 set sessionoptions-=globals
 set sessionoptions-=folds
 set sessionoptions-=help
-set sessionoptions-=buffers
 set sessionoptions+=tabpages
 
 """" Insert completion
