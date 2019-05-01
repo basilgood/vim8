@@ -13,6 +13,10 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
+inoremap <M-o> <C-O>o
+inoremap <M-O> <C-O>O
+
+" completion: enter select and close popup
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 
 " paste after/before and adjust current indent
