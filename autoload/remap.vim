@@ -61,11 +61,11 @@ nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
 
-" close and keep layout
-nnoremap q :bn<cr>:bd#<cr>
-
-" ctrlp
+" fzy
 nnoremap <c-p> :call fzy#find("fd --type f --hidden --exclude '.git' .", ":e")<cr>
+
+" grep
+nnoremap gr :<C-u>Grp<Space>
 
 " niceblock
 xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
