@@ -10,7 +10,6 @@ cd pack/bundle/start/
 start=(
   "tpope/vim-fugitive"
   "airblade/vim-gitgutter"
-  "terryma/vim-smooth-scroll"
   "LnL7/vim-nix"
 )
 
@@ -57,6 +56,7 @@ opt=(
   "itchyny/vim-cmdline-ranges"
   "thinca/vim-localrc"
   "fcpg/vim-spotlightify"
+  "yuttie/comfortable-motion.vim"
   "alvan/vim-closetag"
   "runoshun/tscompletejob"
   "HerringtonDarkholme/yats.vim"
