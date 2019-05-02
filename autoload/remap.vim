@@ -92,25 +92,5 @@ cabbrev QA qa
 cabbrev Wq wq
 cabbrev WQ wq
 
-"""" Alt-arrows move between windows
-nnoremap <silent> <M-Left> <C-w><Left>
-nnoremap <silent> <M-Right> <C-w><Right>
-nnoremap <silent> <M-Up> <C-w><Up>
-nnoremap <silent> <M-Down> <C-w><Down>
-
-"""" Alt split
-nnoremap <silent> v :<C-u>vsplit<cr>
-nnoremap <silent> s :<C-u>split<cr>
-nnoremap <silent> o :<C-u>only<cr>
-nnoremap <silent> c :<C-u>close<cr>
-nnoremap <silent> d :<C-u>bd<cr>
-nnoremap <silent> t :<C-u>tab split<cr>
-
-"""" Alt-hjkl resize windows
-nnoremap <silent> l :vertical resize +5<cr>
-nnoremap <silent> h :vertical resize -5<cr>
-nnoremap <silent> j :resize +5<cr>
-nnoremap <silent> k :resize -5<cr>
-
 function! remap#map() abort
 endfunction
