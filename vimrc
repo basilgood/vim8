@@ -39,11 +39,11 @@ if ! isdirectory(expand($CACHE))
   call mkdir(expand('$CACHE/view'), 'p')
   call mkdir(expand('$CACHE/undo'), 'p')
 endif
-set undofile swapfile backup writebackup
+
 set directory=$CACHE/swap//
-set backupdir=$CACHE/backup/
+set backupdir=$CACHE/backup//
 set undodir=$CACHE/undo//
-set viewdir=$CACHE/view/
+set viewdir=$CACHE/view//
 
 """" viminfo
 set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
@@ -51,9 +51,8 @@ set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
 """" path
 set path=.,**
 
-"""" backup
-set backup
-set writebackup
+"""" backup, swap, undo
+set undofile backup
 
 """" general group autocmds
 augroup MyAutoCmd

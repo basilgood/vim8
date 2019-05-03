@@ -33,6 +33,10 @@ endif
 """" syntax
 autocmd MyAutoCmd BufRead * syntax sync fromstart
 
+"""" save views
+autocmd MyAutoCmd BufWinLeave *.* mkview!
+autocmd MyAutoCmd BufWinEnter *.* silent loadview
+
 """" completion
 autocmd MyAutoCmd Syntax javascript setlocal isk+=$
 autocmd MyAutoCmd BufRead,BufNewFile *.js,.jsx setlocal dictionary+=$HOME/.vim/dict/javascript.dict

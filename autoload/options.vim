@@ -102,7 +102,7 @@ set nospell
 set spelllang=en_us
 set fileformats=unix,dos,mac
 
-"""" What to save for views:
+"""" What to not save for views:
 set viewoptions&
       \ viewoptions-=curdir
       \ viewoptions-=options
