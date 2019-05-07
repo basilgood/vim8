@@ -173,6 +173,11 @@ if !exists('g:loaded_comfortable_motion')
   autocmd MyAutoCmd BufRead * packadd comfortable-motion.vim
 endif
 
+"""" fixkey scroll
+if !exists('loaded_fixkey')
+  autocmd MyAutoCmd BufRead * packadd vim-fixkey
+endif
+
 let g:comfortable_motion_scroll_down_key = 'j'
 let g:comfortable_motion_scroll_up_key = 'k'
 nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
