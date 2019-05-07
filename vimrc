@@ -34,14 +34,10 @@ let g:sh_noisk = 1
 """" vim cache directory
 let $CACHE=expand('$HOME/.cache/vim')
 if ! isdirectory(expand($CACHE))
-  call mkdir(expand('$CACHE/swap'), 'p')
-  call mkdir(expand('$CACHE/backup'), 'p')
-  call mkdir(expand('$CACHE/view'), 'p')
   call mkdir(expand('$CACHE/undo'), 'p')
+  call mkdir(expand('$CACHE/view'), 'p')
 endif
 
-set directory=$CACHE/swap//
-set backupdir=$CACHE/backup//
 set undodir=$CACHE/undo//
 set viewdir=$CACHE/view//
 
@@ -52,7 +48,10 @@ set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
 set path=.,**
 
 """" backup, swap, undo
-set undofile backup
+set noswapfile
+set nobackup
+set nowritebackup
+set undofile
 
 """" general group autocmds
 augroup MyAutoCmd
