@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-function functions#mkdirifnotexist()
+function! functions#mkdirifnotexist()
   let dir = expand('%:p:h')
   if dir =~# '://'
     return

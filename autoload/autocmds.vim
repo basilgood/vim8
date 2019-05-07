@@ -34,8 +34,8 @@ endif
 autocmd MyAutoCmd BufRead * syntax sync fromstart
 
 """" save views
-autocmd MyAutoCmd BufWinLeave *.* mkview!
-autocmd MyAutoCmd BufWinEnter *.* silent loadview
+autocmd BufWritePre,BufWinLeave ?* call view#check() | silent! mkview
+autocmd BufWinEnter ?* call view#check() | silent! loadview
 
 """" completion
 autocmd MyAutoCmd Syntax javascript setlocal isk+=$
