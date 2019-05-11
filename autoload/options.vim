@@ -59,6 +59,9 @@ set diffopt+=internal,algorithm:patience
 set number
 set mouse=a
 set ttymouse=sgr
+" if &term =~ '256color'
+"   set t_ut=
+" endif
 set cursorline
 set list
 let &g:listchars = 'tab:▸ ,space:·,extends:❯,precedes:❮,nbsp:⦸'
@@ -101,11 +104,6 @@ set helplang=en
 set nospell
 set spelllang=en_us
 set fileformats=unix,dos,mac
-
-"""" What to not save for views:
-set viewoptions&
-      \ viewoptions-=curdir
-      \ viewoptions-=options
 
 """" command line
 set history=1000

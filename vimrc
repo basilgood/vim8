@@ -35,11 +35,9 @@ let g:sh_noisk = 1
 let $CACHE=expand('$HOME/.cache/vim')
 if ! isdirectory(expand($CACHE))
   call mkdir(expand('$CACHE/undo'), 'p')
-  call mkdir(expand('$CACHE/view'), 'p')
 endif
 
 set undodir=$CACHE/undo//
-set viewdir=$CACHE/view//
 
 """" viminfo
 set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
