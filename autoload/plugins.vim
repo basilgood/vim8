@@ -1,9 +1,5 @@
 scriptencoding utf-8
 
-function! s:pluginsPlug(plug_load) abort
-  exec 'packadd'.' '.a:plug_load
-endfunction
-
 """" vinegar
 if !exists('g:loaded_vinegar')
   packadd vim-vinegar
@@ -173,16 +169,10 @@ if !exists('g:loaded_comfortable_motion')
   autocmd MyAutoCmd BufRead * packadd comfortable-motion.vim
 endif
 
-"""" fixkey scroll
-if !exists('loaded_fixkey')
-  autocmd MyAutoCmd BufRead * packadd vim-fixkey
-endif
-
 let g:comfortable_motion_scroll_down_key = 'j'
 let g:comfortable_motion_scroll_up_key = 'k'
 nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
 nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
-
 nnoremap <silent> <C-f> :call comfortable_motion#flick(200)<CR>
 nnoremap <silent> <C-b> :call comfortable_motion#flick(-200)<CR>
 noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>

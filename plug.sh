@@ -67,7 +67,6 @@ opt=(
   "MaxMEllon/vim-jsx-pretty"
   "tpope/vim-markdown"
   "kchmck/vim-coffee-script"
-  "drmikehenry/vim-fixkey"
 )
 
 for element in "${opt[@]}"; do
