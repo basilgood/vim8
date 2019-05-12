@@ -59,9 +59,9 @@ set diffopt+=internal,algorithm:patience
 set number
 set mouse=a
 set ttymouse=sgr
-" if &term =~ '256color'
-"   set t_ut=
-" endif
+if &term =~ '256color'
+  set t_ut=
+endif
 set cursorline
 set list
 let &g:listchars = 'tab:▸ ,space:·,extends:❯,precedes:❮,nbsp:⦸'
