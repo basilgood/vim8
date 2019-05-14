@@ -33,7 +33,7 @@ let g:buffergator_show_full_directory_path = 0
 
 """" editorconfig
 if !exists('g:loaded_editorconfig')
-  autocmd MyAutoCmd BufReadPre * packadd vim-editorconfig
+  packadd vim-editorconfig
 endif
 let g:editorconfig_root_chdir = 1
 let g:editorconfig_verbose = 1
@@ -43,17 +43,17 @@ let g:editorconfig_blacklist = {
 
 """" commentary
 if !exists('g:loaded_commentary')
-  autocmd MyAutoCmd BufRead * packadd vim-commentary
+  packadd vim-commentary
 endif
 
 """" repeat
 if !exists('g:loaded_repeat')
-  autocmd MyAutoCmd BufRead * packadd vim-repeat
+  packadd vim-repeat
 endif
 
 """" surround
 if !exists('g:loaded_surround')
-  autocmd MyAutoCmd BufRead * packadd vim-surround
+  packadd vim-surround
 endif
 
 let surround_indent=1
@@ -68,12 +68,12 @@ endif
 
 """" large file
 if !exists('g:loaded_LargeFile')
-  autocmd MyAutoCmd BufReadPre * packadd LargeFile
+  packadd LargeFile
 endif
 
 """" quickrun
 if !exists('g:loaded_quickrun')
-  autocmd MyAutoCmd BufRead * packadd vim-quickrun
+  packadd vim-quickrun
 endif
 
 let g:quickrun_config = {
@@ -94,7 +94,7 @@ let g:quickrun_config = {
 
 """" hlyank
 if !exists('g:loaded_hlyank_plugin')
-  autocmd MyAutoCmd BufRead * packadd hlyank.vim
+  packadd hlyank.vim
 endif
 
 """" undotree
@@ -115,7 +115,7 @@ endif
 
 """" starsearch
 if !exists('g:loaded_starsearch')
-  autocmd MyAutoCmd BufRead * packadd starsearch.vim
+  packadd starsearch.vim
 endif
 
 """" tabular
@@ -125,12 +125,12 @@ endif
 
 """" localrc
 if !exists('g:loaded_localrc')
-  autocmd MyAutoCmd BufRead * packadd vim-localrc
+  packadd vim-localrc
 endif
 
 """" closetag
 if !exists('g:loaded_closetag')
-  autocmd MyAutoCmd BufRead * packadd vim-closetag
+  packadd vim-closetag
 endif
 
 let g:closetag_emptyTags_caseSensitive = 1
@@ -141,32 +141,32 @@ let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript,twig,html.twig'
 
 """" parenmatch
 if !exists('g:loaded_parenmatch')
-  autocmd MyAutoCmd BufRead * packadd vim-parenmatch
+  packadd vim-parenmatch
 endif
 
 """" quickfix
 if !exists('g:qf_modifiable')
-  autocmd MyAutoCmd BufRead * packadd quickfix-reflector.vim
+  packadd quickfix-reflector.vim
 endif
 
 """" targets
 if !exists('g:loaded_targets')
-  autocmd MyAutoCmd BufRead * packadd targets.vim
+  packadd targets.vim
 endif
 
 """" traces
 if !exists('g:loaded_traces_plugin')
-  autocmd MyAutoCmd BufRead * packadd traces.vim
+  packadd traces.vim
 endif
 
 """" spotlightify
 if !exists('g:loaded_spotlightify')
-  autocmd MyAutoCmd BufRead * packadd vim-spotlightify
+  packadd vim-spotlightify
 endif
 
 """" smooth scroll
 if !exists('g:loaded_comfortable_motion')
-  autocmd MyAutoCmd BufRead * packadd comfortable-motion.vim
+  packadd comfortable-motion.vim
 endif
 
 let g:comfortable_motion_scroll_down_key = 'j'
