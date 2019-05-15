@@ -194,6 +194,7 @@ nnoremap <buffer> <silent> S :Cycle<CR>
 if !exists('g:loaded_agit')
   packadd agit.vim
 endif
+let g:agit_enable_auto_refresh = 1
 
 
 function! plugins#load() abort
