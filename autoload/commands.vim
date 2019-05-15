@@ -12,5 +12,7 @@ command! -nargs=1 TX
   \ call system('tmux split-window -d -l 16 '.<q-args>)
 command! GP TX git push
 
+command! -nargs=0 CO call functions#commit()
+
 function! commands#commands()
 endfunction
