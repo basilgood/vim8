@@ -186,7 +186,7 @@ nnoremap <silent> <C-j> :call swap_buffers#swap('down')<CR>
 nnoremap <silent> <C-k> :call swap_buffers#swap('up')<CR>
 nnoremap <silent> <C-l> :call swap_buffers#swap('right')<CR>
 
-"""" git rebase
+"""" git rebase ft
 autocmd MyAutoCmd CmdlineEnter * packadd vim-git
 nnoremap <buffer> <silent> S :Cycle<CR>
 
@@ -195,7 +195,8 @@ if !exists('g:loaded_agit')
   packadd agit.vim
 endif
 let g:agit_enable_auto_refresh = 1
-
+let g:agit_ignore_spaces = 0
+nnoremap <leader>G :Agit<cr>
 
 function! plugins#load() abort
 endfunction
