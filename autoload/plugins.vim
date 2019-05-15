@@ -186,5 +186,15 @@ nnoremap <silent> <C-j> :call swap_buffers#swap('down')<CR>
 nnoremap <silent> <C-k> :call swap_buffers#swap('up')<CR>
 nnoremap <silent> <C-l> :call swap_buffers#swap('right')<CR>
 
+"""" git rebase
+autocmd MyAutoCmd CmdlineEnter * packadd vim-git
+nnoremap <buffer> <silent> S :Cycle<CR>
+
+"""" agit
+if !exists('g:loaded_agit')
+  packadd agit.vim
+endif
+
+
 function! plugins#load() abort
 endfunction
