@@ -33,12 +33,6 @@ function! functions#getfilesize() abort
   return size . 'GB'
 endfunction
 
-function! functions#commit()
-	:w
-	:!git add %
-	:!git commit -m "."
-endfun
-
 function! functions#hl()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction
