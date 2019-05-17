@@ -11,7 +11,6 @@ start=(
   "tpope/vim-fugitive"
   "airblade/vim-gitgutter"
   "LnL7/vim-nix"
-  "salcode/vim-interactive-rebase-reverse"
 )
 
 for element in "${start[@]}"; do
