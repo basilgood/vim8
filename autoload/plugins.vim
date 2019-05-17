@@ -190,6 +190,11 @@ nnoremap <silent> <C-l> :call swap_buffers#swap('right')<CR>
 autocmd MyAutoCmd CmdlineEnter * packadd vim-git
 nnoremap <buffer> <silent> S :Cycle<CR>
 
+"""" rebase diff
+if !exists('g:did_auto_git_diff')
+  packadd auto-git-diff
+endif
+
 """" agit
 if !exists('g:loaded_agit')
   packadd agit.vim

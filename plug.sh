@@ -48,6 +48,7 @@ opt=(
   "tpope/vim-repeat"
   "tpope/vim-surround"
   "tpope/vim-git"
+  "hotwatermorning/auto-git-diff"
   "cohama/agit.vim"
   "bootleq/LargeFile"
   "sgur/cmdline-completion"
