@@ -40,9 +40,7 @@ set dictionary='$HOME/.vim/dict'
 set omnifunc=syntaxcomplete#Complete
 set completefunc=syntaxcomplete#Complete
 set completeopt-=preview
-set completeopt+=menu
-set completeopt+=noinsert
-set completeopt+=noselect
+set completeopt+=longest,menuone,noselect
 set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 
