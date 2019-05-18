@@ -169,14 +169,6 @@ if !exists('loaded_smooth_scroll')
   packadd vim-smooth-scroll
 endif
 
-"""" swap buffers
-packadd swap-buffers.vim
-
-nnoremap <silent> <C-h> :call swap_buffers#swap('left')<CR>
-nnoremap <silent> <C-j> :call swap_buffers#swap('down')<CR>
-nnoremap <silent> <C-k> :call swap_buffers#swap('up')<CR>
-nnoremap <silent> <C-l> :call swap_buffers#swap('right')<CR>
-
 """" git rebase ft
 autocmd MyAutoCmd CmdlineEnter * packadd vim-git
 nnoremap <buffer> <silent> S :Cycle<CR>

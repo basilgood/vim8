@@ -59,7 +59,6 @@ opt=(
   "thinca/vim-localrc"
   "fcpg/vim-spotlightify"
   "cskeeters/vim-smooth-scroll"
-  "AlxHnr/swap-buffers.vim"
   "alvan/vim-closetag"
   "runoshun/tscompletejob"
   "HerringtonDarkholme/yats.vim"
