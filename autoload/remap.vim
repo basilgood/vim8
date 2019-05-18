@@ -105,5 +105,17 @@ nnoremap <leader>gd :Gvdiff<cr>
 nnoremap <leader>gp :GP<cr>
 nnoremap <leader>gf :GPF<cr>
 
+" Window navigation
+nnoremap <leader>1 1<c-w>w
+nnoremap <leader>2 2<c-w>w
+nnoremap <leader>3 3<c-w>w
+nnoremap <leader>4 4<c-w>w
+nnoremap <leader>5 5<c-w>w
+nnoremap <leader>6 6<c-w>w
+nnoremap <leader>7 7<c-w>w
+nnoremap <leader>8 8<c-w>w
+nnoremap <leader>9 9<c-w>w
+nnoremap <leader>0 10<c-w>w
+
 function! remap#map() abort
 endfunction
