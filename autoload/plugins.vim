@@ -165,18 +165,9 @@ if !exists('g:loaded_spotlightify')
 endif
 
 """" smooth scroll
-if !exists('g:loaded_comfortable_motion')
-  packadd comfortable-motion.vim
+if !exists('loaded_smooth_scroll')
+  packadd vim-smooth-scroll
 endif
-
-let g:comfortable_motion_scroll_down_key = 'j'
-let g:comfortable_motion_scroll_up_key = 'k'
-nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
-nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
-nnoremap <silent> <C-f> :call comfortable_motion#flick(200)<CR>
-nnoremap <silent> <C-b> :call comfortable_motion#flick(-200)<CR>
-noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
-noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
 """" swap buffers
 packadd swap-buffers.vim
@@ -194,14 +185,6 @@ nnoremap <buffer> <silent> S :Cycle<CR>
 if !exists('g:did_auto_git_diff')
   packadd auto-git-diff
 endif
-
-"""" agit
-if !exists('g:loaded_agit')
-  packadd agit.vim
-endif
-let g:agit_enable_auto_refresh = 1
-let g:agit_ignore_spaces = 0
-nnoremap <leader>G :Agit<cr>
 
 function! plugins#load() abort
 endfunction
