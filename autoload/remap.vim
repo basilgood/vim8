@@ -99,12 +99,11 @@ cabbrev Wq wq
 cabbrev WQ wq
 
 """" git commands
-nnoremap <silent> <leader>gd :<c-u>call lf_git#diff()<cr>
-nnoremap <silent> <leader>gk :<c-u>call lf_terminal#run(['git', 'commit'])<cr>
-nnoremap <silent> <leader>gp :<c-u>call lf_terminal#run(['git', 'push'])<cr>
-nnoremap <silent> <leader>gs :<c-u>call lf_run#cmd(['git', 'status'])<cr>
-nnoremap <silent> <leader>gt :<c-u>call lf_git#three_way_diff()<cr>
-nnoremap          <leader>dt :<c-r>=&diff ? 'diffoff' : 'diffthis'<cr><cr>
+nnoremap <leader>dt :<c-r>=&diff ? 'diffoff' : 'diffthis'<cr><cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gd :Gvdiff<cr>
+nnoremap <leader>gp :GP<cr>
+nnoremap <leader>gf :GPF<cr>
 
 function! remap#map() abort
 endfunction
