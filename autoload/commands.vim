@@ -11,6 +11,13 @@ command -nargs=+ -complete=file Grp execute 'silent Ggrep! --untracked' <q-args>
 command! -nargs=1 TX
   \ call system('tmux split-window -d -l 16 '.<q-args>)
 command! GP TX git push
+command! GPF TX git push --force
+
+" Execute a Vim command and send the output to a new scratch buffer
+command! -complete=command -nargs=+ VimCmd call lf_run#vim_cmd(<q-args>)
+
+" Open a terminal and "bind" it to the current buffer (see \x mappings below)
+command! BindTerminal call lf_terminal#open()
 
 function! commands#commands()
 endfunction
