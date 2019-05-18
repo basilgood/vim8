@@ -78,6 +78,7 @@ set shortmess+=Icm
 """" statusline
 set laststatus=2
 let &g:statusline=''
+let &g:statusline.='%{winnr("$")>1?winnr():""}'
 let &g:statusline.=' %{toupper(mode())}'
 let &g:statusline.=' ⦁ %{pathshorten(expand("%:~:."))}'
 let &g:statusline.=' %h%r'
