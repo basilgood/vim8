@@ -73,7 +73,7 @@ set visualbell t_vb=
 set confirm
 set showcmd
 set noshowmode
-set shortmess+=IiatTFc
+set shortmess+=Icm
 
 """" statusline
 set laststatus=2
