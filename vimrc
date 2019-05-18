@@ -10,12 +10,9 @@ if !v:vim_did_enter && has('reltime')
   augroup END
 endif
 
-if !has('gui_running')
-      \ && exists('&termguicolors')
-  if !has('nvim')
-    let &t_8f = "\e[38;2;%lu;%lu;%lum"
-    let &t_8b = "\e[48;2;%lu;%lu;%lum"
-  endif
+if has('termguicolors') && $COLORTERM ==# 'truecolor'
+  let &t_8f = "\e[38;2;%lu;%lu;%lum"
+  let &t_8b = "\e[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
 
