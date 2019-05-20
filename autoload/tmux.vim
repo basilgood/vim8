@@ -21,5 +21,14 @@ if exists('$TMUX')
   execute "set <xLeft>=\e[1;*D"
 endif
 
-function! cursorshape#cursor() abort
+if $TERM =~# '^\%(tmux\|screen\)'
+  set ttymouse=xterm2
+  " Make bracketed paste mode work inside tmux:
+  let &t_BE = "\033[?2004h"
+  let &t_BD = "\033[?2004l"
+  let &t_PS = "\033[200~"
+  let &t_PE = "\033[201~"
+endif
+
+function! tmux#tmux() abort
 endfunction

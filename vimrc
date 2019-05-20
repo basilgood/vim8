@@ -54,7 +54,7 @@ augroup MyAutoCmd
 augroup END
 
 call options#options()
-call cursorshape#cursor()
+call tmux#tmux()
 call timer_start(300, {-> remap#map()}, {'repeat': 0})
 call timer_start(300, {-> plugins#load()}, {'repeat': 0})
 call lint#linter()
