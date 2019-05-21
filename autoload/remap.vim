@@ -102,6 +102,7 @@ cabbrev WQ wq
 nnoremap <leader>dt :<c-r>=&diff ? 'diffoff' : 'diffthis'<cr><cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gd :Gvdiff<cr>
+nnoremap <leader>gc :Git checkout<space>
 nnoremap <leader>gp :GP<cr>
 nnoremap <leader>gf :GPF<cr>
 
