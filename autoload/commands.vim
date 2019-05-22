@@ -7,6 +7,8 @@ command -nargs=0 WS %s/\s\+$// | normal! ``
 command -nargs=0 HL call functions#hl()
 command -nargs=+ -complete=file Ack :call grep#vgrep(<q-args>)
 command -nargs=+ -complete=file Grp execute 'silent Ggrep! --untracked' <q-args> | cwindow | redraw!
+" Scratch Buffer
+command! SC vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
 
 command! -nargs=+ -complete=shellcmd TX
   \ call system('tmux split-window -d -l 16 '.<q-args>)
