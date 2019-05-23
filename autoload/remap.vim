@@ -19,10 +19,6 @@ inoremap <M-O> <C-O>O
 " completion: enter select and close popup
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 
-" paste after/before and adjust current indent
-nnoremap p p`[=`]
-nnoremap P P`[=`]
-
 " paste from clipboard
 nnoremap <space>p :put+<cr>
 vnoremap <space>p "+p
