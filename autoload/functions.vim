@@ -33,6 +33,25 @@ function! functions#getfilesize() abort
   return size . 'GB'
 endfunction
 
+" lifepillar
+function! functions#large_file(name)
+  let b:large_file = 1
+  syntax clear
+  set eventignore+=FileType
+  let &backupskip .= ',' . a:name
+  setlocal foldmethod=manual nofoldenable noswapfile noundofile
+  augroup large_buffer
+    autocmd!
+    autocmd BufWinEnter <buffer> call <sid>restore_eventignore()
+  augroup END
+endf
+
+function! s:restore_eventignore()
+  set eventignore-=FileType
+  autocmd! large_buffer
+  augroup! large_buffer
+endf
+
 function! functions#hl()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction

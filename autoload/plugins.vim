@@ -66,11 +66,6 @@ if !exists('loaded_cmdline_completion')
   autocmd MyAutoCmd CmdlineEnter * packadd cmdline-completion
 endif
 
-"""" large file
-if !exists('g:loaded_LargeFile')
-  packadd LargeFile
-endif
-
 """" quickrun
 if !exists('g:loaded_quickrun')
   packadd vim-quickrun

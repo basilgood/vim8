@@ -24,6 +24,13 @@ autocmd MyAutoCmd BufReadPost *
       \   silent! exe 'normal! g`"zzza' |
       \ endif
 
+" If a file is large, disable syntax highlighting, filetype etc
+autocmd MyAutoCmd BufReadPre *
+      \ let s = getfsize(expand("<afile>")) |
+      \ if s > g:LargeFile || s == -2 |
+      \   call functions#large_file(fnamemodify(expand("<afile>"), ":p")) |
+      \ endif
+
 " manage swapfiles
 if exists('##CursorHold')
   autocmd MyAutoCmd CursorHold,BufWritePost,BufReadPost,BufLeave *

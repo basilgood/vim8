@@ -69,4 +69,6 @@ set background=dark
 colorscheme theonlyone
 highlight ParenMatch term=underline cterm=underline gui=underline
 
+let g:LargeFile = 20*1024*1024 " 20MB
+
 set secure
