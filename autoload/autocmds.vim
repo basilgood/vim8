@@ -18,20 +18,20 @@ autocmd MyAutoCmd BufReadPre,BufNewFile *.coffee packadd vim-coffee-script | set
 autocmd MyAutoCmd BufReadPre,BufNewFile *.ts,*.tsx packadd tscompletejob | packadd yats.vim | packadd vim-jsx-pretty | setlocal filetype=typescript
 autocmd MyAutoCmd BufReadPre,BufNewFile *.js,*.jsx packadd vim-javascript-syntax | packadd vim-jsx-pretty | set filetype=javascript
 
-" jump to the last spot the cursor was at in a file when reading it.
+"""" jump to the last spot the cursor was at in a file when reading it.
 autocmd MyAutoCmd BufReadPost *
       \ if line("'\"") > 1 && line("'\"") <= line("$") |
       \   silent! exe 'normal! g`"zzza' |
       \ endif
 
-" If a file is large, disable syntax highlighting, filetype etc
+"""" If a file is large, disable syntax highlighting, filetype etc
 autocmd MyAutoCmd BufReadPre *
       \ let s = getfsize(expand("<afile>")) |
       \ if s > g:LargeFile || s == -2 |
       \   call functions#large_file(fnamemodify(expand("<afile>"), ":p")) |
       \ endif
 
-" manage swapfiles
+"""" manage swapfiles
 if exists('##CursorHold')
   autocmd MyAutoCmd CursorHold,BufWritePost,BufReadPost,BufLeave *
         \ if !$VIMSWAP && isdirectory(expand('<amatch>:h')) | let &swapfile = &modified | endif
@@ -45,13 +45,13 @@ autocmd MyAutoCmd Syntax javascript setlocal isk+=$
 autocmd MyAutoCmd BufRead,BufNewFile *.js,.jsx setlocal dictionary+=$HOME/.vim/dict/javascript.dict
 autocmd MyAutoCmd BufRead,BufNewFile *.vim setlocal dictionary+=$HOME/.vim/dict/vim.dict
 
-" update diff
+"""" update diff
 autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
 
-" external changes
+"""" external changes
 autocmd MyAutoCmd FocusGained,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | GitGutterAll | endif
 
-" keep clipboard content
+"""" keep clipboard content
 autocmd MyAutoCmd VimLeave * call system("xclip -sel clip -i", getreg('+'))
 
 """" cursorline
@@ -61,7 +61,7 @@ autocmd MyAutoCmd InsertEnter,WinLeave * setlocal nocursorline
 """" mkdir
 autocmd MyAutoCmd BufWritePre * call functions#mkdirifnotexist()
 
-" qf and help keep widow full width
+"""" qf and help keep widow full width
 autocmd MyAutoCmd FileType qf wincmd J
 autocmd MyAutoCmd BufWinEnter * if &ft == 'help' | wincmd J | end
 
