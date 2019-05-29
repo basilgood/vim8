@@ -48,6 +48,9 @@ set nobackup
 set nowritebackup
 set undofile
 
+"""" large file
+let g:LargeFile = 20*1024*1024 " 20MB
+
 """" general group autocmds
 augroup MyAutoCmd
   autocmd!
@@ -68,7 +71,5 @@ filetype plugin indent on
 set background=dark
 colorscheme theonlyone
 highlight ParenMatch ctermfg=red term=underline cterm=underline gui=underline
-
-let g:LargeFile = 20*1024*1024 " 20MB
 
 set secure
