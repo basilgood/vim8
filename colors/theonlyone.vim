@@ -96,7 +96,7 @@ hi ColorColumn      guibg=#14171c guifg=NONE    gui=NONE
 hi ALEWarningSign guifg=#fabd2f guibg=#14171c gui=NONE cterm=NONE
 hi ALEErrorSign   guifg=#f93d3d guibg=#14171c gui=NONE cterm=NONE
 
-hi ParenMatch term=underline cterm=underline gui=underline
+hi ParenMatch ctermfg=red term=underline cterm=underline gui=underline
 
 hi link javascriptObjectKey Label
 hi link yamlBool SpellRare

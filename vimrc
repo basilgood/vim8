@@ -67,7 +67,7 @@ filetype plugin indent on
 
 set background=dark
 colorscheme theonlyone
-highlight ParenMatch term=underline cterm=underline gui=underline
+highlight ParenMatch ctermfg=red term=underline cterm=underline gui=underline
 
 let g:LargeFile = 20*1024*1024 " 20MB
 
