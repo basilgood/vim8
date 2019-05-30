@@ -65,6 +65,7 @@ nnoremap * *zz
 nnoremap # #zz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
+cnoremap <expr> <CR> getcmdtype() =~ '[/?]' ? '<CR>zz' : '<CR>'
 
 " fzy
 nnoremap <c-p> :call fzy#find("fd --type f --hidden --exclude '.git' .", ":e")<cr>
