@@ -101,6 +101,7 @@ nnoremap <leader>gd :Gvdiff<cr>
 nnoremap <leader>gc :Git checkout<space>
 nnoremap <leader>gp :GP<cr>
 nnoremap <leader>gf :GPF<cr>
+nnoremap <leader>k :TK<space>2<cr>
 
 " Window navigation
 nnoremap <leader>1 1<c-w>w

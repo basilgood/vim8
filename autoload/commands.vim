@@ -11,7 +11,10 @@ command -nargs=+ -complete=file Grp execute 'silent Ggrep! --untracked' <q-args>
 command! SC vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
 
 command! -nargs=+ -complete=shellcmd TX
-  \ call system('tmux split-window -d -l 16 '.<q-args>)
+  \ call system('tmux split-window -d -l 16 ;attach'.<q-args>)
+
+command! -nargs=+ TK call system('tmux kill-pane -t '.<q-args>)
+
 command! GP TX git push
 command! GPF TX git push --force
 
