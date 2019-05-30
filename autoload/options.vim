@@ -20,6 +20,8 @@ set display=lastline
 """" searching and patterns
 set incsearch
 set hlsearch|nohlsearch
+autocmd MyAutoCmd InsertLeave * :setlocal hlsearch
+autocmd MyAutoCmd InsertEnter * :setlocal nohlsearch
 set gdefault
 
 """" windows, buffers

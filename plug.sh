@@ -56,7 +56,6 @@ opt=(
   "godlygeek/tabular"
   "itchyny/vim-cmdline-ranges"
   "thinca/vim-localrc"
-  "fcpg/vim-spotlightify"
   "cskeeters/vim-smooth-scroll"
   "alvan/vim-closetag"
   "runoshun/tscompletejob"

@@ -57,7 +57,8 @@ nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
 
-" search results appear in the middle of the screen
+" center search and nohl
+nnoremap <Right> :noh<CR><Right>
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz

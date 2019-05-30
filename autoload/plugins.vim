@@ -156,11 +156,6 @@ if !exists('g:loaded_traces_plugin')
   packadd traces.vim
 endif
 
-"""" spotlightify
-if !exists('g:loaded_spotlightify')
-  packadd vim-spotlightify
-endif
-
 """" smooth scroll
 if !exists('loaded_smooth_scroll')
   packadd vim-smooth-scroll
