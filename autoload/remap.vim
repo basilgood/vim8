@@ -58,11 +58,13 @@ nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
 
 " center search and nohl
-nnoremap <Right> :noh<CR><Right>
+nnoremap <leader><leader> :noh<cr>
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
 
 " fzy
 nnoremap <c-p> :call fzy#find("fd --type f --hidden --exclude '.git' .", ":e")<cr>
