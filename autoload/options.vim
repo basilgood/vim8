@@ -57,7 +57,7 @@ set diffopt+=internal,algorithm:patience
 set number
 set mouse=a
 set ttymouse=sgr
-if &term =~ '256color'
+if &term =~# '256color'
   set t_ut=
 endif
 set cursorline
