@@ -73,7 +73,7 @@ syntax enable
 filetype plugin indent on
 
 set background=dark
-colorscheme wwdc16
+colorscheme theonlyone
 highlight ParenMatch ctermfg=red term=underline cterm=underline gui=underline
 
 set secure
