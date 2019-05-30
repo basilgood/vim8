@@ -78,8 +78,8 @@ hi DiffChange       guifg=#fabd2f guibg=#1d2021 cterm=reverse
 hi DiffDelete       guifg=#f93d3d guibg=#1d2021 cterm=reverse
 hi DiffText         guifg=#56b6c2 guibg=#1d2021 cterm=reverse
 
-hi IncSearch        guifg=#1d2021 guibg=#fb4934 gui=NONE cterm=NONE
-hi Search           guifg=#282828 guibg=#46969b gui=bold
+hi IncSearch        guifg=#ffffff guibg=#d24e9b gui=bold cterm=bold
+hi Search           guifg=NONE    guibg=#111111 gui=bold cterm=bold
 
 hi Directory        guifg=#61AFEF guibg=NONE    gui=NONE cterm=NONE
 
@@ -93,8 +93,8 @@ hi SpellRare        guibg=NONE    guifg=#ff8700 gui=undercurl guisp=NONE
 
 hi ColorColumn      guibg=#14171c guifg=NONE    gui=NONE
 
-hi ALEWarningSign guifg=#fabd2f guibg=#14171c gui=NONE cterm=NONE
-hi ALEErrorSign   guifg=#f93d3d guibg=#14171c gui=NONE cterm=NONE
+hi ALEWarningSign   guifg=#fabd2f guibg=#14171c gui=NONE cterm=NONE
+hi ALEErrorSign     guifg=#f93d3d guibg=#14171c gui=NONE cterm=NONE
 
 hi ParenMatch ctermfg=red term=underline cterm=underline gui=underline
 
