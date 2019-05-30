@@ -35,10 +35,6 @@ vnoremap <space>y "+y
 " yank from cursor position to end of line
 nnoremap Y y$
 
-" prev and next buffer
-nnoremap ]b :bnext<cr>
-nnoremap [b :bprev<cr>
-
 " substitute
 nnoremap <leader>s :%s/
 vnoremap <leader>s :s/
@@ -48,6 +44,10 @@ nnoremap <leader>w :%s/\<<c-r><c-w>\>/
 nnoremap <leader>l :s/
 " append text
 nnoremap <leader>a :%s/\<<c-r><c-w>\>/<c-r><c-w>
+
+" prev and next buffer
+nnoremap ]b :bnext<cr>
+nnoremap [b :bprev<cr>
 
 " lists
 nnoremap ]l :lnext<cr>
@@ -99,9 +99,10 @@ nnoremap <leader>dt :<c-r>=&diff ? 'diffoff' : 'diffthis'<cr><cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gd :Gvdiff<cr>
 nnoremap <leader>gc :Git checkout<space>
-nnoremap <leader>gp :GP<cr>
-nnoremap <leader>gf :GPF<cr>
-nnoremap <leader>k :TK<space>2<cr>
+nnoremap <leader>t :exe '!tmux split-window -d -p 16;attach'<cr><c-l>
+nnoremap <leader>k :exe '!tmux kill-pane -t 2'<cr><c-l>
+nnoremap <leader>gp :exe "!tmux send -t 2 'git push" . "' Enter"<cr><c-l>
+nnoremap <leader>gf :exe "!tmux send -t 2 'git push -f" . "' Enter"<cr><c-l>
 
 " Window navigation
 nnoremap <leader>1 1<c-w>w
