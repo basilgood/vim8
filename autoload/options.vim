@@ -55,6 +55,9 @@ set diffopt+=internal,algorithm:patience
 
 """" display
 set number
+set relativenumber
+autocmd MyAutoCmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
+autocmd MyAutoCmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 set mouse=a
 set ttymouse=sgr
 if &term =~# '256color'

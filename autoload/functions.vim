@@ -39,7 +39,7 @@ function! functions#large_file(name)
   syntax clear
   set eventignore+=FileType
   let &backupskip .= ',' . a:name
-  setlocal foldmethod=manual nofoldenable noswapfile noundofile
+  setlocal foldmethod=manual nofoldenable noswapfile noundofile norelativenumber
   augroup large_buffer
     autocmd!
     autocmd BufWinEnter <buffer> call <sid>restore_eventignore()

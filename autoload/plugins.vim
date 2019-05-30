@@ -6,7 +6,7 @@ if !exists('g:loaded_vinegar')
 endif
 
 let g:netrw_localrmdir='rm -rf'
-let g:netrw_bufsettings = 'nomodifiable nomodified number nowrap readonly nobuflisted hidden'
+let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted hidden'
 let g:netrw_sort_dotfiles_first = 1
 let g:netrw_altfile = 1
 let g:netrw_home = $CACHE
@@ -14,6 +14,8 @@ let g:netrw_home = $CACHE
 function! InNetrw()
   nmap <buffer> <right> <cr>
   nmap <buffer> <left> -
+  nmap <buffer> J j<cr>
+  nmap <buffer> K k<cr>
   nmap <buffer> qq :bn<bar>bd#<cr>
 endfunction
 

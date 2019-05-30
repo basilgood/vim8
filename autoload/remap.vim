@@ -114,5 +114,8 @@ nnoremap <leader>8 8<c-w>w
 nnoremap <leader>9 9<c-w>w
 nnoremap <leader>0 10<c-w>w
 
+" numbers
+nnoremap <leader>n :set relativenumber!<cr>
+
 function! remap#map() abort
 endfunction
