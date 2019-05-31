@@ -67,12 +67,6 @@ nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
 cnoremap <expr> <CR> getcmdtype() =~ '[/?]' ? '<CR>zz' : '<CR>'
 
-" fzy
-nnoremap <c-p> :call fzy#find("fd --type f --hidden --exclude '.git' .", ":e")<cr>
-
-" grep
-nnoremap gr :<C-u>Grp<Space>
-
 " niceblock
 xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
 xnoremap <expr> A (mode()=~#'[vV]'?'<C-v>0o$A':'A')
@@ -98,16 +92,6 @@ cabbrev QA qa
 cabbrev Wq wq
 cabbrev WQ wq
 
-"""" git commands
-nnoremap <leader>dt :<c-r>=&diff ? 'diffoff' : 'diffthis'<cr><cr>
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gd :Gvdiff<cr>
-nnoremap <leader>gc :Git checkout<space>
-nnoremap <leader>t :exe '!tmux split-window -d -p 16;attach'<cr><c-l>
-nnoremap <leader>k :exe '!tmux kill-pane -t 2'<cr><c-l>
-nnoremap <leader>gp :exe "!tmux send -t 2 'git push" . "' Enter"<cr><c-l>
-nnoremap <leader>gf :exe "!tmux send -t 2 'git push -f" . "' Enter"<cr><c-l>
-
 " Window navigation
 nnoremap <leader>1 1<c-w>w
 nnoremap <leader>2 2<c-w>w
@@ -122,6 +106,22 @@ nnoremap <leader>0 10<c-w>w
 
 " numbers
 nnoremap <leader>n :set relativenumber!<cr>
+
+"""" git commands
+nnoremap <leader>dt :<c-r>=&diff ? 'diffoff' : 'diffthis'<cr><cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gd :Gvdiff<cr>
+nnoremap <leader>gc :Git checkout<space>
+nnoremap <leader>t :exe '!tmux split-window -d -p 16;attach'<cr><c-l>
+nnoremap <leader>k :exe '!tmux kill-pane -t 2'<cr><c-l>
+nnoremap <leader>gp :exe "!tmux send -t 2 'git push" . "' Enter"<cr><c-l>
+nnoremap <leader>gf :exe "!tmux send -t 2 'git push -f" . "' Enter"<cr><c-l>
+
+" fzy
+nnoremap <c-p> :call fzy#find("fd --type f --hidden --exclude '.git' .", ":e")<cr>
+
+" grep
+nnoremap gr :<C-u>Grp<Space>
 
 function! remap#map() abort
 endfunction
