@@ -10,9 +10,6 @@ if !v:vim_did_enter && has('reltime')
   augroup END
 endif
 
-"""" shell
-set shell=/bin/sh
-
 """" true colors
 if has('termguicolors')
   let &t_8f = "\e[38;2;%lu;%lu;%lum"
