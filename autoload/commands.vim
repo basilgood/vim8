@@ -8,6 +8,8 @@ command!-nargs=0 HL call functions#hl()
 command!-nargs=+ -complete=file Ack :call grep#vgrep(<q-args>)
 command!-nargs=+ -complete=file Grp execute 'silent Ggrep! --untracked' <q-args> | cwindow | redraw!
 command! SC vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+command! -nargs=+ -complete=shellcmd B AsyncRun! <args>
 
 function! commands#commands()
 endfunction

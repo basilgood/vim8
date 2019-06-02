@@ -11,7 +11,6 @@ start=(
   "tpope/vim-fugitive"
   "airblade/vim-gitgutter"
   "LnL7/vim-nix"
-  "skywind3000/asyncrun.vim"
 )
 
 for element in "${start[@]}"; do
@@ -40,6 +39,7 @@ opt=(
   "w0rp/ale"
   "tpope/vim-vinegar"
   "jeetsukumaran/vim-buffergator"
+  "skywind3000/asyncrun.vim"
   "itchyny/vim-parenmatch"
   "markonm/traces.vim"
   "wellle/targets.vim"

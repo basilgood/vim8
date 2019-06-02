@@ -179,8 +179,10 @@ nnoremap <buffer> <silent> S :Cycle<CR>
 if !exists('g:did_auto_git_diff')
   packadd auto-git-diff
 endif
-
-command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+"""" asyncrun
+if !exists('g:asyncrun_silent')
+  packadd asyncrun.vim
+endif
 
 function! plugins#load() abort
 endfunction
