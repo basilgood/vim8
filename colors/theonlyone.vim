@@ -78,7 +78,7 @@ hi DiffChange       guifg=#fabd2f guibg=#1d2021 cterm=reverse
 hi DiffDelete       guifg=#f93d3d guibg=#1d2021 cterm=reverse
 hi DiffText         guifg=#56b6c2 guibg=#1d2021 cterm=reverse
 
-hi IncSearch        guifg=#ffffff guibg=#d24e9b gui=bold cterm=bold
+hi IncSearch        guifg=#1d2021 guibg=#fb4934 gui=NONE cterm=NONE
 hi Search           guifg=NONE    guibg=#111111 gui=bold cterm=bold
 
 hi Directory        guifg=#61AFEF guibg=NONE    gui=NONE cterm=NONE
