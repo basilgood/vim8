@@ -59,13 +59,16 @@ nnoremap [Q :cfirst<cr>
 
 " center search and nohl
 nnoremap <leader><leader> :noh<cr>
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
+nnoremap n nzvzz
+nnoremap N Nzvzz
+nnoremap * *zvzz
+nnoremap # #zvzz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
-cnoremap <expr> <CR> getcmdtype() =~ '[/?]' ? '<CR>zz' : '<CR>'
+nnoremap } }zz
+nnoremap { {zz
+nnoremap g; g;zz
+nnoremap g, g,zz
 
 " niceblock
 xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
@@ -116,6 +119,7 @@ nnoremap <leader>t :exe '!tmux split-window -d -p 16;attach'<cr><c-l>
 nnoremap <leader>k :exe '!tmux kill-pane -t 2'<cr><c-l>
 nnoremap <leader>gp :exe "!tmux send -t 2 'git push" . "' Enter"<cr><c-l>
 nnoremap <leader>gf :exe "!tmux send -t 2 'git push -f" . "' Enter"<cr><c-l>
+nnoremap <leader>mk :exe "!tmux send -t 2 'vint %" . "' Enter"<cr><c-l>
 
 " fzy
 nnoremap <c-p> :call fzy#find("fd --type f --hidden --exclude '.git' .", ":e")<cr>
