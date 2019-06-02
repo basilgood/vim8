@@ -117,6 +117,14 @@ if !exists('g:loaded_starsearch')
   packadd starsearch.vim
 endif
 
+"""" spotlightify
+if !exists('g:loaded_spotlightify')
+  packadd vim-spotlightify
+endif
+let g:splfy_setmaps = 0
+nmap cx <Plug>(spotlightify)searchreplacefwd
+nnoremap <leader><leader> :Nohls<cr>
+
 """" tabular
 if !exists('g:tabular_loaded')
   autocmd MyAutoCmd CmdlineEnter * packadd tabular
