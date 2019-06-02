@@ -58,7 +58,6 @@ nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
 
 " center search and nohl
-nnoremap <leader><leader> :noh<cr>
 nnoremap n nzvzz
 nnoremap N Nzvzz
 nnoremap * *zvzz
