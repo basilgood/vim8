@@ -180,14 +180,5 @@ if !exists('g:did_auto_git_diff')
   packadd auto-git-diff
 endif
 
-"""" git merge
-if !exists('g:loaded_mergetool')
-  packadd vim-mergetool
-endif
-nmap <expr> <C-Left> &diff? '<Plug>(MergetoolDiffExchangeLeft)' : '<C-Left>'
-nmap <expr> <C-Right> &diff? '<Plug>(MergetoolDiffExchangeRight)' : '<C-Right>'
-nmap <expr> <C-Down> &diff? '<Plug>(MergetoolDiffExchangeDown)' : '<C-Down>'
-nmap <expr> <C-Up> &diff? '<Plug>(MergetoolDiffExchangeUp)' : '<C-Up>'
-
 function! plugins#load() abort
 endfunction

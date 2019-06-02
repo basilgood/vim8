@@ -48,7 +48,6 @@ opt=(
   "tpope/vim-surround"
   "tpope/vim-git"
   "hotwatermorning/auto-git-diff"
-  "samoshkin/vim-mergetool"
   "sgur/cmdline-completion"
   "stefandtw/quickfix-reflector.vim"
   "markonm/hlyank.vim"
