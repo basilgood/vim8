@@ -114,7 +114,6 @@ nnoremap <leader>dt :<c-r>=&diff ? 'diffoff' : 'diffthis'<cr><cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gd :Gvdiff<cr>
 nnoremap <leader>gp :Gpush<cr>
-nnoremap <leader>gf :Gpush --force
 nnoremap <leader>gc :Git checkout<space>
 
 " fzy
