@@ -180,5 +180,7 @@ if !exists('g:did_auto_git_diff')
   packadd auto-git-diff
 endif
 
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+
 function! plugins#load() abort
 endfunction
