@@ -3,7 +3,6 @@ scriptencoding utf-8
 if &diff
   syntax off
   setlocal nospell
-  match Todo '\v^(\<|\=|\>){7}([^=].+)?$'
 endif
 
 augroup aug_diffs
