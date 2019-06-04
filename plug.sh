@@ -67,6 +67,7 @@ opt=(
   "lepture/vim-jinja"
   "jelera/vim-javascript-syntax"
   "MaxMEllon/vim-jsx-pretty"
+  "jonsmithers/vim-html-template-literals"
   "tpope/vim-markdown"
   "kchmck/vim-coffee-script"
 )
