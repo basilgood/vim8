@@ -73,10 +73,11 @@ hi Function         guifg=#61AFEF guibg=NONE    gui=NONE cterm=NONE
 hi SpecialKey       guifg=#3b4048 guibg=NONE    gui=NONE cterm=NONE
 hi Title            guifg=#98c379 guibg=NONE    gui=NONE cterm=NONE
 
-hi DiffAdd          guifg=#8ec07c guibg=#1d2021 cterm=reverse
-hi DiffChange       guifg=#fabd2f guibg=#1d2021 cterm=reverse
-hi DiffDelete       guifg=#f93d3d guibg=#1d2021 cterm=reverse
-hi DiffText         guifg=#56b6c2 guibg=#1d2021 cterm=reverse
+hi DiffAdd          guifg=#8ec07c guibg=#1d2021 cterm=NONE
+hi link DiffChange NONE
+hi clear DiffChange
+hi DiffDelete       guifg=#f93d3d guibg=#1d2021 cterm=NONE
+hi DiffText         guifg=#FFB86C guibg=#14141a gui=NONE cterm=NONE
 
 hi IncSearch        guifg=#1d2021 guibg=#fb4934 gui=NONE cterm=NONE
 hi Search           guifg=NONE    guibg=#111111 gui=bold cterm=bold
