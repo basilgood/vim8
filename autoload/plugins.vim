@@ -184,5 +184,11 @@ if !exists('g:asyncrun_silent')
   packadd asyncrun.vim
 endif
 
+"""" mergetool
+if !exists('g:loaded_mergetool')
+  packadd vim-mergetool
+endif
+nmap <leader>m <plug>(MergetoolToggle)
+
 function! plugins#load() abort
 endfunction
