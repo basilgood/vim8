@@ -188,7 +188,17 @@ endif
 if !exists('g:loaded_mergetool')
   packadd vim-mergetool
 endif
+
+" possible values: 'local' (default), 'remote', 'base'
+let g:mergetool_prefer_revision = 'local'
+" (m) - for working tree version of merged file
+" (r) - for 'remote' revision
+" (l) - for 'local' revision
+let g:mergetool_layout = 'mr'
+
 nmap <leader>m <plug>(MergetoolToggle)
+nmap [c [czz
+nmap ]c ]czz
 cabbrev dp diffput
 cabbrev dg diffget
 
