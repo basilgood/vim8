@@ -189,6 +189,8 @@ if !exists('g:loaded_mergetool')
   packadd vim-mergetool
 endif
 nmap <leader>m <plug>(MergetoolToggle)
+cabbrev dp diffput
+cabbrev dg diffget
 
 function! plugins#load() abort
 endfunction
