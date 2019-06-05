@@ -111,11 +111,16 @@ nnoremap <leader>n :set relativenumber!<cr>
 
 """" git commands
 nnoremap <leader>dt :<c-r>=&diff ? 'diffoff' : 'diffthis'<cr><cr>
+nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader>gr :Git reset %:p<CR><CR>
+nnoremap <leader>gcc :Gcommit -v -q %:p<CR>
+nnoremap <leader>gca :Gcommit --amend<CR>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gd :Gvdiff<cr>
-nnoremap <leader>gp :Gpush<cr>
+nnoremap <leader>gps :Gpush<cr>
+nnoremap <leader>gpf :Gpush -f<cr>
 nnoremap <leader>gl :Git lg --all<cr>
-nnoremap <leader>gc :Git checkout<space>
+nnoremap <leader>go :Git checkout<space>
 
 " fzy
 nnoremap <c-p> :call fzy#find("fd --type f --hidden --exclude '.git' .", ":e")<cr>
