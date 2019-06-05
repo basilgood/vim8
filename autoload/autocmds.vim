@@ -37,6 +37,12 @@ if exists('##CursorHold')
         \ if !$VIMSWAP && isdirectory(expand('<amatch>:h')) | let &swapfile = &modified | endif
 endif
 
+"""" don't list location-list / quickfix windows
+autocmd MyAutoCmd BufWinEnter * if &buftype == 'quickfix'
+      \| setlocal nobuflisted
+      \| nnoremap <silent> <buffer> q :bd<CR>
+      \| endif
+
 """" syntax
 autocmd MyAutoCmd BufRead * syntax sync fromstart
 
