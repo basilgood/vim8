@@ -196,7 +196,7 @@ let g:mergetool_prefer_revision = 'local'
 " (l) - for 'local' revision
 let g:mergetool_layout = 'mr'
 
-nmap <leader>m <plug>(MergetoolToggle)
+nmap <leader>gm <plug>(MergetoolToggle)
 nmap [c [czz
 nmap ]c ]czz
 cabbrev dp diffput
