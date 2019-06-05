@@ -3,6 +3,7 @@ scriptencoding utf-8
 if &diff
   syntax off
   setlocal nospell
+  setlocal cursorline
 endif
 
 augroup aug_diffs
@@ -30,6 +31,7 @@ function CheckDiffMode(timer)
 
     call s:change_option_in_diffmode('b:', 'syntax', 'off')
     call s:change_option_in_diffmode('w:', 'spell', 0, 1)
+    call s:change_option_in_diffmode('w:', 'cursorline', 1, 1)
   endfor
 
   " Get back to original window
