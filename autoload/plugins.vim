@@ -178,6 +178,10 @@ nnoremap <c-p> :call fzf#run(fzf#wrap({'source': 'git ls-files --exclude-standar
 nnoremap <bs> :Buffers<cr>
 nnoremap <leader>f :FF!<cr>
 let g:fzf_layout = { 'down': '~30%' }
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
 let g:fzf_colors =
       \ { 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
