@@ -23,18 +23,6 @@ endfunction
 
 autocmd MyAutoCmd FileType netrw call InNetrw()
 
-"""" buffergator
-if !exists('g:did_buffergator')
-  nnoremap <bs> :packadd vim-buffergator<cr>:BuffergatorToggle<cr>
-else
-  nnoremap <bs> :BuffergatorToggle<cr>
-endif
-
-let g:buffergator_suppress_keymaps = 1
-let g:buffergator_viewport_split_policy = 'B'
-let g:buffergator_autoupdate = 1
-let g:buffergator_show_full_directory_path = 0
-
 """" editorconfig
 if !exists('g:loaded_editorconfig')
   packadd vim-editorconfig
@@ -183,6 +171,27 @@ endif
 if !exists('g:asyncrun_silent')
   packadd asyncrun.vim
 endif
+
+"""" fzf
+autocmd MyAutoCmd CmdlineEnter * packadd fzf | packadd fzf.vim
+nnoremap <c-p> :call fzf#run(fzf#wrap({'source': 'git ls-files --exclude-standard --others --cached'}))<cr>
+nnoremap <bs> :Buffers<cr>
+nnoremap <leader>f :FF!<cr>
+let g:fzf_layout = { 'down': '~30%' }
+let g:fzf_colors =
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 
 """" mergetool
 if !exists('g:loaded_mergetool')

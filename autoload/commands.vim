@@ -11,6 +11,8 @@ command!-nargs=+ -complete=file Grp execute 'silent Ggrep! --untracked' <q-args>
 command! SC vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 command! -nargs=+ -complete=shellcmd B AsyncRun! <args>
+command! -nargs=? -bang -complete=dir FF
+      \ call fzf#vim#files(<q-args>, <bang>0 ? fzf#vim#with_preview('up:90%') : {}, <bang>0)
 
 function! commands#commands()
 endfunction

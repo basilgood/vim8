@@ -122,9 +122,6 @@ nnoremap <leader>gpf :Gpush -f<cr>
 nnoremap <leader>gl :Git lg --all<cr>
 nnoremap <leader>go :Git checkout<space>
 
-" fzy
-nnoremap <c-p> :call fzy#find("fd --type f --hidden --exclude '.git' .", ":e")<cr>
-
 " grep
 nnoremap gr :<C-u>Grp<Space>
 
