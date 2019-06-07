@@ -18,12 +18,6 @@ autocmd MyAutoCmd BufReadPre,BufNewFile *.coffee packadd vim-coffee-script | set
 autocmd MyAutoCmd BufReadPre,BufNewFile *.ts,*.tsx packadd yats.vim | packadd vim-jsx-pretty | setlocal filetype=typescript
 autocmd MyAutoCmd BufReadPre,BufNewFile *.js,*.jsx packadd vim-javascript-syntax | packadd vim-jsx-pretty | packadd vim-html-template-literals | set filetype=javascript
 
-"""" jump to the last spot the cursor was at in a file when reading it.
-" autocmd MyAutoCmd BufReadPost *
-"       \ if line("'\"") > 1 && line("'\"") <= line("$") |
-"       \   silent! exe 'normal! g`"zzza' |
-"       \ endif
-
 """" If a file is large, disable syntax highlighting, filetype etc
 autocmd MyAutoCmd BufReadPre *
       \ let s = getfsize(expand("<afile>")) |

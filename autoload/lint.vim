@@ -5,6 +5,7 @@ if !exists('g:loaded_ale')
 endif
 
 let g:ale_linters_explicit = 1
+let g:ale_completion_enabled = 1
 let g:ale_set_highlights = 0
 let g:ale_sign_info = 'ℹ'
 let g:ale_echo_msg_error_str='[ERROR]'
@@ -35,7 +36,8 @@ let g:ale_sign_warning = ''
 
  let g:ale_fixers = {
       \ 'javascript': ['eslint'],
-      \ 'html': ['eslint']
+      \ 'html': ['eslint'],
+      \ 'rust': ['rustfmt']
       \}
 
  let g:ale_linter_aliases = {
@@ -47,6 +49,8 @@ let g:ale_sign_warning = ''
       \ 'yaml': ['yamllint'],
       \ 'vim': ['vint'],
       \ 'nix': ['nix'],
+      \ 'rust': ['rls', 'cargo','rustc'],
+      \ 'typescript': ['eslint','tsserver'],
       \ 'html': ['eslint']
       \}
 nmap ]a <Plug>(ale_next_wrap)

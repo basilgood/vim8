@@ -63,7 +63,6 @@ opt=(
   "thinca/vim-localrc"
   "cskeeters/vim-smooth-scroll"
   "alvan/vim-closetag"
-  "runoshun/tscompletejob"
   "HerringtonDarkholme/yats.vim"
   "lumiliet/vim-twig"
   "lepture/vim-jinja"
