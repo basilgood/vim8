@@ -167,14 +167,18 @@ nnoremap <buffer> <silent> S :Cycle<CR>
 if !exists('g:did_auto_git_diff')
   packadd auto-git-diff
 endif
+
 """" asyncrun
 if !exists('g:asyncrun_silent')
   packadd asyncrun.vim
 endif
 
+"""" stay
+autocmd MyAutoCmd CmdlineEnter * packadd  vim-stay
+
 """" fzf
 autocmd MyAutoCmd CmdlineEnter * packadd fzf | packadd fzf.vim
-nnoremap <c-p> :call fzf#run(fzf#wrap({'source': 'git ls-files --exclude-standard --others --cached'}))<cr>
+nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
 nnoremap <leader>f :FF!<cr>
 let g:fzf_layout = { 'down': '~30%' }

@@ -58,6 +58,7 @@ opt=(
   "mbbill/undotree"
   "darfink/starsearch.vim"
   "godlygeek/tabular"
+  "zhimsel/vim-stay"
   "itchyny/vim-cmdline-ranges"
   "thinca/vim-localrc"
   "cskeeters/vim-smooth-scroll"

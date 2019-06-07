@@ -42,6 +42,7 @@ if ! isdirectory(expand($CACHE))
 endif
 
 set undodir=$CACHE/undo//
+set viewdir=$CACHE/view//
 
 """" viminfo
 set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
@@ -54,6 +55,7 @@ set noswapfile
 set nobackup
 set nowritebackup
 set undofile
+set viewoptions=cursor,folds,slash,unix
 
 """" large file
 let g:LargeFile = 20*1024*1024 " 20MB
