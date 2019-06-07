@@ -214,8 +214,6 @@ let g:mergetool_prefer_revision = 'local'
 let g:mergetool_layout = 'mr'
 
 nmap <leader>gm <plug>(MergetoolToggle)
-nmap [c [czz
-nmap ]c ]czz
 cabbrev dp diffput
 cabbrev dg diffget
 
