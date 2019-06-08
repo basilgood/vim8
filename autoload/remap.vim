@@ -126,6 +126,10 @@ nnoremap <silent> <leader>gl :<c-u>Gina log --graph --all<CR>
 nnoremap <silent> <leader>gL :<c-u>Gina log :%<CR>
 nnoremap <silent> <leader>gk :<c-u>Gina compare :%<CR>
 
+" close
+nnoremap Q :<C-u>call functions#close()<CR>
+nnoremap <leader>q :<c-u> call functions#tabclose()<cr>
+
 " grep
 nnoremap gr :<C-u>Grp<Space>
 

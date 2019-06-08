@@ -52,7 +52,7 @@ function! s:restore_eventignore()
   augroup! large_buffer
 endf
 
-function functions#git() abort
+function! functions#git() abort
   let staged = gina#component#status#staged()
   let unstaged = gina#component#status#unstaged()
   let conflicted = gina#component#status#conflicted()
@@ -63,6 +63,45 @@ function functions#git() abort
         \ conflicted,
         \)
 endfunction
+
+function! functions#close()
+  let w = 0
+  let w:current_win = 1
+  for w in reverse(range(1, winnr('$')))
+    let ft = getwinvar(w, '&filetype')
+    let bt = getwinvar(w, '&buftype')
+    let bufnr = winbufnr(w)
+    let name = bufname(bufnr)
+    if (ft ==# 'quickrun' && name ==# 'QuickRunOut')
+    \ || (name =~# '^fugitive:')
+    \ || (bt ==# 'help')
+    \ || (bt ==# 'quickfix')
+    \ || (bt ==# 'nofile')
+      execute w . 'wincmd w'
+      q
+      break
+    endif
+  endfor
+  for w in range(1, winnr('$'))
+    let was_current = getwinvar(w, 'current_win')
+    if was_current
+      execute w . 'wincmd w'
+      unlet w:current_win
+      break
+    endif
+  endfor
+endfunction
+
+function! functions#tabclose()
+  let tabpagenr = tabpagenr()
+  if tabpagenr == 1
+    tabclose
+  else
+    tabprevious
+    execute 'tabclose ' . tabpagenr
+  endif
+endfunction
+command! MyTabClose call MyTabClose()
 
 function! functions#hl()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
