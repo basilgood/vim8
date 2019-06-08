@@ -217,5 +217,12 @@ nmap <leader>gm <plug>(MergetoolToggle)
 cabbrev dp diffput
 cabbrev dg diffget
 
+"""" submode
+call submode#enter_with('resize', 'n', '', '<C-W>>', '<C-W>>')
+call submode#enter_with('resize', 'n', '', '<C-W><', '<C-W><')
+call submode#leave_with('resize', 'n', '', '<Esc>')
+call submode#map('resize', 'n', '', '.', '<C-W>>')
+call submode#map('resize', 'n', '', ',', '<C-W><')
+
 function! plugins#load() abort
 endfunction
