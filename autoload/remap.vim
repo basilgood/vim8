@@ -13,6 +13,10 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
+
+" new line
+nnoremap <expr> go "mz" . v:count . "o\<Esc>`z"
+nnoremap <expr> gO "mz" . v:count . "O\<Esc>`z"
 inoremap <M-o> <C-O>o
 inoremap <M-O> <C-O>O
 
@@ -58,8 +62,8 @@ nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
 
 " center search and nohl
-nnoremap n nzvzz
-nnoremap N Nzvzz
+nnoremap n nzzzv
+nnoremap N Nzzzv
 nnoremap * *zvzz
 nnoremap # #zvzz
 nnoremap <C-o> <C-o>zz
@@ -116,9 +120,9 @@ nnoremap <leader>gr :Git reset %:p<CR><CR>
 nnoremap <leader>gcc :Gcommit -v -q %:p<CR>
 nnoremap <leader>gca :Gcommit --amend<CR>
 nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gd :Gvdiff<cr>
-nnoremap <leader>gps :Gpush<cr>
-nnoremap <leader>gpf :Gpush -f<cr>
+nnoremap <leader>gd :tab sp<cr>:Gdiff<cr>
+nnoremap <leader>gp :Gpush<cr>
+nnoremap <leader>gf :Gpush -f<cr>
 nnoremap <leader>gl :Git lg --all<cr>
 nnoremap <leader>go :Git checkout<space>
 
