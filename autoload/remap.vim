@@ -86,8 +86,8 @@ xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 
 " mapping for spelling correction
-nnoremap <space>s :set spell!<cr>
-nnoremap <space>z 1z=
+" nnoremap <space>s :set spell!<cr>
+" nnoremap <space>z 1z=
 
 " file size
 nnoremap <F3> :echo functions#getfilesize()<cr>
@@ -114,17 +114,17 @@ nnoremap <leader>0 10<c-w>w
 nnoremap <leader>n :set relativenumber!<cr>
 
 """" git commands
-nnoremap <leader>dt :<c-r>=&diff ? 'diffoff' : 'diffthis'<cr><cr>
-nnoremap <leader>ga :Git add %:p<CR><CR>
-nnoremap <leader>gr :Git reset %:p<CR><CR>
-nnoremap <leader>gcc :Gcommit -v -q %:p<CR>
-nnoremap <leader>gca :Gcommit --amend<CR>
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gd :tab sp<cr>:Gdiff<cr>
-nnoremap <leader>gp :Gpush<cr>
-nnoremap <leader>gf :Gpush -f<cr>
-nnoremap <leader>gl :Git lg --all<cr>
-nnoremap <leader>go :Git checkout<space>
+nnoremap <silent> <leader>dt :<c-u>windo diffthis<cr>
+nnoremap <silent> <leader>ga :<c-u>Gina add %:p<cr>
+nnoremap <silent> <leader>gr :<c-u>Gina reset %:p<cr>
+nnoremap <silent> <leader>gs :<C-u>Gina status<CR>
+nnoremap <silent> <leader>gh :<c-u>Gina changes HEAD<CR>
+nnoremap <silent> <leader>gc :<c-u>Gina commit<CR>
+nnoremap <silent> <leader>gC :<c-u>Gina commit --amend<CR>
+nnoremap <silent> <leader>gp :<c-u>Gina push<CR>
+nnoremap <silent> <leader>gl :<c-u>Gina log --graph --all<CR>
+nnoremap <silent> <leader>gL :<c-u>Gina log :%<CR>
+nnoremap <silent> <leader>gk :<c-u>Gina compare :%<CR>
 
 " grep
 nnoremap gr :<C-u>Grp<Space>
