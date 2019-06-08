@@ -53,7 +53,7 @@ set formatoptions+=n
 set formatoptions+=1
 
 """"" diff
-set diffopt+=context:3,indent-heuristic,algorithm:patience
+set diffopt+=vertical,context:3,indent-heuristic,algorithm:patience
 
 """" display
 set number
