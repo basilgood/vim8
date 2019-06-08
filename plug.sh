@@ -8,9 +8,10 @@ fi
 cd pack/bundle/start/
 
 start=(
-  "tpope/vim-fugitive"
   "airblade/vim-gitgutter"
   "LnL7/vim-nix"
+  "kana/vim-submode"
+  "lambdalisue/gina.vim"
 )
 
 for element in "${start[@]}"; do
