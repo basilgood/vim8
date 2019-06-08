@@ -52,6 +52,18 @@ function! s:restore_eventignore()
   augroup! large_buffer
 endf
 
+function functions#git() abort
+  let staged = gina#component#status#staged()
+  let unstaged = gina#component#status#unstaged()
+  let conflicted = gina#component#status#conflicted()
+  return printf(
+        \ 's: %s, u: %s, c: %s',
+        \ staged,
+        \ unstaged,
+        \ conflicted,
+        \)
+endfunction
+
 function! functions#hl()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction

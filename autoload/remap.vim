@@ -86,8 +86,8 @@ xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 
 " mapping for spelling correction
-" nnoremap <space>s :set spell!<cr>
-" nnoremap <space>z 1z=
+nnoremap <space>s :set spell!<cr>
+nnoremap <space>z 1z=
 
 " file size
 nnoremap <F3> :echo functions#getfilesize()<cr>
