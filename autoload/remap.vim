@@ -117,6 +117,7 @@ nnoremap <leader>n :set relativenumber!<cr>
 nnoremap <silent> <leader>dt :<c-u>windo diffthis<cr>
 nnoremap <silent> <leader>ga :<c-u>Gina add %:p<cr>
 nnoremap <silent> <leader>gr :<c-u>Gina reset %:p<cr>
+nnoremap <silent> <leader>gR :<c-u>Gina checkout %:p<cr>
 nnoremap <silent> <leader>gs :<C-u>Gina status<CR>
 nnoremap <silent> <leader>gh :<c-u>Gina changes HEAD<CR>
 nnoremap <silent> <leader>gc :<c-u>Gina commit<CR>
