@@ -168,11 +168,6 @@ if !exists('g:did_auto_git_diff')
   packadd auto-git-diff
 endif
 
-"""" asyncrun
-" if !exists('g:asyncrun_silent')
-"   packadd asyncrun.vim
-" endif
-
 """" stay
 autocmd MyAutoCmd CmdlineEnter * packadd  vim-stay
 
@@ -233,9 +228,15 @@ if !exists('s:timer')
   let s:timer = timer_start(30000, { timer -> fugitive#ReloadStatus() }, { 'repeat': -1 })
 endif
 
+"""" agit
+if !exists('g:loaded_agit')
+  packadd agit.vim
+endif
+
 """" asyncdo
 if !exists('g:loaded_asyncdo_vim')
   packadd asyncdo.vim
 endif
+
 function! plugins#load() abort
 endfunction

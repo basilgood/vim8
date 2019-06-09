@@ -49,6 +49,7 @@ opt=(
   "tpope/vim-repeat"
   "tpope/vim-surround"
   "tpope/vim-git"
+  "cohama/agit.vim"
   "hotwatermorning/auto-git-diff"
   "samoshkin/vim-mergetool"
   "hauleth/asyncdo.vim"
