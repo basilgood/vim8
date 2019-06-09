@@ -118,6 +118,7 @@ nnoremap <silent> <leader>dt :<c-u>windo diffthis<cr>
 nnoremap <silent> <leader>gs :<C-u>Gstatus<CR>
 nnoremap <silent> <leader>ga :<c-u>AsyncDo git add %<cr>
 nnoremap <silent> <leader>gr :<c-u>AsyncDo git reset %<cr>
+nnoremap <silent> <leader>gf :<c-u>AsyncDo git fetch --all --prune<cr>
 nnoremap <silent> <leader>gp :<C-u>Gpush<CR>
 nnoremap <silent> <leader>gP :<C-u>Gpush -f<CR>
 nnoremap <silent> <leader>gd :<C-u>Gvdiff<CR>
@@ -126,9 +127,6 @@ nnoremap <silent> <leader>gc :<C-u>Gcommit<CR>
 nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
 nnoremap <silent> <leader>gu :<C-u>Gpull rebase --autostash<CR>
 nnoremap <silent> <leader>gl :<C-u>Agit<CR>
-
-cabbrev G  Git
-cabbrev G! Git!
 
 " close
 nnoremap Q :<C-u>call functions#close()<CR>
