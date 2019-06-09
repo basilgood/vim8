@@ -11,7 +11,9 @@ start=(
   "airblade/vim-gitgutter"
   "LnL7/vim-nix"
   "kana/vim-submode"
-  "lambdalisue/gina.vim"
+  "tpope/vim-fugitive"
+  "hauleth/asyncdo.vim"
+  "deresmos/agit.vim"
 )
 
 for element in "${start[@]}"; do
