@@ -86,9 +86,9 @@ endif
 
 """" undotree
 if !exists('g:loaded_undotree')
-  nnoremap U :packadd undotree<cr>:UndotreeToggle<cr>
+  nnoremap <leader>u :packadd undotree<cr>:UndotreeToggle<cr>
 else
-  nnoremap U :UndotreeToggle<cr>
+  nnoremap <leader>u :UndotreeToggle<cr>
 endif
 
 let g:undotree_WindowLayout = 4
@@ -169,9 +169,9 @@ if !exists('g:did_auto_git_diff')
 endif
 
 """" asyncrun
-if !exists('g:asyncrun_silent')
-  packadd asyncrun.vim
-endif
+" if !exists('g:asyncrun_silent')
+"   packadd asyncrun.vim
+" endif
 
 """" stay
 autocmd MyAutoCmd CmdlineEnter * packadd  vim-stay
@@ -220,9 +220,13 @@ cabbrev dg diffget
 """" submode
 call submode#enter_with('resize', 'n', '', '<C-W>>', '<C-W>>')
 call submode#enter_with('resize', 'n', '', '<C-W><', '<C-W><')
-call submode#leave_with('resize', 'n', '', '<Esc>')
 call submode#map('resize', 'n', '', '.', '<C-W>>')
 call submode#map('resize', 'n', '', ',', '<C-W><')
+call submode#enter_with('resize', 'n', '', '<C-W>-', '<C-W>-')
+call submode#enter_with('resize', 'n', '', '<C-W>+', '<C-W>+')
+call submode#map('resize', 'n', '', '-', '<C-W>-')
+call submode#map('resize', 'n', '', '=', '<C-W>+')
+call submode#leave_with('resize', 'n', '', '<Esc>')
 
 function! plugins#load() abort
 endfunction
