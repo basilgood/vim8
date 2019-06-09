@@ -39,6 +39,7 @@ let g:ale_sign_warning = ''
       \ 'html': ['eslint'],
       \ 'rust': ['rustfmt']
       \}
+let g:ale_rust_rls_toolchain = 'stable'
 
  let g:ale_linter_aliases = {
       \ 'html': 'javascript'
