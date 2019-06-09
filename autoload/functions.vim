@@ -61,7 +61,7 @@ function! functions#git() abort
         \ gina#component#status#preset('fancy'),
         \ gina#component#traffic#preset('fancy'),
         \]
-  return join(filter(components, '!empty(v:val)'), ' ⦁ ')
+  return join(filter(components, '!empty(v:val)'), ' ')
 endfunction
 
 function! functions#close()
