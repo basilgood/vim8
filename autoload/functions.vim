@@ -101,7 +101,6 @@ function! functions#tabclose()
     execute 'tabclose ' . tabpagenr
   endif
 endfunction
-command! MyTabClose call MyTabClose()
 
 function! functions#hl()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
