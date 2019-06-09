@@ -228,5 +228,10 @@ call submode#map('resize', 'n', '', '-', '<C-W>-')
 call submode#map('resize', 'n', '', '=', '<C-W>+')
 call submode#leave_with('resize', 'n', '', '<Esc>')
 
+"""" fugitive
+if !exists('s:timer')
+  let s:timer = timer_start(30000, { timer -> fugitive#ReloadStatus() }, { 'repeat': -1 })
+endif
+
 function! plugins#load() abort
 endfunction
