@@ -232,6 +232,7 @@ endif
 if !exists('g:loaded_asyncdo_vim')
   packadd asyncdo.vim
 endif
+command! -bang -nargs=* Grep call asyncdo#run(<bang>0, &grepprg, <f-args>)
 
 function! plugins#load() abort
 endfunction
