@@ -53,15 +53,15 @@ function! s:restore_eventignore()
 endf
 
 function! functions#git() abort
-  let staged = gina#component#status#staged()
-  let unstaged = gina#component#status#unstaged()
-  let conflicted = gina#component#status#conflicted()
-  return printf(
-        \ 's: %s, u: %s, c: %s',
-        \ staged,
-        \ unstaged,
-        \ conflicted,
-        \)
+  if !exists('g:loaded_gina')
+    return ''
+  endif
+  let components = [
+        \ gina#component#repo#branch(),
+        \ gina#component#status#preset('fancy'),
+        \ gina#component#traffic#preset('fancy'),
+        \]
+  return join(filter(components, '!empty(v:val)'), ' ⦁ ')
 endfunction
 
 function! functions#close()
