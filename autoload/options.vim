@@ -89,6 +89,10 @@ let &g:statusline.='%='
 let &g:statusline.='%{&filetype!=#""?&filetype:""} ⦁'
 let &g:statusline.='%12(%c:%l/%L%) '
 
+"""" grepprg
+let &grepprg = 'grep --exclude-dir={.git,tag,node_modules,pack} -nHRI'
+
+
 """" tabs/indent levels
 set autoindent
 set copyindent
