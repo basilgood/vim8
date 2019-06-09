@@ -115,17 +115,18 @@ nnoremap <leader>n :set relativenumber!<cr>
 
 """" git commands
 nnoremap <silent> <leader>dt :<c-u>windo diffthis<cr>
-nnoremap <silent> <leader>ga :<c-u>Gina add %:p<cr>
-nnoremap <silent> <leader>gr :<c-u>Gina reset %:p<cr>
-nnoremap <silent> <leader>gR :<c-u>Gina checkout %:p<cr>
-nnoremap <silent> <leader>gs :<C-u>Gina status<CR>
-nnoremap <silent> <leader>gh :<c-u>Gina changes HEAD<CR>
-nnoremap <silent> <leader>gc :<c-u>Gina commit<CR>
-nnoremap <silent> <leader>gC :<c-u>Gina commit --amend<CR>
-nnoremap <silent> <leader>gp :<c-u>Gina push<CR>
-nnoremap <silent> <leader>gl :<c-u>Gina log --graph --all<CR>
-nnoremap <silent> <leader>gL :<c-u>Gina log :%<CR>
-nnoremap <silent> <leader>gk :<c-u>Gina compare :%<CR>
+nnoremap U  <nop>
+nnoremap Up :<C-u>Gpush<CR>
+nnoremap Us :<C-u>Gstatus<CR>
+nnoremap Ud :<C-u>Gdiff<CR>
+nnoremap Ub :<C-u>MerginalToggle<CR>
+nnoremap UB :<C-u>Gblame<CR>
+nnoremap Uc :<C-u>Gcommit<CR>
+nnoremap Uu :<C-u>Gpull rebase --autostash<CR>
+nnoremap Ug :<C-u>Glog<CR>
+
+cabbrev G  Git
+cabbrev G! Git!
 
 " close
 nnoremap Q :<C-u>call functions#close()<CR>
