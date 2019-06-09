@@ -115,15 +115,17 @@ nnoremap <leader>n :set relativenumber!<cr>
 
 """" git commands
 nnoremap <silent> <leader>dt :<c-u>windo diffthis<cr>
-nnoremap U  <nop>
-nnoremap Up :<C-u>Gpush<CR>
-nnoremap Us :<C-u>Gstatus<CR>
-nnoremap Ud :<C-u>Gdiff<CR>
-nnoremap Ub :<C-u>MerginalToggle<CR>
-nnoremap UB :<C-u>Gblame<CR>
-nnoremap Uc :<C-u>Gcommit<CR>
-nnoremap Uu :<C-u>Gpull rebase --autostash<CR>
-nnoremap Ug :<C-u>Glog<CR>
+nnoremap <silent> <leader>gs :<C-u>Gstatus<CR>
+nnoremap <silent> <leader>ga :<c-u>AsyncDo git add %<cr>
+nnoremap <silent> <leader>gr :<c-u>AsyncDo git reset %<cr>
+nnoremap <silent> <leader>gp :<C-u>Gpush<CR>
+nnoremap <silent> <leader>gP :<C-u>Gpush -f<CR>
+nnoremap <silent> <leader>gd :<C-u>Gvdiff<CR>
+nnoremap <silent> <leader>gB :<C-u>Gblame<CR>
+nnoremap <silent> <leader>gc :<C-u>Gcommit<CR>
+nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
+nnoremap <silent> <leader>gu :<C-u>Gpull rebase --autostash<CR>
+nnoremap <silent> <leader>gl :<C-u>Agit<CR>
 
 cabbrev G  Git
 cabbrev G! Git!
