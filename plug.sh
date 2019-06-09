@@ -12,8 +12,6 @@ start=(
   "LnL7/vim-nix"
   "kana/vim-submode"
   "tpope/vim-fugitive"
-  "hauleth/asyncdo.vim"
-  "deresmos/agit.vim"
 )
 
 for element in "${start[@]}"; do
@@ -43,7 +41,6 @@ opt=(
   "tpope/vim-vinegar"
   "junegunn/fzf.vim"
   "junegunn/fzf"
-  "skywind3000/asyncrun.vim"
   "itchyny/vim-parenmatch"
   "markonm/traces.vim"
   "wellle/targets.vim"
@@ -54,6 +51,7 @@ opt=(
   "tpope/vim-git"
   "hotwatermorning/auto-git-diff"
   "samoshkin/vim-mergetool"
+  "hauleth/asyncdo.vim"
   "sgur/cmdline-completion"
   "stefandtw/quickfix-reflector.vim"
   "markonm/hlyank.vim"

@@ -233,5 +233,9 @@ if !exists('s:timer')
   let s:timer = timer_start(30000, { timer -> fugitive#ReloadStatus() }, { 'repeat': -1 })
 endif
 
+"""" asyncdo
+if !exists('g:loaded_asyncdo_vim')
+  packadd asyncdo.vim
+endif
 function! plugins#load() abort
 endfunction
