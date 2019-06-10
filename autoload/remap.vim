@@ -89,6 +89,9 @@ onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 nnoremap <space>s :set spell!<cr>
 nnoremap <space>z 1z=
 
+" zoom
+nnoremap <c-w>t :tabedit %<cr>
+
 " file size
 nnoremap <F3> :echo functions#getfilesize()<cr>
 
