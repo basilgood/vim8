@@ -123,6 +123,7 @@ nnoremap <silent> <leader>ga :<c-u>AsyncDo git add %<cr>
 nnoremap <silent> <leader>gr :<c-u>AsyncDo git reset %<cr>
 nnoremap <silent> <leader>gf :<c-u>AsyncDo git fetch --all --prune<cr>
 nnoremap <silent> <leader>gu :<C-u>AsyncDo git pull --rebase --autostash<CR>
+nnoremap <silent> <leader>gU :<C-u>AsyncDo git pull --ff-only<CR>
 nnoremap <silent> <leader>gp :<C-u>Gpush<CR>
 nnoremap <silent> <leader>gP :<C-u>Gpush -f<CR>
 nnoremap <silent> <leader>gd :<C-u>Gvdiff<CR>
