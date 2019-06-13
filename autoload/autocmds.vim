@@ -10,7 +10,7 @@ autocmd MyAutoCmd BufNewFile,BufRead *.yml set filetype=yaml
 autocmd MyAutoCmd BufNewFile,BufRead *.vifm,vifmrc set filetype=vim
 
 autocmd MyAutoCmd BufRead,BufNewFile *.md,.markdown packadd vim-markdown
-let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh']
+let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh', 'nix']
 
 autocmd MyAutoCmd BufReadPre,BufNewFile *.j2 packadd vim-jinja | setlocal filetype=jinja
 autocmd MyAutoCmd BufReadPre,BufNewFile *.twig packadd vim-twig | setlocal filetype=twig.html
