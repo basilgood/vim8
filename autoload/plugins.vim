@@ -170,6 +170,7 @@ endif
 
 """" stay
 autocmd MyAutoCmd CmdlineEnter * packadd  vim-stay
+autocmd MyAutoCmd BufNewFile,BufRead */.git/addp-hunk-edit.diff let b:stay_ignore = 1
 
 """" fzf
 autocmd MyAutoCmd CmdlineEnter * packadd fzf | packadd fzf.vim
