@@ -196,11 +196,6 @@ let g:fzf_colors =
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
 
-"""" mergetool
-if !exists('g:loaded_mergetool')
-  packadd vim-mergetool
-endif
-
 " possible values: 'local' (default), 'remote', 'base'
 let g:mergetool_prefer_revision = 'local'
 " (m) - for working tree version of merged file

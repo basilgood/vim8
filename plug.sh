@@ -12,6 +12,7 @@ start=(
   "LnL7/vim-nix"
   "kana/vim-submode"
   "tpope/vim-fugitive"
+  "samoshkin/vim-mergetool"
 )
 
 for element in "${start[@]}"; do
@@ -51,7 +52,6 @@ opt=(
   "tpope/vim-git"
   "cohama/agit.vim"
   "hotwatermorning/auto-git-diff"
-  "samoshkin/vim-mergetool"
   "hauleth/asyncdo.vim"
   "sgur/cmdline-completion"
   "stefandtw/quickfix-reflector.vim"
