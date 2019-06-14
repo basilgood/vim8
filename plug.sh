@@ -46,7 +46,7 @@ opt=(
   "markonm/traces.vim"
   "wellle/targets.vim"
   "thinca/vim-quickrun"
-  "tpope/vim-commentary"
+  "tomtom/tcomment_vim"
   "tpope/vim-repeat"
   "tpope/vim-surround"
   "tpope/vim-git"
