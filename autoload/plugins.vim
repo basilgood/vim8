@@ -34,8 +34,11 @@ let g:editorconfig_blacklist = {
       \ 'pattern': ['\.un~$']}
 
 """" commentary
-if !exists('g:loaded_commentary')
-  packadd vim-commentary
+" if !exists('g:loaded_commentary')
+"   packadd vim-commentary
+" endif
+if !exists('loaded_tcomment')
+  packadd tcomment_vim
 endif
 
 """" repeat
@@ -197,16 +200,8 @@ let g:fzf_colors =
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
 
-" possible values: 'local' (default), 'remote', 'base'
-let g:mergetool_prefer_revision = 'local'
-" (m) - for working tree version of merged file
-" (r) - for 'remote' revision
-" (l) - for 'local' revision
-let g:mergetool_layout = 'mr'
-
+"""" mergetool
 nmap <leader>gm <plug>(MergetoolToggle)
-cabbrev dp diffput
-cabbrev dg diffget
 
 """" submode
 call submode#enter_with('resize', 'n', '', '<C-W>>', '<C-W>>')
