@@ -61,18 +61,6 @@ nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
 
-" center search and nohl
-nnoremap n nzzzv
-nnoremap N Nzzzv
-nnoremap * *zvzz
-nnoremap # #zvzz
-nnoremap <C-o> <C-o>zz
-nnoremap <C-i> <C-i>zz
-nnoremap } }zz
-nnoremap { {zz
-nnoremap g; g;zz
-nnoremap g, g,zz
-
 " niceblock
 xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
 xnoremap <expr> A (mode()=~#'[vV]'?'<C-v>0o$A':'A')
