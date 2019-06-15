@@ -76,7 +76,6 @@ set noshowmode
 set shortmess+=Icm
 
 """" statusline
-set laststatus=2
 let &g:statusline=''
 let &g:statusline.=' %{winnr("$")>1?winnr():""}'
 let &g:statusline.=' %{toupper(mode())}'
@@ -84,10 +83,12 @@ let &g:statusline.=' ⦁ %{pathshorten(expand("%:~:."))}'
 let &g:statusline.=' %h%r'
 let &g:statusline.='%{exists("g:loaded_fugitive")?"⦁ ".fugitive#head():""} '
 let &g:statusline.='%{exists("g:asyncdo")?"running":""}'
-let &g:statusline.=' %#Exception#%{&mod?" ✚ ":""}%#StatusLine#%*'
+let &g:statusline.=' %#incsearch#%{&mod?" ✚✚✚ ":""}'
+let &g:statusline.='%*'
 let &g:statusline.='%='
 let &g:statusline.='%{&filetype!=#""?&filetype:""} ⦁'
 let &g:statusline.='%12(%c:%l/%L%) '
+set laststatus=2
 
 """" grepprg
 let &grepprg = 'grep --exclude-dir={.git,tag,node_modules,pack} -nHRI'
