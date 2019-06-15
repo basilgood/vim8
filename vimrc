@@ -37,11 +37,12 @@ let g:loaded_man                = 1
 
 """" vim cache directory
 let $CACHE=expand('$HOME/.cache/vim')
-if ! isdirectory(expand($CACHE))
-  call mkdir(expand('$CACHE/undo'), 'p')
-endif
 
+"""" undo
 set undodir=$CACHE/undo//
+call functions#mkdir(&undodir)
+
+"""" viewdir
 set viewdir=$CACHE/view//
 
 """" viminfo

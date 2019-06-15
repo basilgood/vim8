@@ -105,3 +105,9 @@ endfunction
 function! functions#hl()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction
+
+function! functions#mkdir(dir)
+  if !isdirectory(a:dir)
+    call mkdir(a:dir, 'p')
+  endif
+endfunction
