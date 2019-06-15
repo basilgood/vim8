@@ -225,5 +225,12 @@ if !exists('g:loaded_asyncdo_vim')
 endif
 command! -bang -nargs=* Grep call asyncdo#run(<bang>0, &grepprg, <f-args>)
 
+"""" peekaboo
+if !get(b:, 'peekaboo_on', 0)
+  packadd vim-peekaboo
+endif
+let g:peekaboo_prefix = '<leader>'
+let g:peekaboo_ins_prefix = '<c-x>'
+
 function! plugins#load() abort
 endfunction
