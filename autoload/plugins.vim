@@ -18,7 +18,7 @@ function! InNetrw()
   nmap <buffer> K k<cr>
   nmap <buffer> qq :bn<bar>bd#<cr>
   nmap <buffer> ,d !rm -rf
-  nmap <buffer> ,t !touch
+  nmap <buffer> ,t :!touch<space>
 endfunction
 
 autocmd MyAutoCmd FileType netrw call InNetrw()
