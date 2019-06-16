@@ -44,6 +44,7 @@ opt=(
   "junegunn/fzf"
   "itchyny/vim-parenmatch"
   "markonm/traces.vim"
+  "osyo-manga/vim-hopping"
   "markonm/hlyank.vim"
   "wellle/targets.vim"
   "thinca/vim-quickrun"
