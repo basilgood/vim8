@@ -53,7 +53,7 @@ opt=(
   "tpope/vim-git"
   "cohama/agit.vim"
   "hotwatermorning/auto-git-diff"
-  "skywind3000/asyncrun.vim"
+  "tpope/vim-dispatch"
   "sgur/cmdline-completion"
   "stefandtw/quickfix-reflector.vim"
   "fcpg/vim-spotlightify"

@@ -107,13 +107,13 @@ nnoremap <leader>n :set relativenumber!<cr>
 """" git commands
 nnoremap <silent> <leader>dt :<c-u>windo diffthis<cr>
 nnoremap <silent> <leader>gs :<C-u>Gstatus<CR>
-nnoremap <silent> <leader>ga :<c-u>AsyncRun git add %<cr>
-nnoremap <silent> <leader>gr :<c-u>AsyncRun git reset %<cr>
-nnoremap <silent> <leader>gf :<c-u>AsyncRun git fetch --all --prune<cr>
-nnoremap <silent> <leader>gu :<C-u>AsyncRun git pull --rebase --autostash<CR>
-nnoremap <silent> <leader>gU :<C-u>AsyncRun git pull --ff-only<CR>
-nnoremap <silent> <leader>gp :<C-u>AsyncRun git push<CR>
-nnoremap <silent> <leader>gP :<C-u>AsyncRun git push -f<CR>
+nnoremap <silent> <leader>ga :<c-u>Dispatch! git add %<cr>
+nnoremap <silent> <leader>gr :<c-u>Dispatch! git reset %<cr>
+nnoremap <silent> <leader>gf :<c-u>Dispatch! git fetch --all --prune<cr>
+nnoremap <silent> <leader>gu :<C-u>Dispatch! git pull --rebase --autostash<CR>
+nnoremap <silent> <leader>gU :<C-u>Dispatch! git pull --ff-only<CR>
+nnoremap <silent> <leader>gp :<C-u>Dispatch! git push<CR>
+nnoremap <silent> <leader>gP :<C-u>Dispatch! git push -f<CR>
 nnoremap <silent> <leader>gd :<C-u>Gvdiff<CR>
 nnoremap <silent> <leader>gB :<C-u>Gblame<CR>
 nnoremap <silent> <leader>gc :<C-u>Gcommit<CR>

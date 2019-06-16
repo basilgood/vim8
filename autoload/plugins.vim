@@ -216,10 +216,9 @@ if !exists('g:loaded_agit')
 endif
 
 """" asyncrun
-if !exists('g:asyncrun_status')
-  packadd asyncrun.vim
+if !exists('g:loaded_dispatch')
+  packadd vim-dispatch
 endif
-command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 """" peekaboo
 if !get(b:, 'peekaboo_on', 0)
