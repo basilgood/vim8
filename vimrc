@@ -81,6 +81,6 @@ filetype plugin indent on
 
 set background=dark
 colorscheme theonlyone
-highlight ParenMatch ctermfg=red term=underline cterm=underline gui=underline
+highlight ParenMatch term=reverse ctermbg=11 guifg=#85EB6A guibg=#135B00
 
 set secure
