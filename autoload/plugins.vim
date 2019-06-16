@@ -227,19 +227,5 @@ endif
 let g:peekaboo_prefix = '<leader>'
 let g:peekaboo_ins_prefix = '<c-x>'
 
-"""" hopping
-if !exists('g:loaded_hopping')
-  packadd vim-hopping
-endif
-nmap <Space>/ <Plug>(hopping-start)
-vmap <Space>/ <Plug>(hopping-start)
-let g:hopping#keymapping = {
-      \ "\<C-n>" : '<Over>(hopping-next)',
-      \ "\<C-p>" : '<Over>(hopping-prev)',
-      \ "\<C-u>" : '<Over>(scroll-u)',
-      \ "\<C-d>" : '<Over>(scroll-d)',
-      \}
-let g:hopping#prompt = '/'
-
 function! plugins#load() abort
 endfunction
