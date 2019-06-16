@@ -33,10 +33,6 @@ let g:editorconfig_blacklist = {
       \ 'filetype': ['git.*', 'fugitive'],
       \ 'pattern': ['\.un~$']}
 
-"""" commentary
-" if !exists('g:loaded_commentary')
-"   packadd vim-commentary
-" endif
 if !exists('loaded_tcomment')
   packadd tcomment_vim
 endif
@@ -219,11 +215,11 @@ if !exists('g:loaded_agit')
   packadd agit.vim
 endif
 
-"""" asyncdo
-if !exists('g:loaded_asyncdo_vim')
-  packadd asyncdo.vim
+"""" asyncrun
+if !exists('g:asyncrun_status')
+  packadd asyncrun.vim
 endif
-command! -bang -nargs=* Grep call asyncdo#run(<bang>0, &grepprg, <f-args>)
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 """" peekaboo
 if !get(b:, 'peekaboo_on', 0)
