@@ -110,7 +110,7 @@ if !exists('g:loaded_spotlightify')
 endif
 let g:splfy_setmaps = 0
 nmap cx <Plug>(spotlightify)searchreplacefwd
-nnoremap <leader><leader> :Nohls<cr>
+nnoremap <leader>n :Nohls<cr>
 
 """" tabular
 if !exists('g:tabular_loaded')
@@ -175,7 +175,6 @@ autocmd MyAutoCmd BufNewFile,BufRead */.git/addp-hunk-edit.diff let b:stay_ignor
 autocmd MyAutoCmd CmdlineEnter * packadd fzf | packadd fzf.vim
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
-nnoremap <leader>f :FF!<cr>
 let g:fzf_layout = { 'down': '~30%' }
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
