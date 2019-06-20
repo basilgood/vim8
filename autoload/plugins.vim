@@ -175,7 +175,10 @@ autocmd MyAutoCmd BufNewFile,BufRead */.git/addp-hunk-edit.diff let b:stay_ignor
 autocmd MyAutoCmd CmdlineEnter * packadd fzf | packadd fzf.vim
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
-let g:fzf_layout = { 'down': '~30%' }
+
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+let g:fzf_layout = { 'down': '~35%' }
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
