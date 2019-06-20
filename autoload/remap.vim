@@ -102,7 +102,7 @@ nnoremap <leader>9 9<c-w>w
 nnoremap <leader>0 10<c-w>w
 
 " numbers
-nnoremap <leader>n :set relativenumber!<cr>
+nnoremap <leader><leader> :set relativenumber!<cr>
 
 """" git commands
 nnoremap <silent> <leader>dt :<c-u>windo diffthis<cr>
