@@ -62,7 +62,6 @@ opt=(
   "junegunn/vim-peekaboo"
   "godlygeek/tabular"
   "zhimsel/vim-stay"
-  "itchyny/vim-cmdline-ranges"
   "thinca/vim-localrc"
   "cskeeters/vim-smooth-scroll"
   "alvan/vim-closetag"

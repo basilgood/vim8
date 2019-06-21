@@ -94,11 +94,6 @@ let g:undotree_WindowLayout = 4
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
 
-"""" cmdline ranges
-if !exists('g:loaded_cmdline_ranges')
-  autocmd MyAutoCmd CmdlineEnter * packadd vim-cmdline-ranges
-endif
-
 """" starsearch
 if !exists('g:loaded_starsearch')
   packadd starsearch.vim
