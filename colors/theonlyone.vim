@@ -80,7 +80,7 @@ hi DiffDelete       guifg=#f93d3d guibg=#1d2021 cterm=NONE
 hi DiffText         guifg=#FFB86C guibg=#14141a gui=NONE cterm=NONE
 
 hi IncSearch        guifg=#1d2021 guibg=#fb4934 gui=NONE cterm=NONE
-hi Search           guifg=NONE    guibg=#494646 gui=bold cterm=bold
+hi Search           guifg=NONE    guibg=NONE gui=bold cterm=bold,reverse
 
 hi Directory        guifg=#61AFEF guibg=NONE    gui=NONE cterm=NONE
 
