@@ -119,9 +119,6 @@ nnoremap <silent> <leader>gc :<C-u>Gcommit<CR>
 nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
 nnoremap <silent> <leader>gl :<C-u>Agit<CR>
 
-" close
-nnoremap <leader>q :<c-u> call functions#tabclose()<cr>
-
 " grep
 nnoremap gr :<C-u>Grp<Space>
 

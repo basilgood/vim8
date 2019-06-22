@@ -64,16 +64,6 @@ function! functions#git() abort
   return join(filter(components, '!empty(v:val)'), ' ')
 endfunction
 
-function! functions#tabclose()
-  let tabpagenr = tabpagenr()
-  if tabpagenr == 1
-    tabclose
-  else
-    tabprevious
-    execute 'tabclose ' . tabpagenr
-  endif
-endfunction
-
 function! functions#hl()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction
