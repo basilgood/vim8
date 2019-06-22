@@ -5,14 +5,14 @@ nnoremap k gk
 vnoremap > >gv
 vnoremap < <gv
 vnoremap . :normal .<cr>
-nnoremap <C-s> :update<cr>
-inoremap <C-s> <Esc>:update<cr>
-xnoremap <C-s> <C-C>:<C-u>update<cr>
+nnoremap <c-s> :<c-u>update<cr>
+inoremap <c-s> <esc>:update<cr>
+xnoremap <c-s> <esc>:<c-u>update<cr>
 nnoremap <expr> 0 virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
+cnoremap <c-a> <Home>
+cnoremap <c-e> <End>
+inoremap <c-a> <Home>
+inoremap <c-e> <End>
 
 " new line
 nnoremap <expr> go "mz" . v:count . "o\<Esc>`z"
@@ -83,7 +83,13 @@ nnoremap <c-w>t :tabedit %<cr>
 " file size
 nnoremap <F3> :echo functions#getfilesize()<cr>
 
-"""" mistype
+" search and star search
+nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
+vnoremap n :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
+vnoremap <s-n> :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
+vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
+
+" mistype
 cabbrev Qa qa
 cabbrev QA qa
 cabbrev Wq wq

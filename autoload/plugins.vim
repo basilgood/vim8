@@ -94,19 +94,6 @@ let g:undotree_WindowLayout = 4
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
 
-"""" starsearch
-if !exists('g:loaded_starsearch')
-  packadd starsearch.vim
-endif
-
-"""" spotlightify
-if !exists('g:loaded_spotlightify')
-  packadd vim-spotlightify
-endif
-let g:splfy_setmaps = 0
-nmap cx <Plug>(spotlightify)searchreplacefwd
-nnoremap <leader>n :Nohls<cr>
-
 """" tabular
 if !exists('g:tabular_loaded')
   autocmd MyAutoCmd CmdlineEnter * packadd tabular
@@ -223,6 +210,12 @@ if !get(b:, 'peekaboo_on', 0)
 endif
 let g:peekaboo_prefix = '<leader>'
 let g:peekaboo_ins_prefix = '<c-x>'
+
+"""" cool
+if !exists('g:loaded_cool')
+  packadd vim-cool
+endif
+let g:CoolTotalMatches = 1
 
 function! plugins#load() abort
 endfunction

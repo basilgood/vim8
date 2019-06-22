@@ -111,3 +111,19 @@ function! functions#mkdir(dir)
     call mkdir(a:dir, 'p')
   endif
 endfunction
+
+function! functions#get_selected_text()
+  let tmp = @"
+  normal! gvy
+  normal! gv
+  let [tmp, @"] = [@", tmp]
+  return tmp
+endfunc
+
+function! functions#plain_text_pattern(s)
+  return substitute(substitute('\V'.escape(a:s, '\'), '\n', '\\n', 'g'), '\t', '\\t', 'g')
+endfunc
+
+function! functions#get_search_pat()
+  return functions#plain_text_pattern(functions#get_selected_text())
+endfunc
