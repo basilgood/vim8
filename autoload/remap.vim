@@ -120,7 +120,6 @@ nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
 nnoremap <silent> <leader>gl :<C-u>Agit<CR>
 
 " close
-nnoremap Q :<C-u>call functions#close()<CR>
 nnoremap <leader>q :<c-u> call functions#tabclose()<cr>
 
 " grep
