@@ -83,6 +83,9 @@ nnoremap <c-w>t :tabedit %<cr>
 " file size
 nnoremap <F3> :echo functions#getfilesize()<cr>
 
+" replay macro
+nnoremap Q @q
+
 " search and star search
 nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
 vnoremap n :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
