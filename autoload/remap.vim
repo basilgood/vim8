@@ -89,12 +89,6 @@ vnoremap n :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 vnoremap <s-n> :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 
-" mistype
-cabbrev Qa qa
-cabbrev QA qa
-cabbrev Wq wq
-cabbrev WQ wq
-
 " Window navigation
 nnoremap <leader>1 1<c-w>w
 nnoremap <leader>2 2<c-w>w
@@ -121,7 +115,6 @@ nnoremap <silent> <leader>gU :<C-u>Dispatch! git pull --ff-only<CR>
 nnoremap <silent> <leader>gp :<C-u>Dispatch! git push<CR>
 nnoremap <silent> <leader>gP :<C-u>Dispatch! git push -f<CR>
 nnoremap <silent> <leader>gd :<C-u>Gvdiff<CR>
-nnoremap <silent> <leader>gB :<C-u>Gblame<CR>
 nnoremap <silent> <leader>gc :<C-u>Gcommit<CR>
 nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
 nnoremap <silent> <leader>gl :<C-u>Agit<CR>
