@@ -59,9 +59,7 @@ set diffopt+=context:3,indent-heuristic,algorithm:patience
 set number
 set mouse=a
 set ttymouse=sgr
-if &term =~# '256color'
-  set t_ut=
-endif
+set t_ut=
 set cursorline
 set list
 let &g:listchars = 'tab:▸ ,space:·,extends:❯,precedes:❮,nbsp:⦸'
