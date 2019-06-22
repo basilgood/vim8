@@ -13,6 +13,7 @@ start=(
   "kana/vim-submode"
   "tpope/vim-fugitive"
   "samoshkin/vim-mergetool"
+  "mtth/locate.vim"
 )
 
 for element in "${start[@]}"; do
@@ -46,7 +47,6 @@ opt=(
   "markonm/traces.vim"
   "markonm/hlyank.vim"
   "wellle/targets.vim"
-  "thinca/vim-quickrun"
   "tomtom/tcomment_vim"
   "tpope/vim-repeat"
   "tpope/vim-surround"
