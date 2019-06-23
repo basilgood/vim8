@@ -92,18 +92,6 @@ vnoremap n :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 vnoremap <s-n> :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 
-" Window navigation
-nnoremap <leader>1 1<c-w>w
-nnoremap <leader>2 2<c-w>w
-nnoremap <leader>3 3<c-w>w
-nnoremap <leader>4 4<c-w>w
-nnoremap <leader>5 5<c-w>w
-nnoremap <leader>6 6<c-w>w
-nnoremap <leader>7 7<c-w>w
-nnoremap <leader>8 8<c-w>w
-nnoremap <leader>9 9<c-w>w
-nnoremap <leader>0 10<c-w>w
-
 " numbers
 nnoremap <leader><leader> :set relativenumber!<cr>
 

@@ -13,7 +13,6 @@ start=(
   "kana/vim-submode"
   "tpope/vim-fugitive"
   "samoshkin/vim-mergetool"
-  "mtth/locate.vim"
 )
 
 for element in "${start[@]}"; do
@@ -61,6 +60,7 @@ opt=(
   "godlygeek/tabular"
   "zhimsel/vim-stay"
   "thinca/vim-localrc"
+  "kana/vim-arpeggio"
   "cskeeters/vim-smooth-scroll"
   "romainl/vim-cool"
   "alvan/vim-closetag"

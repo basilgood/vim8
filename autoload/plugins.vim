@@ -62,6 +62,24 @@ if !exists('g:loaded_hlyank_plugin')
   packadd hlyank.vim
 endif
 
+"""" arpeggio
+if !exists('g:loaded_arpeggio')
+  packadd vim-arpeggio
+endif
+
+let g:arpeggio_timeoutlen=220
+call arpeggio#map('n', '', 0, 'vv', 'viw')
+call arpeggio#map('n', '', 0, '\1', '1<C-w>w')
+call arpeggio#map('n', '', 0, '\2', '2<C-w>w')
+call arpeggio#map('n', '', 0, '\3', '3<C-w>w')
+call arpeggio#map('n', '', 0, '\4', '4<C-w>w')
+call arpeggio#map('n', '', 0, '\5', '5<C-w>w')
+call arpeggio#map('n', '', 0, '\6', '6<C-w>w')
+call arpeggio#map('n', '', 0, '\7', '7<C-w>w')
+call arpeggio#map('n', '', 0, '\8', '8<C-w>w')
+call arpeggio#map('n', '', 0, '\9', '9<C-w>w')
+call arpeggio#map('n', '', 0, ';;', ':')
+
 """" undotree
 if !exists('g:loaded_undotree')
   nnoremap <leader>u :packadd undotree<cr>:UndotreeToggle<cr>
