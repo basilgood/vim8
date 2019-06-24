@@ -50,7 +50,7 @@ opt=(
   "tpope/vim-repeat"
   "tpope/vim-surround"
   "tpope/vim-git"
-  "cohama/agit.vim"
+  "junegunn/gv.vim"
   "hotwatermorning/auto-git-diff"
   "tpope/vim-dispatch"
   "sgur/cmdline-completion"

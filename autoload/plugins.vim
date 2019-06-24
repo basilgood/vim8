@@ -136,15 +136,6 @@ if !exists('loaded_smooth_scroll')
   packadd vim-smooth-scroll
 endif
 
-"""" git rebase ft
-autocmd MyAutoCmd CmdlineEnter * packadd vim-git
-nnoremap <buffer> <silent> S :Cycle<CR>
-
-"""" rebase diff
-if !exists('g:did_auto_git_diff')
-  packadd auto-git-diff
-endif
-
 """" stay
 autocmd MyAutoCmd CmdlineEnter * packadd  vim-stay
 autocmd MyAutoCmd BufNewFile,BufRead */.git/addp-hunk-edit.diff let b:stay_ignore = 1
@@ -190,9 +181,18 @@ call submode#map('resize', 'n', '', '-', '<C-W>-')
 call submode#map('resize', 'n', '', '=', '<C-W>+')
 call submode#leave_with('resize', 'n', '', '<Esc>')
 
-"""" agit
-if !exists('g:loaded_agit')
-  packadd agit.vim
+""" git
+autocmd MyAutoCmd CmdlineEnter * packadd vim-git
+nnoremap <buffer> <silent> S :Cycle<CR>
+
+"""" rebase diff
+if !exists('g:did_auto_git_diff')
+  packadd auto-git-diff
+endif
+
+"""" gv
+if exists('g:loaded_fugitive')
+  packadd gv.vim
 endif
 
 """" asyncrun
