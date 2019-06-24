@@ -5,7 +5,6 @@ if !exists('g:loaded_vinegar')
   packadd vim-vinegar
 endif
 
-let g:netrw_localrmdir='rm -rf'
 let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted hidden'
 let g:netrw_sort_dotfiles_first = 1
 let g:netrw_altfile = 1
@@ -17,8 +16,8 @@ function! InNetrw()
   nmap <buffer> J j<cr>
   nmap <buffer> K k<cr>
   nmap <buffer> qq :bn<bar>bd#<cr>
-  nmap <buffer> ,d !rm -rf
-  nmap <buffer> ,t :!touch<space>
+  nmap <buffer> qd .terminal ++close rm -rf
+  nmap <buffer> qt .terminal ++close touch
 endfunction
 
 autocmd MyAutoCmd FileType netrw call InNetrw()
