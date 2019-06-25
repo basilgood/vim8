@@ -109,7 +109,7 @@ nnoremap <silent> <leader>gD :<C-u>Dispatch! git checkout -- %<CR>
 nnoremap <silent> <leader>gd :<C-u>Gvdiff<CR>
 nnoremap <silent> <leader>gc :<C-u>Gcommit<CR>
 nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
-nnoremap <silent> <leader>gl :<C-u>GV<CR>
+nnoremap <silent> <leader>gl :<C-u>GV --all<CR>
 
 " grep
 nnoremap gr :<C-u>Grp<Space>
