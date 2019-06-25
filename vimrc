@@ -45,6 +45,10 @@ call functions#mkdir(&undodir)
 """" viewdir
 set viewdir=$CACHE/view//
 
+"""" sessiondir
+let $SESSIONDIR=$CACHE . '/sessions' . getcwd()
+call functions#mkdir($SESSIONDIR)
+
 """" viminfo
 set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
 
@@ -74,7 +78,7 @@ call lint#linter()
 call diff#diff()
 call autocmds#autocmds()
 call timer_start(300, {-> commands#commands()}, {'repeat': 0})
-call sessions#sessions()
+" call sessions#sessions()
 
 syntax enable
 filetype plugin indent on
