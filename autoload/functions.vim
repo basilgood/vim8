@@ -52,18 +52,6 @@ function! s:restore_eventignore()
   augroup! large_buffer
 endf
 
-function! functions#git() abort
-  if !exists('g:loaded_gina')
-    return ''
-  endif
-  let components = [
-        \ gina#component#repo#branch(),
-        \ gina#component#status#preset('fancy'),
-        \ gina#component#traffic#preset('fancy'),
-        \]
-  return join(filter(components, '!empty(v:val)'), ' ')
-endfunction
-
 function! functions#hl()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction
