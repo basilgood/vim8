@@ -5,7 +5,6 @@ if !exists('g:loaded_ale')
 endif
 
 let g:ale_linters_explicit = 1
-let g:ale_completion_enabled = 1
 let g:ale_set_highlights = 0
 let g:ale_sign_info = 'ℹ'
 let g:ale_echo_msg_error_str='[ERROR]'
