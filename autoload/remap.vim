@@ -112,7 +112,7 @@ nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
 nnoremap <silent> <leader>gl :<C-u>GV --all<CR>
 
 " grep
-nnoremap gr :<C-u>Grp<Space>
+nnoremap gr :<C-u>Grep<Space>
 
 function! remap#map() abort
 endfunction
