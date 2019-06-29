@@ -10,6 +10,7 @@ command! -nargs=+ -complete=file Ack :call grep#vgrep(<q-args>)
 command! -nargs=+ -complete=file Grp execute 'silent Ggrep! --untracked' <q-args> | cwindow | redraw!
 command! -nargs=* -complete=file Grep call grep#dgrep('grep<bang>',<q-args>)
 command! SC vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
+command! -nargs=0 SS call sessions#load()
 
 function! commands#commands()
 endfunction

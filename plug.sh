@@ -49,7 +49,6 @@ opt=(
   "tomtom/tcomment_vim"
   "tpope/vim-repeat"
   "tpope/vim-surround"
-  "tpope/vim-obsession"
   "tpope/vim-git"
   "junegunn/gv.vim"
   "hotwatermorning/auto-git-diff"

@@ -65,5 +65,8 @@ autocmd MyAutoCmd BufWritePre * call functions#mkdirifnotexist()
 autocmd MyAutoCmd FileType qf wincmd J
 autocmd MyAutoCmd BufWinEnter * if &ft == 'help' | wincmd J | end
 
+"""" sessions
+autocmd MyAutoCmd VimLeavePre * call sessions#make()
+
 function! autocmds#autocmds() abort
 endfunction

@@ -213,12 +213,12 @@ if !exists('g:loaded_cool')
 endif
 let g:CoolTotalMatches = 1
 
-"""" sessions
-if !exists('g:loaded_obsession')
-  packadd vim-obsession
-endif
-command! SS Obsession $SESSIONDIR
-command! SL source $SESSIONDIR/Session.vim
-
+" """" sessions
+" if !exists('g:loaded_obsession')
+"   packadd vim-obsession
+" endif
+" command! SS Obsession $SESSIONDIR
+" command! SL source $SESSIONDIR/Session.vim
+"
 function! plugins#load() abort
 endfunction
