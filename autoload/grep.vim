@@ -11,8 +11,21 @@ function! grep#vgrep(args) abort
   echo 'Number of matches: ' . len(getqflist())
 endfunction
 
-function! grep#dgrep(cmd, args)
-  let g:grepprg='grep --exclude-dir={.git,tag,node_modules,pack,public} -nHRI'
+function! IsGitWorkTree() abort
+  let l:git=1
+  let l:stdout = system('git rev-parse --git-dir 2> /dev/null')
+  if l:stdout =~# '\.git'
+    let l:git=0
+  endif
+  return l:git
+endfunction
+
+function! grep#dgrep(cmd, args) abort
+  if IsGitWorkTree() == 0
+    let g:grepprg = 'git --no-pager grep --untracked -n'
+  else
+    let g:grepprg='grep --exclude-dir={.git,tag,node_modules,pack,public} --exclude=tags -nHRI'
+  endif
   let @/ = a:args
   setlocal hlsearch
   let l:makeprg_bak = &l:makeprg
