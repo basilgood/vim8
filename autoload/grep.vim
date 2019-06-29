@@ -12,7 +12,7 @@ function! grep#vgrep(args) abort
 endfunction
 
 function! grep#dgrep(cmd, args)
-  let g:grepprg='grep --exclude-dir={.git,tag,node_modules,pack} -nHRI'
+  let g:grepprg='grep --exclude-dir={.git,tag,node_modules,pack,public} -nHRI'
   let @/ = a:args
   setlocal hlsearch
   let l:makeprg_bak = &l:makeprg
