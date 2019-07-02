@@ -200,25 +200,11 @@ if !exists('g:loaded_dispatch')
   packadd vim-dispatch
 endif
 
-"""" peekaboo
-if !get(b:, 'peekaboo_on', 0)
-  packadd vim-peekaboo
-endif
-let g:peekaboo_prefix = '<leader>'
-let g:peekaboo_ins_prefix = '<c-x>'
-
 """" cool
 if !exists('g:loaded_cool')
   packadd vim-cool
 endif
 let g:CoolTotalMatches = 1
 
-" """" sessions
-" if !exists('g:loaded_obsession')
-"   packadd vim-obsession
-" endif
-" command! SS Obsession $SESSIONDIR
-" command! SL source $SESSIONDIR/Session.vim
-"
 function! plugins#load() abort
 endfunction

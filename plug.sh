@@ -56,7 +56,6 @@ opt=(
   "sgur/cmdline-completion"
   "stefandtw/quickfix-reflector.vim"
   "mbbill/undotree"
-  "junegunn/vim-peekaboo"
   "godlygeek/tabular"
   "zhimsel/vim-stay"
   "thinca/vim-localrc"
