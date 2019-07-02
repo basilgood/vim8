@@ -206,11 +206,5 @@ if !exists('g:loaded_cool')
 endif
 let g:CoolTotalMatches = 1
 
-"""" clever-f
-if !exists('g:loaded_clever_f')
-  packadd clever-f.vim
-endif
-let g:clever_f_across_no_line = 1
-
 function! plugins#load() abort
 endfunction
