@@ -11,6 +11,7 @@ command! -nargs=+ -complete=file Grp execute 'silent Ggrep! --untracked' <q-args
 command! -nargs=* -complete=file Grep call grep#dgrep('grep<bang>',<q-args>)
 command! SC vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
 command! -nargs=0 SS call sessions#load()
+command! -range GB echo join(systemlist("git blame -L <line1>,<line2> " . expand('%')), "\n")
 
 function! commands#commands()
 endfunction
