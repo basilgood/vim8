@@ -54,6 +54,7 @@ opt=(
   "hotwatermorning/auto-git-diff"
   "tpope/vim-dispatch"
   "sgur/cmdline-completion"
+  "rhysd/clever-f.vim"
   "stefandtw/quickfix-reflector.vim"
   "mbbill/undotree"
   "godlygeek/tabular"
