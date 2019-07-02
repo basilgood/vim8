@@ -95,7 +95,7 @@ vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 " numbers
 nnoremap <leader><leader> :set relativenumber!<cr>
 
-"""" git commands
+" git commands
 nnoremap <silent> <leader>dt :<c-u>windo diffthis<cr>
 nnoremap <silent> <leader>gs :<C-u>Gstatus<CR>
 nnoremap <silent> <leader>ga :<c-u>Dispatch! git add %<cr>
@@ -113,6 +113,10 @@ nnoremap <silent> <leader>gl :<C-u>GV --all<CR>
 
 " grep
 nnoremap gr :<C-u>Grep<Space>
+
+" list-like commands
+cnoremap <expr> <CR> functions#ccr()
+nnoremap <leader>/ :g//#<Left><Left>
 
 function! remap#map() abort
 endfunction
