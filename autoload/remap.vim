@@ -111,9 +111,6 @@ nnoremap <silent> <leader>gc :<C-u>Gcommit<CR>
 nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
 nnoremap <silent> <leader>gl :<C-u>GV --all<CR>
 
-" commands history fzf
-nnoremap q: :CmdHist<CR>
-
 " grep
 nnoremap gr :<C-u>Grep<Space>
 
