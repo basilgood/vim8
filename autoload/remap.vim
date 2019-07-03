@@ -114,9 +114,5 @@ nnoremap <silent> <leader>gl :<C-u>GV --all<CR>
 " grep
 nnoremap gr :<C-u>Grep<Space>
 
-" list-like commands
-cnoremap <expr> <CR> functions#ccr()
-nnoremap <leader>/ :g//#<Left><Left>
-
 function! remap#map() abort
 endfunction

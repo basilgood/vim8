@@ -77,36 +77,3 @@ endfunc
 function! functions#get_search_pat()
   return functions#plain_text_pattern(functions#get_selected_text())
 endfunc
-
-function! functions#ccr()
-  if getcmdtype() isnot# ':'
-    return "\<CR>"
-  endif
-  let cmdline = getcmdline()
-  if cmdline =~# '\v^\s*(ls|files|buffers)!?\s*(\s[+\-=auhx%#]+)?$'
-    return "\<CR>:b"
-  elseif cmdline =~# '\v/(#|nu%[mber])$'
-    return "\<CR>:"
-  elseif cmdline =~# '\v^\s*(dli%[st]|il%[ist])!?\s+\S'
-    return "\<CR>:" . cmdline[0] . 'j  ' . split(cmdline, ' ')[1] . '\<S-Left>\<Left>'
-  elseif cmdline =~# '\v^\s*(cli|lli)%[st]!?\s*(\s\d+(,\s*\d+)?)?$'
-    return "\<CR>:sil " . repeat(cmdline[0], 2) . "\<Space>"
-  elseif cmdline =~# '\v^\s*ol%[dfiles]\s*$'
-    set nomore
-    return "\<CR>:sil se more|e #<"
-  elseif cmdline =~# '^\s*changes\s*$'
-    set nomore
-    return "\<CR>:sil se more|norm! g;\<S-Left>"
-  elseif cmdline =~# '\v^\s*ju%[mps]'
-    set nomore
-    return "\<CR>:sil se more|norm! \<C-o>\<S-Left>"
-  elseif cmdline =~# '\v^\s*marks\s*(\s\w+)?$'
-    return "\<CR>:norm! `"
-  elseif cmdline =~# '\v^\s*undol%[ist]'
-    return "\<CR>:u "
-  elseif cmdline =~# '\C^reg'
-    return "\<CR>:norm! \"p\<Left>"
-  else
-    return "\<c-]>\<CR>"
-  endif
-endfunction
