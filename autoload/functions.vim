@@ -44,13 +44,13 @@ function! functions#large_file(name)
     autocmd!
     autocmd BufWinEnter <buffer> call <sid>restore_eventignore()
   augroup END
-endf
+endfunction
 
 function! s:restore_eventignore()
   set eventignore-=FileType
   autocmd! large_buffer
   augroup! large_buffer
-endf
+endfunction
 
 function! functions#hl()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
@@ -68,12 +68,12 @@ function! functions#get_selected_text()
   normal! gv
   let [tmp, @"] = [@", tmp]
   return tmp
-endfunc
+endfunction
 
 function! functions#plain_text_pattern(s)
   return substitute(substitute('\V'.escape(a:s, '\'), '\n', '\\n', 'g'), '\t', '\\t', 'g')
-endfunc
+endfunction
 
 function! functions#get_search_pat()
   return functions#plain_text_pattern(functions#get_selected_text())
-endfunc
+endfunction
