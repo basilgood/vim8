@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 if &diff
-  syntax off
+  setlocal syntax=off
   setlocal nospell
   setlocal cursorline
 endif
