@@ -1,6 +1,3 @@
-set encoding=utf-8
-scriptencoding utf-8
-
 if !v:vim_did_enter && has('reltime')
   let g:startuptime = reltime()
   augroup vimrc-startuptime
@@ -9,6 +6,10 @@ if !v:vim_did_enter && has('reltime')
           \                 | echomsg 'startuptime: ' . reltimestr(g:startuptime)
   augroup END
 endif
+
+let skip_defaults_vim=1
+set encoding=utf-8
+scriptencoding utf-8
 
 """" true colors
 if has('termguicolors')
