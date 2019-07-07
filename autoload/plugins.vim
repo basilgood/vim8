@@ -199,7 +199,7 @@ if exists('g:loaded_fugitive')
   packadd gv.vim
 endif
 
-"""" asyncrun
+"""" dispatch
 if !exists('g:loaded_dispatch')
   packadd vim-dispatch
 endif
