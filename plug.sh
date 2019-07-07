@@ -14,7 +14,6 @@ start=(
   "tpope/vim-fugitive"
   "samoshkin/vim-mergetool"
   "da-x/conflict-marker.vim"
-  "dirkwallenstein/vim-conflict-slides"
 )
 
 for element in "${start[@]}"; do
