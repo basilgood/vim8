@@ -172,7 +172,7 @@ let g:fzf_colors =
       \ 'header':  ['fg', 'Comment'] }
 
 """" mergetool
-nmap <leader>gm <plug>(MergetoolToggle)
+let g:mergetool_layout = 'bmr'
 
 """" submode
 call submode#enter_with('resize', 'n', '', '<C-W>>', '<C-W>>')
