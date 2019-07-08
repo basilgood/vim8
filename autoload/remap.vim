@@ -83,7 +83,11 @@ nnoremap <c-w>t :tabedit %<cr>
 " file size
 nnoremap <F3> :echo functions#getfilesize()<cr>
 
-" replay macro
+" disable EX-mode
+nnoremap Q <Nop>
+nnoremap gQ <Nop>
+
+" execute macro
 nnoremap Q @q
 
 " search and star search
@@ -96,7 +100,7 @@ vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 nnoremap <leader><leader> :set relativenumber!<cr>
 
 " git commands
-nnoremap <silent> <leader>dt :<c-u>windo diffthis<cr>
+nnoremap <silent> <expr> <leader>dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
 nnoremap <silent> <leader>gs :<C-u>Gstatus<CR>
 nnoremap <silent> <leader>ga :<c-u>Dispatch! git add %<cr>
 nnoremap <silent> <leader>gr :<c-u>Dispatch! git reset %<cr>
