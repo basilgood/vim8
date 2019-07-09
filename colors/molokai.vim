@@ -158,7 +158,6 @@ hi link yamlBool SpellRare
 hi link nixAttributeDefinition Type
 hi link nixAttribute Type
 hi link nixPath String
-hi link nixBoolean SpellRare
 hi link nixArgumentDefinition Normal
 hi link nixURI String
 hi link nixSimpleFunctionArgument Normal
