@@ -80,7 +80,8 @@ syntax enable
 filetype plugin indent on
 
 set background=dark
-colorscheme theonlyone
-highlight ParenMatch term=reverse ctermbg=11 guifg=#85EB6A guibg=#135B00 gui=NONE cterm=NONE
+colorscheme molokai
+highlight ParenMatch guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
+highlight Comment    guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 
 set secure
