@@ -73,6 +73,10 @@ hi Function         guifg=#61AFEF guibg=NONE    gui=NONE cterm=NONE
 hi SpecialKey       guifg=#3b4048 guibg=NONE    gui=NONE cterm=NONE
 hi Title            guifg=#98c379 guibg=NONE    gui=NONE cterm=NONE
 
+hi diffAdded        guifg=#2BFF2B gui=NONE      ctermfg=46  cterm=NONE
+hi diffRemoved      guifg=#FF2B2B gui=NONE      ctermfg=203 cterm=NONE
+hi link diffSubname Normal
+
 hi DiffAdd          guifg=#8ec07c guibg=#1d2021 cterm=NONE
 hi link DiffChange NONE
 hi clear DiffChange
@@ -97,7 +101,7 @@ hi ColorColumn      guibg=#14171c guifg=NONE    gui=NONE
 hi ALEWarningSign   guifg=#fabd2f guibg=#14171c gui=NONE cterm=NONE
 hi ALEErrorSign     guifg=#f93d3d guibg=#14171c gui=NONE cterm=NONE
 
-hi ParenMatch ctermfg=red term=underline cterm=underline gui=underline
+hi ParenMatch term=reverse ctermbg=11 guifg=#85EB6A guibg=#135B00 gui=NONE cterm=NONE
 
 hi link javascriptObjectKey Label
 hi link yamlBool SpellRare
