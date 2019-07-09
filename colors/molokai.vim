@@ -154,7 +154,6 @@ hi ALEWarningSign   guifg=#fabd2f guibg=#14171c gui=NONE cterm=NONE
 hi ALEErrorSign     guifg=#f93d3d guibg=#14171c gui=NONE cterm=NONE
 
 hi link javascriptObjectKey Label
-hi link yamlBool SpellRare
 hi link nixAttributeDefinition Type
 hi link nixAttribute Type
 hi link nixPath String
