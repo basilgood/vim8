@@ -95,9 +95,6 @@ if !exists('g:tabular_loaded')
   autocmd MyAutoCmd CmdlineEnter * packadd tabular
 endif
 
-nnoremap <tab><tab> :Tabularize /
-xnoremap <tab><tab> :Tabularize /
-
 """" localrc
 if !exists('g:loaded_localrc')
   packadd vim-localrc
