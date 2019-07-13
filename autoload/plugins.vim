@@ -90,10 +90,12 @@ let g:undotree_WindowLayout = 4
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
 
-"""" tabular
-if !exists('g:tabular_loaded')
-  autocmd MyAutoCmd CmdlineEnter * packadd tabular
+"""" easy align
+if !exists('g:loaded_easy_align_plugin')
+  packadd vim-easy-align
 endif
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 
 """" localrc
 if !exists('g:loaded_localrc')
