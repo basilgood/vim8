@@ -4,7 +4,6 @@ nnoremap j gj
 nnoremap k gk
 vnoremap > >gv
 vnoremap < <gv
-vnoremap . :normal .<cr>
 nnoremap <c-s> :<c-u>update<cr>
 inoremap <c-s> <esc>:update<cr>
 xnoremap <c-s> <esc>:<c-u>update<cr>
@@ -29,6 +28,9 @@ vnoremap <space>p "+p
 nnoremap <space>P :put!+<cr>
 vnoremap <space>P "+P
 inoremap <silent> <C-r> <C-r><C-p>
+
+" paste from register 0
+vnoremap . "0p
 
 " replace a word with clipboard
 nnoremap <space>w viw"+p
