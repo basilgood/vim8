@@ -20,7 +20,7 @@ function! InNetrw()
   nmap <buffer> qt .terminal ++close touch
 endfunction
 
-autocmd MyAutoCmd FileType netrw call InNetrw()
+autocmd VGroup FileType netrw call InNetrw()
 
 """" editorconfig
 if !exists('g:loaded_editorconfig')
@@ -53,7 +53,7 @@ vmap s S
 
 """" cmdline completion
 if !exists('loaded_cmdline_completion')
-  autocmd MyAutoCmd CmdlineEnter * packadd cmdline-completion
+  autocmd VGroup CmdlineEnter * packadd cmdline-completion
 endif
 
 """" hlyank
@@ -139,11 +139,11 @@ if !exists('loaded_smooth_scroll')
 endif
 
 """" stay
-autocmd MyAutoCmd CmdlineEnter * packadd  vim-stay
-autocmd MyAutoCmd BufNewFile,BufRead */.git/addp-hunk-edit.diff let b:stay_ignore = 1
+autocmd VGroup CmdlineEnter * packadd  vim-stay
+autocmd VGroup BufNewFile,BufRead */.git/addp-hunk-edit.diff let b:stay_ignore = 1
 
 """" fzf
-autocmd MyAutoCmd CmdlineEnter * packadd fzf | packadd fzf.vim
+autocmd VGroup CmdlineEnter * packadd fzf | packadd fzf.vim
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
 
@@ -193,7 +193,7 @@ call submode#map('scroll-h', 'n', '', 'L', 'zL')
 call submode#map('scroll-h', 'n', '', 'H', 'zH')
 
 """ git
-autocmd MyAutoCmd CmdlineEnter * packadd vim-git
+autocmd VGroup CmdlineEnter * packadd vim-git
 nnoremap <buffer> <silent> S :Cycle<CR>
 
 """" rebase diff

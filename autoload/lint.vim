@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 if !exists('g:loaded_ale')
-  autocmd MyAutoCmd BufRead * packadd ale
+  autocmd VGroup BufRead * packadd ale
 endif
 
 let g:ale_lint_on_save = 1

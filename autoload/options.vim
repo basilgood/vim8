@@ -20,8 +20,8 @@ set display=lastline
 """" searching and patterns
 set incsearch
 set hlsearch|nohlsearch
-autocmd MyAutoCmd InsertLeave * :setlocal hlsearch
-autocmd MyAutoCmd InsertEnter * :setlocal nohlsearch
+autocmd VGroup InsertLeave * :setlocal hlsearch
+autocmd VGroup InsertEnter * :setlocal nohlsearch
 set gdefault
 
 """" windows, buffers
@@ -62,8 +62,8 @@ set t_ut=
 set cursorline
 set list
 let &g:listchars = 'tab:▸ ,space:·,extends:❯,precedes:❮,nbsp:⦸'
-autocmd MyAutoCmd InsertEnter * set listchars-=trail:•
-autocmd MyAutoCmd InsertLeave * set listchars+=trail:•
+autocmd VGroup InsertEnter * set listchars-=trail:•
+autocmd VGroup InsertLeave * set listchars+=trail:•
 
 """" messages, info, status
 set visualbell t_vb=

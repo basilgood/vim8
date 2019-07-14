@@ -63,7 +63,7 @@ set viewoptions=cursor,folds,slash,unix
 let g:LargeFile = 20*1024*1024 " 20MB
 
 """" general group autocmds
-augroup MyAutoCmd
+augroup VGroup
   autocmd!
 augroup END
 
