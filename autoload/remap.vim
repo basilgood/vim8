@@ -91,6 +91,8 @@ nnoremap gQ <Nop>
 
 " execute macro
 nnoremap Q @q
+" Run macro on selected lines
+vnoremap Q :norm Q<cr>
 
 " search and star search
 nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
