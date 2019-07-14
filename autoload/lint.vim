@@ -4,19 +4,20 @@ if !exists('g:loaded_ale')
   autocmd MyAutoCmd BufRead * packadd ale
 endif
 
-let g:ale_linters_explicit = 1
-let g:ale_lint_on_save = 0
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 1
+let g:ale_lint_on_enter = 1
+let g:ale_echo_cursor = 1
 let g:ale_set_balloons = 1
 let g:ale_set_highlights = 0
-let g:ale_cache_executable_check_failures = 1
-let g:ale_command_wrapper = executable('nice') ? 'nice' : ''
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
+let g:ale_warn_about_trailing_whitespace = 0
+let g:ale_sign_warning = '►'
+let g:ale_sign_error = '►'
 let g:ale_sign_info = 'ℹ'
-let g:ale_echo_msg_error_str='[ERROR]'
-let g:ale_echo_msg_info_str='[INFO]'
-let g:ale_echo_msg_warning_str='[WARNING]'
-let g:ale_echo_msg_format = '%severity% %linter% %code% -> %s'
+let g:ale_echo_msg_error_str='Err:'
+let g:ale_echo_msg_info_str='Info:'
+let g:ale_echo_msg_warning_str='Warn:'
+let g:ale_echo_msg_format = '%severity% - %linter% - %s'
 let g:ale_pattern_options_enabled = 1
 let g:ale_pattern_options = {
       \   '\.min\.(js\|css)$': {
@@ -36,8 +37,6 @@ let g:ale_pattern_options = {
       \   },
       \}
 let g:ale_fix_on_save = 1
-let g:ale_sign_warning = '►'
-let g:ale_sign_error = '►'
 
  let g:ale_fixers = {
       \ 'javascript': ['eslint'],
