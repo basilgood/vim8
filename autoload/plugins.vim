@@ -217,5 +217,10 @@ if !exists('g:loaded_cool')
 endif
 let g:CoolTotalMatches = 1
 
+"""" auto-pairs
+if !exists('g:AutoPairsLoaded')
+  packadd auto-pairs
+end
+
 function! plugins#load() abort
 endfunction

@@ -64,6 +64,7 @@ opt=(
   "cskeeters/vim-smooth-scroll"
   "romainl/vim-cool"
   "alvan/vim-closetag"
+  "jiangmiao/auto-pairs"
   "HerringtonDarkholme/yats.vim"
   "lumiliet/vim-twig"
   "lepture/vim-jinja"
