@@ -65,6 +65,7 @@ opt=(
   "romainl/vim-cool"
   "alvan/vim-closetag"
   "jiangmiao/auto-pairs"
+  "Raimondi/vim_search_objects"
   "HerringtonDarkholme/yats.vim"
   "lumiliet/vim-twig"
   "lepture/vim-jinja"
