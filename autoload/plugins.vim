@@ -222,10 +222,5 @@ if !exists('g:AutoPairsLoaded')
   packadd auto-pairs
 end
 
-""""" search objects
-if !exists('g:loaded_search_objects')
-  packadd vim_search_objects
-endif
-
 function! plugins#load() abort
 endfunction
