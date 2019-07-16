@@ -222,5 +222,10 @@ if !exists('g:AutoPairsLoaded')
   packadd auto-pairs
 end
 
+"""" html indent
+let g:html_indent_script1 = 'inc'
+let g:html_indent_style1 = 'inc'
+let g:html_indent_inctags = 'html,body,head,tbody'
+
 function! plugins#load() abort
 endfunction
