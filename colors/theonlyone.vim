@@ -104,6 +104,7 @@ hi ALEErrorSign     guifg=#f93d3d guibg=#14171c gui=NONE cterm=NONE
 hi ParenMatch term=reverse ctermbg=11 guifg=#85EB6A guibg=#135B00 gui=NONE cterm=NONE
 
 hi link javascriptObjectKey Label
+hi link javascriptNumber Type
 hi link yamlBool SpellRare
 hi link nixAttributeDefinition Type
 hi link nixAttribute Type
