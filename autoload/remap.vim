@@ -43,7 +43,7 @@ nnoremap Y y$
 
 " substitute
 nnoremap <leader>s :%s/
-vnoremap <leader>s :s/
+vnoremap , :s/
 " substitute word under the cursor globally
 nnoremap <leader>w :%s/\<<c-r><c-w>\>/
 " substitute inline
