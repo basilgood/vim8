@@ -218,8 +218,8 @@ endif
 let g:CoolTotalMatches = 1
 
 """" auto-pairs
-if !exists('g:AutoPairsLoaded')
-  packadd auto-pairs
+if !exists('g:loaded_smartinput')
+  packadd vim-smartinput
 end
 
 """" html indent
