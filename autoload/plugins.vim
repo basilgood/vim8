@@ -225,7 +225,10 @@ end
 """" html indent
 let g:html_indent_script1 = 'inc'
 let g:html_indent_style1 = 'inc'
-:let g:html_indent_autotags = 'html'
+let g:html_indent_autotags = 'html'
+
+"""" vim-autosurround
+packadd vim-autosurround
 
 function! plugins#load() abort
 endfunction
