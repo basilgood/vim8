@@ -78,6 +78,7 @@ call arpeggio#map('n', '', 0, '\7', '7<C-w>w')
 call arpeggio#map('n', '', 0, '\8', '8<C-w>w')
 call arpeggio#map('n', '', 0, '\9', '9<C-w>w')
 call arpeggio#map('n', '', 0, ';;', ':')
+call arpeggio#map('n', '', 0, 's,', ':,')
 
 """" undotree
 if !exists('g:loaded_undotree')
