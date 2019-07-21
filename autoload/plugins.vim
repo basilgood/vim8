@@ -218,18 +218,15 @@ if !exists('g:loaded_cool')
 endif
 let g:CoolTotalMatches = 1
 
-"""" auto-pairs
-if !exists('g:loaded_smartinput')
-  packadd vim-smartinput
-end
-
 """" html indent
 let g:html_indent_script1 = 'inc'
 let g:html_indent_style1 = 'inc'
 let g:html_indent_autotags = 'html'
 
-"""" vim-autosurround
-packadd vim-autosurround
+"""" parens
+if !exists('g:loaded_bracepair')
+  packadd vim-bracepair
+endif
 
 function! plugins#load() abort
 endfunction
