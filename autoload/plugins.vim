@@ -224,9 +224,16 @@ let g:html_indent_style1 = 'inc'
 let g:html_indent_autotags = 'html'
 
 """" parens
-if !exists('g:loaded_bracepair')
-  packadd vim-bracepair
+if !exists('g:loaded_pear_tree')
+  packadd pear-tree
 endif
+
+let g:pear_tree_repeatable_expand = 0
+let g:pear_tree_smart_openers = 1
+let g:pear_tree_smart_closers = 1
+let g:pear_tree_smart_backspace = 1
+imap jk <Plug>(PearTreeFinishExpansion)
+imap <space> <Plug>(PearTreeSpace)
 
 function! plugins#load() abort
 endfunction
