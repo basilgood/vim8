@@ -77,10 +77,14 @@ highlight TabLine        guifg=#999999 guibg=#444444 gui=NONE cterm=NONE
 highlight TabLineFill    guifg=NONE    guibg=#444444 gui=NONE cterm=NONE
 highlight TabLineSel     guifg=#c9d05c guibg=NONE    gui=NONE cterm=NONE
 
-highlight DiffAdd        guifg=#8ec07c guibg=#1d2021 cterm=reverse
-highlight DiffChange     guifg=#fabd2f guibg=#1d2021 cterm=reverse
-highlight DiffDelete     guifg=#f93d3d guibg=#1d2021 cterm=reverse
-highlight DiffText       guifg=#56b6c2 guibg=#1d2021 cterm=reverse
+hi diffAdded        guifg=#2BFF2B gui=NONE      ctermfg=46  cterm=NONE
+hi diffRemoved      guifg=#FF2B2B gui=NONE      ctermfg=203 cterm=NONE
+hi link diffSubname Normal
+hi DiffAdd          guifg=#8ec07c guibg=#1d2021 cterm=NONE
+hi link DiffChange NONE
+hi clear DiffChange
+hi DiffDelete       guifg=#f93d3d guibg=#1d2021 cterm=NONE
+hi DiffText         guifg=#FFB86C guibg=#14141a gui=NONE cterm=NONE
 
 " ALE lint
 highlight ALEWarningSign guifg=#fabd2f guibg=#111111 gui=NONE cterm=NONE
