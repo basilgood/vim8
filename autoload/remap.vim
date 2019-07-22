@@ -16,8 +16,6 @@ inoremap <c-e> <End>
 " new line
 nnoremap <expr> go "mz" . v:count . "o\<Esc>`z"
 nnoremap <expr> gO "mz" . v:count . "O\<Esc>`z"
-inoremap <M-o> <C-O>o
-inoremap <M-O> <C-O>O
 
 " completion: enter select and close popup
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
