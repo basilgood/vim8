@@ -61,6 +61,8 @@ autocmd VGroup InsertEnter,WinLeave * setlocal nocursorline
 """" mkdir
 autocmd VGroup BufWritePre * call functions#mkdirifnotexist()
 
+autocmd VGroup BufNewFile,BufRead * call matchadd('SpecialKey', '\s\+')
+autocmd VGroup BufNewFile,BufRead * call matchadd('NonText', '\n\+')
 """" qf and help keep widow full width
 autocmd VGroup FileType qf wincmd J
 autocmd VGroup BufWinEnter * if &ft == 'help' | wincmd J | end
