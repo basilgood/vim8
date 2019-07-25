@@ -97,7 +97,7 @@ call <sid>hi('PmenuSel', s:black, s:aqua, 'none', {})
 call <sid>hi('Question', s:white, s:background, 'bold', {})
 call <sid>hi('MatchParen', s:blue, s:none, 'bold', {})
 call <sid>hi('Directory', s:blue, s:background, 'bold', {})
-call <sid>hi('QuickFixLine', s:black, s:yellow, 'none', {})
+call <sid>hi('QuickFixLine', s:aqua, s:background, 'none', {})
 
 call <sid>hi('SpecialKey', s:greyish, s:none, 'none', {})
 call <sid>hi('SpellBad', s:red, s:none, 'undercurl', s:red)
