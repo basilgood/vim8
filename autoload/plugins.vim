@@ -80,6 +80,9 @@ call arpeggio#map('n', '', 0, 'z9', '9<C-w>w')
 call arpeggio#map('n', '', 0, ';;', ':')
 call arpeggio#map('n', '', 0, 's,', ':,')
 call arpeggio#map('n', '', 0, 's.', ':t.<left><left>')
+call arpeggio#map('v', '', 0, ';', ':')
+call arpeggio#map('c', '', 0, 'dg', 'diffget')
+call arpeggio#map('c', '', 0, 'dp', 'diffput')
 
 """" undotree
 if !exists('g:loaded_undotree')
