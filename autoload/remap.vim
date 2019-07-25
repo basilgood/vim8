@@ -123,5 +123,8 @@ nnoremap <silent> <leader>gl :<C-u>GV --all<CR>
 " grep
 nnoremap gr :<C-u>Grep<Space>
 
+" commands history
+nnoremap <leader>] :CmdHist<cr>
+
 function! remap#map() abort
 endfunction
