@@ -53,6 +53,7 @@ opt=(
   "tpope/vim-git"
   "junegunn/gv.vim"
   "hotwatermorning/auto-git-diff"
+  "sodapopcan/vim-twiggy"
   "tpope/vim-dispatch"
   "sgur/cmdline-completion"
   "stefandtw/quickfix-reflector.vim"

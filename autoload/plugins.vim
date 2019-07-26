@@ -211,6 +211,11 @@ if exists('g:loaded_fugitive')
   packadd gv.vim
 endif
 
+"""" twiggy
+if exists('g:loaded_fugitive')
+  packadd vim-twiggy
+endif
+
 """" dispatch
 if !exists('g:loaded_dispatch')
   packadd vim-dispatch
