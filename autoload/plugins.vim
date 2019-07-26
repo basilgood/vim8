@@ -259,7 +259,7 @@ let g:choosewin_color_label = {
       \ 'gui': ['gray30', 'white', 'bold'],
       \ 'cterm': [9, 16]
       \ }
-nmap <cr> <Plug>(choosewin)
+nmap <tab> <Plug>(choosewin)
 
 function! plugins#load() abort
 endfunction
