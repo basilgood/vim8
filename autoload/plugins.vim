@@ -244,5 +244,22 @@ let g:pear_tree_smart_backspace = 1
 imap jk <Plug>(PearTreeFinishExpansion)
 imap <space> <Plug>(PearTreeSpace)
 
+"""" choosewin
+if !exists('g:loaded_choosewin')
+  packadd vim-choosewin
+endif
+let g:choosewin_label = '123456789'
+let g:choosewin_tablabel = 'ABCDEFGHIJ'
+let g:choosewin_blink_on_land      = 0
+let g:choosewin_color_label_current = {
+      \ 'gui': ['gray30', 'white', 'bold'],
+      \ 'cterm': [9, 16]
+      \ }
+let g:choosewin_color_label = {
+      \ 'gui': ['gray30', 'white', 'bold'],
+      \ 'cterm': [9, 16]
+      \ }
+nmap <cr> <Plug>(choosewin)
+
 function! plugins#load() abort
 endfunction
