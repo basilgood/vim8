@@ -40,6 +40,7 @@ let s:green = { 'gui': '#98c379', 'cterm256': '114'}
 let s:yellow = { 'gui': '#e5c07b', 'cterm256': '180'}
 let s:whisky = { 'gui': '#d19a66', 'cterm256': '173' }
 let s:blue = { 'gui': '#61afef', 'cterm256': '39'}
+let s:darkblue = { 'gui': '#405260', 'cterm256': '153'}
 let s:purple = { 'gui': '#af98e6', 'cterm256': '170'}
 let s:aqua = { 'gui': '#56b6c2', 'cterm256': '38'}
 let s:white = { 'gui': '#d7d7d7', 'cterm256': '145'}
@@ -115,7 +116,7 @@ call <sid>hi('TabLineFill', s:none, s:black, 'none', {})
 call <sid>hi('TabLineSel', s:whisky, s:black, 'none', {})
 
 call <sid>hi('Title', s:white, s:none, 'none', {})
-call <sid>hi('Visual', s:none, s:backgroundnr, 'none', {})
+call <sid>hi('Visual', s:none, s:darkblue, 'none', {})
 hi link VisualNOS Visual
 call <sid>hi('WildMenu', s:black, s:white, 'bold', {})
 "}}}
