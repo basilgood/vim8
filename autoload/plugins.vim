@@ -66,7 +66,7 @@ if !exists('g:loaded_arpeggio')
   packadd vim-arpeggio
 endif
 
-let g:arpeggio_timeoutlen=220
+let g:arpeggio_timeoutlen=350
 call arpeggio#map('n', '', 0, 'vv', 'viw')
 call arpeggio#map('n', '', 0, '\1', '1<C-w>w')
 call arpeggio#map('n', '', 0, '\2', '2<C-w>w')
