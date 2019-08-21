@@ -41,10 +41,12 @@ nnoremap Y y$
 " substitute
 nnoremap <leader>s :%s/
 vnoremap , :s/
+nnoremap <leader>, vip :s/
 " substitute word under the cursor globally
 nnoremap <leader>w :%s/\<<c-r><c-w>\>/
 " substitute inline
 nnoremap <leader>l :s/
+nnoremap <leader>r :s/\<<C-r><C-w>\>/
 " append text
 nnoremap <leader>a :%s/\<<c-r><c-w>\>/<c-r><c-w>
 
@@ -117,7 +119,7 @@ nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
 nnoremap <silent> <leader>gl :<C-u>GV --all<CR>
 
 " grep
-nnoremap gr :<C-u>Grep<Space>
+" nnoremap gr :<C-u>Grep<Space>
 
 " commands history
 nnoremap <leader>] :CmdHist<cr>
