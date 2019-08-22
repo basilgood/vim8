@@ -95,6 +95,8 @@ vnoremap Q :norm Q<cr>
 
 " search and star search
 nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
+nnoremap c* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
+nnoremap d* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
 vnoremap n :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 vnoremap <s-n> :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
@@ -119,10 +121,21 @@ nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
 nnoremap <silent> <leader>gl :<C-u>GV --all<CR>
 
 " grep
-" nnoremap gr :<C-u>Grep<Space>
+nnoremap gr :<C-u>Grep<Space>
 
 " commands history
 nnoremap <leader>] :CmdHist<cr>
+
+" switch buffers
+nnoremap <leader>1 1<c-w>w
+nnoremap <leader>2 2<c-w>w
+nnoremap <leader>3 3<c-w>w
+nnoremap <leader>4 4<c-w>w
+nnoremap <leader>5 5<c-w>w
+nnoremap <leader>6 6<c-w>w
+nnoremap <leader>7 7<c-w>w
+nnoremap <leader>8 8<c-w>w
+nnoremap <leader>9 9<c-w>w
 
 function! remap#map() abort
 endfunction

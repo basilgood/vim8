@@ -61,7 +61,6 @@ opt=(
   "junegunn/vim-easy-align"
   "zhimsel/vim-stay"
   "thinca/vim-localrc"
-  "kana/vim-arpeggio"
   "cskeeters/vim-smooth-scroll"
   "romainl/vim-cool"
   "t9md/vim-choosewin"
