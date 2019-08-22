@@ -41,7 +41,7 @@ nnoremap Y y$
 " substitute
 nnoremap <leader>s :%s/
 vnoremap , :s/
-nnoremap <leader>, vip :s/
+nnoremap <leader>v vip :s/
 " substitute word under the cursor globally
 nnoremap <leader>w :%s/\<<c-r><c-w>\>/
 " substitute inline
@@ -73,6 +73,9 @@ onoremap <silent> il :<C-U>normal! ^vg_<cr>
 " entire
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
+
+" innerword
+nnoremap vv viw
 
 " mapping for spelling correction
 nnoremap <space>s :set spell!<cr>
