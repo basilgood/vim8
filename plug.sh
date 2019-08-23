@@ -58,6 +58,7 @@ opt=(
   "sgur/cmdline-completion"
   "stefandtw/quickfix-reflector.vim"
   "mbbill/undotree"
+  "terryma/vim-expand-region"
   "junegunn/vim-easy-align"
   "zhimsel/vim-stay"
   "thinca/vim-localrc"

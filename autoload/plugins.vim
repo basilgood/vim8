@@ -228,5 +228,26 @@ let g:pear_tree_smart_backspace = 1
 imap jk <Plug>(PearTreeFinishExpansion)
 imap <space> <Plug>(PearTreeSpace)
 
+"""" expand region
+if !exists('g:expand_region_init')
+  autocmd VGroup BufRead * packadd vim-expand-region
+endif
+
+let g:expand_region_text_objects = {
+      \ 'iw'  :1,
+      \ 'iW'  :0,
+      \ 'i"'  :0,
+      \ 'i''' :0,
+      \ 'i]'  :1,
+      \ 'ib'  :1,
+      \ 'iB'  :1,
+      \ 'il'  :0,
+      \ 'ip'  :0,
+      \ 'ie'  :0,
+      \ 'a]'  :1,
+      \ 'ab'  :1,
+      \ 'aB'  :1,
+      \ }
+
 function! plugins#load() abort
 endfunction
