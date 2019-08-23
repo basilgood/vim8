@@ -47,9 +47,16 @@ if !exists('g:loaded_surround')
 endif
 
 let surround_indent=1
-nmap ss ysiw
+nmap S ysiw
 nmap sl yss
-vmap s S
+vmap ' S'
+vmap " S"
+vmap ( S(
+vmap ) S)
+vmap { S{
+vmap } S}
+vmap [ S[
+vmap ] S]
 
 """" cmdline completion
 if !exists('loaded_cmdline_completion')

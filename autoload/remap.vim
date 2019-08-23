@@ -19,36 +19,11 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
       \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-" paste from clipboard
-nnoremap <space>p :put+<cr>
-vnoremap <space>p "+p
-nnoremap <space>P :put!+<cr>
-vnoremap <space>P "+P
-inoremap <silent> <C-r> <C-r><C-p>
-
 " paste from register 0
 vnoremap . "0p
 
-" replace a word with clipboard
-nnoremap <space>w viw"+p
-
-" yank to clipboard
-vnoremap <space>y "+y
-
 " yank from cursor position to end of line
 nnoremap Y y$
-
-" substitute
-nnoremap <leader>s :%s/
-vnoremap , :s/
-nnoremap <leader>v vip :s/
-" substitute word under the cursor globally
-nnoremap <leader>w :%s/\<<c-r><c-w>\>/
-" substitute inline
-nnoremap <leader>l :s/
-nnoremap <leader>r :s/\<<C-r><C-w>\>/
-" append text
-nnoremap <leader>a :%s/\<<c-r><c-w>\>/<c-r><c-w>
 
 " prev and next buffer
 nnoremap ]b :bnext<cr>
@@ -77,9 +52,9 @@ onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 " innerword
 nnoremap vv viw
 
-" mapping for spelling correction
-nnoremap <space>s :set spell!<cr>
-nnoremap <space>z 1z=
+" mapping for Spelling correction
+nnoremap sp :set spell!<cr>
+nnoremap sz 1z=
 
 " zoom
 nnoremap <c-w>t :tabedit %<cr>
@@ -129,16 +104,60 @@ nnoremap gr :<C-u>Grep<Space>
 " commands history
 nnoremap <leader>] :CmdHist<cr>
 
+" smart space mapping
+nmap <Space> [Space]
+nnoremap  [Space] <Nop>
+
+" substitute
+nnoremap [Space]s :%s/
+
+" substitute in visual mode
+vnoremap s :s/
+
+" substitute inline
+nnoremap [Space]l :s/
+nnoremap [Space]r :s/\<<C-r><C-w>\>/
+
+" append text
+nnoremap [Space]a :%s/\<<c-r><c-w>\>/<c-r><c-w>
+
+" replace a word with clipboard
+nnoremap [Space]w viw"+p
+
+" yank to clipboard
+vnoremap [Space]y "+y
+
+" paste from clipboard
+nnoremap [Space]p :put+<cr>
+vnoremap [Space]p "+p
+nnoremap [Space]P :put!+<cr>
+vnoremap [Space]P "+P
+inoremap <silent> <C-r> <C-r><C-p>
+
 " switch buffers
-nnoremap <leader>1 1<c-w>w
-nnoremap <leader>2 2<c-w>w
-nnoremap <leader>3 3<c-w>w
-nnoremap <leader>4 4<c-w>w
-nnoremap <leader>5 5<c-w>w
-nnoremap <leader>6 6<c-w>w
-nnoremap <leader>7 7<c-w>w
-nnoremap <leader>8 8<c-w>w
-nnoremap <leader>9 9<c-w>w
+nnoremap [Space]1 1<c-w>w
+nnoremap [Space]2 2<c-w>w
+nnoremap [Space]3 3<c-w>w
+nnoremap [Space]4 4<c-w>w
+nnoremap [Space]5 5<c-w>w
+nnoremap [Space]6 6<c-w>w
+nnoremap [Space]7 7<c-w>w
+nnoremap [Space]8 8<c-w>w
+nnoremap [Space]9 9<c-w>w
+
+" s mapping
+" splitting
+nnoremap <silent> sv  :<C-u>vsplit<CR>
+nnoremap <silent> ss  :<C-u>split<CR>
+nnoremap <silent> sc  :<C-u>close<CR>
+nnoremap <silent> so  :<C-u>only<CR>
+
+" substitute in paragraph
+nnoremap sip vip :s/
+
+" substitute word under the cursor globally
+nnoremap siw :%s/\<<c-r><c-w>\>/
+
 
 function! remap#map() abort
 endfunction
