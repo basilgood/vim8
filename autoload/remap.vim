@@ -13,6 +13,9 @@ cnoremap <c-e> <End>
 inoremap <c-a> <Home>
 inoremap <c-e> <End>
 
+" windows
+nnoremap <silent> <Tab>:wincmd w<CR>
+
 " completion: enter select and close popup
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 " completion down key is simulated
