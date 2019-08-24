@@ -86,7 +86,7 @@ nnoremap <silent> <leader>gU :<C-u>Dispatch! git pull --ff-only<CR>
 nnoremap <silent> <leader>gp :<C-u>Dispatch! git push<CR>
 nnoremap <silent> <leader>gP :<C-u>Dispatch! git push -f<CR>
 nnoremap <silent> <leader>gD :<C-u>Dispatch! git checkout -- %<CR>
-nnoremap <silent> <leader>gd :<C-u>Gvdiff<CR>
+nnoremap <silent> <leader>gd :<C-u>Gvdiffsplit<CR>
 nnoremap <silent> <leader>gc :<C-u>Gcommit<CR>
 nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
 nnoremap <silent> <leader>gl :<C-u>GV --all<CR>
