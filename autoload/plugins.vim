@@ -249,5 +249,10 @@ let g:expand_region_text_objects = {
       \ 'aB'  :1,
       \ }
 
+"""" visual-multi
+if !exists('g:loaded_visual_multi')
+  autocmd VGroup BufRead * packadd vim-visual-multi
+endif
+
 function! plugins#load() abort
 endfunction

@@ -43,6 +43,7 @@ opt=(
   "tpope/vim-vinegar"
   "junegunn/fzf.vim"
   "junegunn/fzf"
+  "mg979/vim-visual-multi"
   "itchyny/vim-parenmatch"
   "markonm/traces.vim"
   "markonm/hlyank.vim"
