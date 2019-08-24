@@ -146,7 +146,6 @@ nnoremap [Space]9 9<c-w>w
 
 
 " mapping for Spelling correction
-nnoremap [Space]p :set spell!<cr>
 nnoremap sz 1z=
 
 " s mapping
