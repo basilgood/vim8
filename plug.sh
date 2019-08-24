@@ -65,6 +65,7 @@ opt=(
   "thinca/vim-localrc"
   "cskeeters/vim-smooth-scroll"
   "romainl/vim-cool"
+  "maxbrunsfeld/vim-yankstack"
   "alvan/vim-closetag"
   "tmsvg/pear-tree"
   "HerringtonDarkholme/yats.vim"

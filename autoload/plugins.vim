@@ -246,5 +246,14 @@ if !exists('g:loaded_visual_multi')
   autocmd VGroup BufRead * packadd vim-visual-multi
 endif
 
+"""" yankstack
+if !exists('g:yankstack_yank_keys')
+  let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
+  packadd vim-yankstack
+endif
+
+nmap p <Plug>yankstack_substitute_older_paste
+nmap P <Plug>yankstack_substitute_newer_paste
+
 function! plugins#load() abort
 endfunction
