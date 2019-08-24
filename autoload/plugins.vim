@@ -49,14 +49,6 @@ endif
 let surround_indent=1
 nmap S ysiw
 nmap sl yss
-vmap ' S'
-vmap " S"
-vmap ( S(
-vmap ) S)
-vmap { S{
-vmap } S}
-vmap [ S[
-vmap ] S]
 
 """" cmdline completion
 if !exists('loaded_cmdline_completion')
@@ -218,7 +210,7 @@ let g:html_indent_autotags = 'html'
 
 """" parens
 if !exists('g:loaded_pear_tree')
-  packadd pear-tree
+  autocmd VGroup BufRead * packadd pear-tree
 endif
 
 let g:pear_tree_repeatable_expand = 0
