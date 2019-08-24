@@ -59,9 +59,6 @@ nnoremap vv viw
 nnoremap sp :set spell!<cr>
 nnoremap sz 1z=
 
-" zoom
-nnoremap <c-w>t :tabedit %<cr>
-
 " file size
 nnoremap <F3> :echo functions#getfilesize()<cr>
 
@@ -154,6 +151,10 @@ nnoremap <silent> sv  :<C-u>vsplit<CR>
 nnoremap <silent> ss  :<C-u>split<CR>
 nnoremap <silent> sc  :<C-u>close<CR>
 nnoremap <silent> so  :<C-u>only<CR>
+
+" zoom
+nnoremap st :tabedit %<cr>
+
 
 " substitute in paragraph
 nnoremap sip vip :s/
