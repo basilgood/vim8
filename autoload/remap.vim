@@ -14,7 +14,7 @@ inoremap <c-a> <Home>
 inoremap <c-e> <End>
 
 " windows
-nnoremap <silent> <Tab>:wincmd w<CR>
+nnoremap <silent> <Tab> :wincmd w<CR>
 
 " completion: enter select and close popup
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
@@ -51,13 +51,6 @@ onoremap <silent> il :<C-U>normal! ^vg_<cr>
 " entire
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
-
-" innerword
-nnoremap vv viw
-
-" mapping for Spelling correction
-nnoremap sp :set spell!<cr>
-nnoremap sz 1z=
 
 " file size
 nnoremap <F3> :echo functions#getfilesize()<cr>
@@ -109,20 +102,23 @@ nmap <Space> [Space]
 nnoremap  [Space] <Nop>
 
 " substitute
-nnoremap [Space]s :%s/
+nnoremap ss :%s/
 
 " substitute in visual mode
 vnoremap s :s/
 
 " substitute inline
-nnoremap [Space]l :s/
-nnoremap [Space]r :s/\<<C-r><C-w>\>/
+nnoremap sl :s/
+nnoremap sr :s/\<<C-r><C-w>\>/
 
 " append text
-nnoremap [Space]a :%s/\<<c-r><c-w>\>/<c-r><c-w>
+nnoremap sa :%s/\<<c-r><c-w>\>/<c-r><c-w>
 
-" replace a word with clipboard
-nnoremap [Space]w viw"+p
+" substitute in paragraph
+nnoremap sp vip :s/
+
+" substitute word under the cursor globally
+nnoremap sw :%s/\<<c-r><c-w>\>/
 
 " yank to clipboard
 vnoremap [Space]y "+y
@@ -133,6 +129,9 @@ vnoremap [Space]p "+p
 nnoremap [Space]P :put!+<cr>
 vnoremap [Space]P "+P
 inoremap <silent> <C-r> <C-r><C-p>
+
+" replace a word with clipboard
+nnoremap [Space]w viw"+p
 
 " switch buffers
 nnoremap [Space]1 1<c-w>w
@@ -145,23 +144,20 @@ nnoremap [Space]7 7<c-w>w
 nnoremap [Space]8 8<c-w>w
 nnoremap [Space]9 9<c-w>w
 
+
+" mapping for Spelling correction
+nnoremap [Space]p :set spell!<cr>
+nnoremap sz 1z=
+
 " s mapping
 " splitting
-nnoremap <silent> sv  :<C-u>vsplit<CR>
-nnoremap <silent> ss  :<C-u>split<CR>
-nnoremap <silent> sc  :<C-u>close<CR>
-nnoremap <silent> so  :<C-u>only<CR>
+nnoremap <silent> [Space]v  :<C-u>vsplit<CR>
+nnoremap <silent> [Space]s  :<C-u>split<CR>
+nnoremap <silent> [Space]c  :<C-u>close<CR>
+nnoremap <silent> [Space]o  :<C-u>only<CR>
 
 " zoom
-nnoremap st :tabedit %<cr>
-
-
-" substitute in paragraph
-nnoremap sip vip :s/
-
-" substitute word under the cursor globally
-nnoremap siw :%s/\<<c-r><c-w>\>/
-
+nnoremap [Space]t :tabedit %<cr>
 
 function! remap#map() abort
 endfunction
