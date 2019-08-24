@@ -81,33 +81,24 @@ endfunction
 function! functions#tabline()
   let s = ''
   for i in range(tabpagenr('$'))
-    " select the highlighting
-    if i + 1 == tabpagenr()
-      let s .= '%#StatusLine#'
-    else
-      let s .= '%#StatusLineNC#'
+    let tab = i + 1
+    let winnr = tabpagewinnr(tab)
+    let buflist = tabpagebuflist(tab)
+    let bufnr = buflist[winnr - 1]
+    let bufname = bufname(bufnr)
+    let bufmodified = getbufvar(bufnr, '&mod')
+    let s .= '%' . tab . 'T'
+    let s .= (tab == tabpagenr() ? '%#StatusLine#' : '%#StatusLineNC#')
+    let s .= ' ' . tab .':'
+    let s .= (bufname !=# '' ? fnamemodify(bufname, ':t') . ' ' : 'No Name ')
+    if bufmodified
+      let s .= '[+] '
     endif
-
-    " set the tab page number (for mouse clicks)
-    let s .= '%' . (i + 1) . 'T'
-
-    " the label is made by MyTabLabel()
-    let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
   endfor
 
-  " after the last tab fill with TabLineFill and reset tab page nr
-  let s .= '%#TabLineFill#%T'
-
-  " right-align the label to close the current tab page
-  if tabpagenr('$') > 1
-    let s .= '%=%#TabLine#%999Xclose'
+  let s .= '%#TabLineFill#'
+  if (exists('g:tablineclosebutton'))
+    let s .= '%=%999XX'
   endif
-
   return s
-endfunction
-
-function MyTabLabel(n)
-  let buflist = tabpagebuflist(a:n)
-  let winnr = tabpagewinnr(a:n)
-  return bufname(buflist[winnr - 1])
 endfunction
