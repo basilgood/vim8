@@ -38,18 +38,18 @@ let g:ale_pattern_options = {
       \}
 let g:ale_fix_on_save = 1
 
- let g:ale_fixers = {
+let g:ale_fixers = {
       \ 'javascript': ['eslint'],
       \ 'html': ['eslint'],
       \ 'rust': ['rustfmt']
       \}
 let g:ale_rust_rls_toolchain = 'stable'
 
- let g:ale_linter_aliases = {
+let g:ale_linter_aliases = {
       \ 'html': 'javascript'
       \}
 
- let g:ale_linters = {
+let g:ale_linters = {
       \ 'javascript': ['eslint'],
       \ 'yaml': ['yamllint'],
       \ 'vim': ['vint'],
