@@ -136,6 +136,9 @@ function! s:set() abort
   let highlight_group.uniteStatusLineNR           = [brown,       gray1,     none,          none]
   let highlight_group.ALEWarningSign              = [lightyellow, gray1,     none,          none]
   let highlight_group.ALEErrorSign                = [lightred,    gray1,     none,          none]
+  let highlight_group.diffAdded                   = [green   ,    none,      none,          none]
+  let highlight_group.diffChanged                 = [lightyellow, none,      none,          none]
+  let highlight_group.diffRemoved                 = [lightred,    none,      none,          none]
 
   let bg_none    = {'gui': gray2.gui, 'cterm': 'NONE'}
 
