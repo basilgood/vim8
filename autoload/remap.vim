@@ -77,7 +77,7 @@ nnoremap <leader><leader> :set relativenumber!<cr>
 
 " git commands
 nnoremap <silent> <expr> <leader>dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
-nnoremap <silent> <leader>gs :<C-u>Gstatus<CR>
+nnoremap <silent> gs :<C-u>Gstatus<CR>
 nnoremap <silent> <leader>ga :<c-u>Dispatch! git add %<cr>
 nnoremap <silent> <leader>gr :<c-u>Dispatch! git reset %<cr>
 nnoremap <silent> <leader>gf :<c-u>Dispatch! git fetch --all --prune<cr>
@@ -120,6 +120,9 @@ nnoremap sp vip :s/
 " substitute word under the cursor globally
 nnoremap sw :%s/\<<c-r><c-w>\>/
 
+" mapping for Spelling correction
+nnoremap sz 1z=
+
 " yank to clipboard
 vnoremap [Space]y "+y
 
@@ -143,10 +146,6 @@ nnoremap [Space]6 6<c-w>w
 nnoremap [Space]7 7<c-w>w
 nnoremap [Space]8 8<c-w>w
 nnoremap [Space]9 9<c-w>w
-
-
-" mapping for Spelling correction
-nnoremap sz 1z=
 
 " s mapping
 " splitting
