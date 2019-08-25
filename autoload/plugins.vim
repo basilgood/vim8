@@ -140,10 +140,10 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %
 let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 let g:fzf_layout = { 'down': '~35%' }
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit',
-  \ 'ctrl-w': 'bdelete'}
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit',
+      \ 'ctrl-w': 'bdelete'}
 let g:fzf_colors =
       \ { 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -262,6 +262,11 @@ endif
 
 nmap p <Plug>yankstack_substitute_older_paste
 nmap P <Plug>yankstack_substitute_newer_paste
+
+"""" autoformat
+autocmd VGroup CmdlineEnter * packadd vim-autoformat
+let g:formatters_nix = ['nixfmt']
+let g:formatdef_nixfmt = '"nixfmt"'
 
 function! plugins#load() abort
 endfunction
