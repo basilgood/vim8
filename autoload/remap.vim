@@ -154,9 +154,8 @@ nnoremap <silent> [Space]v  :<C-u>vsplit<CR>
 nnoremap <silent> [Space]s  :<C-u>split<CR>
 nnoremap <silent> [Space]c  :<C-u>close<CR>
 nnoremap <silent> [Space]o  :<C-u>only<CR>
-
-" zoom
 nnoremap [Space]t :tabedit %<cr>
+nnoremap <silent> <S-tab> :tabnext<CR>
 
 function! remap#map() abort
 endfunction
