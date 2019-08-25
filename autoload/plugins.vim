@@ -1,5 +1,13 @@
 scriptencoding utf-8
 
+"""" fugitive
+function! InFugitive()
+  nmap <buffer> zp :<c-u>Dispatch! git push<CR>
+  nmap <buffer> zf :<c-u>Dispatch! git push -f<CR>
+endfunction
+
+autocmd VGroup FileType fugitive call InFugitive()
+
 """" vinegar
 if !exists('g:loaded_vinegar')
   packadd vim-vinegar
