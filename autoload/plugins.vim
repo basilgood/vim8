@@ -265,8 +265,37 @@ nmap P <Plug>yankstack_substitute_newer_paste
 
 """" autoformat
 autocmd VGroup CmdlineEnter * packadd vim-autoformat
-let g:formatters_nix = ['nixfmt']
-let g:formatdef_nixfmt = '"nixfmt"'
+
+"""" neomake
+if !exists('g:loaded_neomake')
+  packadd neomake
+endif
+let g:neomake_highlight_columns = 0
+let g:neomake_error_sign = {
+      \ 'text': 'E>',
+      \ 'texthl': 'ErrorMsg',
+      \ }
+let g:neomake_warning_sign = {
+      \   'text': 'W>',
+      \   'texthl': 'NeomakeWarningSign',
+      \ }
+let g:neomake_message_sign = {
+      \   'text': '➤',
+      \   'texthl': 'NeomakeMessageSign',
+      \ }
+let g:neomake_info_sign = {
+      \ 'text': 'ℹ',
+      \ 'texthl': 'NeomakeInfoSign'
+      \ }
+let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_vim_enabled_makers = ['vint']
+call neomake#configure#automake({
+      \ 'TextChanged': {},
+      \ 'InsertLeave': {},
+      \ 'BufWritePost': {'delay': 0},
+      \ 'BufWinEnter': {},
+      \ }, 500)
 
 function! plugins#load() abort
 endfunction
