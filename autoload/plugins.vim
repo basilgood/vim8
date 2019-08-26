@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 """" fugitive
-function! InFugitive()
+function! InFugitive() abort
   nmap <buffer> zp :<c-u>Dispatch! git push<CR>
   nmap <buffer> zf :<c-u>Dispatch! git push -f<CR>
 endfunction
@@ -18,7 +18,7 @@ let g:netrw_sort_dotfiles_first = 1
 let g:netrw_altfile = 1
 let g:netrw_home = $CACHE
 
-function! InNetrw()
+function! InNetrw() abort
   nmap <buffer> <right> <cr>
   nmap <buffer> <left> -
   nmap <buffer> J j<cr>
@@ -195,11 +195,6 @@ if exists('g:loaded_fugitive')
   packadd gv.vim
 endif
 
-"""" twiggy
-if exists('g:loaded_fugitive')
-  packadd vim-twiggy
-endif
-
 """" dispatch
 if !exists('g:loaded_dispatch')
   packadd vim-dispatch
@@ -296,6 +291,12 @@ call neomake#configure#automake({
       \ 'BufWritePost': {'delay': 0},
       \ 'BufWinEnter': {},
       \ }, 500)
+
+""" ags
+if !exists('g:ags_loaded')
+  autocmd VGroup CmdlineEnter * packadd vim-ags
+endif
+let g:ags_winplace = 'right'
 
 function! plugins#load() abort
 endfunction
