@@ -79,7 +79,7 @@ function! s:set() abort
   " Tabline
   let highlight_group.TabLineSel   = highlight_group.WildMenu
   let highlight_group.TabLine      = highlight_group.StatusLine
-  let highlight_group.TabLineFill  = highlight_group.StatusLine
+  let highlight_group.TabLineFill  = [none,        gray2,       none,      none]
   " Search
   let highlight_group.Search       = [white,      darkpurple,  none,       none]
   let highlight_group.IncSearch    = [paleyellow, pink,       none,       none]
