@@ -100,6 +100,8 @@ nnoremap <leader>] :CmdHist<cr>
 " smart space mapping
 nmap <Space> [Space]
 nnoremap  [Space] <Nop>
+vmap <Space> [Space]
+vnoremap  [Space] <Nop>
 
 " substitute
 nnoremap ss :%s/
