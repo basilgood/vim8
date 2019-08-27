@@ -32,10 +32,8 @@ if exists('##CursorHold')
 endif
 
 """" don't list location-list / quickfix windows
-autocmd VGroup BufWinEnter * if &buftype == 'quickfix'
-      \| setlocal nobuflisted
-      \| nnoremap <silent> <buffer> q :bd<CR>
-      \| endif
+autocmd VGroup BufReadPost quickfix setlocal nobuflisted
+autocmd VGroup BufReadPost quickfix nnoremap <buffer> gq :bd<CR>
 
 """" syntax
 autocmd VGroup BufRead * syntax sync fromstart
@@ -63,12 +61,16 @@ autocmd VGroup BufWritePre * call functions#mkdirifnotexist()
 
 autocmd VGroup BufNewFile,BufRead * call matchadd('SpecialKey', '\s\+')
 autocmd VGroup BufNewFile,BufRead * call matchadd('NonText', '\n\+')
+
+"""" sessions
+autocmd VGroup VimLeavePre * call sessions#make()
+
 """" qf and help keep widow full width
 autocmd VGroup FileType qf wincmd J
 autocmd VGroup BufWinEnter * if &ft == 'help' | wincmd J | end
 
-"""" sessions
-autocmd VGroup VimLeavePre * call sessions#make()
+"""" format quickfix
+autocmd VGroup BufReadPost quickfix call qfix#format()
 
 function! autocmds#autocmds() abort
 endfunction
