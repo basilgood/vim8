@@ -1,16 +1,5 @@
 scriptencoding utf-8
 
-function! grep#vgrep(args) abort
-  let l:grep_command = 'ag --smart-case --vimgrep'
-  " let l:grep_command = 'grep --exclude-dir={.git,tag,node_modules,pack} -nHRI'
-  let expr = l:grep_command.' '.a:args
-  cgetexpr system(expr)
-  cwindow
-  let @/=a:args
-  setlocal hlsearch
-  echo 'Number of matches: ' . len(getqflist())
-endfunction
-
 function! IsGitWorkTree() abort
   let l:git=1
   let l:stdout = system('git rev-parse --git-dir 2> /dev/null')
@@ -22,9 +11,9 @@ endfunction
 
 function! grep#dgrep(cmd, args) abort
   if IsGitWorkTree() == 0
-    let g:grepprg = 'git --no-pager grep --untracked -n'
+    let g:grepprg = 'git  --no-pager grep --exclude-standard --untracked -n'
   else
-    let g:grepprg='grep --exclude-dir={.git,tag,node_modules,pack,public} --exclude=tags -nHRI'
+    let g:grepprg = 'grep --exclude-dir={.git,tag,node_modules,pack,bower_components} --exclude="*.min.js" --exclude="*.js.map" -nHIR'
   endif
   let @/ = a:args
   setlocal hlsearch
