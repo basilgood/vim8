@@ -244,11 +244,6 @@ let g:expand_region_text_objects = {
       \ 'aB'  :1,
       \ }
 
-"""" visual-multi
-if !exists('g:loaded_visual_multi')
-  autocmd VGroup BufRead * packadd vim-visual-multi
-endif
-
 """" yankstack
 if !exists('g:yankstack_yank_keys')
   let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']

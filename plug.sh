@@ -8,7 +8,7 @@ fi
 cd pack/bundle/start/
 
 start=(
-  "airblade/vim-gitgutter"
+  "mhinz/vim-signify"
   "LnL7/vim-nix"
   "kana/vim-submode"
   "tpope/vim-fugitive"
@@ -45,7 +45,6 @@ opt=(
   "tpope/vim-vinegar"
   "junegunn/fzf.vim"
   "junegunn/fzf"
-  "mg979/vim-visual-multi"
   "itchyny/vim-parenmatch"
   "markonm/traces.vim"
   "markonm/hlyank.vim"

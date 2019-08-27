@@ -47,7 +47,7 @@ autocmd VGroup BufRead,BufNewFile *.vim setlocal dictionary+=$HOME/.vim/dict/vim
 autocmd VGroup InsertLeave * if &l:diff | diffupdate | endif
 
 """" external changes
-autocmd VGroup FocusGained,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | GitGutterAll | endif
+autocmd VGroup FocusGained,CursorHold * if !bufexists("[Command Line]") | checktime | SignifyRefresh | endif
 
 """" keep clipboard content
 autocmd VGroup VimLeave * call system("xclip -sel clip -i", getreg('+'))
@@ -68,9 +68,6 @@ autocmd VGroup VimLeavePre * call sessions#make()
 """" qf and help keep widow full width
 autocmd VGroup FileType qf wincmd J
 autocmd VGroup BufWinEnter * if &ft == 'help' | wincmd J | end
-
-"""" format quickfix
-autocmd VGroup BufReadPost quickfix call qfix#format()
 
 function! autocmds#autocmds() abort
 endfunction
