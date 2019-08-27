@@ -88,8 +88,7 @@ let &g:statusline.='%12(%c:%l/%L%) '
 set laststatus=2
 
 """" grepprg
-let &grepprg = 'grep --exclude-dir={.git,tag,node_modules,pack} -nHRI'
-
+let &grepprg = 'grep --exclude-dir={.git,tag,node_modules,pack,public,vendor} -nRIH'
 
 """" tabs/indent levels
 set autoindent
