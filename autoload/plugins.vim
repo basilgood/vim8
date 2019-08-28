@@ -281,10 +281,66 @@ let g:completor_rust_binary = 'racer'
 let g:completor_javascript_prettier_binary = $PWD .'/node_modules/.bin/prettier'
 let g:completor_nix_nixfmt_binary = 'nixfmt'
 
-nnoremap <silent> <leader>d :call completor#do('definition')<CR>
-nnoremap <silent> <leader>c :call completor#do('doc')<CR>
-nnoremap <silent> <leader>f :call completor#do('format')<CR>
-nnoremap <silent> <leader>s :call completor#do('hover')<CR>
+"""" neomake
+if !exists('g:loaded_neomake')
+  packadd neomake
+endif
+let g:neomake_highlight_columns = 0
+let g:neomake_error_sign = {
+      \ 'text': 'E>',
+      \ 'texthl': 'ErrorMsg',
+      \ }
+let g:neomake_warning_sign = {
+      \ 'text': 'W>',
+      \ 'texthl': 'WarningMsg',
+      \ }
+let g:neomake_message_sign = {
+      \ 'text': '➤',
+      \ 'texthl': 'NeomakeMessageSign',
+      \ }
+let g:neomake_info_sign = {
+      \ 'text': 'ℹ',
+      \ 'texthl': 'NeomakeInfoSign'
+      \ }
+let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_vim_enabled_makers = ['vint']
+call neomake#configure#automake({
+      \ 'TextChanged': {},
+      \ 'InsertLeave': {},
+      \ 'BufWritePost': {'delay': 0},
+      \ 'BufWinEnter': {},
+      \ }, 500)
+
+"""" lsp
+let g:LanguageClient_useFloatingHover=1
+let g:LanguageClient_hoverPreview='Always'
+let g:LanguageClient_diagnosticsDisplay = {
+      \ 1: { 'name': 'Error', 'texthl': 'ErrorMsg', 'signText': '✖', 'signTexthl': 'ErrorMsg', },
+      \ 2: { 'name': 'Warning', 'texthl': 'WarningMsg', 'signText': '⚠', 'signTexthl': 'WarningMsg', },
+      \ 3: { 'name': 'Information', 'texthl': 'ALEInfo', 'signText': 'ℹ', 'signTexthl': 'ALEInfoSign', },
+      \ 4: { 'name': 'Hint', 'texthl': 'ALEInfo', 'signText': '➤', 'signTexthl': 'ALEInfoSign', },
+      \ }
+
+let g:LanguageClient_rootMarkers = {
+      \   'javascript': ['tsconfig.json', '.flowconfig', 'package.json'],
+      \   'typescript': ['tsconfig.json', '.flowconfig', 'package.json']
+      \ }
+
+let g:LanguageClient_serverCommands = {
+      \ 'css': ['css-languageserver',  '--stdio'],
+      \ 'less': ['css-languageserver',  '--stdio'],
+      \ 'sass': ['css-languageserver',  '--stdio'],
+      \ 'javascript': [ nrun#Which('typescript-language-server'),  '--stdio'],
+      \ 'javascript.jsx': [nrun#Which('typescript-language-server'),  '--stdio'],
+      \ 'typescript': [nrun#Which('typescript-language-server'),  '--stdio'],
+      \ 'typescript.tsx': [nrun#Which('typescript-language-server'),  '--stdio'],
+      \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 function! plugins#load() abort
 endfunction
