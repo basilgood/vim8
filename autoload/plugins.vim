@@ -256,42 +256,35 @@ nmap P <Plug>yankstack_substitute_newer_paste
 """" autoformat
 autocmd VGroup CmdlineEnter * packadd vim-autoformat
 
-"""" neomake
-if !exists('g:loaded_neomake')
-  packadd neomake
-endif
-let g:neomake_highlight_columns = 0
-let g:neomake_error_sign = {
-      \ 'text': 'E>',
-      \ 'texthl': 'ErrorMsg',
-      \ }
-let g:neomake_warning_sign = {
-      \   'text': 'W>',
-      \   'texthl': 'NeomakeWarningSign',
-      \ }
-let g:neomake_message_sign = {
-      \   'text': '➤',
-      \   'texthl': 'NeomakeMessageSign',
-      \ }
-let g:neomake_info_sign = {
-      \ 'text': 'ℹ',
-      \ 'texthl': 'NeomakeInfoSign'
-      \ }
-let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_vim_enabled_makers = ['vint']
-call neomake#configure#automake({
-      \ 'TextChanged': {},
-      \ 'InsertLeave': {},
-      \ 'BufWritePost': {'delay': 0},
-      \ 'BufWinEnter': {},
-      \ }, 500)
-
-""" ags
+"""" ags
 if !exists('g:ags_loaded')
   autocmd VGroup CmdlineEnter * packadd vim-ags
 endif
 let g:ags_winplace = 'right'
+
+""""
+if !exists('g:loaded_completor_plugin')
+  autocmd VGroup BufRead * packadd completor.vim
+  autocmd VGroup BufRead * packadd completor-dictionary
+  autocmd VGroup BufRead * packadd neoinclude.vim
+endif
+
+let g:completor_set_options = 1
+let g:completor_auto_close_doc = 1
+let g:completor_completion_delay = 200
+let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+let g:completor_scss_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+let g:completor_html_omni_trigger = '<?.*$'
+let g:completor_php_omni_trigger = '([$\w]+|use\s*|->[$\w]*|::[$\w]*|implements\s*|extends\s*|class\s+[$\w]+|new\s*)$'
+let g:completor_javascript_omni_trigger = "\\w+$|[\\w\\)\\]\\}\'\"]+\\.\\w*$"
+let g:completor_rust_binary = 'racer'
+let g:completor_javascript_prettier_binary = $PWD .'/node_modules/.bin/prettier'
+let g:completor_nix_nixfmt_binary = 'nixfmt'
+
+nnoremap <silent> <leader>d :call completor#do('definition')<CR>
+nnoremap <silent> <leader>c :call completor#do('doc')<CR>
+nnoremap <silent> <leader>f :call completor#do('format')<CR>
+nnoremap <silent> <leader>s :call completor#do('hover')<CR>
 
 function! plugins#load() abort
 endfunction

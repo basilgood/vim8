@@ -40,8 +40,9 @@ autocmd VGroup BufRead * syntax sync fromstart
 
 """" completion
 autocmd VGroup Syntax javascript setlocal isk+=$
-autocmd VGroup BufRead,BufNewFile *.js,.jsx setlocal dictionary+=$HOME/.vim/dict/javascript.dict
-autocmd VGroup BufRead,BufNewFile *.vim setlocal dictionary+=$HOME/.vim/dict/vim.dict
+" autocmd VGroup BufRead,BufNewFile *.js,.jsx setlocal dictionary+=$HOME/.vim/dict/javascript.dict
+" autocmd VGroup BufRead,BufNewFile *.vim setlocal dictionary+=$HOME/.vim/dict/vim.dict
+autocmd VGroup FileType * execute 'setlocal dictionary+='.expand($HOME.'/.vim/dict/'.&filetype.'.dict')
 
 """" update diff
 autocmd VGroup InsertLeave * if &l:diff | diffupdate | endif

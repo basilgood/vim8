@@ -40,8 +40,11 @@ cd ../opt/
 
 opt=(
   "sgur/vim-editorconfig"
-  # "w0rp/ale"
-  "neomake/neomake"
+  "w0rp/ale"
+  "maralla/completor.vim"
+  "masawada/completor-dictionary"
+  "maralla/completor-typescript"
+  "Shougo/neoinclude.vim"
   "tpope/vim-vinegar"
   "junegunn/fzf.vim"
   "junegunn/fzf"
