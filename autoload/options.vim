@@ -1,5 +1,24 @@
 scriptencoding utf-8
 
+"""" time out on key codes but not mappings.
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+set lazyredraw
+
+"""" viminfo
+set viminfo=!,'300,<50,s10,h,n$CACHE/viminfo
+
+"""" path
+set path=.,**
+
+"""" backup, swap, undo
+set noswapfile
+set nobackup
+set nowritebackup
+set undofile
+set viewoptions=cursor,folds,slash,unix
+
 """" moving around/editing
 set nostartofline
 set nowrap
@@ -65,6 +84,7 @@ set list
 let &g:listchars = 'tab:▸ ,space:·,extends:❯,precedes:❮,nbsp:⦸'
 autocmd VGroup InsertEnter * set listchars-=trail:•
 autocmd VGroup InsertLeave * set listchars+=trail:•
+set termguicolors
 
 """" messages, info, status
 set visualbell t_vb=

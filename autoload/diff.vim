@@ -22,7 +22,7 @@ augroup END
 " In diff mode:
 " - Disable syntax highlighting
 " - Disable spell checking
-function CheckDiffMode(timer)
+function! CheckDiffMode(timer) abort
   let curwin = winnr()
 
   " Check each window
@@ -39,7 +39,7 @@ function CheckDiffMode(timer)
 endfunction
 
 " Detect window or buffer local option is in sync with diff mode
-function s:change_option_in_diffmode(scope, option, value, ...)
+function! s:change_option_in_diffmode(scope, option, value, ...) abort
   let isBoolean = get(a:, '1', 0)
   let backupVarname = a:scope . '_old_' . a:option
 
@@ -57,7 +57,7 @@ function s:change_option_in_diffmode(scope, option, value, ...)
   endif
 endfunction
 
-function s:set_option(option, value, ...)
+function! s:set_option(option, value, ...) abort
   let isLocal = get(a:, '1', 0)
   let isBoolean = get(a:, '2', 0)
   if isBoolean
@@ -67,5 +67,5 @@ function s:set_option(option, value, ...)
   endif
 endfunction
 
-function! diff#diff()
+function! diff#diff() abort
 endfunction

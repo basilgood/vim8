@@ -61,5 +61,5 @@ let g:ale_linters = {
 nmap ]a <Plug>(ale_next_wrap)
 nmap [a <Plug>(ale_previous_wrap)
 
-function! lint#linter()
+function! lint#linter() abort
 endfunction
