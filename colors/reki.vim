@@ -59,7 +59,7 @@ function! s:set() abort
   " Cursor
   let highlight_group.Cursor                      = [gray2,       cursorblue,  none,          none]
   let highlight_group.CursorIM                    = [gray6,       cursorpink,  none,          none]
-  let highlight_group.CursorLine                  = [none,        gray3,       none,          none]
+  let highlight_group.CursorLine                  = [none,        gray1,       none,          none]
   let highlight_group.CursorColumn                = highlight_group.CursorLine
   " Statusline
   let highlight_group.StatusLine                  = [gray2,       gray5,       bold,          none]
