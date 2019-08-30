@@ -62,6 +62,8 @@ nmap sl yss
 if !exists('loaded_cmdline_completion')
   autocmd VGroup CmdlineEnter * packadd cmdline-completion
 endif
+cmap <tab> <Plug>CmdlineCompletionBackward
+cmap <S-tab> <Plug>CmdlineCompletionForward
 
 """" hlyank
 if !exists('g:loaded_hlyank_plugin')
@@ -263,21 +265,21 @@ endif
 let g:ags_winplace = 'right'
 
 """"
-if !exists('g:loaded_completor_plugin')
-  autocmd VGroup BufRead * packadd completor.vim
-  autocmd VGroup BufRead * packadd completor-dictionary
-  autocmd VGroup BufRead * packadd neoinclude.vim
-  autocmd VGroup BufRead * packadd completor-dictionary
-endif
-
-let g:completor_set_options = 1
-let g:completor_auto_close_doc = 1
-let g:completor_completion_delay = 200
-let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
-let g:completor_scss_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
-let g:completor_html_omni_trigger = '<?.*$'
-let g:completor_php_omni_trigger = '([$\w]+|use\s*|->[$\w]*|::[$\w]*|implements\s*|extends\s*|class\s+[$\w]+|new\s*)$'
-let g:completor_javascript_omni_trigger = "\\w+$|[\\w\\)\\]\\}\'\"]+\\.\\w*$"
+" if !exists('g:loaded_completor_plugin')
+"   autocmd VGroup BufRead * packadd completor.vim
+"   autocmd VGroup BufRead * packadd completor-dictionary
+"   autocmd VGroup BufRead * packadd neoinclude.vim
+"   autocmd VGroup BufRead * packadd completor-dictionary
+" endif
+"
+" let g:completor_set_options = 1
+" let g:completor_auto_close_doc = 1
+" let g:completor_completion_delay = 200
+" let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+" let g:completor_scss_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+" let g:completor_html_omni_trigger = '<?.*$'
+" let g:completor_php_omni_trigger = '([$\w]+|use\s*|->[$\w]*|::[$\w]*|implements\s*|extends\s*|class\s+[$\w]+|new\s*)$'
+" let g:completor_javascript_omni_trigger = "\\w+$|[\\w\\)\\]\\}\'\"]+\\.\\w*$"
 
 """" lsp
 " let g:LanguageClient_useFloatingHover=1
