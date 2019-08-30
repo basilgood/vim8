@@ -97,12 +97,7 @@ nnoremap gr :<C-u>Grep<Space>
 " commands history
 nnoremap <leader>] :CmdHist<cr>
 
-" smart space mapping
-nmap <Space> [Space]
-nnoremap  [Space] <Nop>
-vmap <Space> [Space]
-vnoremap  [Space] <Nop>
-
+" s mapping
 " substitute
 nnoremap ss :%s/
 
@@ -121,6 +116,12 @@ nnoremap sp vip :s/
 
 " substitute word under the cursor globally
 nnoremap sw :%s/\<<c-r><c-w>\>/
+
+" smart space mapping
+nmap <Space> [Space]
+nnoremap  [Space] <Nop>
+vmap <Space> [Space]
+vnoremap  [Space] <Nop>
 
 " yank to clipboard
 vnoremap [Space]y "+y
@@ -146,13 +147,8 @@ nnoremap [Space]7 7<c-w>w
 nnoremap [Space]8 8<c-w>w
 nnoremap [Space]9 9<c-w>w
 
-" s mapping
-" splitting
-nnoremap <silent> [Space]v  :<C-u>vsplit<CR>
-nnoremap <silent> [Space]s  :<C-u>split<CR>
-nnoremap <silent> [Space]c  :<C-u>close<CR>
-nnoremap <silent> [Space]o  :<C-u>only<CR>
-nnoremap [Space]t :tabedit %<cr>
+" zoom
+nnoremap <C-w>t :tabedit %<cr>
 nnoremap <silent> <S-tab> :tabnext<CR>
 
 function! remap#map() abort
