@@ -62,8 +62,6 @@ nmap sl yss
 if !exists('loaded_cmdline_completion')
   autocmd VGroup CmdlineEnter * packadd cmdline-completion
 endif
-cmap <tab> <Plug>CmdlineCompletionBackward
-cmap <S-tab> <Plug>CmdlineCompletionForward
 
 """" hlyank
 if !exists('g:loaded_hlyank_plugin')
