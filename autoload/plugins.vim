@@ -278,36 +278,6 @@ let g:completor_html_omni_trigger = '<?.*$'
 let g:completor_php_omni_trigger = '([$\w]+|use\s*|->[$\w]*|::[$\w]*|implements\s*|extends\s*|class\s+[$\w]+|new\s*)$'
 let g:completor_javascript_omni_trigger = "\\w+$|[\\w\\)\\]\\}\'\"]+\\.\\w*$"
 
-"""" neomake
-if !exists('g:loaded_neomake')
-  packadd neomake
-endif
-let g:neomake_highlight_columns = 0
-let g:neomake_error_sign = {
-      \ 'text': 'E>',
-      \ 'texthl': 'ErrorMsg',
-      \ }
-let g:neomake_warning_sign = {
-      \ 'text': 'W>',
-      \ 'texthl': 'WarningMsg',
-      \ }
-let g:neomake_message_sign = {
-      \ 'text': '➤',
-      \ 'texthl': 'NeomakeMessageSign',
-      \ }
-let g:neomake_info_sign = {
-      \ 'text': 'ℹ',
-      \ 'texthl': 'NeomakeInfoSign'
-      \ }
-let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_vim_enabled_makers = ['vint']
-call neomake#configure#automake({
-      \ 'TextChanged': {},
-      \ 'InsertLeave': {},
-      \ 'BufWritePost': {'delay': 0},
-      \ 'BufWinEnter': {},
-      \ }, 500)
 
 """" lsp
 let g:LanguageClient_useFloatingHover=1
