@@ -10,6 +10,7 @@ setlocal nospell
 setlocal iskeyword+=-
 
 let b:ale_linters = ['eslint', 'tsserver']
-let g:ale_fixers = ['eslint']
+let b:ale_fixers = ['eslint']
+let b:ale_fix_on_save = 1
 let b:ale_javascript_eslint_options = '--ignore-pattern ''!.eslintrc.js'''
 setlocal completeopt=menu,menuone,preview,noselect,noinsert
