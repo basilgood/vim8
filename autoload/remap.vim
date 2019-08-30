@@ -122,9 +122,6 @@ nnoremap sp vip :s/
 " substitute word under the cursor globally
 nnoremap sw :%s/\<<c-r><c-w>\>/
 
-" mapping for Spelling correction
-nnoremap sz 1z=
-
 " yank to clipboard
 vnoremap [Space]y "+y
 
