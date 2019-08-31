@@ -131,7 +131,6 @@ nnoremap [Space]p :put+<cr>
 vnoremap [Space]p "+p
 nnoremap [Space]P :put!+<cr>
 vnoremap [Space]P "+P
-inoremap <silent> <C-r> <C-r><C-p>
 
 " replace a word with clipboard
 nnoremap [Space]w viw"+p
