@@ -10,45 +10,47 @@ endif
 let g:colors_name='simple'
 
 highlight Normal         guifg=#ebdbb2 guibg=#1d2021 gui=NONE cterm=NONE
+highlight EndOfBuffer    guifg=#1d2021 guibg=#1d2021 guisp=NONE gui=NONE cterm=NONE
 highlight Terminal       guifg=#ebdbb2 guibg=#1d2021 gui=NONE cterm=NONE
 highlight NonText        guifg=#5c6370 guibg=NONE    gui=NONE cterm=NONE
 highlight SpecialKey     guifg=#5c6370 guibg=NONE    gui=NONE cterm=NONE
-highlight Comment        guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
+highlight Comment guifg=#928374 guibg=NONE guisp=NONE gui=italic cterm=italic
+highlight SpecialComment guifg=#928374 guibg=NONE guisp=NONE gui=italic cterm=italic
 highlight Conceal        guifg=#ebdbb2 guibg=NONE    gui=NONE cterm=NONE
-highlight Constant       guifg=#d3869b guibg=NONE    gui=NONE cterm=NONE
-highlight Statement      guifg=#fb4934 guibg=NONE    gui=NONE cterm=NONE
-highlight Type           guifg=#fabd2f guibg=NONE    gui=NONE cterm=NONE
-highlight Identifier     guifg=#83a598 guibg=NONE    gui=NONE  | " lightgreen
-highlight Ignore         guifg=NONE    guibg=NONE    gui=NONE cterm=NONE
-highlight String         guifg=#8ec07c guibg=NONE    gui=NONE cterm=NONE
-highlight Title          guifg=#8ec07c guibg=NONE    gui=NONE cterm=NONE | " green
-highlight Include        guifg=#61afef guibg=NONE    gui=NONE cterm=NONE
-highlight Conditional    guifg=#fb4934 guibg=NONE    gui=NONE cterm=NONE  | " orange
-highlight Special        guifg=#fb4934 guibg=NONE    gui=NONE cterm=NONE  | " orange
-highlight PreProc        guifg=#fabd2f guibg=NONE    gui=NONE cterm=NONE  | " yellow
-highlight Directory      guifg=#b3deef guibg=NONE    gui=NONE cterm=NONE
-highlight Todo           guibg=NONE    guifg=NONE    gui=reverse cterm=reverse
-highlight Underlined     guifg=#5f8787 guibg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
-highlight Function       guifg=#8ec07c guibg=NONE    gui=NONE cterm=NONE
-highlight StorageClass   guifg=#8ec07c guibg=NONE    gui=NONE cterm=NONE
-highlight Structure      guifg=#8ec07c guibg=NONE    gui=NONE cterm=NONE
-highlight Typedef        guifg=#8ec07c guibg=NONE    gui=NONE cterm=NONE
-highlight SignColumn     guifg=#555555 guibg=#111111 gui=NONE cterm=NONE
-highlight FoldColumn     guifg=#555555 guibg=#111111 gui=NONE cterm=NONE
-highlight Folded         guifg=#555555 guibg=#111111 gui=NONE cterm=NONE
-highlight QuickFixLine   guifg=#fb4934 guibg=NONE
+highlight Constant       guifg=#d3869b guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight Statement      guifg=#ea6962 guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight Typedef guifg=#e3a84e guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight Type guifg=#e3a84e guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight Identifier guifg=#7daea3 guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight Ignore guifg=#dfbf8e guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight String guifg=#a9b665 guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight Title guifg=#a9b665 guibg=NONE guisp=NONE gui=bold cterm=bold
+highlight Include guifg=#89b482 guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight Conditional guifg=#ea6962 guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight Special guifg=#e78a4e guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight PreProc guifg=#89b482 guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight Directory      guifg=#a9b665 guibg=NONE    gui=NONE cterm=NONE
+highlight Todo guifg=#928374 guibg=NONE guisp=NONE gui=bold,italic cterm=bold,italic
+highlight Underlined guifg=#7daea3 guibg=NONE guisp=NONE gui=underline cterm=underline
+highlight Function guifg=#a9b665 guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight StorageClass guifg=#e78a4e guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight Structure guifg=#89b482 guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight SignColumn     guifg=NONE guibg=#1d2021 guisp=NONE gui=NONE cterm=NONE
+highlight FoldColumn     guifg=NONE guibg=#3c3836 guisp=NONE gui=NONE cterm=NONE
+highlight Folded         guifg=NONE guibg=#3c3836 guisp=NONE gui=NONE cterm=NONE
+highlight QuickFixLine guifg=#d9d1af guibg=NONE guisp=NONE gui=NONE cterm=NONE
 
 highlight Cursor         guifg=#000000 guibg=#99ff99 gui=NONE cterm=NONE
 highlight CursorLine     guifg=NONE    guibg=#323232 gui=NONE cterm=NONE
 highlight CursorLineNr   guifg=#83a598 guibg=NONE    gui=NONE cterm=NONE
 highlight CursorColumn   guifg=NONE    guibg=#333333 gui=NONE cterm=NONE
 highlight ColorColumn    guifg=NONE    guibg=#333333 gui=NONE cterm=NONE
-highlight LineNr         guifg=#555555 guibg=#111111 gui=NONE ctermfg=238 ctermbg=NONE
+highlight LineNr         guifg=#484848 guibg=#1d2021 guisp=NONE gui=NONE cterm=NONE
 highlight CursorIM       guifg=#000000 guibg=#cc9999 gui=NONE cterm=NONE
 highlight MatchParen     guifg=#fade3e guibg=NONE    gui=underline cterm=underline
 
-highlight IncSearch      guifg=#1d2021 guibg=#fb4934 gui=NONE cterm=NONE
-highlight Search         guifg=#282828 guibg=#8ec07c gui=bold
+highlight Search         guifg=#ebdbb2 guibg=#574c74 gui=bold
+highlight IncSearch      guifg=#d9d1af guibg=#b0507c gui=NONE cterm=NONE
 
 highlight FoldColumn     guifg=#555555 guibg=#111111 gui=NONE cterm=NONE
 highlight Folded         guifg=#999999 guibg=#111111 gui=NONE cterm=NONE
@@ -60,8 +62,8 @@ highlight Question       guifg=#66ff33 guibg=NONE    gui=NONE cterm=NONE
 highlight WarningMsg     guifg=#af5f5f guibg=NONE    gui=NONE cterm=NONE
 highlight Exception      guifg=#A6E22E               gui=bold
 
-highlight Visual         guifg=NONE    guibg=#403D3D gui=NONE cterm=NONE
-highlight VisualNOS      guifg=NONE    guibg=#403D3D gui=NONE cterm=NONE
+highlight Visual         guifg=NONE    guibg=#405260 gui=NONE cterm=NONE
+highlight VisualNOS      guifg=NONE    guibg=#4d6b67 gui=NONE cterm=NONE
 
 highlight StatusLine     guifg=#1d1d1d guibg=#777777 gui=bold cterm=bold
 highlight StatusLineNC   guifg=#999999 guibg=#444444 gui=NONE cterm=NONE
