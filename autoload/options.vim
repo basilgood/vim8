@@ -59,8 +59,8 @@ set sessionoptions+=sesdir,globals
 set dictionary='$HOME/.vim/dict'
 set omnifunc=syntaxcomplete#Complete
 set completefunc=syntaxcomplete#Complete
-set completeopt-=preview
-set completeopt+=longest,menuone,noselect
+set completeopt+=preview
+set completeopt+=menuone,noselect
 set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 
@@ -92,19 +92,6 @@ set confirm
 set showcmd
 set noshowmode
 set shortmess+=Icm
-
-"""" statusline
-let &g:statusline=''
-let &g:statusline.=' %{winnr("$")>1?winnr():""}'
-let &g:statusline.=' %{toupper(mode())}'
-let &g:statusline.=' ⦁ %{pathshorten(expand("%:~:."))}'
-let &g:statusline.=' %h%r'
-let &g:statusline.='%{exists("g:loaded_fugitive")?"⦁ ".fugitive#head():""} '
-let &g:statusline.=' %#incsearch#%{&mod?" ✚✚✚ ":""}'
-let &g:statusline.='%*'
-let &g:statusline.='%='
-let &g:statusline.='%{&filetype!=#""?&filetype:""} ⦁'
-let &g:statusline.='%12(%c:%l/%L%) '
 set laststatus=2
 
 """" tabs/indent levels
