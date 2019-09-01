@@ -43,6 +43,7 @@ let g:LargeFile = 20*1024*1024 " 20MB
 
 call options#options()
 call tmux#tmux()
+call statusline#statusline()
 call timer_start(300, {-> remap#map()}, {'repeat': 0})
 call timer_start(300, {-> plugins#load()}, {'repeat': 0})
 call lint#linter()
@@ -54,7 +55,7 @@ syntax enable
 filetype plugin indent on
 
 set background=dark
-colorscheme reki
+colorscheme simple
 highlight ParenMatch guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
 highlight Comment    guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 
