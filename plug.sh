@@ -15,7 +15,7 @@ start=(
   "samoshkin/vim-mergetool"
   "da-x/conflict-marker.vim"
   "jaawerth/nrun.vim"
-  # "autozimu/LanguageClient-neovim"
+  "autozimu/LanguageClient-neovim"
 )
 
 for element in "${start[@]}"; do
@@ -42,10 +42,7 @@ cd ../opt/
 opt=(
   "sgur/vim-editorconfig"
   "w0rp/ale"
-  "maralla/completor.vim"
-  "masawada/completor-dictionary"
-  "maralla/completor-typescript"
-  "Shougo/neoinclude.vim"
+  "itchyny/lightline.vim"
   "tpope/vim-vinegar"
   "junegunn/fzf.vim"
   "junegunn/fzf"

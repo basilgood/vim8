@@ -262,52 +262,23 @@ if !exists('g:ags_loaded')
 endif
 let g:ags_winplace = 'right'
 
-""""
-" if !exists('g:loaded_completor_plugin')
-"   autocmd VGroup BufRead * packadd completor.vim
-"   autocmd VGroup BufRead * packadd completor-dictionary
-"   autocmd VGroup BufRead * packadd neoinclude.vim
-"   autocmd VGroup BufRead * packadd completor-dictionary
-" endif
-"
-" let g:completor_set_options = 1
-" let g:completor_auto_close_doc = 1
-" let g:completor_completion_delay = 200
-" let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
-" let g:completor_scss_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
-" let g:completor_html_omni_trigger = '<?.*$'
-" let g:completor_php_omni_trigger = '([$\w]+|use\s*|->[$\w]*|::[$\w]*|implements\s*|extends\s*|class\s+[$\w]+|new\s*)$'
-" let g:completor_javascript_omni_trigger = "\\w+$|[\\w\\)\\]\\}\'\"]+\\.\\w*$"
-
 """" lsp
-" let g:LanguageClient_useFloatingHover=1
-" let g:LanguageClient_hoverPreview='Always'
-" let g:LanguageClient_diagnosticsDisplay = {
-"       \ 1: { 'name': 'Error', 'texthl': 'ErrorMsg', 'signText': '✖', 'signTexthl': 'ErrorMsg', },
-"       \ 2: { 'name': 'Warning', 'texthl': 'WarningMsg', 'signText': '⚠', 'signTexthl': 'WarningMsg', },
-"       \ 3: { 'name': 'Information', 'texthl': 'ALEInfo', 'signText': 'ℹ', 'signTexthl': 'ALEInfoSign', },
-"       \ 4: { 'name': 'Hint', 'texthl': 'ALEInfo', 'signText': '➤', 'signTexthl': 'ALEInfoSign', },
-"       \ }
-"
-" let g:LanguageClient_rootMarkers = {
-"       \   'javascript': ['tsconfig.json', '.flowconfig', 'package.json'],
-"       \   'typescript': ['tsconfig.json', '.flowconfig', 'package.json']
-"       \ }
-"
-" let g:LanguageClient_serverCommands = {
-"       \ 'css': ['css-languageserver',  '--stdio'],
-"       \ 'less': ['css-languageserver',  '--stdio'],
-"       \ 'sass': ['css-languageserver',  '--stdio'],
-"       \ 'javascript': [ nrun#Which('typescript-language-server'),  '--stdio'],
-"       \ 'javascript.jsx': [nrun#Which('typescript-language-server'),  '--stdio'],
-"       \ 'typescript': [nrun#Which('typescript-language-server'),  '--stdio'],
-"       \ 'typescript.tsx': [nrun#Which('typescript-language-server'),  '--stdio'],
-"       \ }
-"
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+let g:LanguageClient_serverCommands = {
+      \ 'css': ['css-languageserver',  '--stdio'],
+      \ 'less': ['css-languageserver',  '--stdio'],
+      \ 'sass': ['css-languageserver',  '--stdio'],
+      \ 'javascript': [ nrun#Which('typescript-language-server'),  '--stdio'],
+      \ 'javascript.jsx': [nrun#Which('typescript-language-server'),  '--stdio'],
+      \ 'typescript': [nrun#Which('typescript-language-server'),  '--stdio'],
+      \ 'typescript.tsx': [nrun#Which('typescript-language-server'),  '--stdio'],
+      \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+packadd lightline.vim
 
 function! plugins#load() abort
 endfunction
