@@ -70,7 +70,6 @@ opt=(
   "maxbrunsfeld/vim-yankstack"
   "alvan/vim-closetag"
   "tmsvg/pear-tree"
-  "Chiel92/vim-autoformat"
   "HerringtonDarkholme/yats.vim"
   "lumiliet/vim-twig"
   "lepture/vim-jinja"

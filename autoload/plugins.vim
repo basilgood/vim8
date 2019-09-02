@@ -253,9 +253,6 @@ endif
 nmap p <Plug>yankstack_substitute_older_paste
 nmap P <Plug>yankstack_substitute_newer_paste
 
-"""" autoformat
-autocmd VGroup CmdlineEnter * packadd vim-autoformat
-
 """" ags
 if !exists('g:ags_loaded')
   autocmd VGroup CmdlineEnter * packadd vim-ags
