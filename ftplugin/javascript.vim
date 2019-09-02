@@ -17,3 +17,9 @@ let b:ale_fixers = ['eslint']
 let b:ale_javascript_eslint_options = '--ignore-pattern ''!.eslintrc.js'''
 setlocal completeopt=menu,menuone,preview,noselect,noinsert
 let b:formatters_javascript = ['prettier']
+
+highlight Conceal guibg=NONE ctermbg=NONE ctermfg=DarkGrey guifg=#5c6370
+autocmd VGroup BufWinEnter * setlocal conceallevel=2 concealcursor=nv
+autocmd VGroup BufWinEnter * syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=·
+autocmd VGroup BufReadPre * setlocal conceallevel=2 concealcursor=nv
+autocmd VGroup BufReadPre * syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=·
