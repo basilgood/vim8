@@ -16,8 +16,7 @@ autocmd VGroup FileType nix let b:dispatch = 'nixpkgs-fmt -i %'
 autocmd VGroup BufWrite *.nix Dispatch!
 command! -nargs=0 NixFormat Dispatch!
 
-highlight Conceal guibg=NONE ctermbg=NONE ctermfg=DarkGrey guifg=#5c6370
-autocmd VGroup BufWinEnter * setlocal conceallevel=2 concealcursor=nv
-autocmd VGroup BufWinEnter * syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=·
-autocmd VGroup BufReadPre * setlocal conceallevel=2 concealcursor=nv
-autocmd VGroup BufReadPre * syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=·
+" highlight Conceal guibg=NONE ctermbg=NONE ctermfg=DarkGrey guifg=#5c6370
+" autocmd VGroup BufLeave * setlocal conceallevel=0 concealcursor=
+" autocmd VGroup BufReadPre * setlocal conceallevel=2 concealcursor=nv
+" autocmd VGroup BufReadPre * syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=·
