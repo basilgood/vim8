@@ -9,7 +9,7 @@ endif
 
 let g:colors_name='simple'
 
-highlight Normal         guifg=#ebdbb2 guibg=#1d2021 gui=NONE cterm=NONE
+highlight Normal         guifg=#dfbf8e guibg=#1d2021 gui=NONE cterm=NONE
 highlight EndOfBuffer    guifg=#1d2021 guibg=#1d2021 guisp=NONE gui=NONE cterm=NONE
 highlight Terminal       guifg=#ebdbb2 guibg=#1d2021 gui=NONE cterm=NONE
 highlight NonText        guifg=#5c6370 guibg=NONE    gui=NONE cterm=NONE
