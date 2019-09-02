@@ -11,8 +11,9 @@ let b:ale_fixers = {
       \   'nix': ['nixpkgs-fmt']
       \}
 
-autocmd VGroup FileType nix let b:dispatch = 'nixpkgs-fmt -i %'
-autocmd VGroup BufReadPost *.nix command! -buffer NixFormat Dispatch!
+autocmd VGroup FileType nix let b:dispatch = 'nixfmt %'
+" autocmd VGroup BufWritePost *.nix silent! Dispatch!
+command! NixFormat Dispatch!
 
 " highlight Conceal guibg=NONE ctermbg=NONE ctermfg=DarkGrey guifg=#5c6370
 " autocmd VGroup BufLeave * setlocal conceallevel=0 concealcursor=
