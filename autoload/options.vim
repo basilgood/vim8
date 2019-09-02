@@ -81,7 +81,7 @@ set tabline=%!functions#tabline()
 set t_ut=
 set cursorline
 set list
-let &g:listchars = 'tab:▸ ,space:·,extends:❯,precedes:❮,nbsp:⦸'
+let &g:listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:⦸'
 autocmd VGroup InsertEnter * set listchars-=trail:•
 autocmd VGroup InsertLeave * set listchars+=trail:•
 set termguicolors
