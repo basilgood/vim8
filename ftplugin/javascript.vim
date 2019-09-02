@@ -16,3 +16,4 @@ let b:ale_fixers = ['eslint']
 " autocmd VGroup BufWrite * call LanguageClient_textDocument_formatting()
 let b:ale_javascript_eslint_options = '--ignore-pattern ''!.eslintrc.js'''
 setlocal completeopt=menu,menuone,preview,noselect,noinsert
+let b:formatters_javascript = ['prettier']

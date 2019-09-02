@@ -7,6 +7,11 @@ setlocal softtabstop=2
 setlocal nospell
 
 let b:ale_linters = ['nix']
-let g:ale_fixers = {
-      \   'nix': ['nixfmt']
+let b:ale_fixers = {
+      \   'nix': ['nixpkgs-fmt']
       \}
+
+" command! -nargs=0 NixFormat Dispatch! nixpkgs-fmt -i %
+autocmd VGroup FileType nix let b:dispatch = 'nixpkgs-fmt -i %'
+autocmd VGroup BufWrite *.nix Dispatch!
+command! -nargs=0 NixFormat Dispatch!
