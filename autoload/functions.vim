@@ -1,16 +1,6 @@
 scriptencoding utf-8
 
-function! functions#mkdirifnotexist() abort
-  let dir = expand('%:p:h')
-  if dir =~# '://'
-    return
-  endif
-  if !isdirectory(dir)
-    call mkdir(dir, 'p')
-    echo 'Created non-existing directory: '.dir
-  endif
-endfunction
-
+"""" get file size
 function! functions#getfilesize() abort
   if &encoding ==# &fileencoding || &fileencoding ==# ''
     let size = line2byte(line('$') + 1) - 1
@@ -33,7 +23,7 @@ function! functions#getfilesize() abort
   return size . 'GB'
 endfunction
 
-" lifepillar
+"""" large file (lifepillar)
 function! functions#large_file(name) abort
   let b:large_file = 1
   syntax clear
@@ -52,32 +42,19 @@ function! s:restore_eventignore() abort
   augroup! large_buffer
 endfunction
 
+"""" highlight
 function! functions#hl() abort
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction
 
+"""" mkdir if not exists
 function! functions#mkdir(dir) abort
   if !isdirectory(a:dir)
     call mkdir(a:dir, 'p')
   endif
 endfunction
 
-function! functions#get_selected_text() abort
-  let tmp = @"
-  normal! gvy
-  normal! gv
-  let [tmp, @"] = [@", tmp]
-  return tmp
-endfunction
-
-function! functions#plain_text_pattern(s) abort
-  return substitute(substitute('\V'.escape(a:s, '\'), '\n', '\\n', 'g'), '\t', '\\t', 'g')
-endfunction
-
-function! functions#get_search_pat() abort
-  return functions#plain_text_pattern(functions#get_selected_text())
-endfunction
-
+"""" tabline
 function! functions#tabline() abort
   let s = ''
   for i in range(tabpagenr('$'))
@@ -111,4 +88,16 @@ function! functions#changedfiles() abort
   for filename in filenames[1:]
     exec 'e ' . filename
   endfor
+endfunction
+
+"""" runner
+function! RedrawScreen(channel)
+    redraw!
+endfunction
+
+function! functions#runner(cmd) abort
+  let x_file = expand('%:p')
+  let x_cmd = a:cmd . x_file
+  let job = job_start(['/bin/sh', '-c', x_cmd],
+        \ {'close_cb': 'RedrawScreen'})
 endfunction
