@@ -12,5 +12,4 @@ let b:ale_fixers = {
       \}
 
 autocmd VGroup FileType nix let b:dispatch = 'nixfmt %'
-" autocmd VGroup BufWritePost *.nix silent! Dispatch!
-command! NixFormat <buffer> Dispatch!
+autocmd VGroup BufWritePost *.nix :call functions#runner('nixfmt ')
