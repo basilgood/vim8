@@ -18,9 +18,6 @@ nnoremap <silent> <Tab> :wincmd w<CR>
 
 " completion: enter select and close popup
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
-" completion down key is simulated
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-      \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " paste from register 0
 vnoremap . "0p

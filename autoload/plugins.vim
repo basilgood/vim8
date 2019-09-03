@@ -277,5 +277,8 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 packadd lightline.vim
 
+let g:mucomplete#always_use_completeopt = 1
+packadd vim-mucomplete
+
 function! plugins#load() abort
 endfunction
