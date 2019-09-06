@@ -41,11 +41,10 @@ Plugin 'wellle/targets.vim'
 autocmd VGroup BufRead * call vivid#enable('targets.vim')
 
 Plugin 'tmsvg/pear-tree'
-autocmd VGroup InsertEnter * call vivid#enable('pear-tree')
+autocmd VGroup BufRead * call vivid#enable('pear-tree')
 let g:pear_tree_repeatable_expand = 0
 let g:pear_tree_smart_openers = 1
 let g:pear_tree_smart_closers = 1
 let g:pear_tree_smart_backspace = 1
 imap jk <Plug>(PearTreeFinishExpansion)
 imap <space> <Plug>(PearTreeSpace)
-
