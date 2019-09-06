@@ -1,15 +1,26 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 if !v:vim_did_enter && has('reltime')
   let g:startuptime = reltime()
   augroup vimrc-startuptime
     autocmd! VimEnter * let g:startuptime = reltime(g:startuptime)
-          \                 | redraw
-          \                 | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+    \                 | redraw
+    \                 | echomsg 'startuptime: ' . reltimestr(g:startuptime)
   augroup END
 endif
 
 let skip_defaults_vim=1
-set encoding=utf-8
-scriptencoding utf-8
+
+"""" vim cache directory
+let $CACHE=expand('$HOME/.cache/')
+
+"""" undo
+set undodir=$CACHE/vim/undo//
+call functions#mkdir(&undodir)
+
+"""" viewdir
+set viewdir=$CACHE/vim/view//
 
 let g:loaded_matchparen         = 1
 let g:loaded_rrhelper           = 1
@@ -23,30 +34,22 @@ let g:loaded_getscriptPlugin    = 1
 let g:loaded_logipat            = 1
 let g:loaded_man                = 1
 
-"""" vim cache directory
-let $CACHE=expand('$HOME/.cache/vim')
+let g:LargeFile = 20*1024*1024 " 20MB
 
-"""" undo
-set undodir=$CACHE/undo//
-call functions#mkdir(&undodir)
+if empty(glob('~/.vim/pack/vivid/opt/Vivid.vim'))
+  silent !git clone https://github.com/axvr/vivid.vim ~/.vim/pack/vivid/opt/Vivid.vim
+endif
 
-"""" viewdir
-set viewdir=$CACHE/view//
+packadd Vivid.vim
 
-"""" general group autocmds
 augroup VGroup
   autocmd!
 augroup END
 
-"""" large file
-let g:LargeFile = 20*1024*1024 " 20MB
-
 call options#options()
-call tmux#tmux()
-call statusline#statusline()
 call timer_start(300, {-> remap#map()}, {'repeat': 0})
-call timer_start(300, {-> plugins#load()}, {'repeat': 0})
-call lint#linter()
+call unix#unix()
+call timer_start(300, {-> navigation#nav()}, {'repeat': 0})
 call diff#diff()
 call autocmds#autocmds()
 call timer_start(300, {-> commands#commands()}, {'repeat': 0})

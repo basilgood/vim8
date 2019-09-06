@@ -39,5 +39,5 @@ if $TERM =~# '^\%(tmux\|screen\)'
   let &t_PE = "\033[201~"
 endif
 
-function! tmux#tmux() abort
+function! unix#unix() abort
 endfunction

@@ -74,19 +74,6 @@ nnoremap <leader><leader> :set relativenumber!<cr>
 
 " git commands
 nnoremap <silent> <expr> <leader>dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
-nnoremap <silent> gs :<C-u>Gstatus<CR>
-nnoremap <silent> <leader>ga :<c-u>Dispatch! git add %<cr>
-nnoremap <silent> <leader>gr :<c-u>Dispatch! git reset %<cr>
-nnoremap <silent> <leader>gf :<c-u>Dispatch! git fetch --all --prune<cr>
-nnoremap <silent> <leader>gu :<C-u>Dispatch! git pull --rebase --autostash<CR>
-nnoremap <silent> <leader>gU :<C-u>Dispatch! git pull --ff-only<CR>
-nnoremap <silent> <leader>gp :<C-u>Dispatch! git push<CR>
-nnoremap <silent> <leader>gP :<C-u>Dispatch! git push -f<CR>
-nnoremap <silent> <leader>gD :<C-u>Dispatch! git checkout -- %<CR>
-nnoremap <silent> <leader>gd :<C-u>Gvdiffsplit<CR>
-nnoremap <silent> <leader>gc :<C-u>Gcommit<CR>
-nnoremap <silent> <leader>gC :<C-u>Gcommit --amend<CR>
-nnoremap <silent> <leader>gl :<C-u>GV --all<CR>
 
 " grep
 nnoremap gr :<C-u>Grep<Space>
