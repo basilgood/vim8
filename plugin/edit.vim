@@ -16,6 +16,9 @@ nmap sl yss
 Plugin 'tomtom/tcomment_vim'
 autocmd VGroup BufRead * call vivid#enable('tcomment_vim')
 
+Plugin 'markonm/traces.vim'
+autocmd VGroup BufRead * call vivid#enable('traces.vim')
+
 Plugin 'sgur/cmdline-completion'
 autocmd VGroup BufRead * call vivid#enable('cmdline-completion')
 
@@ -39,12 +42,3 @@ autocmd VGroup BufRead * call vivid#enable('vim-parenmatch')
 
 Plugin 'wellle/targets.vim'
 autocmd VGroup BufRead * call vivid#enable('targets.vim')
-
-Plugin 'tmsvg/pear-tree'
-autocmd VGroup BufRead * call vivid#enable('pear-tree')
-let g:pear_tree_repeatable_expand = 0
-let g:pear_tree_smart_openers = 1
-let g:pear_tree_smart_closers = 1
-let g:pear_tree_smart_backspace = 1
-imap jk <Plug>(PearTreeFinishExpansion)
-imap <space> <Plug>(PearTreeSpace)
