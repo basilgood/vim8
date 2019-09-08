@@ -21,9 +21,6 @@ hook_add = '''
 [[plugins]]
 repo = 'mhinz/vim-signify'
 on_path = '.*'
-# hook_add = '''
-# autocmd VGroup FocusGained,CursorHold * call timer_start(500, {-> sy#util#refresh_windows()}, {'repeat': 0})
-'''
 
 [[plugins]]
 repo = 'samoshkin/vim-mergetool'

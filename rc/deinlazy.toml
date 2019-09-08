@@ -49,13 +49,13 @@ let g:lightline = {
       \ }
 '''
 
-[[plugins]]
-repo = 'junegunn/fzf'
-merged = 0
+# [[plugins]]
+# repo = 'junegunn/fzf'
+# rtp = '~/.cache/dein/repos/github.com/junegunn/fzf'
+# merged = 0
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
-depends = ['junegunn/fzf']
 on_cmd = ['Files', 'Buffers']
 hook_add = '''
 nnoremap <c-p> :Files<cr>
@@ -210,7 +210,7 @@ let g:CoolTotalMatches = 1
 
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
-on_event =['BufReadPre']
+on_event = ['BufReadPre']
 
 [[plugins]]
 repo = 'tpope/vim-dispatch'
@@ -233,9 +233,9 @@ on_ft = 'qf'
 repo = 'hotwatermorning/auto-git-diff'
 on_ft = 'gitrebase'
 
-# [[plugins]]
-# repo = 'thinca/vim-localrc'
-# on_event = 'BufReadPre'
+[[plugins]]
+repo = 'thinca/vim-localrc'
+on_event = 'BufReadPre'
 
 [[plugins]]
 repo = 'alvan/vim-closetag'
@@ -299,6 +299,9 @@ on_event = 'CmdlineEnter'
 [[plugins]]
 repo = 'gabesoft/vim-ags'
 on_cmd = 'Ags'
+hook_add = '''
+let g:ags_winplace = 'right'
+'''
 
 [[plugins]]
 repo = 'wellle/targets.vim'
@@ -309,5 +312,6 @@ repo = 'junegunn/gv.vim'
 on_cmd = 'GV'
 
 [[plugins]]
-repo = 'markonm/hlyank'
+repo = 'markonm/hlyank.vim'
 on_event = ['BufReadPre']
+
