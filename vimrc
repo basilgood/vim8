@@ -3,7 +3,11 @@ scriptencoding utf-8
 
 let skip_defaults_vim=1
 
-augroup VGroup
+if &compatible
+  set nocompatible
+endif
+
+augroup AutoCmd
   autocmd!
   autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
         \ call vimrc#on_filetype()
@@ -11,7 +15,7 @@ augroup END
 
 if has('vim_starting')
   let g:startuptime = reltime()
-  autocmd VGroup VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
+  autocmd AutoCmd VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
   \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
 endif
 

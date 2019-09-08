@@ -38,3 +38,5 @@ let g:loaded_getscript          = 1
 let g:loaded_getscriptPlugin    = 1
 let g:loaded_logipat            = 1
 let g:loaded_man                = 1
+
+let g:LargeFile = 20*1024*1024 " 20MB

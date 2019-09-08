@@ -12,8 +12,8 @@ setlocal iskeyword+=-
 let b:ale_linters = ['eslint', 'tsserver']
 let b:ale_fixers = ['eslint']
 " let b:ale_fix_on_save = 1
-" autocmd VGroup *.js,.jsx call LanguageClient_textdocument_formatting()
-" autocmd VGroup BufWrite * call LanguageClient_textDocument_formatting()
+" autocmd AutoCmd *.js,.jsx call LanguageClient_textdocument_formatting()
+" autocmd AutoCmd BufWrite * call LanguageClient_textDocument_formatting()
 let b:ale_javascript_eslint_options = '--ignore-pattern ''!.eslintrc.js'''
 setlocal completeopt=menu,menuone,preview,noselect,noinsert
 let b:formatters_javascript = ['prettier']

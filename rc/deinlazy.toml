@@ -19,7 +19,7 @@ function! InNetrw() abort
   nmap <buffer> qt .terminal ++close touch
 endfunction
 
-autocmd VGroup FileType netrw call InNetrw()
+autocmd AutoCmd FileType netrw call InNetrw()
 '''
 
 [[plugins]]
@@ -185,7 +185,7 @@ call submode#map('scroll-h', 'n', '', 'H', 'zH')
 repo = 'zhimsel/vim-stay'
 on_event = ['BufReadPre']
 hook_source = '''
-autocmd VGroup BufNewFile,BufRead */.git/addp-hunk-edit.diff let b:stay_ignore = 1
+autocmd AutoCmd BufNewFile,BufRead */.git/addp-hunk-edit.diff let b:stay_ignore = 1
 '''
 
 [[plugins]]
@@ -222,7 +222,7 @@ function! InFugitive() abort
   nmap <buffer> zp :<c-u>Dispatch! git push<CR>
   nmap <buffer> zf :<c-u>Dispatch! git push -f<CR>
 endfunction
-autocmd VGroup FileType fugitive call InFugitive()
+autocmd AutoCmd FileType fugitive call InFugitive()
 '''
 
 [[plugins]]

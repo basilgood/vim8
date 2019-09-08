@@ -21,6 +21,9 @@ hook_add = '''
 [[plugins]]
 repo = 'mhinz/vim-signify'
 on_path = '.*'
+hook_add = '''
+autocmd AutoCmd FocusGained,FocusLost,CursorHold * SignifyRefresh
+'''
 
 [[plugins]]
 repo = 'samoshkin/vim-mergetool'
