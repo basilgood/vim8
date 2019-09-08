@@ -29,6 +29,7 @@ call options#options()
 call unix#unix()
 call mappings#map()
 call commands#commands()
+call autocmds#autocmds()
 call diff#diff()
 
 call s:source_rc('dein_rc.vim')
@@ -44,6 +45,8 @@ if !has('vim_starting')
   syntax enable
   filetype plugin indent on
 endif
+
+let g:LargeFile = 20*1024*1024 " 20MB
 
 set background=dark
 colorscheme simple
