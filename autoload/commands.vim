@@ -12,6 +12,9 @@ command! -nargs=0 SS call sessions#load()
 command! -range GB echo join(systemlist("git blame -L <line1>,<line2> " . expand('%')), "\n")
 command! CmdHist call fzf#vim#command_history({'right': '40'})
 command! OpenChangedFiles :call functions#changedfiles()
+command! PackInstall call dein#install()
+command! PackCheck echo dein#check_clean()
+command! PackDelete call map(dein#check_clean(), "delete(v:val, 'rf')")
 
 function! commands#commands() abort
 endfunction

@@ -1,0 +1,59 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+hook_add = '''
+  nnoremap [fugitive]  <Nop>
+  nmap <space>g [fugitive]
+  nnoremap <silent> [fugitive]s :<C-u>Gstatus<CR>
+  nnoremap <silent> [fugitive]c :<C-u>Gcommit<CR>
+  nnoremap <silent> [fugitive]C :<C-u>Gcommit --amend<CR>
+  nnoremap <silent> [fugitive]a :<C-u>Dispatch! git add %<CR>
+  nnoremap <silent> [fugitive]r :<C-u>Dispatch! git reset %<CR>
+  nnoremap <silent> [fugitive]D :<C-u>Dispatch! git checkout -- %<CR>
+  nnoremap <silent> [fugitive]p :<C-u>Dispatch! git push<CR>
+  nnoremap <silent> [fugitive]P :<C-u>Dispatch! git push -f<CR>
+  nnoremap <silent> [fugitive]d :<C-u>Gvdiffsplit<CR>
+  nnoremap <silent> [fugitive]l :<C-u>GV --all<CR>
+'''
+
+[[plugins]]
+repo = 'mhinz/vim-signify'
+on_path = '.*'
+# hook_add = '''
+# autocmd VGroup FocusGained,CursorHold * call timer_start(500, {-> sy#util#refresh_windows()}, {'repeat': 0})
+'''
+
+[[plugins]]
+repo = 'samoshkin/vim-mergetool'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'elzr/vim-json'
+
+[[plugins]]
+repo = 'HerringtonDarkholme/yats.vim'
+
+[[plugins]]
+repo = 'lumiliet/vim-twig'
+
+[[plugins]]
+repo = 'lepture/vim-jinja'
+
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+
+[[plugins]]
+repo = 'MaxMEllon/vim-jsx-pretty'
+
+[[plugins]]
+repo = 'jonsmithers/vim-html-template-literals'
+
+[[plugins]]
+repo = 'tpope/vim-markdown'
+
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'

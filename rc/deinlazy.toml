@@ -1,0 +1,313 @@
+[[plugins]]
+repo = 'tpope/vim-vinegar'
+on_map = ['-']
+hook_add = '''
+let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted hidden'
+let g:netrw_sort_dotfiles_first = 1
+let g:netrw_altfile = 1
+let g:netrw_home = $CACHE
+'''
+
+hook_source= '''
+function! InNetrw() abort
+  nmap <buffer> <right> <cr>
+  nmap <buffer> <left> -
+  nmap <buffer> J j<cr>
+  nmap <buffer> K k<cr>
+  nmap <buffer> qq :bn<bar>bd#<cr>
+  nmap <buffer> qd .terminal ++close rm -rf
+  nmap <buffer> qt .terminal ++close touch
+endfunction
+
+autocmd VGroup FileType netrw call InNetrw()
+'''
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+on_event = ['BufReadPre']
+hook_add = '''
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox_material',
+      \ 'active': {
+      \   'left': [ ['mode', 'paste'],
+      \             ['fugitive', 'readonly', 'filename', 'modified'] ],
+      \   'right': [ [ 'lineinfo'],
+      \              [ 'filetype' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"\ue0a2":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"\uff0b":&modifiable?"":"-"}',
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ },
+      \ 'separator': { 'left': "\ue0b8", 'right': "\ue0be" },
+      \ 'subseparator': { 'left': "\ue0b9", 'right': "\ue0b9" }
+      \ }
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf'
+merged = 0
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = ['junegunn/fzf']
+on_cmd = ['Files', 'Buffers']
+hook_add = '''
+nnoremap <c-p> :Files<cr>
+nnoremap <bs> :Buffers<cr>
+
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+let g:fzf_layout = { 'down': '~35%' }
+let g:fzf_action = {
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit',
+      \ 'ctrl-w': 'bdelete'}
+let g:fzf_colors =
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
+'''
+
+[[plugins]]
+repo = 'w0rp/ale'
+on_event = ['BufReadPre']
+hook_add = '''
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_set_highlights = 0
+let g:ale_warn_about_trailing_whitespace = 0
+let g:ale_maximum_file_size = 1024 * 1024
+let g:ale_completion_enabled = 1
+let g:ale_set_balloons = 1
+let g:ale_sign_warning = '_w'
+let g:ale_sign_error = '_e'
+let g:ale_sign_info = 'ℹ'
+let g:ale_echo_msg_error_str='(e)'
+let g:ale_echo_msg_info_str='(i)'
+let g:ale_echo_msg_warning_str='(w)'
+let g:ale_echo_msg_format = '%linter%: %s %severity%'
+let g:ale_pattern_options_enabled = 1
+let g:ale_pattern_options = {
+      \   '\.min\.(js\|css)$': {
+      \       'ale_linters': [],
+      \       'ale_fixers': []
+      \   },
+      \   'jquery.*': {
+      \       'ale_linters': [],
+      \       'ale_fixers': []
+      \   },
+      \   'node_modules/.*': {
+      \       'ale_linters': [],
+      \       'ale_fixers': []
+      \   },
+      \   'package.json': {
+      \       'ale_fixers': []
+      \   },
+      \}
+nmap ]a <Plug>(ale_next_wrap)
+nmap [a <Plug>(ale_previous_wrap)
+'''
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+on_map = {nv = '<Plug>'}
+on_map = ['gc', 'g<', 'g>', '<C-_>', '<Leader>_']
+
+[[plugins]]
+repo = 'tpope/vim-repeat'
+on_map = ['.']
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+depends = ['vim-repeat']
+on_map = ['<Plug>C', '<Plug>D', '<Plug>Y', '<Plug>V']
+hook_add = '''
+    nmap ds  <Plug>Dsurround
+    nmap cs  <Plug>Csurround
+    nmap cS  <Plug>CSurround
+    nmap ys  <Plug>Ysurround
+    nmap yS  <Plug>YSurround
+    nmap yss <Plug>Yssurround
+    nmap ySs <Plug>YSsurround
+    nmap ySS <Plug>YSsurround
+    xmap S   <Plug>VSurround
+    xmap gS  <Plug>VgSurround
+'''
+
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+on_event = ['BufReadPre']
+hook_add = '''
+let g:EditorConfig_exclude_patterns = ['fugitive://.\*', 'scp://.\*']
+'''
+
+[[plugins]]
+repo = 'kana/vim-submode'
+on_map = ['<C-W>', 'zl', 'zh']
+hook_source = '''
+call submode#enter_with('resize', 'n', '', '<C-W>>', '<C-W>>')
+call submode#enter_with('resize', 'n', '', '<C-W><', '<C-W><')
+call submode#map('resize', 'n', '', '.', '<C-W>>')
+call submode#map('resize', 'n', '', ',', '<C-W><')
+call submode#enter_with('resize', 'n', '', '<C-W>-', '<C-W>-')
+call submode#enter_with('resize', 'n', '', '<C-W>+', '<C-W>+')
+call submode#map('resize', 'n', '', '-', '<C-W>-')
+call submode#map('resize', 'n', '', '=', '<C-W>+')
+call submode#leave_with('resize', 'n', '', '<Esc>')
+call submode#enter_with('scroll-h', 'n', '', 'zl', 'zl')
+call submode#enter_with('scroll-h', 'n', '', 'zh', 'zh')
+call submode#enter_with('scroll-h', 'n', '', 'zL', 'zL')
+call submode#enter_with('scroll-h', 'n', '', 'zH', 'zH')
+call submode#map('scroll-h', 'n', '', 'l', 'zl')
+call submode#map('scroll-h', 'n', '', 'h', 'zh')
+call submode#map('scroll-h', 'n', '', 'L', 'zL')
+call submode#map('scroll-h', 'n', '', 'H', 'zH')
+'''
+
+[[plugins]]
+repo = 'zhimsel/vim-stay'
+on_event = ['BufReadPre']
+hook_source = '''
+autocmd VGroup BufNewFile,BufRead */.git/addp-hunk-edit.diff let b:stay_ignore = 1
+'''
+
+[[plugins]]
+repo = 'LnL7/vim-nix'
+on_ft = 'nix'
+
+[[plugins]]
+repo = 'cskeeters/vim-smooth-scroll'
+on_map = ['zz', 'zb', 'zt', '<C-u>', '<C-d>', '<C-f>', '<C-b>']
+
+[[plugins]]
+repo = 'markonm/traces.vim'
+on_event = 'CmdlineEnter'
+
+[[plugins]]
+repo = 'romainl/vim-cool'
+on_map = ['n', 'N']
+on_event = 'CmdlineEnter'
+hook_add = '''
+let g:CoolTotalMatches = 1
+'''
+
+[[plugins]]
+repo = 'itchyny/vim-parenmatch'
+on_event =['BufReadPre']
+
+[[plugins]]
+repo = 'tpope/vim-dispatch'
+on_source = ['vim-fugitive']
+on_cmd = ['Dispatch', 'Dispatch!', 'Make']
+on_map = ['zp', 'zf', '`!']
+hook_source = '''
+function! InFugitive() abort
+  nmap <buffer> zp :<c-u>Dispatch! git push<CR>
+  nmap <buffer> zf :<c-u>Dispatch! git push -f<CR>
+endfunction
+autocmd VGroup FileType fugitive call InFugitive()
+'''
+
+[[plugins]]
+repo = 'stefandtw/quickfix-reflector.vim'
+on_ft = 'qf'
+
+[[plugins]]
+repo = 'hotwatermorning/auto-git-diff'
+on_ft = 'gitrebase'
+
+# [[plugins]]
+# repo = 'thinca/vim-localrc'
+# on_event = 'BufReadPre'
+
+[[plugins]]
+repo = 'alvan/vim-closetag'
+on_ft = ['html', 'xhtml', 'javascript', 'twig', 'jsx']
+hook_add = '''
+let g:closetag_emptyTags_caseSensitive = 1
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js,*.twig,*.html.twig'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js,*.twig,*.html.twig'
+let g:closetag_filetypes = 'html,xhtml,phtml,jsx,javascript,twig,html.twig'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript,twig,html.twig'
+'''
+
+[[plugins]]
+repo = 'mbbill/undotree'
+on_cmd = 'UndotreeToggle'
+hook_add = '''
+let g:undotree_WindowLayout = 4
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_ShortIndicators = 1
+nnoremap <silent> <Leader>u :<C-u>UndotreeToggle<CR>
+'''
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+on_map = '<Plug>(EasyAlign)'
+hook_add = '''
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+'''
+
+[[plugins]]
+repo = 'terryma/vim-expand-region'
+on_map = '<Plug>(expand'
+hook_add = '''
+nmap + <Plug>(expand_region_expand)
+vmap + <Plug>(expand_region_expand)
+vmap _ <Plug>(expand_region_shrink)
+nmap _ <Plug>(expand_region_shrink)
+
+let g:expand_region_text_objects = {
+      \ 'iw'  :0,
+      \ 'iW'  :0,
+      \ 'i"'  :0,
+      \ 'i''\' :0,
+      \ 'i]'  :1,
+      \ 'ib'  :1,
+      \ 'iB'  :1,
+      \ 'il'  :1,
+      \ 'ip'  :1,
+      \ 'ie'  :1,
+      \ 'a]'  :1,
+      \ 'ab'  :1,
+      \ 'aB'  :1,
+      \ }
+'''
+
+[[plugins]]
+repo = 'sgur/cmdline-completion'
+on_event = 'CmdlineEnter'
+
+[[plugins]]
+repo = 'gabesoft/vim-ags'
+on_cmd = 'Ags'
+
+[[plugins]]
+repo = 'wellle/targets.vim'
+on_event = 'BufReadPre'
+
+[[plugins]]
+repo = 'junegunn/gv.vim'
+on_cmd = 'GV'
+
+[[plugins]]
+repo = 'markonm/hlyank'
+on_event = ['BufReadPre']

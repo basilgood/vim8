@@ -27,7 +27,7 @@ nnoremap Y y$
 
 " prev and next buffer
 nnoremap ]b :bnext<cr>
-nnoremap [b :bprev<cr>
+ nnoremap [b :bprev<cr>
 
 " lists
 nnoremap ]l :lnext<cr>
@@ -73,7 +73,8 @@ vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 nnoremap <leader><leader> :set relativenumber!<cr>
 
 " git commands
-nnoremap <silent> <expr> <leader>dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
+nnoremap <silent> <expr> <leader>dt ":\<C-u>"."windo
+".(&diff?"diffoff":"diffthis")."\<CR>"
 
 " grep
 nnoremap gr :<C-u>Grep<Space>
@@ -134,5 +135,5 @@ nnoremap [Space]9 9<c-w>w
 nnoremap <C-w>t :tabedit %<cr>
 nnoremap <silent> <S-tab> :tabnext<CR>
 
-function! remap#map() abort
+function! mappings#map() abort
 endfunction
