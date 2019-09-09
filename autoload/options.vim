@@ -76,7 +76,6 @@ set diffopt+=context:3,indent-heuristic,algorithm:patience
 """" display
 set number
 set mouse=a
-set ttymouse=sgr
 set tabline=%!functions#tabline()
 set t_ut=
 set cursorline
