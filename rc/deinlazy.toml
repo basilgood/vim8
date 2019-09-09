@@ -202,7 +202,6 @@ on_event = 'CmdlineEnter'
 
 [[plugins]]
 repo = 'romainl/vim-cool'
-on_map = ['n', 'N']
 on_event = 'CmdlineEnter'
 hook_add = '''
 let g:CoolTotalMatches = 1

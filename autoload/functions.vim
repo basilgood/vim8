@@ -42,6 +42,23 @@ function! s:restore_eventignore() abort
   augroup! large_buffer
 endfunction
 
+"""" visual select
+function! functions#get_selected_text() abort
+  let tmp = @"
+  normal! gvy
+  normal! gv
+  let [tmp, @"] = [@", tmp]
+  return tmp
+endfunction
+
+function! functions#plain_text_pattern(s) abort
+  return substitute(substitute('\V'.escape(a:s, '\'), '\n', '\\n', 'g'), '\t', '\\t', 'g')
+endfunction
+
+function! functions#get_search_pat() abort
+  return functions#plain_text_pattern(functions#get_selected_text())
+endfunction
+
 """" highlight
 function! functions#hl() abort
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
