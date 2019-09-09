@@ -13,8 +13,8 @@ cnoremap <c-e> <End>
 inoremap <c-a> <Home>
 inoremap <c-e> <End>
 
-" windows
-nnoremap <silent> <Tab> :wincmd w<CR>
+" nnoremap <silent> <Tab> :wincmd w<cr>
+" nnoremap <silent> <Tab>q :tabclose<cr>
 
 " completion: enter select and close popup
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
@@ -133,7 +133,6 @@ nnoremap [Space]9 9<c-w>w
 
 " zoom
 nnoremap <C-w>t :tabedit %<cr>
-nnoremap <silent> <S-tab> :tabnext<CR>
 
 function! mappings#map() abort
 endfunction

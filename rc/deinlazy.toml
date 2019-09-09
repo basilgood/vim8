@@ -313,5 +313,18 @@ on_cmd = 'GV'
 
 [[plugins]]
 repo = 'markonm/hlyank.vim'
-on_event = ['BufReadPre']
+on_event = 'BufReadPre'
 
+[[plugins]]
+repo = 'tpope/vim-obsession'
+on_cmd = 'Obsession'
+hook_add = '''
+let g:sessiondir = $CACHE . '/sessions' . getcwd()
+if (filewritable(g:sessiondir) != 2)
+  call mkdir(g:sessiondir,'p')
+  redraw!
+endif
+let g:filename = g:sessiondir . '/session.vim'
+exec 'nnoremap [Space]s :Obsession '.g:filename. '<cr>'
+exec 'nnoremap [Space]r :source' .g:filename. '<cr>'
+'''
