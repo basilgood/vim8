@@ -210,6 +210,9 @@ let g:CoolTotalMatches = 1
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
 on_event = ['BufReadPre']
+hook_source = '''
+highlight ParenMatch guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
+'''
 
 [[plugins]]
 repo = 'tpope/vim-dispatch'
