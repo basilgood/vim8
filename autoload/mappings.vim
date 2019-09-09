@@ -16,6 +16,10 @@ inoremap <c-e> <End>
 " nnoremap <silent> <Tab> :wincmd w<cr>
 " nnoremap <silent> <Tab>q :tabclose<cr>
 
+" tab completion
+inoremap <expr> <tab> functions#inserttabwrapper()
+inoremap <s-tab> <c-p>
+
 " completion: enter select and close popup
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 

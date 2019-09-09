@@ -103,7 +103,7 @@ endfunction
 
 """" runner
 function! RedrawScreen(channel)
-    redraw!
+  redraw!
 endfunction
 
 function! functions#runner(cmd) abort
@@ -111,4 +111,13 @@ function! functions#runner(cmd) abort
   let x_cmd = a:cmd . x_file
   let job = job_start(['/bin/sh', '-c', x_cmd],
         \ {'close_cb': 'RedrawScreen'})
+endfunction
+
+function! functions#inserttabwrapper() abort
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~# '\k'
+    return "\<tab>"
+  else
+    return "\<c-n>"
+  endif
 endfunction
