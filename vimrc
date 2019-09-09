@@ -54,6 +54,6 @@ let g:LargeFile = 20*1024*1024 " 20MB
 
 set background=dark
 colorscheme simple
-highlight Comment    guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
+highlight Comment guifg=#5c6370 guibg=NONE gui=italic cterm=italic
 
 set secure
