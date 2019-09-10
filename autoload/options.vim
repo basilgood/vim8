@@ -52,8 +52,9 @@ set splitbelow
 set sessionoptions-=options
 set sessionoptions-=blank
 set sessionoptions-=help
-set sessionoptions-=curdir
-set sessionoptions+=sesdir,globals
+set sessionoptions-=terminal
+set sessionoptions+=globals
+set sessionoptions+=unix
 
 """" Insert completion
 set dictionary='$HOME/.vim/dict'

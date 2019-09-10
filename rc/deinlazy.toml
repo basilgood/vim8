@@ -37,8 +37,9 @@ execute 'source' fnameescape(expand('$HOME/.vim/rc/lightline.vim'))
 repo = 'junegunn/fzf.vim'
 on_cmd = ['Files', 'Buffers']
 hook_add = '''
-nnoremap <c-p> :Files<cr>
-nnoremap <bs> :Buffers<cr>
+nnoremap <c-p> :Files<CR>
+nnoremap <c-q> :Files <C-R>=expand('%:h')<CR><CR>
+nnoremap <bs> :Buffers<CR>
 '''
 hook_post_source = '''
 execute 'source' fnameescape(expand('$HOME/.vim/rc/fzf.vim'))
@@ -226,6 +227,10 @@ on_event = 'BufReadPre'
 [[plugins]]
 repo = 'junegunn/gv.vim'
 on_cmd = [ 'GV', 'GV!', 'GV?' ]
+
+[[plugins]]
+repo = 'gregsexton/gitv'
+on_cmd = [ 'Gitv', 'Gitv!' ]
 
 [[plugins]]
 repo = 'markonm/hlyank.vim'
