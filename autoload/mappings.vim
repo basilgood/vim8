@@ -103,34 +103,28 @@ nnoremap sp :'{,'}s/
 " substitute word under the cursor globally
 nnoremap sw :%s/\<<c-r><c-w>\>/
 
-" smart space mapping
-nmap <Space> [Space]
-nnoremap  [Space] <Nop>
-vmap <Space> [Space]
-vnoremap  [Space] <Nop>
-
 " yank to clipboard
-vnoremap [Space]y "+y
+vnoremap <space>y "+y
 
 " paste from clipboard
-nnoremap [Space]p :put+<cr>
-vnoremap [Space]p "+p
-nnoremap [Space]P :put!+<cr>
-vnoremap [Space]P "+P
+nnoremap <space>p :put+<cr>
+vnoremap <space>p "+p
+nnoremap <space>P :put!+<cr>
+vnoremap <space>P "+P
 
 " replace a word with clipboard
-nnoremap [Space]w viw"+p
+nnoremap <space>w viw"+p
 
 " switch buffers
-nnoremap [Space]1 1<c-w>w
-nnoremap [Space]2 2<c-w>w
-nnoremap [Space]3 3<c-w>w
-nnoremap [Space]4 4<c-w>w
-nnoremap [Space]5 5<c-w>w
-nnoremap [Space]6 6<c-w>w
-nnoremap [Space]7 7<c-w>w
-nnoremap [Space]8 8<c-w>w
-nnoremap [Space]9 9<c-w>w
+nnoremap <space>1 1<c-w>w
+nnoremap <space>2 2<c-w>w
+nnoremap <space>3 3<c-w>w
+nnoremap <space>4 4<c-w>w
+nnoremap <space>5 5<c-w>w
+nnoremap <space>6 6<c-w>w
+nnoremap <space>7 7<c-w>w
+nnoremap <space>8 8<c-w>w
+nnoremap <space>9 9<c-w>w
 
 " zoom
 nnoremap <C-w>t :tabedit %<cr>
@@ -140,7 +134,7 @@ nnoremap <silent> <Tab> :wincmd w<CR>
 nnoremap <silent><expr> gq winnr('$') != 1 ? ':<C-u>close<CR>' : ""
 
 " sessions
-nnoremap [Space]s :call sessions#load()<cr>
+nnoremap <space>s :call sessions#load()<cr>
 
 function! mappings#map() abort
 endfunction
