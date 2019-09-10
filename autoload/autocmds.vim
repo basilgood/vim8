@@ -59,7 +59,7 @@ autocmd AutoCmd BufNewFile,BufRead * call matchadd('SpecialKey', '\s\+')
 autocmd AutoCmd BufNewFile,BufRead * call matchadd('NonText', '\n\+')
 
 """" sessions
-" autocmd AutoCmd VimLeavePre * call functions#sessions_make()
+autocmd AutoCmd VimLeavePre * call sessions#make()
 
 """" qf and help keep widow full width
 autocmd AutoCmd FileType qf wincmd J

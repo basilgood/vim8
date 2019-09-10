@@ -69,16 +69,16 @@ repo = 'tpope/vim-surround'
 depends = ['vim-repeat']
 on_map = ['<Plug>C', '<Plug>D', '<Plug>Y', '<Plug>V']
 hook_add = '''
-    nmap ds  <Plug>Dsurround
-    nmap cs  <Plug>Csurround
-    nmap cS  <Plug>CSurround
-    nmap ys  <Plug>Ysurround
-    nmap yS  <Plug>YSurround
-    nmap yss <Plug>Yssurround
-    nmap ySs <Plug>YSsurround
-    nmap ySS <Plug>YSsurround
-    xmap S   <Plug>VSurround
-    xmap gS  <Plug>VgSurround
+nmap ds  <Plug>Dsurround
+nmap cs  <Plug>Csurround
+nmap cS  <Plug>CSurround
+nmap ys  <Plug>Ysurround
+nmap yS  <Plug>YSurround
+nmap yss <Plug>Yssurround
+nmap ySs <Plug>YSsurround
+nmap ySS <Plug>YSsurround
+xmap S   <Plug>VSurround
+xmap gS  <Plug>VgSurround
 '''
 
 [[plugins]]
@@ -225,22 +225,8 @@ on_event = 'BufReadPre'
 
 [[plugins]]
 repo = 'junegunn/gv.vim'
-on_cmd = 'GV'
+on_cmd = [ 'GV', 'GV!', 'GV?' ]
 
 [[plugins]]
 repo = 'markonm/hlyank.vim'
 on_event = 'BufReadPre'
-
-[[plugins]]
-repo = 'tpope/vim-obsession'
-on_cmd = 'Obsession'
-hook_add = '''
-let g:sessiondir = $CACHE . '/sessions' . getcwd()
-if (filewritable(g:sessiondir) != 2)
-  call mkdir(g:sessiondir,'p')
-  redraw!
-endif
-let g:filename = g:sessiondir . '/session.vim'
-exec 'nnoremap [Space]s :Obsession '.g:filename. '<cr>'
-exec 'nnoremap [Space]r :source' .g:filename. '<cr>'
-'''

@@ -138,5 +138,8 @@ nnoremap [Space]9 9<c-w>w
 " zoom
 nnoremap <C-w>t :tabedit %<cr>
 
+" sessions
+nnoremap [Space]s :call sessions#load()<cr>
+
 function! mappings#map() abort
 endfunction
