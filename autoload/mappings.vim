@@ -98,7 +98,7 @@ nnoremap sr :s/\<<C-r><C-w>\>/
 nnoremap sa :%s/\<<c-r><c-w>\>/<c-r><c-w>
 
 " substitute in paragraph
-nnoremap sp vip :s/
+nnoremap sp :'{,'}s/
 
 " substitute word under the cursor globally
 nnoremap sw :%s/\<<c-r><c-w>\>/
