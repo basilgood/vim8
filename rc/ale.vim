@@ -1,10 +1,7 @@
 scriptencoding utf-8
 
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
 let g:ale_set_highlights = 0
 let g:ale_warn_about_trailing_whitespace = 0
-let g:ale_maximum_file_size = 1024 * 1024
 let g:ale_completion_enabled = 1
 let g:ale_set_balloons = 1
 let g:ale_sign_warning = '_w'
