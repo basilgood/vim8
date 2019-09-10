@@ -13,9 +13,6 @@ cnoremap <c-e> <End>
 inoremap <c-a> <Home>
 inoremap <c-e> <End>
 
-" nnoremap <silent> <Tab> :wincmd w<cr>
-" nnoremap <silent> <Tab>q :tabclose<cr>
-
 " tab completion
 inoremap <expr> <tab> functions#inserttabwrapper()
 inoremap <s-tab> <c-p>
@@ -137,6 +134,10 @@ nnoremap [Space]9 9<c-w>w
 
 " zoom
 nnoremap <C-w>t :tabedit %<cr>
+
+" windows switch and close
+nnoremap <silent> <Tab> :wincmd w<CR>
+nnoremap <silent><expr> gq winnr('$') != 1 ? ':<C-u>close<CR>' : ""
 
 " sessions
 nnoremap [Space]s :call sessions#load()<cr>
