@@ -22,7 +22,7 @@ hook_add = '''
 repo = 'mhinz/vim-signify'
 on_path = '.*'
 hook_add = '''
-autocmd AutoCmd FocusGained,FocusLost,CursorHold * SignifyRefresh
+autocmd AutoCmd FocusGained,FocusLost,CursorHold * SignifyRefresh | SignifyEnable
 nnoremap <space>k :SignifyDiffPreview<cr>
 nnoremap <space>d :SignifyDiff<cr>
 '''
