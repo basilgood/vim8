@@ -17,6 +17,7 @@ autocmd AutoCmd BufReadPre,BufNewFile *.twig setlocal filetype=twig.html
 autocmd AutoCmd BufReadPre,BufNewFile *.coffee setlocal filetype=coffee
 autocmd AutoCmd BufReadPre,BufNewFile *.ts,*.tsx setlocal filetype=typescript
 autocmd AutoCmd BufReadPre,BufNewFile *.js,*.jsx set filetype=javascript
+autocmd AutoCmd BufReadPre,BufNewFile * setlocal ttymouse=sgr
 
 """" If a file is large, disable syntax highlighting, filetype etc
 autocmd AutoCmd BufReadPre *
