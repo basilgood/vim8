@@ -15,7 +15,7 @@ hook_add = '''
   nnoremap <silent> [fugitive]p :<C-u>Dispatch! git push<CR>
   nnoremap <silent> [fugitive]P :<C-u>Dispatch! git push -f<CR>
   nnoremap <silent> [fugitive]d :<C-u>Gvdiffsplit<CR>
-  nnoremap <silent> [fugitive]l :<C-u>GV --all<CR>
+  nnoremap <silent> [fugitive]l :<C-u>Gitv --all<CR>
 '''
 
 [[plugins]]

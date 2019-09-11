@@ -108,16 +108,16 @@ repo = 'LnL7/vim-nix'
 on_ft = 'nix'
 
 [[plugins]]
-repo = 'cskeeters/vim-smooth-scroll'
-on_map = ['zz', 'zb', 'zt', '<C-u>', '<C-d>', '<C-f>', '<C-b>']
-
-[[plugins]]
 repo = 'markonm/traces.vim'
 on_event = 'CmdlineEnter'
 
 [[plugins]]
+repo = 'cskeeters/vim-smooth-scroll'
+on_map = ['zz', 'zb', 'zt', '<C-u>', '<C-d>', '<C-f>', '<C-b>']
+
+[[plugins]]
 repo = 'romainl/vim-cool'
-on_event = 'CmdlineEnter'
+on_map = ['n', 'N']
 hook_add = '''
 let g:CoolTotalMatches = 1
 '''
@@ -126,7 +126,7 @@ let g:CoolTotalMatches = 1
 repo = 'itchyny/vim-parenmatch'
 on_event = ['BufReadPre']
 hook_source = '''
-highlight ParenMatch guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
+highlight ParenMatch guifg=#85EB6A guibg=#135B00 gui=NONE cterm=NONE term=reverse ctermbg=11
 '''
 
 [[plugins]]
@@ -225,12 +225,8 @@ repo = 'wellle/targets.vim'
 on_event = 'BufReadPre'
 
 [[plugins]]
-repo = 'junegunn/gv.vim'
-on_cmd = [ 'GV', 'GV!', 'GV?' ]
-
-[[plugins]]
 repo = 'gregsexton/gitv'
-on_cmd = [ 'Gitv', 'Gitv!' ]
+on_cmd = [ 'Gitv', 'Gitv!', 'gitv' ]
 
 [[plugins]]
 repo = 'markonm/hlyank.vim'

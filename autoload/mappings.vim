@@ -13,6 +13,8 @@ cnoremap <c-e> <End>
 inoremap <c-a> <Home>
 inoremap <c-e> <End>
 
+nnoremap <space>n :nohlsearch<cr>
+
 " tab completion
 inoremap <expr> <tab> functions#inserttabwrapper()
 inoremap <s-tab> <c-p>
