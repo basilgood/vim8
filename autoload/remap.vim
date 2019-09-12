@@ -13,11 +13,8 @@ cnoremap <c-e> <End>
 inoremap <c-a> <Home>
 inoremap <c-e> <End>
 
-nnoremap <space>n :nohlsearch<cr>
-
-" tab completion
-inoremap <expr> <tab> functions#inserttabwrapper()
-inoremap <s-tab> <c-p>
+" windows
+nnoremap <silent> <Tab> :wincmd w<CR>
 
 " completion: enter select and close popup
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
@@ -30,7 +27,7 @@ nnoremap Y y$
 
 " prev and next buffer
 nnoremap ]b :bnext<cr>
- nnoremap [b :bprev<cr>
+nnoremap [b :bprev<cr>
 
 " lists
 nnoremap ]l :lnext<cr>
@@ -66,8 +63,8 @@ vnoremap Q :norm Q<cr>
 
 " search and star search
 nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
-nnoremap cn :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
-nnoremap dn :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
+nnoremap c* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
+nnoremap d* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
 vnoremap n :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 vnoremap <s-n> :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
@@ -76,8 +73,7 @@ vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 nnoremap <leader><leader> :set relativenumber!<cr>
 
 " git commands
-nnoremap <silent> <expr> <leader>dt ":\<C-u>"."windo
-".(&diff?"diffoff":"diffthis")."\<CR>"
+nnoremap <silent> <expr> <leader>dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
 
 " grep
 nnoremap gr :<C-u>Grep<Space>
@@ -100,43 +96,43 @@ nnoremap sr :s/\<<C-r><C-w>\>/
 nnoremap sa :%s/\<<c-r><c-w>\>/<c-r><c-w>
 
 " substitute in paragraph
-nnoremap sp :'{,'}s/
+nnoremap sp vip :s/
 
 " substitute word under the cursor globally
 nnoremap sw :%s/\<<c-r><c-w>\>/
 
+" smart space mapping
+nmap <Space> [Space]
+nnoremap  [Space] <Nop>
+vmap <Space> [Space]
+vnoremap  [Space] <Nop>
+
 " yank to clipboard
-vnoremap <space>y "+y
+vnoremap [Space]y "+y
 
 " paste from clipboard
-nnoremap <space>p :put+<cr>
-vnoremap <space>p "+p
-nnoremap <space>P :put!+<cr>
-vnoremap <space>P "+P
+nnoremap [Space]p :put+<cr>
+vnoremap [Space]p "+p
+nnoremap [Space]P :put!+<cr>
+vnoremap [Space]P "+P
 
 " replace a word with clipboard
-nnoremap <space>w viw"+p
+nnoremap [Space]w viw"+p
 
 " switch buffers
-nnoremap <space>1 1<c-w>w
-nnoremap <space>2 2<c-w>w
-nnoremap <space>3 3<c-w>w
-nnoremap <space>4 4<c-w>w
-nnoremap <space>5 5<c-w>w
-nnoremap <space>6 6<c-w>w
-nnoremap <space>7 7<c-w>w
-nnoremap <space>8 8<c-w>w
-nnoremap <space>9 9<c-w>w
+nnoremap [Space]1 1<c-w>w
+nnoremap [Space]2 2<c-w>w
+nnoremap [Space]3 3<c-w>w
+nnoremap [Space]4 4<c-w>w
+nnoremap [Space]5 5<c-w>w
+nnoremap [Space]6 6<c-w>w
+nnoremap [Space]7 7<c-w>w
+nnoremap [Space]8 8<c-w>w
+nnoremap [Space]9 9<c-w>w
 
 " zoom
 nnoremap <C-w>t :tabedit %<cr>
+nnoremap <silent> <S-tab> :tabnext<CR>
 
-" windows switch and close
-nnoremap <silent> <Tab> :wincmd w<CR>
-nnoremap <silent><expr> gq winnr('$') != 1 ? ':<C-u>close<CR>' : ""
-
-" sessions
-nnoremap <space>s :call sessions#load()<cr>
-
-function! mappings#map() abort
+function! remap#map() abort
 endfunction

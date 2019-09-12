@@ -1,5 +1,6 @@
 scriptencoding utf-8
 
+Plugin 'itchyny/lightline.vim'
 let g:lightline = {
       \ 'colorscheme': 'gruvbox_material',
       \ 'active': {
@@ -21,3 +22,4 @@ let g:lightline = {
       \ 'separator': { 'left': "\ue0b8", 'right': "\ue0be" },
       \ 'subseparator': { 'left': "\ue0b9", 'right': "\ue0b9" }
       \ }
+call timer_start(300, {-> vivid#enable('lightline.vim')}, {'repeat': 0})

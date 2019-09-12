@@ -9,22 +9,12 @@ call functions#mkdir(&undodir)
 """" viewdir
 set viewdir=$CACHE/vim/view//
 
-"""" dein
-let s:dein_dir = finddir('dein.vim', '.;')
-if s:dein_dir !=# '' || &runtimepath !~# '/dein.vim'
-  if s:dein_dir ==# '' && &runtimepath !~# '/dein.vim'
-    let s:dein_dir = expand('$CACHE/dein')
-          \. '/repos/github.com/Shougo/dein.vim'
-    if !isdirectory(s:dein_dir)
-      execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
-    endif
-  endif
-  execute 'set runtimepath^=' . substitute(
-        \ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
+"""" vivid
+if empty(glob('~/.vim/pack/vivid/opt/Vivid.vim'))
+  silent !git clone https://github.com/axvr/vivid.vim ~/.vim/pack/vivid/opt/Vivid.vim
 endif
 
-"""" disable packpath
-set packpath=
+packadd Vivid.vim
 
 """" disable some vim pligins
 let g:loaded_matchparen         = 1

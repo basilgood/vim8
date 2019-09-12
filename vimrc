@@ -19,41 +19,24 @@ if has('vim_starting')
   \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
 endif
 
-function! s:source_rc(path, ...) abort
-  let abspath = resolve(expand('~/.vim/rc/' . a:path))
-  execute 'source' fnameescape(abspath)
-  return
-endfunction
+augroup VGroup
+  autocmd!
+augroup END
+
+runtime dirs.vim
+call options#options()
+call timer_start(300, {-> remap#map()}, {'repeat': 0})
+call unix#unix()
+call autocmds#autocmds()
+call timer_start(300, {-> commands#commands()}, {'repeat': 0})
 
 if has('vim_starting')
-  call s:source_rc('dirs.vim')
-endif
-
-call options#options()
-call unix#unix()
-call mappings#map()
-call commands#commands()
-call autocmds#autocmds()
-call diff#diff()
-
-call s:source_rc('dein_rc.vim')
-
-if has('vim_starting') && !empty(argv())
   call vimrc#on_filetype()
 endif
 
-if !has('vim_starting')
-  call dein#call_hook('source')
-  call dein#call_hook('post_source')
-
-  syntax enable
-  filetype plugin indent on
-endif
-
-let g:LargeFile = 20*1024*1024 " 20MB
-
 set background=dark
-colorscheme simple
-highlight Comment guifg=#5c6370 guibg=NONE gui=italic cterm=italic
+silent! colorscheme simple
+highlight ParenMatch guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
+highlight Comment    guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 
 set secure

@@ -8,8 +8,8 @@ let g:fzf_action = {
       \ 'ctrl-s': 'split',
       \ 'ctrl-v': 'vsplit',
       \ 'ctrl-w': 'bdelete'}
-let g:fzf_colors = {
-      \ 'fg':      ['fg', 'Normal'],
+let g:fzf_colors =
+      \ { 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
       \ 'hl':      ['fg', 'Comment'],
       \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
@@ -22,3 +22,6 @@ let g:fzf_colors = {
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
+
+function! fz_f#fzf() abort
+endfunction

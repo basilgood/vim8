@@ -1,21 +1,21 @@
 scriptencoding utf-8
 
-let g:session_dir = $CACHE.'/sessions'
-
 function! sessions#make() abort
-  let s = v:servername
-  if !isdirectory(g:session_dir)
-    call mkdir(g:session_dir, 'p')
+  let b:sessiondir = $CACHE . '/sessions' . getcwd()
+  if (filewritable(b:sessiondir) != 2)
+    call mkdir(b:sessiondir,'p')
+    redraw!
   endif
-  execute 'mksession! '.g:session_dir.'/'.s.'.session.vim'
-endfunc
+  let b:filename = b:sessiondir . '/session.vim'
+  exe 'mksession! ' . b:filename
+endfunction
 
 function! sessions#load() abort
-  if argc() == 0
-    let sn = v:servername
-    let file = g:session_dir.'/'.sn.'.session.vim'
-    if filereadable(file)
-      execute 'source '.file
-    endif
+  let b:sessiondir = $CACHE . '/sessions' . getcwd()
+  let b:sessionfile = b:sessiondir . '/session.vim'
+  if (filereadable(b:sessionfile))
+    exe 'source ' b:sessionfile
+  else
+    echo 'No session loaded.'
   endif
-endfunc
+endfunction

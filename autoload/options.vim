@@ -39,8 +39,8 @@ set display=lastline
 """" searching and patterns
 set incsearch
 set hlsearch|nohlsearch
-autocmd AutoCmd InsertLeave * :setlocal hlsearch
-autocmd AutoCmd InsertEnter * :setlocal nohlsearch
+autocmd VGroup InsertLeave * :setlocal hlsearch
+autocmd VGroup InsertEnter * :setlocal nohlsearch
 set gdefault
 
 """" windows, buffers
@@ -52,7 +52,7 @@ set splitbelow
 set sessionoptions-=options
 set sessionoptions-=blank
 set sessionoptions-=help
-set sessionoptions-=terminal
+set sessionoptions-=curdir
 set sessionoptions+=globals
 set sessionoptions+=unix
 
@@ -83,8 +83,8 @@ set t_ut=
 set cursorline
 set list
 let &g:listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:⦸'
-autocmd AutoCmd InsertEnter * set listchars-=trail:•
-autocmd AutoCmd InsertLeave * set listchars+=trail:•
+autocmd VGroup InsertEnter * set listchars-=trail:•
+autocmd VGroup InsertLeave * set listchars+=trail:•
 set termguicolors
 
 """" messages, info, status

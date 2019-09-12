@@ -42,23 +42,6 @@ function! s:restore_eventignore() abort
   augroup! large_buffer
 endfunction
 
-"""" visual select
-function! functions#get_selected_text() abort
-  let tmp = @"
-  normal! gvy
-  normal! gv
-  let [tmp, @"] = [@", tmp]
-  return tmp
-endfunction
-
-function! functions#plain_text_pattern(s) abort
-  return substitute(substitute('\V'.escape(a:s, '\'), '\n', '\\n', 'g'), '\t', '\\t', 'g')
-endfunction
-
-function! functions#get_search_pat() abort
-  return functions#plain_text_pattern(functions#get_selected_text())
-endfunction
-
 """" highlight
 function! functions#hl() abort
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
@@ -120,7 +103,7 @@ endfunction
 
 """" runner
 function! RedrawScreen(channel)
-  redraw!
+    redraw!
 endfunction
 
 function! functions#runner(cmd) abort
@@ -130,11 +113,12 @@ function! functions#runner(cmd) abort
         \ {'close_cb': 'RedrawScreen'})
 endfunction
 
-function! functions#inserttabwrapper() abort
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~# '\k'
-    return "\<tab>"
-  else
-    return "\<c-n>"
-  endif
+function! functions#innetrw() abort
+  nmap <buffer> <right> <cr>
+  nmap <buffer> <left> -
+  nmap <buffer> J j<cr>
+  nmap <buffer> K k<cr>
+  nmap <buffer> qq :bn<bar>bd#<cr>
+  nmap <buffer> qd .terminal ++close rm -rf
+  nmap <buffer> qt .terminal ++close touch
 endfunction
