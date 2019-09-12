@@ -133,6 +133,3 @@ nnoremap [Space]9 9<c-w>w
 " zoom
 nnoremap <C-w>t :tabedit %<cr>
 nnoremap <silent> <S-tab> :tabnext<CR>
-
-function! remap#map() abort
-endfunction

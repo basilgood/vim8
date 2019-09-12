@@ -70,6 +70,3 @@ autocmd vimRc VimLeavePre * call sessions#make()
 """" qf and help keep widow full width
 autocmd vimRc FileType qf wincmd J
 autocmd vimRc BufWinEnter * if &ft == 'help' | wincmd J | end
-
-function! autocmds#autocmds() abort
-endfunction

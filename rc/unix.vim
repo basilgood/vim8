@@ -38,6 +38,3 @@ if $TERM =~# '^\%(tmux\|screen\)'
   let &t_PS = "\033[200~"
   let &t_PE = "\033[201~"
 endif
-
-function! unix#unix() abort
-endfunction
