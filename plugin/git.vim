@@ -23,12 +23,12 @@ function! InFugitive() abort
   nmap <buffer> zf :<c-u>Dispatch! git push -f<CR>
 endfunction
 
-autocmd VGroup FileType fugitive call InFugitive()
+autocmd vimRc FileType fugitive call InFugitive()
 
 function! s:enable_git_plugins() abort
   if system('git rev-parse --is-inside-work-tree') =~# '\m\C^true'
     call vivid#enable('vim-fugitive', 'vim-signify', 'gv.vim', 'auto-git-diff)')
-    autocmd VGroup FocusGained,FocusLost,CursorHold * SignifyRefresh | SignifyEnable
+    autocmd vimRc FocusGained,FocusLost,CursorHold * SignifyRefresh | SignifyEnable
   endif
 endfunction
-autocmd! VGroup BufReadPre * call s:enable_git_plugins()
+autocmd! vimRc BufReadPre * call s:enable_git_plugins()

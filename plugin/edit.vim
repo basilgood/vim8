@@ -24,7 +24,7 @@ Plugin 'markonm/traces.vim'
 call timer_start(300, {-> vivid#enable('traces.vim')}, {'repeat': 0})
 
 Plugin 'sgur/cmdline-completion'
-autocmd VGroup CmdlineEnter * call vivid#enable('cmdline-completion')
+autocmd vimRc CmdlineEnter * call vivid#enable('cmdline-completion')
 
 Plugin 'markonm/hlyank.vim'
 call timer_start(300, {-> vivid#enable('hlyank.vim')}, {'repeat': 0})
@@ -42,7 +42,7 @@ xmap ga <Plug>(EasyAlign)
 Plugin 'embear/vim-localvimrc', { 'command': ['LocalVimRC'] }
 
 Plugin 'itchyny/vim-parenmatch'
-autocmd VGroup BufRead * call vivid#enable('vim-parenmatch')
+autocmd vimRc BufRead * call vivid#enable('vim-parenmatch')
 
 Plugin 'wellle/targets.vim'
 call timer_start(300, {-> vivid#enable('targets.vim')}, {'repeat': 0})

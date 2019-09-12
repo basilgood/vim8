@@ -7,21 +7,15 @@ if &compatible
   set nocompatible
 endif
 
-augroup AutoCmd
+augroup vimRc
   autocmd!
-  autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
-        \ call vimrc#on_filetype()
 augroup END
 
 if has('vim_starting')
   let g:startuptime = reltime()
-  autocmd AutoCmd VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
+  autocmd vimRc VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
   \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
 endif
-
-augroup VGroup
-  autocmd!
-augroup END
 
 runtime dirs.vim
 call options#options()

@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 Plugin 'w0rp/ale'
-autocmd VGroup BufReadPre * call vivid#enable('ale')
+autocmd vimRc BufReadPre * call vivid#enable('ale')
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_set_highlights = 0

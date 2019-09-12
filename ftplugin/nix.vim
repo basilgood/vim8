@@ -11,5 +11,5 @@ let b:ale_linters = ['nix']
 "       \   'nix': ['nixpkgs-fmt']
 "       \}
 
-autocmd AutoCmd FileType nix let b:dispatch = 'nixfmt %'
-autocmd AutoCmd BufWritePost *.nix :call functions#runner('nixfmt ')
+autocmd vimRc FileType nix let b:dispatch = 'nixfmt %'
+autocmd vimRc BufWritePost *.nix :call functions#runner('nixfmt ')
