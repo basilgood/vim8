@@ -18,10 +18,17 @@ nmap S ysiw
 nmap sl yss
 
 Plugin 'tomtom/tcomment_vim'
-call timer_start(300, {-> vivid#enable('tcomment_vim')}, {'repeat': 0})
+nmap gcc :call vivid#enable('tcomment_vim')<cr> <Plug>TComment_<c-_><c-_>
+vmap gc :call vivid#enable('tcomment_vim')<cr> <Plug>TComment_<c-_><c-_>
 
 Plugin 'markonm/traces.vim'
-call timer_start(300, {-> vivid#enable('traces.vim')}, {'repeat': 0})
+nnoremap ss :call vivid#enable('traces.vim')<cr>:%s/
+nnoremap sl :call vivid#enable('traces.vim')<cr>:s/
+nnoremap sr :call vivid#enable('traces.vim')<cr>:s/\<<C-r><C-w>\>/
+vnoremap s :call vivid#enable('traces.vim')<cr>:s/
+nnoremap sa :call vivid#enable('traces.vim')<cr>:%s/\<<c-r><c-w>\>/<c-r><c-w>
+nnoremap sp :call vivid#enable('traces.vim')<cr> vip :s/
+nnoremap sw :call vivid#enable('traces.vim')<cr>:%s/\<<cr><c-w>\>/
 
 Plugin 'sgur/cmdline-completion'
 autocmd vimRc CmdlineEnter * call vivid#enable('cmdline-completion')

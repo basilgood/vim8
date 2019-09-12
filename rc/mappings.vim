@@ -81,26 +81,6 @@ nnoremap gr :<C-u>Grep<Space>
 " commands history
 nnoremap <leader>] :CmdHist<cr>
 
-" s mapping
-" substitute
-nnoremap ss :%s/
-
-" substitute in visual mode
-vnoremap s :s/
-
-" substitute inline
-nnoremap sl :s/
-nnoremap sr :s/\<<C-r><C-w>\>/
-
-" append text
-nnoremap sa :%s/\<<c-r><c-w>\>/<c-r><c-w>
-
-" substitute in paragraph
-nnoremap sp vip :s/
-
-" substitute word under the cursor globally
-nnoremap sw :%s/\<<c-r><c-w>\>/
-
 " smart space mapping
 nmap <Space> [Space]
 nnoremap  [Space] <Nop>
