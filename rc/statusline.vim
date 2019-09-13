@@ -9,17 +9,21 @@ let g:lightline = {
       \   'right': [ [ 'lineinfo'],
       \              [ 'filetype' ] ]
       \ },
+      \ 'inactive': {
+      \   'left': [ ['filename'] ],
+      \   'right': [ [ ], [ ] ]
+      \ },
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"\ue0a2":""}',
       \   'modified': '%{&filetype=="help"?"":&modified?"\uff0b":&modifiable?"":"-"}',
-      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
+      \   'lineinfo': '%{col(".") . " " . line(".") . "/" . line("$")}'
       \ },
       \ 'component_visible_condition': {
       \   'readonly': '(&filetype!="help"&& &readonly)',
-      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \   'lineinfo': 'percentage'
       \ },
       \ 'separator': { 'left': "\ue0b8", 'right': "\ue0be" },
       \ 'subseparator': { 'left': "\ue0b9", 'right': "\ue0b9" }
       \ }
-call timer_start(300, {-> vivid#enable('lightline.vim')}, {'repeat': 0})
+call timer_start(50, {-> vivid#enable('lightline.vim')}, {'repeat': 0})
