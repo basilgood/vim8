@@ -25,7 +25,7 @@ Plugin 'markonm/traces.vim'
 nnoremap ss :call vivid#enable('traces.vim')<cr>:%s/
 nnoremap sl :call vivid#enable('traces.vim')<cr>:s/
 nnoremap sr :call vivid#enable('traces.vim')<cr>:s/\<<C-r><C-w>\>/
-vnoremap s :call vivid#enable('traces.vim')<cr>:s/
+vnoremap s :call vivid#enable('traces.vim')<cr>:'<,'>s/
 nnoremap sa :call vivid#enable('traces.vim')<cr>:%s/\<<c-r><c-w>\>/<c-r><c-w>
 nnoremap sp :call vivid#enable('traces.vim')<cr> vip :s/
 nnoremap sw :call vivid#enable('traces.vim')<cr>:%s/\<<cr><c-w>\>/
@@ -34,7 +34,7 @@ Plugin 'sgur/cmdline-completion'
 autocmd vimRc CmdlineEnter * call vivid#enable('cmdline-completion')
 
 Plugin 'markonm/hlyank.vim'
-call timer_start(300, {-> vivid#enable('hlyank.vim')}, {'repeat': 0})
+nnoremap y :call vivid#enable('hlyank.vim')<cr>y
 
 Plugin 'mbbill/undotree', { 'command': ['UndotreeToggle'] }
 let g:undotree_WindowLayout = 4
