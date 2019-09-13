@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 Plugin 'mhinz/vim-signify'
-Plugin 'junegunn/gv.vim'
+Plugin 'gregsexton/gitv'
 Plugin 'hotwatermorning/auto-git-diff'
 Plugin 'tpope/vim-fugitive'
 nnoremap [fugitive]  <Nop>
@@ -15,7 +15,7 @@ nnoremap <silent> [fugitive]D :<C-u>Dispatch! git checkout -- %<CR>
 nnoremap <silent> [fugitive]p :<C-u>Dispatch! git push<CR>
 nnoremap <silent> [fugitive]P :<C-u>Dispatch! git push -f<CR>
 nnoremap <silent> [fugitive]d :<C-u>Gvdiffsplit<CR>
-nnoremap <silent> [fugitive]l :<C-u>GV --all<CR>
+nnoremap <silent> [fugitive]l :<C-u>Gitv --all<CR>
 
 
 function! InFugitive() abort
@@ -27,7 +27,7 @@ autocmd vimRc FileType fugitive call InFugitive()
 
 function! s:enable_git_plugins() abort
   if system('git rev-parse --is-inside-work-tree') =~# '\m\C^true'
-    call vivid#enable('vim-fugitive', 'vim-signify', 'gv.vim', 'auto-git-diff)')
+    call vivid#enable('vim-fugitive', 'vim-signify', 'gitv', 'auto-git-diff)')
     autocmd vimRc FocusGained,FocusLost,CursorHold * SignifyRefresh | SignifyEnable
   endif
 endfunction
