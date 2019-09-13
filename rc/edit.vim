@@ -15,20 +15,19 @@ Plugin 'tpope/vim-surround'
 call timer_start(300, {-> vivid#enable('vim-surround')}, {'repeat': 0})
 let surround_indent=1
 nmap S ysiw
-nmap sl yss
-
-Plugin 'tomtom/tcomment_vim'
-nmap gcc :call vivid#enable('tcomment_vim')<cr> <Plug>TComment_<c-_><c-_>
-vmap gc :call vivid#enable('tcomment_vim')<cr> <Plug>TComment_<c-_><c-_>
 
 Plugin 'markonm/traces.vim'
 nnoremap ss :call vivid#enable('traces.vim')<cr>:%s/
 nnoremap sl :call vivid#enable('traces.vim')<cr>:s/
 nnoremap sr :call vivid#enable('traces.vim')<cr>:s/\<<C-r><C-w>\>/
-vnoremap s :call vivid#enable('traces.vim')<cr>:'<,'>s/
+vnoremap s  :call vivid#enable('traces.vim')<cr>:'<,'>s/
 nnoremap sa :call vivid#enable('traces.vim')<cr>:%s/\<<c-r><c-w>\>/<c-r><c-w>
 nnoremap sp :call vivid#enable('traces.vim')<cr> vip :s/
 nnoremap sw :call vivid#enable('traces.vim')<cr>:%s/\<<cr><c-w>\>/
+
+Plugin 'tomtom/tcomment_vim'
+nmap gcc :call vivid#enable('tcomment_vim')<cr> <Plug>TComment_<c-_><c-_>
+vmap gc :'<,'>call vivid#enable('tcomment_vim')<cr> <Plug>TComment_<c-_><c-_>
 
 Plugin 'sgur/cmdline-completion'
 autocmd vimRc CmdlineEnter * call vivid#enable('cmdline-completion')
@@ -37,14 +36,14 @@ Plugin 'markonm/hlyank.vim'
 nnoremap y :call vivid#enable('hlyank.vim')<cr>y
 
 Plugin 'mbbill/undotree', { 'command': ['UndotreeToggle'] }
-let g:undotree_WindowLayout = 4
+let g:undotree_WindowLayout       = 4
 let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_ShortIndicators = 1
+let g:undotree_ShortIndicators    = 1
 nnoremap <leader>u :UndotreeToggle<cr>
 
 Plugin 'junegunn/vim-easy-align'
-nmap ga :call vivid#enable('vim-easy-align')<cr> <bar> <Plug>(EasyAlign)
-xmap ga <Plug>(EasyAlign)
+nmap ga :call vivid#enable('vim-easy-align')<cr><Plug>(EasyAlign)
+xmap ga :call vivid#enable('vim-easy-align')<cr>:'<,'>EasyAlign<cr>
 
 Plugin 'embear/vim-localvimrc', { 'command': ['LocalVimRC'] }
 
