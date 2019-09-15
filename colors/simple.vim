@@ -63,6 +63,11 @@ highlight MoreMsg        guifg=#e3a84e guibg=NONE    guisp=NONE    gui=bold     
 highlight Question       guifg=#e78a4e guibg=NONE    guisp=NONE    gui=bold        cterm=bold
 highlight Exception      guifg=#A6E22E gui=bold
 
+highlight SpellBad       ctermbg=95 ctermfg=252 gui=undercurl guisp=#e27878
+highlight SpellCap       ctermbg=24 ctermfg=252 gui=undercurl guisp=#84a0c6
+highlight SpellLocal     ctermbg=23 ctermfg=252 gui=undercurl guisp=#89b8c2
+highlight SpellRare      ctermbg=97 ctermfg=252 gui=undercurl guisp=#a093c7
+
 highlight Visual         guifg=NONE    guibg=#405260 gui=NONE      cterm=NONE
 highlight VisualNOS      guifg=NONE    guibg=#4d6b67 gui=NONE      cterm=NONE
 
