@@ -445,6 +445,7 @@ Pac 'plasticboy/vim-markdown', {'type': 'opt', 'ft': 'markdown'}
 Pac 'kchmck/vim-coffee-script', {'type': 'opt', 'ft': 'coffee'}
 Pac 'elzr/vim-json', {'type': 'opt', 'ft': 'json'}
 Pac 'stephpy/vim-yaml', {'type': 'opt', 'ft': ['yml', 'yaml']}
+Pac 'kana/vim-submode', {'type': 'opt'}
 
 " Plugins commands. {{{1
 com! PackagerInstall call PackagerInit() | call packager#install()
@@ -606,6 +607,28 @@ let g:wildfire_objects = [ 'iw', 'il', "i'", "a'", 'i"', 'i)', 'a)', 'i]', 'a]',
 let g:wildfire_fuel_map = '+'
 let g:wildfire_water_map = '-'
 nmap <leader>s <Plug>(wildfire-quick-select)
+
+" submode {{{1
+function! SubMode()
+  call submode#enter_with('resize', 'n', '', '<C-W>>', '<C-W>>')
+  call submode#enter_with('resize', 'n', '', '<C-W><', '<C-W><')
+  call submode#map('resize', 'n', '', '.', '<C-W>>')
+  call submode#map('resize', 'n', '', ',', '<C-W><')
+  call submode#enter_with('resize', 'n', '', '<C-W>-', '<C-W>-')
+  call submode#enter_with('resize', 'n', '', '<C-W>+', '<C-W>+')
+  call submode#map('resize', 'n', '', '-', '<C-W>-')
+  call submode#map('resize', 'n', '', '=', '<C-W>+')
+  call submode#leave_with('resize', 'n', '', '<Esc>')
+  call submode#enter_with('scroll-h', 'n', '', 'zl', 'zl')
+  call submode#enter_with('scroll-h', 'n', '', 'zh', 'zh')
+  call submode#enter_with('scroll-h', 'n', '', 'zL', 'zL')
+  call submode#enter_with('scroll-h', 'n', '', 'zH', 'zH')
+  call submode#map('scroll-h', 'n', '', 'l', 'zl')
+  call submode#map('scroll-h', 'n', '', 'h', 'zh')
+  call submode#map('scroll-h', 'n', '', 'L', 'zL')
+  call submode#map('scroll-h', 'n', '', 'H', 'zH')
+endfunction
+autocmd vimRc BufReadPre * packadd vim-submode | call SubMode()
 
 " File types. {{{1
 augroup vimrc_filetype
