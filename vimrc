@@ -717,13 +717,15 @@ autocmd vimRc BufNewFile,BufRead * call matchadd('NonText', '\n\+')
 """" sessions
 autocmd vimRc VimLeavePre * call sessions#make()
 
+" diff {{{1
+call diff#diff()
+
 " Sytax enable. {{{1
 call vimrc#on_filetype()
 
 " Colorscheme. {{{1
 set background=dark
 silent! colorscheme simple
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 highlight ParenMatch guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
 highlight Comment    guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 
