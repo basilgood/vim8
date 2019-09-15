@@ -433,6 +433,7 @@ Pac 'itchyny/vim-parenmatch', { 'type': 'opt', 'lazy': 1 }
 Pac 'wellle/targets.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'delphinus/vim-auto-cursorline', { 'type': 'opt', 'lazy': 1 }
 Pac 'gcmt/wildfire.vim', { 'type': 'opt', 'lazy': 1 }
+Pac 'gabesoft/vim-ags', { 'type': 'opt', 'cmd': 'Ags' }
 Pac 'cskeeters/vim-smooth-scroll', { 'type': 'opt', 'lazy': 1 }
 Pac 'LnL7/vim-nix', {'type': 'opt', 'ft': 'nix'}
 Pac 'lumiliet/vim-twig', {'type': 'opt', 'ft': 'twig'}
@@ -629,6 +630,9 @@ function! SubMode()
   call submode#map('scroll-h', 'n', '', 'H', 'zH')
 endfunction
 autocmd vimRc BufReadPre * packadd vim-submode | call SubMode()
+
+" ags {{{1
+let g:ags_winplace = 'right'
 
 " File types. {{{1
 augroup vimrc_filetype
