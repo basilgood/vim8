@@ -56,7 +56,7 @@ if $TERM =~# '^\%(tmux\|screen\)'
   let &t_PE = "\033[201~"
 endif
 
-" Environment. {{{1
+" environment. {{{1
  let $CACHE=expand('$HOME/.cache/')
  let $CACHE_HOME = expand('$CACHE/vim')
  let $VIM_PATH = expand('~/.vim')
@@ -72,7 +72,7 @@ call functions#mkdir(s:backup_dir)
 call functions#mkdir(s:directory)
 call functions#mkdir(s:view_dir)
 
-" Disable some vim plugins. {{{1
+" disable some vim plugins. {{{1
 let g:loaded_matchparen         = 1
 let g:loaded_rrhelper           = 1
 let g:did_install_default_menus = 1
@@ -88,8 +88,8 @@ let g:loaded_man                = 1
 " large file {{{1
 let g:LargeFile = 20*1024*1024 " 20MB
 
-" Options. {{{1
-"""" time out on key codes but not mappings.
+" options. {{{1
+"""" terminal vim
 set notimeout
 set ttimeout
 set ttimeoutlen=10
@@ -215,7 +215,7 @@ set wildcharm=<C-Z>
 """" update time
 set updatetime=500
 
-" Mapping. {{{1
+" mapping. {{{1
 nnoremap j gj
 nnoremap k gk
 vnoremap > >gv
@@ -335,7 +335,7 @@ nnoremap <silent> <S-tab> :tabnext<CR>
 inoremap <expr> <tab> functions#inserttabwrapper()
 inoremap <s-tab> <c-p>
 
-" Use packager: yukimemi. {{{1
+" use packager: yukimemi. {{{1
 set packpath^=$CACHE_HOME
 let s:packager_dir = $CACHE_HOME . '/pack/packager/opt/vim-packager'
 let s:packager_download = 0
@@ -394,7 +394,7 @@ endfunction
 
 com! -nargs=+ Pac call <SID>packager_add(<args>)
 
-" Load lazy plugins. {{{1
+" load lazy plugins. {{{1
 let s:idx = 0
 function! PackAddHandler(timer)
   exe 'packadd ' . s:lazy_plugs[s:idx]
@@ -439,6 +439,8 @@ Pac 'delphinus/vim-auto-cursorline', { 'type': 'opt', 'lazy': 1 }
 Pac 'gcmt/wildfire.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'gabesoft/vim-ags', { 'type': 'opt', 'cmd': 'Ags' }
 Pac 'cskeeters/vim-smooth-scroll', { 'type': 'opt', 'lazy': 1 }
+Pac 'stefandtw/quickfix-reflector.vim', { 'type': 'opt', 'lazy': 1 }
+Pac 'kana/vim-submode', {'type': 'opt'}
 Pac 'LnL7/vim-nix', {'type': 'opt', 'ft': 'nix'}
 Pac 'lumiliet/vim-twig', {'type': 'opt', 'ft': 'twig'}
 Pac 'lepture/vim-jinja', {'type': 'opt', 'ft': 'jinja2'}
@@ -450,9 +452,8 @@ Pac 'plasticboy/vim-markdown', {'type': 'opt', 'ft': 'markdown'}
 Pac 'kchmck/vim-coffee-script', {'type': 'opt', 'ft': 'coffee'}
 Pac 'elzr/vim-json', {'type': 'opt', 'ft': 'json'}
 Pac 'stephpy/vim-yaml', {'type': 'opt', 'ft': ['yml', 'yaml']}
-Pac 'kana/vim-submode', {'type': 'opt'}
 
-" Plugins commands. {{{1
+" plugins commands. {{{1
 com! PackagerInstall call PackagerInit() | call packager#install()
 com! PackagerUpdate call PackagerInit() | call packager#update()
 com! PackagerClean call PackagerInit() | call packager#clean()
@@ -638,7 +639,7 @@ autocmd vimRc BufReadPre * packadd vim-submode | call SubMode()
 " ags {{{1
 let g:ags_winplace = 'right'
 
-" File types. {{{1
+" file types. {{{1
 augroup vimrc_filetype
   autocmd!
   autocmd BufNewFile,BufRead *.gitignore  set filetype=gitignore
@@ -663,7 +664,7 @@ augroup vimrc_filetype
         \ | endif
 augroup END
 
-" Commands. {{{1
+" commands. {{{1
 command! -nargs=0 BO silent! execute "%bd|e#|bd#"
 command! Bd setlocal bufhidden=delete | bnext
 command! -range=% -nargs=0 Tab2Space execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
@@ -712,10 +713,6 @@ autocmd vimRc InsertLeave * if &l:diff | diffupdate | endif
 """" external changes
 autocmd vimRc FocusGained,CursorHold * if !bufexists("[Command Line]") | checktime | endif
 
-"""" cursorline
-autocmd vimRc InsertLeave,VimEnter,WinEnter * setlocal cursorline
-autocmd vimRc InsertEnter,WinLeave * setlocal nocursorline
-
 """" mkdir
 autocmd vimRc BufWritePre * call functions#mkdirifnotexist()
 
@@ -728,10 +725,10 @@ autocmd vimRc VimLeavePre * call sessions#make()
 " diff {{{1
 call diff#diff()
 
-" Sytax enable. {{{1
+" sytax enable. {{{1
 call vimrc#on_filetype()
 
-" Colorscheme. {{{1
+" colorscheme. {{{1
 set background=dark
 silent! colorscheme simple
 highlight ParenMatch guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
