@@ -122,3 +122,12 @@ function! functions#innetrw() abort
   nmap <buffer> qd .terminal ++close rm -rf
   nmap <buffer> qt .terminal ++close touch
 endfunction
+
+function! functions#inserttabwrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~# '\k'
+        return "\<tab>"
+    else
+        return "\<c-n>"
+    endif
+endfunction

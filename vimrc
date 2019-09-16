@@ -331,6 +331,10 @@ nnoremap <C-w>t :tabedit %<cr>
 nnoremap <C-w>z :tabclose<cr>
 nnoremap <silent> <S-tab> :tabnext<CR>
 
+" completion
+inoremap <expr> <tab> functions#inserttabwrapper()
+inoremap <s-tab> <c-p>
+
 " Use packager: yukimemi. {{{1
 set packpath^=$CACHE_HOME
 let s:packager_dir = $CACHE_HOME . '/pack/packager/opt/vim-packager'
