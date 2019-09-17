@@ -229,6 +229,9 @@ cnoremap <c-e> <End>
 inoremap <c-a> <Home>
 inoremap <c-e> <End>
 
+" Insert escaped '/' while inputting a search pattern
+cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
+
 " windows
 nnoremap <silent> <Tab> :wincmd w<CR>
 
