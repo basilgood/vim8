@@ -96,7 +96,7 @@ set ttimeoutlen=10
 set lazyredraw
 
 """" viminfo
-set viminfo=!,'300,<50,s10,h
+set viminfo=!,'300,<50,s10,h,n$CACHE_HOME/.viminfo
 
 """" path
 set path=.,**
