@@ -412,6 +412,7 @@ aug END
 
 " start. {{{1
 Pac 'zhimsel/vim-stay'
+Pac 'LnL7/vim-nix'
 
 " opt. {{{1
 Pac 'kristijanhusak/vim-packager', { 'type': 'opt' }
@@ -444,7 +445,6 @@ Pac 'gabesoft/vim-ags', { 'type': 'opt', 'cmd': 'Ags' }
 Pac 'cskeeters/vim-smooth-scroll', { 'type': 'opt', 'lazy': 1 }
 Pac 'stefandtw/quickfix-reflector.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'kana/vim-submode', {'type': 'opt'}
-Pac 'LnL7/vim-nix', {'type': 'opt', 'ft': 'nix'}
 Pac 'lumiliet/vim-twig', {'type': 'opt', 'ft': 'twig'}
 Pac 'lepture/vim-jinja', {'type': 'opt', 'ft': 'jinja2'}
 Pac 'jelera/vim-javascript-syntax', {'type': 'opt', 'ft': ['javascript', 'javascript.jsx']}
@@ -645,14 +645,14 @@ let g:ags_winplace = 'right'
 " file types. {{{1
 augroup vimrc_filetype
   autocmd!
-  autocmd BufNewFile,BufRead *.gitignore  set filetype=gitignore
-  autocmd BufNewFile,BufRead *.vim set filetype=vim
-  autocmd BufNewFile,BufRead *.nix set filetype=nix
-  autocmd BufNewFile,BufRead *.html set filetype=html
-  autocmd BufNewFile,BufRead *.yamllint set filetype=yaml
-  autocmd BufNewFile,BufRead *.yml set filetype=yaml
-  autocmd BufNewFile,BufRead *.vifm,vifmrc set filetype=vim
-  autocmd BufRead,BufNewFile *.md,.markdown packadd vim-markdown
+  autocmd BufNewFile,BufReadPost *.gitignore  set filetype=gitignore
+  autocmd BufNewFile,BufReadPost *.vim set filetype=vim
+  autocmd BufNewFile,BufReadPost *.nix set filetype=nix
+  autocmd BufNewFile,BufReadPost *.html set filetype=html
+  autocmd BufNewFile,BufReadPost *.yamllint set filetype=yaml
+  autocmd BufNewFile,BufReadPost *.yml set filetype=yaml
+  autocmd BufNewFile,BufReadPost *.vifm,vifmrc set filetype=vim
+  autocmd BufNewFile,BufReadPost *.md,.markdown packadd vim-markdown
   let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh', 'nix']
   autocmd FileType gitcommit setlocal nocursorline spell spelllang=en
   autocmd FileType text      setlocal textwidth=0
