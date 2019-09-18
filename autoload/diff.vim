@@ -11,7 +11,7 @@ augroup aug_diffs
 
   " Inspect whether some windows are in diff mode, and apply changes for such windows
   " Run asynchronously, to ensure '&diff' option is properly set by Vim
-  au WinEnter,BufEnter * call timer_start(50, 'CheckDiffMode')
+  au WinEnter,BufEnter * if !bufexists("[Command Line]") | call timer_start(50, 'CheckDiffMode')
 
   " Highlight VCS conflict markers
   au VimEnter,WinEnter * if !exists('w:_vsc_conflict_marker_match') |
@@ -26,16 +26,18 @@ function! CheckDiffMode(timer) abort
   let curwin = winnr()
 
   " Check each window
-  for _win in range(1, winnr('$'))
-    exe 'noautocmd ' . _win . 'wincmd w'
+  if !bufexists('[Command Line]')
+    for _win in range(1, winnr('$'))
+      exe 'noautocmd ' . _win . 'wincmd w'
 
-    call s:change_option_in_diffmode('b:', 'syntax', 'off')
-    call s:change_option_in_diffmode('w:', 'spell', 0, 1)
-    call s:change_option_in_diffmode('w:', 'cursorline', 1, 1)
-  endfor
+      call s:change_option_in_diffmode('b:', 'syntax', 'off')
+      call s:change_option_in_diffmode('w:', 'spell', 0, 1)
+      call s:change_option_in_diffmode('w:', 'cursorline', 1, 1)
+    endfor
 
-  " Get back to original window
-  exe 'noautocmd ' . curwin . 'wincmd w'
+    " Get back to original window
+    exe 'noautocmd ' . curwin . 'wincmd w'
+  endif
 endfunction
 
 " Detect window or buffer local option is in sync with diff mode
