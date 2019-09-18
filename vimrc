@@ -537,6 +537,7 @@ let g:lightline = {
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"\ue0a2":""}',
       \   'modified': '%{&filetype=="help"?"":&modified?"\uff0b":&modifiable?"":"-"}',
+      \   'filename': '%{FilenameForLightline()}',
       \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
       \   'lineinfo': '%{col(".") . " " . line(".") . "/" . line("$")}'
       \ },
@@ -547,6 +548,9 @@ let g:lightline = {
       \ 'separator': { 'left': "\ue0b8", 'right': "\ue0be" },
       \ 'subseparator': { 'left': "\ue0b9", 'right': "\ue0b9" }
       \ }
+function! FilenameForLightline()
+    return expand('%')
+endfunction
 
 " editorconfig. {{{1
 let g:editorconfig_root_chdir = 1
