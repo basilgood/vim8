@@ -114,13 +114,13 @@ function! functions#runner(cmd) abort
 endfunction
 
 function! functions#innetrw() abort
+  nnoremap <buffer> D <Nop>
   nmap <buffer> <right> <cr>
   nmap <buffer> <left> -
   nmap <buffer> J j<cr>
   nmap <buffer> K k<cr>
   nmap <buffer> qq :bn<bar>bd#<cr>
-  nmap <buffer> qd .terminal ++close rm -rf
-  nmap <buffer> qt .terminal ++close touch
+  nmap <buffer> D .terminal ++close rm -rf
 endfunction
 
 function! functions#inserttabwrapper()
@@ -130,4 +130,21 @@ function! functions#inserttabwrapper()
     else
         return "\<c-n>"
     endif
+endfunction
+
+"""" visual select
+function! functions#get_selected_text() abort
+  let tmp = @"
+  normal! gvy
+  normal! gv
+  let [tmp, @"] = [@", tmp]
+  return tmp
+endfunction
+
+function! functions#plain_text_pattern(s) abort
+  return substitute(substitute('\V'.escape(a:s, '\'), '\n', '\\n', 'g'), '\t', '\\t', 'g')
+endfunction
+
+function! functions#get_search_pat() abort
+  return functions#plain_text_pattern(functions#get_selected_text())
 endfunction

@@ -1,10 +1,18 @@
-scriptencoding utf-8
+" Filename: ftplugin/vim.vim
 
-setlocal expandtab
-setlocal tabstop=2
-setlocal shiftwidth=2
-setlocal softtabstop=2
-setlocal nospell
+let s:save_cpo = &cpo
+set cpo&vim
 
-setlocal formatoptions=croql
-setlocal comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",b:\\
+setlocal foldmethod=marker
+cnoremap <buffer><expr> <C-r><C-w> <SID>word()
+function! s:word()
+  let m = "\<C-r>\<C-w>"
+  let s = synIDattr(synID(line('.'), col('.'), 0), 'name')
+  return s ==# 'vimOption' ? "'".m."'" : s =~# 'vim\%(Command\|Map\>\|Let\|AugroupKey\|AutoCmd\>\|FTCmd\|NotFunc\)' ? ':'.m : s =~# 'vimFuncName' ? m.'()' : m
+endfunction
+if bufname('%') ==# '[Command Line]'
+  setlocal nowrap
+endif
+
+let &cpo = s:save_cpo
+unlet s:save_cpo

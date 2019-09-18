@@ -103,6 +103,8 @@ set path=.,**
 
 """" backup, swap, undo
 set undofile
+set nobackup
+set swapfile
 exe 'set undodir=' . s:undo_dir
 exe 'set backupdir=' . s:backup_dir
 exe 'set directory=' . s:directory
@@ -229,20 +231,11 @@ cnoremap <c-e> <End>
 inoremap <c-a> <Home>
 inoremap <c-e> <End>
 
-" Insert escaped '/' while inputting a search pattern
-cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
-
 " windows
 nnoremap <silent> <Tab> :wincmd w<CR>
 
 " completion: enter select and close popup
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
-
-" paste from register 0
-vnoremap . "0p
-
-" yank from cursor position to end of line
-nnoremap Y y$
 
 " prev and next buffer
 nnoremap ]b :bnext<cr>
@@ -288,8 +281,8 @@ vnoremap n :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 vnoremap <s-n> :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 
-" numbers
-nnoremap <leader><leader> :set relativenumber!<cr>
+" cmdwinenter
+nnoremap <leader><leader> q:
 
 " git commands
 nnoremap <silent> <expr> <leader>dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
@@ -306,6 +299,9 @@ nnoremap  [Space] <Nop>
 vmap <Space> [Space]
 vnoremap  [Space] <Nop>
 
+" yank from cursor position to end of line
+nnoremap Y y$
+
 " yank to clipboard
 vnoremap [Space]y "+y
 
@@ -314,6 +310,13 @@ nnoremap [Space]p :put+<cr>
 vnoremap [Space]p "+p
 nnoremap [Space]P :put!+<cr>
 vnoremap [Space]P "+P
+
+" Paste continuously.
+nnoremap [p "0p
+nnoremap ]p viw"0p
+vnoremap [p "0p
+vnoremap . "0p
+
 
 " replace a word with clipboard
 nnoremap [Space]w viw"+p
@@ -444,7 +447,10 @@ Pac 'gcmt/wildfire.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'gabesoft/vim-ags', { 'type': 'opt', 'cmd': 'Ags' }
 Pac 'cskeeters/vim-smooth-scroll', { 'type': 'opt', 'lazy': 1 }
 Pac 'stefandtw/quickfix-reflector.vim', { 'type': 'opt', 'lazy': 1 }
+Pac 'haya14busa/vim-edgemotion', { 'type': 'opt', 'lazy': 1 }
+Pac 'chrisbra/Recover.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'kana/vim-submode', {'type': 'opt'}
+Pac 'itchyny/vim-pdf', {'type': 'opt', 'ft': 'pdf'}
 Pac 'lumiliet/vim-twig', {'type': 'opt', 'ft': 'twig'}
 Pac 'lepture/vim-jinja', {'type': 'opt', 'ft': 'jinja2'}
 Pac 'jelera/vim-javascript-syntax', {'type': 'opt', 'ft': ['javascript', 'javascript.jsx']}
@@ -504,9 +510,10 @@ nmap ]a <Plug>(ale_next_wrap)
 nmap [a <Plug>(ale_previous_wrap)
 
 " vinegar. {{{1
-let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted hidden'
+let g:netrw_bufsettings         = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted hidden'
 let g:netrw_sort_dotfiles_first = 1
-let g:netrw_altfile = 1
+let g:netrw_altfile             = 1
+let g:netrw_dirhistmax          = 0
 autocmd vimRc FileType netrw call functions#innetrw()
 
 " fzf. {{{1
@@ -599,6 +606,8 @@ endfunction
 
 autocmd vimRc FileType fugitive call InFugitive()
 
+nnoremap [Space]v :SignifyDiffPreview<cr>
+
 function! s:enable_git_plugins() abort
   if system('git rev-parse --is-inside-work-tree') =~# '\m\C^true'
     packadd vim-fugitive
@@ -617,7 +626,7 @@ let g:wildfire_fuel_map = '+'
 let g:wildfire_water_map = '-'
 nmap <leader>s <Plug>(wildfire-quick-select)
 
-" submode {{{1
+" submode. {{{1
 function! SubMode()
   call submode#enter_with('resize', 'n', '', '<C-W>>', '<C-W>>')
   call submode#enter_with('resize', 'n', '', '<C-W><', '<C-W><')
@@ -639,27 +648,16 @@ function! SubMode()
 endfunction
 autocmd vimRc BufReadPre * packadd vim-submode | call SubMode()
 
-" ags {{{1
+" ags. {{{1
 let g:ags_winplace = 'right'
+
+" edge motion {{{1
+map <C-j> <Plug>(edgemotion-j)
+map <C-k> <Plug>(edgemotion-k)
 
 " file types. {{{1
 augroup vimrc_filetype
   autocmd!
-  autocmd BufNewFile,BufReadPost *.gitignore  set filetype=gitignore
-  autocmd BufNewFile,BufReadPost *.vim set filetype=vim
-  autocmd BufNewFile,BufReadPost *.nix set filetype=nix
-  autocmd BufNewFile,BufReadPost *.html set filetype=html
-  autocmd BufNewFile,BufReadPost *.yamllint set filetype=yaml
-  autocmd BufNewFile,BufReadPost *.yml set filetype=yaml
-  autocmd BufNewFile,BufReadPost *.vifm,vifmrc set filetype=vim
-  autocmd BufNewFile,BufReadPost *.md,.markdown packadd vim-markdown
-  let g:markdown_fenced_languages = ['html', 'vim', 'javascript', 'python', 'bash=sh', 'nix']
-  autocmd FileType gitcommit setlocal nocursorline spell spelllang=en
-  autocmd FileType text      setlocal textwidth=0
-  autocmd FileType vim       setlocal foldmethod=marker
-  autocmd BufWinEnter *.json setlocal conceallevel=0 concealcursor=
-  autocmd BufReadPre *.json setlocal conceallevel=0 concealcursor=
-  autocmd BufReadPre *.json setlocal formatoptions=a2tq
   autocmd BufWritePost * nested
         \ if &l:filetype ==# '' || exists('b:ftdetect')
         \ |   unlet! b:ftdetect
@@ -680,8 +678,10 @@ command! -nargs=0 SS call sessions#load()
 command! -range GB echo join(systemlist("git blame -L <line1>,<line2> " . expand('%')), "\n")
 command! CmdHist call fzf#vim#command_history({'right': '40'})
 command! OpenChangedFiles :call functions#changedfiles()
+command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_
+      \ | diffthis | wincmd p | diffthis
 
-" autocmds {{{1
+" autocmds. {{{1
 """" mouse fix in multiple splits
 autocmd vimRc BufRead,BufNewFile * setlocal ttymouse=sgr
 
@@ -692,16 +692,11 @@ autocmd vimRc BufReadPre *
       \   call functions#large_file(fnamemodify(expand("<afile>"), ":p")) |
       \ endif
 
-"""" manage swapfiles
-if exists('##CursorHold')
-  autocmd vimRc CursorHold,BufWritePost,BufReadPost,BufLeave *
-        \ if !$VIMSWAP && isdirectory(expand('<amatch>:h')) | let &swapfile = &modified | endif
-endif
-
 """" don't list location-list / quickfix windows
 autocmd vimRc BufReadPost quickfix setlocal nobuflisted
 autocmd vimRc BufReadPost quickfix nnoremap <buffer> gq :bd<CR>
 autocmd vimRc FileType help nnoremap <buffer> gq :bd<CR>
+autocmd vimRc CmdwinEnter * nnoremap <silent><buffer> gq :<C-u>quit<CR>
 
 """" qf and help keep widow full width
 autocmd vimRc FileType qf wincmd J
@@ -725,7 +720,7 @@ autocmd vimRc BufNewFile,BufRead * call matchadd('NonText', '\n\+')
 """" sessions
 autocmd vimRc VimLeavePre * call sessions#make()
 
-" diff {{{1
+" diff. {{{1
 call diff#diff()
 
 " sytax enable. {{{1
