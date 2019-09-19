@@ -452,7 +452,6 @@ Pac 'delphinus/vim-auto-cursorline', { 'type': 'opt', 'lazy': 1 }
 Pac 'gcmt/wildfire.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'gabesoft/vim-ags', { 'type': 'opt', 'cmd': 'Ags' }
 Pac 'Kazark/vim-SimpleSmoothScroll', { 'type': 'opt', 'lazy': 1 }
-" Pac 'joeytwiddle/sexy_scroller.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'stefandtw/quickfix-reflector.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'haya14busa/vim-edgemotion', { 'type': 'opt', 'lazy': 1 }
 Pac 'chrisbra/Recover.vim', { 'type': 'opt', 'lazy': 1 }
