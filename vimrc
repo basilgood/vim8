@@ -17,6 +17,8 @@ if has('vim_starting') && has('reltime')
 endif
 
 " unix {{{1
+set shell=/bin/sh
+
 if exists('$TMUX')
   let &t_ti.="\eP\e[1 q\e\\"
   let &t_SI.="\eP\e[5 q\e\\"
@@ -341,6 +343,9 @@ nnoremap <silent> <S-tab> :tabnext<CR>
 inoremap <expr> <tab> functions#inserttabwrapper()
 inoremap <s-tab> <c-p>
 
+" sessions
+nnoremap [Space]s :call sessions#load()<cr>
+
 " use packager: yukimemi. {{{1
 set packpath^=$CACHE_HOME
 let s:packager_dir = $CACHE_HOME . '/pack/packager/opt/vim-packager'
@@ -562,7 +567,6 @@ let g:editorconfig_blacklist  = {
 " surround. {{{1
 let surround_indent=1
 nmap S ysiw
-nmap sl yss
 
 " traces. {{{1
 nnoremap ss :%s/
@@ -571,7 +575,7 @@ nnoremap sr :s/\<<C-r><C-w>\>/
 vnoremap s  :'<,'>s/
 nnoremap sa :%s/\<<c-r><c-w>\>/<c-r><c-w>
 nnoremap sp vip :s/
-nnoremap sw :%s/\<<cr><c-w>\>/
+nnoremap sw :%s/\<<c-r><c-w>\>/
 
 " cmdline-completion. {{{1
 autocmd vimRc CmdlineEnter * packadd cmdline-completion
