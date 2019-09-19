@@ -458,6 +458,7 @@ Pac 'chrisbra/Recover.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'kana/vim-submode', {'type': 'opt'}
 Pac 'itchyny/vim-pdf', {'type': 'opt', 'ft': 'pdf'}
 Pac 'lumiliet/vim-twig', {'type': 'opt', 'ft': 'twig'}
+Pac 'alvan/vim-closetag', {'type': 'opt', 'lazy': 1}
 Pac 'lepture/vim-jinja', {'type': 'opt', 'ft': 'jinja2'}
 Pac 'jelera/vim-javascript-syntax', {'type': 'opt', 'ft': ['javascript', 'javascript.jsx']}
 Pac 'MaxMEllon/vim-jsx-pretty', {'type': 'opt', 'ft': ['javascript', 'javascript.jsx']}
@@ -688,6 +689,13 @@ let g:ags_winplace = 'right'
 " edge motion {{{1
 map <C-j> <Plug>(edgemotion-j)
 map <C-k> <Plug>(edgemotion-k)
+
+" closetag. {{{1
+let g:closetag_emptyTags_caseSensitive = 1
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js,*.twig,*.html.twig'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js,*.twig,*.html.twig'
+let g:closetag_filetypes = 'html,xhtml,phtml,jsx,javascript,twig,html.twig'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript,twig,html.twig'
 
 " file types. {{{1
 augroup vimrc_filetype
