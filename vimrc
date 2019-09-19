@@ -442,6 +442,7 @@ Pac 'markonm/traces.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'sgur/cmdline-completion', { 'type': 'opt' }
 Pac 'markonm/hlyank.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'qxxxb/vim-searchhi', { 'type': 'opt', 'lazy': 1 }
+Pac 'osyo-manga/vim-anzu', { 'type': 'opt', 'lazy': 1 }
 Pac 'thinca/vim-localrc', { 'type': 'opt', 'lazy': 1 }
 Pac 'mbbill/undotree', { 'type': 'opt', 'cmd': 'UndotreeToggle' }
 Pac 'junegunn/vim-easy-align', { 'type': 'opt', 'lazy': 1 }
@@ -450,7 +451,8 @@ Pac 'wellle/targets.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'delphinus/vim-auto-cursorline', { 'type': 'opt', 'lazy': 1 }
 Pac 'gcmt/wildfire.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'gabesoft/vim-ags', { 'type': 'opt', 'cmd': 'Ags' }
-Pac 'cskeeters/vim-smooth-scroll', { 'type': 'opt', 'lazy': 1 }
+Pac 'Kazark/vim-SimpleSmoothScroll', { 'type': 'opt', 'lazy': 1 }
+" Pac 'joeytwiddle/sexy_scroller.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'stefandtw/quickfix-reflector.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'haya14busa/vim-edgemotion', { 'type': 'opt', 'lazy': 1 }
 Pac 'chrisbra/Recover.vim', { 'type': 'opt', 'lazy': 1 }
@@ -531,7 +533,7 @@ let g:lightline = {
       \ 'colorscheme': 'gruvbox_material',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
-      \             ['fugitive', 'readonly', 'filename', 'modified'] ],
+      \             ['gitbranch', 'readonly', 'filename', 'modified'] ],
       \   'right': [ [ 'lineinfo'],
       \              [ 'filetype' ] ]
       \ },
@@ -542,9 +544,9 @@ let g:lightline = {
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"\ue0a2":""}',
       \   'modified': '%{&filetype=="help"?"":&modified?"\uff0b":&modifiable?"":"-"}',
-      \   'filename': '%{FilenameForLightline()}',
-      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
-      \   'lineinfo': '%{col(".") . " " . line(".") . "/" . line("$")}'
+      \   'filename': '%{LightLineFilename()}',
+      \   'gitbranch': '%{exists("*fugitive#head")?fugitive#head():""}',
+      \   'lineinfo': '%3c:%-2l/%L'
       \ },
       \ 'component_visible_condition': {
       \   'readonly': '(&filetype!="help"&& &readonly)',
@@ -553,8 +555,9 @@ let g:lightline = {
       \ 'separator': { 'left': "\ue0b8", 'right': "\ue0be" },
       \ 'subseparator': { 'left': "\ue0b9", 'right': "\ue0b9" }
       \ }
-function! FilenameForLightline()
-    return expand('%')
+
+function! LightLineFilename()
+  return ('' !=# expand('%') ? expand('%') : '[No Name]')
 endfunction
 
 " editorconfig. {{{1
@@ -591,11 +594,28 @@ nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 
 " searchhi. {{{1
-nmap n <Plug>(searchhi-n)zz
-nmap N <Plug>(searchhi-N)zz
+let g:searchhi_user_autocmds_enabled = 1
+let g:searchhi_redraw_before_on = 1
+let g:searchhi_clear_all_autocmds = 'InsertEnter'
+let g:searchhi_update_all_autocmds = 'InsertLeave'
 
-vmap n <Plug>(searchhi-v-n)zz
-vmap N <Plug>(searchhi-v-N)zz
+augroup searchhi
+  autocmd!
+  autocmd User SearchHiOn AnzuUpdateSearchStatusOutput
+  autocmd User SearchHiOff echo g:anzu_no_match_word
+augroup END
+
+nmap / <Plug>(searchhi-/)
+nmap ? <Plug>(searchhi-?)
+
+vmap / <Plug>(searchhi-v-/)
+vmap ? <Plug>(searchhi-v-?)
+
+nmap n zz<Plug>(searchhi-n)
+nmap N zz<Plug>(searchhi-N)
+
+vmap n zz<Plug>(searchhi-v-n)
+vmap N zz<Plug>(searchhi-v-N)
 
 nmap <silent> [Space]n <Plug>(searchhi-clear-all)
 vmap <silent> [Space]n <Plug>(searchhi-v-clear-all)
