@@ -436,7 +436,7 @@ Pac 'tomtom/tcomment_vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'markonm/traces.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'sgur/cmdline-completion', { 'type': 'opt' }
 Pac 'markonm/hlyank.vim', { 'type': 'opt', 'lazy': 1 }
-Pac 'romainl/vim-cool', { 'type': 'opt', 'lazy': 1 }
+Pac 'qxxxb/vim-searchhi', { 'type': 'opt', 'lazy': 1 }
 Pac 'thinca/vim-localrc', { 'type': 'opt', 'lazy': 1 }
 Pac 'mbbill/undotree', { 'type': 'opt', 'cmd': 'UndotreeToggle' }
 Pac 'junegunn/vim-easy-align', { 'type': 'opt', 'lazy': 1 }
@@ -586,8 +586,15 @@ nnoremap <leader>u :UndotreeToggle<cr>
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 
-" cool. {{{1
-let g:CoolTotalMatches = 1
+" searchhi. {{{1
+nmap n <Plug>(searchhi-n)zz
+nmap N <Plug>(searchhi-N)zz
+
+vmap n <Plug>(searchhi-v-n)zz
+vmap N <Plug>(searchhi-v-N)zz
+
+nmap <silent> [Space]n <Plug>(searchhi-clear-all)
+vmap <silent> [Space]n <Plug>(searchhi-v-clear-all)
 
 " git. {{{1
 nnoremap [fugitive]  <Nop>
