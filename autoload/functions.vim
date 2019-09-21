@@ -113,6 +113,7 @@ function! functions#runner(cmd) abort
         \ {'close_cb': 'RedrawScreen'})
 endfunction
 
+" netrw
 function! functions#innetrw() abort
   nnoremap <buffer> D <Nop>
   nmap <buffer> <right> <cr>
@@ -123,13 +124,14 @@ function! functions#innetrw() abort
   nmap <buffer> D .terminal ++close rm -rf
 endfunction
 
+" completion
 function! functions#inserttabwrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~# '\k'
-        return "\<tab>"
-    else
-        return "\<c-n>"
-    endif
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~# '\k'
+    return "\<tab>"
+  else
+    return "\<c-n>"
+  endif
 endfunction
 
 """" visual select
