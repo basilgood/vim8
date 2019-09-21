@@ -163,3 +163,11 @@ function! functions#hlnext() abort
           \ | autocmd! HLNext
   augroup END
 endfunction
+
+function! functions#nextwindow() abort
+  if winnr('$') == 1
+    silent! normal! ``z.
+  else
+    wincmd w
+  endif
+endfunction

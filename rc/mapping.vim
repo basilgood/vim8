@@ -14,7 +14,8 @@ inoremap <c-a> <Home>
 inoremap <c-e> <End>
 
 " windows
-nnoremap <silent> <Tab> :wincmd w<CR>
+" nnoremap <silent> <Tab> :wincmd w<CR>
+nnoremap <silent> <Tab> :call functions#nextwindow()<CR>
 
 " completion: enter select and close popup
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
@@ -56,12 +57,12 @@ nnoremap Q @q
 vnoremap Q :norm Q<cr>
 
 " search and star search
-nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
-nnoremap c* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
-nnoremap d* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
-vnoremap n :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
-vnoremap <s-n> :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
-vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
+" nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
+" nnoremap c* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
+" nnoremap d* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
+" vnoremap n :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
+" vnoremap <s-n> :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
+" vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 
 " cmdwinenter
 nnoremap <leader><leader> q:
@@ -93,8 +94,7 @@ vnoremap [Space]P "+P
 " Paste continuously.
 nnoremap [p "0p
 nnoremap ]p viw"0p
-vnoremap [p "0p
-vnoremap . "0p
+vnoremap P "0p
 
 " replace a word with clipboard
 nnoremap [Space]w viw"+p
@@ -119,8 +119,8 @@ nnoremap <silent> <S-tab> :tabnext<CR>
 nnoremap <silent> <expr> [Space]dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
 
 " completion
-inoremap <expr> <tab> functions#inserttabwrapper()
-inoremap <s-tab> <c-p>
+" inoremap <expr> <tab> functions#inserttabwrapper()
+" inoremap <s-tab> <c-p>
 
 " sessions
 nnoremap [Space]s :call sessions#load()<cr>

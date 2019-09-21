@@ -29,8 +29,8 @@ set display=lastline
 """" searching and patterns
 set incsearch
 set hlsearch|nohlsearch
-autocmd vimRc InsertLeave * :setlocal hlsearch
-autocmd vimRc InsertEnter * :setlocal nohlsearch
+" autocmd vimRc InsertLeave * :setlocal hlsearch
+" autocmd vimRc InsertEnter * :setlocal nohlsearch
 set gdefault
 
 """" windows, buffers

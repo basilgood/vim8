@@ -15,20 +15,13 @@ if has('vim_starting') && has('reltime')
         \ | echomsg 'startuptime: ' . reltimestr(s:startuptime)
 endif
 
-source $HOME/.vim/rc/unix.vim
+call unix#unix()
 source $HOME/.vim/rc/environment.vim
 source $HOME/.vim/rc/unload.vim
 source $HOME/.vim/rc/options.vim
 source $HOME/.vim/rc/mapping.vim
-source $HOME/.vim/rc/packager.vim
-source $HOME/.vim/rc/packages.vim
-source $HOME/.vim/rc/git.vim
-source $HOME/.vim/rc/navigation.vim
-source $HOME/.vim/rc/edit.vim
-source $HOME/.vim/rc/lint.vim
-source $HOME/.vim/rc/misc.vim
-source $HOME/.vim/rc/statusline.vim
-
+source $HOME/.vim/minpac.vim
+call statusline#statusline()
 call commands#commands()
 call autocmds#autocmds()
 call diff#diff()
