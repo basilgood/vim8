@@ -33,25 +33,10 @@ nnoremap <leader>u :UndotreeToggle<cr>
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 
-" searchhi.
-let g:searchhi_clear_all_autocmds = 'InsertEnter'
-let g:searchhi_update_all_autocmds = 'InsertLeave'
-let g:indexed_search_mappings = 0
-
-nmap / <Plug>(searchhi-/)
-nmap ? <Plug>(searchhi-?)
-
-vmap / <Plug>(searchhi-v-/)
-vmap ? <Plug>(searchhi-v-?)
-
-nmap n <Plug>(searchhi-n) :<C-u>ShowSearchIndex<CR> zz
-nmap N <Plug>(searchhi-N) :<C-u>ShowSearchIndex<CR> zz
-
-vmap n <Plug>(searchhi-v-n)
-vmap N <Plug>(searchhi-v-N)
-
-nmap <silent> [Space]n <Plug>(searchhi-clear-all)
-vmap <silent> [Space]n <Plug>(searchhi-v-clear-all)
+" hlnext
+nnoremap <silent> n nzz:call functions#hlnext()<cr>
+nnoremap <silent> N Nzz:call functions#hlnext()<cr>
+nnoremap <silent> [Space]n :nohlsearch<CR>
 
 " wildfire.
 let g:wildfire_objects = [ 'iw', 'il', "i'", "a'", 'i"', 'i)', 'a)', 'i]', 'a]', 'i}', 'a}', 'i<', 'a<', 'ip', 'it']

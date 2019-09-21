@@ -150,3 +150,16 @@ endfunction
 function! functions#get_search_pat() abort
   return functions#plain_text_pattern(functions#get_selected_text())
 endfunction
+
+function! functions#hlnext() abort
+  let l:higroup = matchend(getline('.'), '\c'.@/, col('.')-1) == col('.')
+        \ ? 'SpellRare' : 'IncSearch'
+  let b:cur_match = matchadd(l:higroup, '\c\%#'.@/, 101)
+  redraw
+  augroup HLNext
+    autocmd CursorMoved <buffer>
+          \   execute 'silent! call matchdelete('.b:cur_match.')'
+          \ | redraw
+          \ | autocmd! HLNext
+  augroup END
+endfunction
