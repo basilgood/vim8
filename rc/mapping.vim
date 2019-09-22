@@ -17,9 +17,6 @@ inoremap <c-e> <End>
 " nnoremap <silent> <Tab> :wincmd w<CR>
 nnoremap <silent> <Tab> :call functions#nextwindow()<CR>
 
-" completion: enter select and close popup
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
-
 " prev and next buffer
 nnoremap ]b :bnext<cr>
 nnoremap [b :bprev<cr>
@@ -119,8 +116,12 @@ nnoremap <silent> <S-tab> :tabnext<CR>
 nnoremap <silent> <expr> [Space]dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
 
 " completion
-" inoremap <expr> <tab> functions#inserttabwrapper()
-" inoremap <s-tab> <c-p>
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ functions#check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 
 " sessions
 nnoremap [Space]s :call sessions#load()<cr>

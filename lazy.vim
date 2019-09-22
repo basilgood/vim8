@@ -1,11 +1,12 @@
 
+Pac 'neoclide/coc.nvim', {'type': 'opt', 'lazy': 1, 'branch': 'release'}
 Pac 'tpope/vim-vinegar', { 'type': 'opt', 'lazy': 1 }
 Pac 'itchyny/lightline.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'sgur/vim-editorconfig', { 'type': 'opt', 'lazy': 1 }
 Pac 'tpope/vim-repeat', { 'type': 'opt', 'lazy': 1 }
 Pac 'tpope/vim-surround', { 'type': 'opt', 'lazy': 1 }
 Pac 'tpope/vim-dispatch', { 'type': 'opt', 'lazy': 1 }
-Pac 'tomtom/tcomment_vim', { 'type': 'opt', 'lazy': 1 }
+Pac 'tpope/vim-commentary', { 'type': 'opt', 'lazy': 1 }
 Pac 'markonm/traces.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'markonm/hlyank.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'thinca/vim-localrc', { 'type': 'opt', 'lazy': 1 }
@@ -18,3 +19,4 @@ Pac 'Kazark/vim-SimpleSmoothScroll', { 'type': 'opt', 'lazy': 1 }
 Pac 'stefandtw/quickfix-reflector.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'haya14busa/vim-edgemotion', { 'type': 'opt', 'lazy': 1 }
 Pac 'chrisbra/Recover.vim', { 'type': 'opt', 'lazy': 1 }
+Pac 'michaeljsmith/vim-indent-object', { 'type': 'opt', 'lazy': 1 }

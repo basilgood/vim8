@@ -1,0 +1,47 @@
+{
+  "suggest.autoTrigger": "always",
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.timeout": 500,
+  "suggest.noselect": true,
+  "suggest.minTriggerInputLength": 2,
+  "suggest.acceptSuggestionOnCommitCharacter": true,
+
+  // Require .prettierrc
+  "prettier.requireConfig": true,
+
+  // Tslint on save
+  "tslint.autoFixOnSave": true,
+  "tslint.configFile": "./tslint.json",
+
+  // Run prettier (and others)
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "markdown",
+    "Markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  // yaml
+  "yaml.format.enable": true,
+  "yaml.format.singleQuote": true,
+  "yaml.format.bracketSpacing": true,
+  "yaml.hover": true,
+  "yaml.completion": true,
+
+  // yank
+  "yank.enableCompletion": false,
+  // executable path for https://facebook.github.io/watchman/, detected from $PATH by default
+  // "coc.preferences.watchmanPath": "",
+  // enable diagnostic
+  "coc.preferences.diagnostic.enable": true,
+  "coc.preferences.diagnostic.signOffset": 1000,
+  "coc.preferences.diagnostic.errorSign": "_e",
+  "coc.preferences.diagnostic.warningSign": "_w",
+  "coc.preferences.diagnostic.infoSign": "_i",
+  "coc.preferences.diagnostic.hintSign": "_h"
+}
+
+// vim: ft=jsonc

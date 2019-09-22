@@ -151,6 +151,7 @@ function! functions#get_search_pat() abort
   return functions#plain_text_pattern(functions#get_selected_text())
 endfunction
 
+" search highlight
 function! functions#hlnext() abort
   let l:higroup = matchend(getline('.'), '\c'.@/, col('.')-1) == col('.')
         \ ? 'SpellRare' : 'IncSearch'
@@ -164,10 +165,17 @@ function! functions#hlnext() abort
   augroup END
 endfunction
 
+" windows
 function! functions#nextwindow() abort
   if winnr('$') == 1
     silent! normal! ``z.
   else
     wincmd w
   endif
+endfunction
+
+" tab completion
+function! functions#check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
 endfunction

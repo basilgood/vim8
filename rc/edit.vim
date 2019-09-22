@@ -48,12 +48,5 @@ nmap <leader>s <Plug>(wildfire-quick-select)
 map <C-j> <Plug>(edgemotion-j)
 map <C-k> <Plug>(edgemotion-k)
 
-" closetag.
-let g:closetag_emptyTags_caseSensitive = 1
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js,*.twig,*.html.twig'
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js,*.twig,*.html.twig'
-let g:closetag_filetypes = 'html,xhtml,phtml,jsx,javascript,twig,html.twig'
-let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript,twig,html.twig'
-
 " ags.
 let g:ags_winplace = 'right'

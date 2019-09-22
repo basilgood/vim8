@@ -87,7 +87,12 @@ source $VIM_PATH/opt.vim
 source $VIM_PATH/lazy.vim
 
 " Plugin settings. {{{1
-source $VIM_PATH/rc/plugin.vim
+source $VIM_PATH/rc/git.vim
+source $VIM_PATH/rc/navigation.vim
+source $VIM_PATH/rc/edit.vim
+source $VIM_PATH/rc/lint.vim
+source $VIM_PATH/rc/misc.vim
+source $VIM_PATH/rc/coc.vim
 
 " Define user commands for updating/cleaning the plugins. {{{1
 " Each of them loads minpac, reloads .vimrc to register the

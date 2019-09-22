@@ -83,6 +83,7 @@ set confirm
 set showcmd
 set noshowmode
 set shortmess+=Icm
+set signcolumn=yes
 set laststatus=2
 
 """" tabs/indent levels
@@ -113,4 +114,4 @@ set wildignore+=**/bower_components/**
 set wildcharm=<C-Z>
 
 """" update time
-set updatetime=500
+set updatetime=300

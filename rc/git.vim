@@ -26,11 +26,11 @@ nnoremap [Space]v :SignifyDiffPreview<cr>
 function! s:enable_git_plugins() abort
   if system('git rev-parse --is-inside-work-tree') =~# '\m\C^true'
     packadd vim-fugitive
-    packadd vim-signify
+    " packadd vim-signify
     packadd gitv
     packadd auto-git-diff
     packadd conflict3
-    autocmd vimRc FocusGained,FocusLost,CursorHold * if !bufexists("[Command Line]") | SignifyRefresh | SignifyEnable | endif
+    " autocmd vimRc FocusGained,FocusLost,CursorHold * if !bufexists("[Command Line]") | SignifyRefresh | SignifyEnable | endif
   endif
 endfunction
 autocmd! vimRc BufReadPre * call s:enable_git_plugins()
