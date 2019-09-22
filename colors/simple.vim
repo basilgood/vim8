@@ -117,7 +117,6 @@ hi DiffText              guifg=#FFB86C guibg=#14141a gui=NONE cterm=NONE
 
 highlight default link vimCmplxRepeat Normal
 
-highlight EndOfBuffer    guifg=#1d2021 guibg=#1d2021 guisp=NONE    gui=NONE        cterm=NONE
 highlight Terminal       guifg=#ebdbb2 guibg=#1d2021 gui=NONE      cterm=NONE
 highlight Conceal        guifg=#ebdbb2 guibg=NONE    gui=NONE      cterm=NONE
 highlight Title          guifg=#a9b665 guibg=NONE    guisp=NONE    gui=bold        cterm=bold
