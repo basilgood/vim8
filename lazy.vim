@@ -1,6 +1,7 @@
 
 Pac 'neoclide/coc.nvim', {'type': 'opt', 'lazy': 1, 'branch': 'release'}
 Pac 'tpope/vim-vinegar', { 'type': 'opt', 'lazy': 1 }
+Pac 'neomake/neomake', { 'type': 'opt', 'lazy': 1 }
 Pac 'itchyny/lightline.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'sgur/vim-editorconfig', { 'type': 'opt', 'lazy': 1 }
 Pac 'tpope/vim-repeat', { 'type': 'opt', 'lazy': 1 }

@@ -1,7 +1,6 @@
 
 Pac 'kristijanhusak/vim-packager', { 'type': 'opt' }
 Pac 'tpope/vim-fugitive', { 'type': 'opt' }
-" Pac 'mhinz/vim-signify', { 'type': 'opt' }
 Pac 'gregsexton/gitv', { 'type': 'opt', 'cmd': 'Gitv' }
 Pac 'hotwatermorning/auto-git-diff', { 'type': 'opt' }
 Pac 'Tiancheng-Luo/conflict3', { 'type': 'opt' }

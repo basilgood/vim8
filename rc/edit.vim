@@ -50,3 +50,33 @@ map <C-k> <Plug>(edgemotion-k)
 
 " ags.
 let g:ags_winplace = 'right'
+let g:neomake_highlight_columns = 0
+let g:neomake_error_sign = {
+      \ 'text': '_e',
+      \ 'texthl': 'ErrorMsg',
+      \ }
+let g:neomake_warning_sign = {
+      \ 'text': '_w',
+      \ 'texthl': 'WarningMsg',
+      \ }
+let g:neomake_message_sign = {
+      \ 'text': '➤',
+      \ 'texthl': 'NeomakeMessageSign',
+      \ }
+let g:neomake_info_sign = {
+      \ 'text': 'ℹ',
+      \ 'texthl': 'NeomakeInfoSign'
+      \ }
+" let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
+" let g:neomake_javascript_enabled_makers = ['eslint']
+" let g:neomake_nix_enabled_makers = ['nix']
+    augroup my_neomake
+        autocmd!
+        autocmd FileType nix call neomake#configure#automake('w')
+    augroup END
+" call neomake#configure#automake({
+"       \ 'TextChanged': {},
+"       \ 'InsertLeave': {},
+"       \ 'BufWritePost': {'delay': 0},
+"       \ 'BufWinEnter': {},
+"       \ }, 500)
