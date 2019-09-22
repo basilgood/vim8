@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 function! sessions#make() abort
-  let b:sessiondir = $CACHE . '/sessions' . getcwd()
+  let b:sessiondir = $CACHE_HOME . '/sessions' . getcwd()
   if (filewritable(b:sessiondir) != 2)
     call mkdir(b:sessiondir,'p')
     redraw!
@@ -11,7 +11,7 @@ function! sessions#make() abort
 endfunction
 
 function! sessions#load() abort
-  let b:sessiondir = $CACHE . '/sessions' . getcwd()
+  let b:sessiondir = $CACHE_HOME . '/sessions' . getcwd()
   let b:sessionfile = b:sessiondir . '/session.vim'
   if (filereadable(b:sessionfile))
     exe 'source ' b:sessionfile
