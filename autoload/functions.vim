@@ -174,6 +174,15 @@ function! functions#nextwindow() abort
   endif
 endfunction
 
+function! functions#previouswindowortab()
+  if winnr() > 1
+    wincmd W
+  else
+    tabprevious
+    execute winnr("$") . "wincmd w"
+  endif
+endfunction
+
 " tab completion
 function! functions#check_back_space() abort
   let col = col('.') - 1
