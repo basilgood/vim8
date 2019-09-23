@@ -16,6 +16,7 @@ inoremap <c-e> <End>
 " windows
 " nnoremap <silent> <Tab> :wincmd w<CR>
 nnoremap <silent> <Tab> :call functions#nextwindow()<CR>
+nnoremap <silent> <S-Tab> :call functions#previouswindowortab()<CR>
 
 " prev and next buffer
 nnoremap ]b :bnext<cr>
@@ -54,12 +55,10 @@ nnoremap Q @q
 vnoremap Q :norm Q<cr>
 
 " search and star search
-" nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
-" nnoremap c* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
-" nnoremap d* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
-" vnoremap n :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
-" vnoremap <s-n> :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
-" vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
+nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
+nnoremap cn :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
+nnoremap dn :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
+vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 
 " cmdwinenter
 nnoremap <leader><leader> q:
@@ -107,6 +106,17 @@ nnoremap [Space]6 6<c-w>w
 nnoremap [Space]7 7<c-w>w
 nnoremap [Space]8 8<c-w>w
 nnoremap [Space]9 9<c-w>w
+
+" substitute.
+nnoremap [Substitute]   <Nop>
+nmap   s [Substitute]
+xmap   s [Substitute]
+nnoremap [Substitute]s :%s/
+nnoremap [Substitute]l :s/
+xnoremap [Substitute]  :s/
+nnoremap [Substitute]a :%s/\<<c-r><c-w>\>/<c-r><c-w>
+nnoremap [Substitute]p vip :s/
+nnoremap [Substitute]w :%s/\<<c-r><c-w>\>/
 
 " zoom
 nnoremap <C-w>t :tabedit %<cr>

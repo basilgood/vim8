@@ -1,5 +1,6 @@
+scriptencoding utf-8
 
-Pac 'neoclide/coc.nvim', {'type': 'opt', 'lazy': 1, 'branch': 'release'}
+Pac 'neoclide/coc.nvim', {'type': 'opt', 'branch': 'release', 'lazy': 1}
 Pac 'tpope/vim-vinegar', { 'type': 'opt', 'lazy': 1 }
 Pac 'neomake/neomake', { 'type': 'opt', 'lazy': 1 }
 Pac 'itchyny/lightline.vim', { 'type': 'opt', 'lazy': 1 }
@@ -16,7 +17,6 @@ Pac 'itchyny/vim-parenmatch', { 'type': 'opt', 'lazy': 1 }
 Pac 'wellle/targets.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'delphinus/vim-auto-cursorline', { 'type': 'opt', 'lazy': 1 }
 Pac 'gcmt/wildfire.vim', { 'type': 'opt', 'lazy': 1 }
-Pac 'Kazark/vim-SimpleSmoothScroll', { 'type': 'opt', 'lazy': 1 }
 Pac 'stefandtw/quickfix-reflector.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'haya14busa/vim-edgemotion', { 'type': 'opt', 'lazy': 1 }
 Pac 'chrisbra/Recover.vim', { 'type': 'opt', 'lazy': 1 }

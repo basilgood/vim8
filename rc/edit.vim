@@ -11,15 +11,6 @@ let g:editorconfig_blacklist  = {
 let surround_indent=1
 nmap S ysiw
 
-" traces.
-nnoremap ss :%s/
-nnoremap sl :s/
-nnoremap sr :s/\<<C-r><C-w>\>/
-vnoremap s  :'<,'>s/
-nnoremap sa :%s/\<<c-r><c-w>\>/<c-r><c-w>
-nnoremap sp vip :s/
-nnoremap sw :%s/\<<c-r><c-w>\>/
-
 " cmdline-completion.
 autocmd vimRc CmdlineEnter * packadd cmdline-completion
 

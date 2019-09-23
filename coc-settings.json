@@ -58,18 +58,8 @@
   "git.addGlameToBufferVar": true,
   "git.addGlameToVirtualText": true,
   "git.virtualTextPrefix": " ❯❯❯ ",
-  "git.addedSign.hlGroup": "DiffAdd",
-  "git.changedSign.hlGroup": "DiffChange",
-  "git.removedSign.hlGroup": "DiffDelete",
-  "git.topRemovedSign.hlGroup": "DiffDelete",
-  "git.changeRemovedSign.hlGroup": "DiffDelete",
-  "git.addedSign.text":"▎",
-  "git.changedSign.text":"▎",
-  "git.removedSign.text":"▏",
-  "git.topRemovedSign.text": "▔",
-  "git.changeRemovedSign.text": "▋",
 
-  //emmet
+  // emmet
   "emmet.includeLanguages": {"vue-html": "html", "javascript": "javascriptreact", "twig": "html"}
 
 }

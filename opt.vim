@@ -9,7 +9,6 @@ Pac 'sgur/cmdline-completion', { 'type': 'opt' }
 Pac 'mbbill/undotree', { 'type': 'opt', 'cmd': 'UndotreeToggle' }
 Pac 'gabesoft/vim-ags', { 'type': 'opt', 'cmd': 'Ags' }
 Pac 'kana/vim-submode', {'type': 'opt'}
-Pac 'itchyny/vim-pdf', {'type': 'opt', 'ft': 'pdf'}
 Pac 'lumiliet/vim-twig', {'type': 'opt', 'ft': 'twig'}
 Pac 'lepture/vim-jinja', {'type': 'opt', 'ft': 'jinja2'}
 Pac 'jelera/vim-javascript-syntax', {'type': 'opt', 'ft': ['javascript', 'javascript.jsx']}
