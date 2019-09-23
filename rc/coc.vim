@@ -5,6 +5,7 @@ let g:coc_global_extensions = [
       \ 'coc-tsserver',
       \ 'coc-emmet',
       \ 'coc-css',
+      \ 'coc-stylelint',
       \ 'coc-html',
       \ 'coc-lit-html',
       \ 'coc-json',
@@ -46,6 +47,7 @@ augroup coc_group
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  autocmd User CocDiagnosticChange call lightline#update()
 augroup end
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)

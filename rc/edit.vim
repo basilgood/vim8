@@ -67,10 +67,5 @@ let g:neomake_info_sign = {
       \ 'text': 'ℹ',
       \ 'texthl': 'NeomakeInfoSign'
       \ }
-" let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
-" let g:neomake_javascript_enabled_makers = ['eslint']
-" let g:neomake_nix_enabled_makers = ['nix']
-augroup my_neomake
-  autocmd!
-  autocmd FileType nix call neomake#configure#automake('w')
-augroup END
+autocmd vimRc BufWritePost *.nix Neomake
+autocmd vimRc BufReadPost *.nix Neomake

@@ -4,7 +4,7 @@ let g:lightline = {
       \ 'colorscheme': 'gruvbox_material',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
-      \             ['gitbranch', 'readonly', 'filename', 'modified'] ],
+      \             ['gitbranch'], ['cocstatus', 'readonly', 'filename', 'modified'] ],
       \   'right': [ [ 'lineinfo'],
       \              [ 'filetype' ] ]
       \ },
@@ -17,6 +17,7 @@ let g:lightline = {
       \   'modified': '%{&filetype=="help"?"":&modified?"\uff0b":&modifiable?"":"-"}',
       \   'filename': '%{LightLineFilename()}',
       \   'gitbranch': '%{exists("*fugitive#head")?fugitive#head():""}',
+      \   'cocstatus': '%{LightLineCoc()}',
       \   'lineinfo': '%3c:%-2l/%L'
       \ },
       \ 'component_visible_condition': {
@@ -28,7 +29,14 @@ let g:lightline = {
       \ }
 
 function! LightLineFilename()
-  return ('' !=# expand('%') ? expand('%') : '[No Name]')
+  return ('' !=# expand('%') ? expand('%:t') : '[No Name]')
+endfunction
+
+function! LightLineCoc()
+    if empty(get(g:, 'coc_status', '')) && empty(get(b:, 'coc_diagnostic_info', {}))
+        return ''
+    endif
+    return trim(coc#status())
 endfunction
 
 function! statusline#statusline() abort
