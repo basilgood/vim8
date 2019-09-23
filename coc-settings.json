@@ -1,7 +1,7 @@
 {
   "suggest.autoTrigger": "always",
   "suggest.triggerAfterInsertEnter": true,
-  "suggest.timeout": 500,
+  "suggest.timeout": 1500,
   "suggest.noselect": true,
   "suggest.minTriggerInputLength": 2,
   "suggest.acceptSuggestionOnCommitCharacter": true,
@@ -31,17 +31,11 @@
   "yaml.hover": true,
   "yaml.completion": true,
 
-  // yank
-  "yank.enableCompletion": false,
-  // executable path for https://facebook.github.io/watchman/, detected from $PATH by default
-  // "coc.preferences.watchmanPath": "",
-  // enable diagnostic
-  "coc.preferences.diagnostic.enable": true,
-  "coc.preferences.diagnostic.signOffset": 1000,
-  "coc.preferences.diagnostic.errorSign": "_e",
-  "coc.preferences.diagnostic.warningSign": "_w",
-  "coc.preferences.diagnostic.infoSign": "_i",
-  "coc.preferences.diagnostic.hintSign": "_h"
+  // diagnostic
+  "diagnostic.errorSign": "_e",
+  "diagnostic.warningSign": "_w",
+  "diagnostic.infoSign": "_i",
+  "diagnostic.hintSign": "_h"
 }
 
 // vim: ft=jsonc

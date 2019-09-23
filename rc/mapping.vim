@@ -99,6 +99,7 @@ nnoremap [Space]w viw"+p
 " switch buffers
 nnoremap [Space]1 1<c-w>w
 nnoremap [Space]2 2<c-w>w
+
 nnoremap [Space]3 3<c-w>w
 nnoremap [Space]4 4<c-w>w
 nnoremap [Space]5 5<c-w>w
@@ -120,7 +121,7 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ functions#check_back_space() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 
 " sessions

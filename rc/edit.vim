@@ -70,13 +70,7 @@ let g:neomake_info_sign = {
 " let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
 " let g:neomake_javascript_enabled_makers = ['eslint']
 " let g:neomake_nix_enabled_makers = ['nix']
-    augroup my_neomake
-        autocmd!
-        autocmd FileType nix call neomake#configure#automake('w')
-    augroup END
-" call neomake#configure#automake({
-"       \ 'TextChanged': {},
-"       \ 'InsertLeave': {},
-"       \ 'BufWritePost': {'delay': 0},
-"       \ 'BufWinEnter': {},
-"       \ }, 500)
+augroup my_neomake
+  autocmd!
+  autocmd FileType nix call neomake#configure#automake('w')
+augroup END
