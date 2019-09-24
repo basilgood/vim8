@@ -21,3 +21,29 @@ function! SubMode()
   call submode#map('scroll-h', 'n', '', 'H', 'zH')
 endfunction
 autocmd vimRc BufReadPre * packadd vim-submode | call SubMode()
+
+" startify
+let g:startify_files_number           = 18
+let g:startify_session_persistence    = 1
+let g:startify_session_dir = '~/.cache/vim/session'
+
+if !exists('g:startify_bookmarks')
+  let g:startify_bookmarks = []
+endif
+
+let g:startify_lists = [
+  \ { 'type': 'dir',       'header': ['   Recent files'] },
+  \ { 'type': 'sessions',  'header': ['   Saved sessions'] },
+  \ ]
+
+if $MINIMAL_PROMPT != ''
+  let g:startify_custom_header = [ '' ]
+else
+  let g:startify_custom_header = [
+    \ "  ",
+    \ '   ╻ ╻   ╻   ┏┳┓',
+    \ '   ┃┏┛   ┃   ┃┃┃',
+    \ '   ┗┛    ╹   ╹ ╹',
+    \ '   ',
+    \ ]
+endif

@@ -8,7 +8,6 @@ command! -nargs=0 WS %s/\s\+$// | normal! ``
 command! -nargs=0 HL call functions#hl()
 command! -nargs=* -complete=file Grep call grep#dgrep('grep<bang>',<q-args>)
 command! SC vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
-command! -nargs=0 SS call sessions#load()
 command! -range GB echo join(systemlist("git blame -L <line1>,<line2> " . expand('%')), "\n")
 command! CmdHist call fzf#vim#command_history({'right': '40'})
 command! OpenChangedFiles :call functions#changedfiles()

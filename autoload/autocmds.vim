@@ -46,8 +46,5 @@ autocmd vimRc BufWritePre * call functions#mkdirifnotexist()
 autocmd vimRc BufNewFile,BufRead * call matchadd('SpecialKey', '\s\+')
 autocmd vimRc BufNewFile,BufRead * call matchadd('NonText', '\n\+')
 
-"""" sessions
-autocmd vimRc VimLeavePre * call sessions#make()
-
 function! autocmds#autocmds() abort
 endfunction
