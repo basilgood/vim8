@@ -26,6 +26,7 @@ autocmd vimRc BufReadPre * packadd vim-submode | call SubMode()
 let g:startify_files_number           = 18
 let g:startify_session_persistence    = 1
 let g:startify_session_dir = '~/.cache/vim/session'
+let g:startify_change_to_dir = 0
 
 if !exists('g:startify_bookmarks')
   let g:startify_bookmarks = []
