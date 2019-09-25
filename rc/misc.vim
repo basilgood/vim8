@@ -23,28 +23,33 @@ endfunction
 autocmd vimRc BufReadPre * packadd vim-submode | call SubMode()
 
 " startify
-let g:startify_files_number           = 18
-let g:startify_session_persistence    = 1
-let g:startify_session_dir = '~/.cache/vim/session'
-let g:startify_change_to_dir = 0
+nnoremap [Space]q :SC<cr>
+let g:startify_files_number        = 5
+let g:startify_change_to_dir       = 0
+let g:startify_enable_special      = 0
+let g:startify_update_oldfiles     = 1
+let g:startify_session_dir         = '~/.cache/vim/session'
 
 if !exists('g:startify_bookmarks')
   let g:startify_bookmarks = []
 endif
 
 let g:startify_lists = [
-  \ { 'type': 'dir',       'header': ['   Recent files'] },
-  \ { 'type': 'sessions',  'header': ['   Saved sessions'] },
-  \ ]
+      \ { 'type': 'dir',       'header': ['   Recent files'] },
+      \ { 'type': 'sessions',  'header': ['   Sessions'], 'indices': ['A','B','C'] },
+      \ ]
 
-if $MINIMAL_PROMPT != ''
-  let g:startify_custom_header = [ '' ]
-else
-  let g:startify_custom_header = [
-    \ "  ",
-    \ '   ╻ ╻   ╻   ┏┳┓',
-    \ '   ┃┏┛   ┃   ┃┃┃',
-    \ '   ┗┛    ╹   ╹ ╹',
-    \ '   ',
-    \ ]
-endif
+let g:startify_custom_header = [
+      \ "  ",
+      \ '   ╻ ╻   ╻   ┏┳┓',
+      \ '   ┃┏┛   ┃   ┃┃┃',
+      \ '   ┗┛    ╹   ╹ ╹',
+      \ '   ',
+      \ ]
+function! s:save_session() abort
+  if !empty(v:this_session) && get(g:, 'startify_session_persistence')
+    call startify#session_write(v:this_session)
+  endif
+endfunction
+
+autocmd BufNewFile,BufAdd,BufDelete,BufLeave * call s:save_session()

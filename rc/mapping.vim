@@ -12,6 +12,8 @@ cnoremap <c-a> <Home>
 cnoremap <c-e> <End>
 inoremap <c-a> <Home>
 inoremap <c-e> <End>
+nnoremap }   }zz
+nnoremap {   {zz
 
 " windows
 " nnoremap <silent> <Tab> :wincmd w<CR>
