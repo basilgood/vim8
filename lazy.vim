@@ -19,5 +19,5 @@ Pac 'delphinus/vim-auto-cursorline', { 'type': 'opt', 'lazy': 1 }
 Pac 'gcmt/wildfire.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'stefandtw/quickfix-reflector.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'haya14busa/vim-edgemotion', { 'type': 'opt', 'lazy': 1 }
-Pac 'chrisbra/Recover.vim', { 'type': 'opt', 'lazy': 1 }
+Pac 'gioele/vim-autoswap', { 'type': 'opt', 'lazy': 1 }
 Pac 'michaeljsmith/vim-indent-object', { 'type': 'opt', 'lazy': 1 }
