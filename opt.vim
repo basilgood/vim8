@@ -1,4 +1,3 @@
-Pac 'kristijanhusak/vim-packager', { 'type': 'opt' }
 Pac 'tpope/vim-fugitive', { 'type': 'opt' }
 Pac 'gregsexton/gitv', { 'type': 'opt', 'cmd': 'Gitv' }
 Pac 'hotwatermorning/auto-git-diff', { 'type': 'opt' }
