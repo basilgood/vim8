@@ -14,7 +14,6 @@ let g:coc_global_extensions = [
       \ 'coc-git',
       \ 'coc-eslint',
       \ 'coc-yaml',
-      \ 'coc-sh',
       \ 'coc-vimlsp',
       \ 'coc-webpack'
       \ ]
