@@ -24,7 +24,7 @@ set path=.,**
 """" backup, swap, undo
 set undofile
 set nobackup
-set swapfile
+set noswapfile
 exe 'set undodir=' . s:undo_dir
 exe 'set backupdir=' . s:backup_dir
 exe 'set directory=' . s:directory
