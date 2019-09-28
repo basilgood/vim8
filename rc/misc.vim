@@ -53,3 +53,6 @@ function! s:save_session() abort
 endfunction
 
 autocmd BufNewFile,BufAdd,BufDelete,BufLeave * call s:save_session()
+
+" localvimrc
+let g:localvimrc_ask = 0

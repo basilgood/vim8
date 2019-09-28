@@ -11,7 +11,7 @@ Pac 'tpope/vim-dispatch', { 'type': 'opt', 'lazy': 1 }
 Pac 'tpope/vim-commentary', { 'type': 'opt', 'lazy': 1 }
 Pac 'markonm/traces.vim', { 'type': 'opt', 'lazy': 1 }
 Pac 'markonm/hlyank.vim', { 'type': 'opt', 'lazy': 1 }
-Pac 'thinca/vim-localrc', { 'type': 'opt', 'lazy': 1 }
+Pac 'embear/vim-localvimrc', { 'type': 'opt', 'lazy': 1 }
 Pac 'junegunn/vim-easy-align', { 'type': 'opt', 'lazy': 1 }
 Pac 'itchyny/vim-parenmatch', { 'type': 'opt', 'lazy': 1 }
 Pac 'wellle/targets.vim', { 'type': 'opt', 'lazy': 1 }
