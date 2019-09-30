@@ -84,7 +84,6 @@ set showcmd
 set noshowmode
 set shortmess+=Icm
 set signcolumn=yes
-set laststatus=2
 
 """" tabs/indent levels
 set autoindent

@@ -20,8 +20,8 @@ source $HOME/.vim/rc/environment.vim
 source $HOME/.vim/rc/unload.vim
 source $HOME/.vim/rc/options.vim
 source $HOME/.vim/rc/mapping.vim
+source $HOME/.vim/rc/statusline.vim
 source $HOME/.vim/minpac.vim
-call statusline#statusline()
 call commands#commands()
 call autocmds#autocmds()
 call diff#diff()
