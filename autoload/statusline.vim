@@ -4,7 +4,10 @@ let g:lightline = {
       \ 'colorscheme': 'gruvbox_material',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
-      \             ['gitbranch'], ['cocstatus', 'readonly', 'filename', 'modified'] ],
+      \             ['gitbranch'],
+      \             ['cocstatus'],
+      \             ['readonly'],
+      \             ['filename', 'modified'] ],
       \   'right': [ [ 'lineinfo'],
       \              [ 'filetype' ] ]
       \ },
@@ -15,7 +18,7 @@ let g:lightline = {
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"\ue0a2":""}',
       \   'modified': '%{&filetype=="help"?"":&modified?"\uff0b":&modifiable?"":"-"}',
-      \   'filename': '%{LightLineFilename()}',
+      \   'filename': '%{FilePath()}',
       \   'gitbranch': '%{exists("*fugitive#head")?fugitive#head():""}',
       \   'cocstatus': '%{LightLineCoc()}',
       \   'lineinfo': '%3c:%-2l/%L'
@@ -24,19 +27,23 @@ let g:lightline = {
       \   'readonly': '(&filetype!="help"&& &readonly)',
       \   'lineinfo': 'percentage'
       \ },
-      \ 'separator': { 'left': "\ue0b8", 'right': "\ue0be" },
-      \ 'subseparator': { 'left': "\ue0b9", 'right': "\ue0b9" }
+      \ 'separator': { 'left': "", 'right': "" },
+      \ 'subseparator': { 'left': "", 'right': "" }
       \ }
 
-function! LightLineFilename()
-  return ('' !=# expand('%') ? expand('%:t') : '[No Name]')
+function! FilePath()
+  if winwidth(0) > 90
+    return expand("%:s")
+  else
+    return expand("%:t")
+  endif
 endfunction
 
 function! LightLineCoc()
-    if empty(get(g:, 'coc_status', '')) && empty(get(b:, 'coc_diagnostic_info', {}))
-        return ''
-    endif
-    return trim(coc#status())
+  if empty(get(g:, 'coc_status', '')) && empty(get(b:, 'coc_diagnostic_info', {}))
+    return ''
+  endif
+  return trim(coc#status())
 endfunction
 
 function! statusline#statusline() abort
