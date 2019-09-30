@@ -29,4 +29,5 @@ exe 'set undodir=' . s:undo_dir
 exe 'set backupdir=' . s:backup_dir
 exe 'set directory=' . s:directory
 exe 'set viewdir=' . s:view_dir
-set viewoptions=cursor,folds,slash,unix
+set viewoptions+=cursor,folds,slash,unix
+set viewoptions-=options
