@@ -21,6 +21,7 @@ source $HOME/.vim/rc/unload.vim
 source $HOME/.vim/rc/options.vim
 source $HOME/.vim/rc/mapping.vim
 source $HOME/.vim/rc/statusline.vim
+source $HOME/.vim/rc/hlsearch.vim
 source $HOME/.vim/minpac.vim
 call commands#commands()
 call autocmds#autocmds()
