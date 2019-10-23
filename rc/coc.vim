@@ -1,21 +1,21 @@
 scriptencoding utf-8
 
 let g:coc_global_extensions = [
-      \ 'coc-tslint-plugin',
-      \ 'coc-tsserver',
-      \ 'coc-emmet',
-      \ 'coc-css',
-      \ 'coc-stylelint',
-      \ 'coc-html',
-      \ 'coc-lit-html',
-      \ 'coc-json',
-      \ 'coc-prettier',
-      \ 'coc-highlight',
-      \ 'coc-git',
-      \ 'coc-eslint',
-      \ 'coc-yaml',
-      \ 'coc-vimlsp',
-      \ 'coc-webpack'
+    \ 'coc-tsserver',
+    \ 'coc-emmet',
+    \ 'coc-css',
+    \ 'coc-stylelint',
+    \ 'coc-html',
+    \ 'coc-lit-html',
+    \ 'coc-json',
+    \ 'coc-go',
+    \ 'coc-prettier',
+    \ 'coc-highlight',
+    \ 'coc-git',
+    \ 'coc-eslint',
+    \ 'coc-yaml',
+    \ 'coc-vimlsp',
+    \ 'coc-webpack'
       \ ]
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
