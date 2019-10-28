@@ -1,7 +1,5 @@
 scriptencoding utf-8
 
-set shell=/usr/bin/env\ bash
-
 if exists('$TMUX')
   let &t_ti.="\eP\e[1 q\e\\"
   let &t_SI.="\eP\e[5 q\e\\"
@@ -31,15 +29,3 @@ if !has('nvim')
     execute "set <xLeft>=\e[1;*D"
   endif
 endif
-
-" bracketed paste mode work inside tmux:
-if $TERM =~# '^\%(tmux\|screen\)'
-  set ttymouse=xterm2
-  let &t_BE = "\033[?2004h"
-  let &t_BD = "\033[?2004l"
-  let &t_PS = "\033[200~"
-  let &t_PE = "\033[201~"
-endif
-
-function! unix#unix() abort
-endfunction

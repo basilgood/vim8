@@ -7,7 +7,7 @@ set ttimeoutlen=10
 set lazyredraw
 
 """" viminfo
-set viminfo=!,'300,<50,s10,h,n$CACHE_HOME/.viminfo
+set viminfo=!,'300,<50,s10,h,n$HOME/.cache/vim/.viminfo
 
 """" moving around/editing
 set nostartofline
@@ -29,8 +29,6 @@ set display=lastline
 """" searching and patterns
 set incsearch
 set hlsearch|nohlsearch
-" autocmd vimRc InsertLeave * :setlocal hlsearch
-" autocmd vimRc InsertEnter * :setlocal nohlsearch
 set gdefault
 
 """" windows, buffers
@@ -47,7 +45,6 @@ set sessionoptions+=globals
 set sessionoptions+=unix
 
 """" Insert completion
-set dictionary='$HOME/.vim/dict'
 set omnifunc=syntaxcomplete#Complete
 set completefunc=syntaxcomplete#Complete
 set completeopt-=preview
@@ -63,6 +60,9 @@ set formatoptions+=1
 
 """"" diff
 set diffopt+=context:3,indent-heuristic,algorithm:patience
+if &diff
+  set t_Co=0
+endif
 
 """" display
 set number
@@ -81,9 +81,8 @@ set termguicolors
 set visualbell t_vb=
 set confirm
 set showcmd
-set noshowmode
 set shortmess+=Icm
-set signcolumn=yes
+set signcolumn=number
 
 """" tabs/indent levels
 set autoindent

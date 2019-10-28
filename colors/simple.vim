@@ -63,21 +63,21 @@ highlight default link FullSpace Error
 highlight Question       guifg=#e78a4e guibg=NONE    guisp=NONE    gui=bold        cterm=bold
 highlight Exception      guifg=#A6E22E gui=bold
 
-highlight StatusLine     guifg=#1d1d1d guibg=#777777 gui=bold      cterm=bold
+highlight StatusLine     guifg=#1d1d1d guibg=#ad9b80 gui=bold      cterm=bold
 highlight StatusLineNC   guifg=#999999 guibg=#444444 gui=NONE      cterm=NONE
 highlight WildMenu       guifg=#282828 guibg=#c9d05c gui=NONE      cterm=NONE
 highlight VertSplit      guifg=#333333 guibg=#333333 gui=NONE      cterm=NONE
 
 highlight Todo           guifg=#928374 guibg=NONE    guisp=NONE    gui=bold,italic cterm=bold,italic
-highlight DiffAdd        term=none cterm=none ctermfg=none ctermbg=22 guifg=fg guibg=#005f00
-highlight DiffChange     term=none cterm=none ctermfg=none ctermbg=52 guifg=fg guibg=#5f0000
-highlight DiffDelete     term=none cterm=none ctermfg=none ctermbg=88 guifg=fg guibg=#870000
-highlight DiffText       term=none cterm=none ctermfg=none ctermbg=160 guifg=fg guibg=#df0000
-highlight DiffFile       term=none cterm=none ctermfg=47 ctermbg=none guifg=#00ff5f guibg=bg
-highlight DiffNewFile    term=none cterm=none ctermfg=199 ctermbg=none guifg=#ff00af guibg=bg
-highlight default link DiffRemoved DiffDelete
-highlight DiffLine       term=none cterm=none ctermfg=129 ctermbg=none guifg=#af00ff guibg=bg
-highlight default link DiffAdded DiffAdd
+" highlight DiffAdd        term=none cterm=none ctermfg=none ctermbg=22 guifg=fg guibg=#005f00
+" highlight DiffChange     term=none cterm=none ctermfg=none ctermbg=52 guifg=fg guibg=#5f0000
+" highlight DiffDelete     term=none cterm=none ctermfg=none ctermbg=88 guifg=fg guibg=#870000
+" highlight DiffText       term=none cterm=none ctermfg=none ctermbg=160 guifg=fg guibg=#df0000
+" highlight DiffFile       term=none cterm=none ctermfg=47 ctermbg=none guifg=#00ff5f guibg=bg
+" highlight DiffNewFile    term=none cterm=none ctermfg=199 ctermbg=none guifg=#ff00af guibg=bg
+" highlight default link DiffRemoved DiffDelete
+" highlight DiffLine       term=none cterm=none ctermfg=129 ctermbg=none guifg=#af00ff guibg=bg
+" highlight default link DiffAdded DiffAdd
 highlight Ignore         guifg=#dfbf8e guibg=NONE    guisp=NONE    gui=NONE        cterm=NONE
 
 highlight Folded         guifg=NONE    guibg=#3c3836 guisp=NONE    gui=NONE        cterm=NONE

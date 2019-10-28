@@ -63,31 +63,25 @@ nnoremap dn :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
 vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 
 " cmdwinenter
-nnoremap <leader><leader> q:
-
-" grep
-nnoremap gr :<C-u>Grep<Space>
-
-" commands history
-nnoremap <leader>] :CmdHist<cr>
+nnoremap <leader><leader> q:i
 
 " smart space mapping
-nmap <Space> [Space]
-nnoremap  [Space] <Nop>
-vmap <Space> [Space]
-vnoremap  [Space] <Nop>
+nmap <space> [space]
+vmap <space> [space]
+nnoremap  [space] <Nop>
+vnoremap  [space] <Nop>
 
 " yank from cursor position to end of line
 nnoremap Y y$
 
 " yank to clipboard
-vnoremap [Space]y "+y
+vnoremap [space]y "+y
 
 " paste from clipboard
-nnoremap [Space]p :put+<cr>
-vnoremap [Space]p "+p
-nnoremap [Space]P :put!+<cr>
-vnoremap [Space]P "+P
+nnoremap [space]p :put+<cr>
+vnoremap [space]p "+p
+nnoremap [space]P :put!+<cr>
+vnoremap [space]P "+P
 
 " Paste continuously.
 nnoremap [p "0p
@@ -95,30 +89,30 @@ nnoremap ]p viw"0p
 vnoremap P "0p
 
 " replace a word with clipboard
-nnoremap [Space]w viw"+p
+nnoremap [space]w viw"+p
 
 " switch buffers
-nnoremap [Space]1 1<c-w>w
-nnoremap [Space]2 2<c-w>w
+nnoremap [space]1 1<c-w>w
+nnoremap [space]2 2<c-w>w
 
-nnoremap [Space]3 3<c-w>w
-nnoremap [Space]4 4<c-w>w
-nnoremap [Space]5 5<c-w>w
-nnoremap [Space]6 6<c-w>w
-nnoremap [Space]7 7<c-w>w
-nnoremap [Space]8 8<c-w>w
-nnoremap [Space]9 9<c-w>w
+nnoremap [space]3 3<c-w>w
+nnoremap [space]4 4<c-w>w
+nnoremap [space]5 5<c-w>w
+nnoremap [space]6 6<c-w>w
+nnoremap [space]7 7<c-w>w
+nnoremap [space]8 8<c-w>w
+nnoremap [space]9 9<c-w>w
 
 " substitute.
-nnoremap [Substitute]   <Nop>
-nmap   s [Substitute]
-xmap   s [Substitute]
-nnoremap [Substitute]s :%s/
-nnoremap [Substitute]l :s/
-xnoremap [Substitute]  :s/
-nnoremap [Substitute]a :%s/\<<c-r><c-w>\>/<c-r><c-w>
-nnoremap [Substitute]p vip :s/
-nnoremap [Substitute]w :%s/\<<c-r><c-w>\>/
+nnoremap [subst]   <Nop>
+nmap   s [subst]
+xmap   s [subst]
+nnoremap [subst]s :%s/
+nnoremap [subst]l :s/
+xnoremap [subst]  :s/
+nnoremap [subst]a :%s/\<<c-r><c-w>\>/<c-r><c-w>
+nnoremap [subst]p vip :s/
+nnoremap [subst]w :%s/\<<c-r><c-w>\>/
 
 " zoom
 nnoremap <C-w>t :tabedit %<cr>
@@ -126,15 +120,4 @@ nnoremap <C-w>z :tabclose<cr>
 nnoremap <silent> <S-tab> :tabnext<CR>
 
 " git commands
-nnoremap <silent> <expr> [Space]dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
-
-" completion
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ functions#check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
-
-" sessions
-nnoremap [Space]s :call sessions#load()<cr>
+nnoremap <silent> <expr> [space]dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
