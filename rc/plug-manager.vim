@@ -90,7 +90,9 @@ function! PackAddHandler(timer)
   if s:pidx == len(g:plugins.opt)
     doautocmd fugitive BufReadPost
     doautocmd signify BufReadPost
+    " autocmd! BufWritePost,BufEnter * Neomake
     call SubMode()
+    call neomake#configure#automake('nrwi', 500)
   endif
 endfunction
 
