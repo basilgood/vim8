@@ -51,6 +51,7 @@ call add(g:plugins.opt, $GITHUB_COM.'markonm/traces.vim')
 call add(g:plugins.opt, $GITHUB_COM.'stefandtw/quickfix-reflector.vim')
 call add(g:plugins.opt, $GITHUB_COM.'itchyny/vim-parenmatch')
 call add(g:plugins.opt, $GITHUB_COM.'sgur/cmdline-completion')
+call add(g:plugins.opt, $GITHUB_COM.'markonm/hlyank.vim')
 
 " undotree.
 call add(g:plugins.opt, $GITHUB_COM.'mbbill/undotree')
