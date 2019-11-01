@@ -64,12 +64,15 @@ nnoremap <leader>u :UndotreeToggle<cr>
 call add(g:plugins.opt, $GITHUB_COM.'wincent/ferret')
 nnoremap <leader>f :Ack<space>
 
+" bracketed paste
+call add(g:plugins.opt, $GITHUB_COM.'ConradIrwin/vim-bracketed-paste')
+
 " completion
 call add(g:plugins.opt, $GITHUB_COM.'lifepillar/vim-mucomplete')
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 1
 let g:mucomplete#chains = {}
-let g:mucomplete#chains.default  = ['path', 'omni', 'keyn', 'dict', 'uspl', 'ulti']
+let g:mucomplete#chains.default  = ['path', 'omni', 'keyn', 'c-n']
 let g:mucomplete#chains.markdown = ['path', 'keyn', 'dict', 'uspl']
 let g:mucomplete#chains.vim      = ['path', 'keyn', 'dict', 'uspl']
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"

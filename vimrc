@@ -34,12 +34,14 @@ source $HOME/.vim/rc/commands.vim
 source $HOME/.vim/rc/autocmds.vim
 
 " sytax enable.
-call vimrc#on_filetype()
+" call vimrc#on_filetype()
+filetype plugin indent on
+syntax enable
 
 set background=dark
-silent! colorscheme apprentice
-highlight ParenMatch guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
-highlight Comment    guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
+silent! colorscheme spacegray
+highlight ParenMatch     guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
+highlight Comment        guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 highlight ALEWarningSign guifg=#fabd2f guibg=#191919 gui=NONE cterm=NONE
 highlight ALEErrorSign   guifg=#f93d3d guibg=#191919 gui=NONE cterm=NONE
 

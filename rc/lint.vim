@@ -9,19 +9,20 @@ let g:neomake_warning_sign = {
 let g:neomake_error_sign = {
   \ 'text': '_e',
   \ }
-  let g:neomake_javascript_eslint_maker =  {
-        \ 'exe': 'npx',
-        \ 'args': ['--quiet', 'eslint', '--format=compact'],
-        \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-        \   '%W%f: line %l\, col %c\, Warning - %m,%-G,%-G%*\d problems%#',
-        \ 'cwd': '%:p:h',
-        \ 'output_stream': 'stdout',
-        \ }
+  " let g:neomake_javascript_eslint_maker =  {
+  "       \ 'exe': 'npx',
+  "       \ 'args': ['--quiet', 'eslint', '--format=compact'],
+  "       \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+  "       \   '%W%f: line %l\, col %c\, Warning - %m,%-G,%-G%*\d problems%#',
+  "       \ 'cwd': '%:p:h',
+  "       \ 'output_stream': 'stdout',
+  "       \ }
 
-  let g:neomake_javascript_jsx_enabled_makers = ['eslint']
-  let g:neomake_javascript_enabled_makers = ['eslint']
+  let g:neomake_vim_enabled_makers = []
+  " let g:neomake_javascript_jsx_enabled_makers = ['eslint']
+  " let g:neomake_javascript_enabled_makers = ['eslint']
 
-  let g:neoformat_enabled_javascript = ['npxprettier']
+  " let g:neoformat_enabled_javascript = ['npxprettier']
 " let g:ale_lint_on_text_changed = 'normal'
 " let g:ale_lint_on_insert_leave = 1
 " let g:ale_set_highlights = 0

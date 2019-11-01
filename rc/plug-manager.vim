@@ -90,6 +90,7 @@ function! PackAddHandler(timer)
   if s:pidx == len(g:plugins.opt)
     doautocmd fugitive BufReadPost
     doautocmd signify BufReadPost
+    doautocmd lsp_auto_enable VimEnter
     " autocmd! BufWritePost,BufEnter * Neomake
     call SubMode()
     call neomake#configure#automake('nrwi', 500)
