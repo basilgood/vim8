@@ -1,0 +1,55 @@
+
+call add(g:plugins.start, $GITHUB_COM.'prabirshrestha/async.vim')
+call add(g:plugins.opt, $GITHUB_COM.'prabirshrestha/vim-lsp')
+call add(g:plugins.opt, $GITHUB_COM.'prabirshrestha/asyncomplete-lsp.vim')
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_highlight_references_enabled = 1
+let g:lsp_signs_enabled = 1
+let g:lsp_signs_priority = 11
+let g:lsp_highlights_enabled = 0
+let g:lsp_textprop_enabled = 0
+" let g:lsp_hover_conceal = 0
+
+function! s:setup_lsp() abort
+  nnoremap <buffer> gd :<C-u>LspDefinition<CR>
+  nnoremap <buffer> gD :<C-u>LspReferences<CR>
+  nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
+  nnoremap <buffer> gS :<C-u>LspWorkspaceSymbol<CR>
+  nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
+  vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
+  nnoremap <buffer> K :<C-u>LspHover<CR>
+  nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
+  nnoremap <buffer> <F2> :<C-u>LspRename<CR>
+endfunction
+
+if executable('typescript-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->['typescript-language-server', '--stdio']},
+        \ 'whitelist': ['javascript', 'typescript'],
+        \ })
+  autocmd FileType javascript setlocal omnifunc=lsp#complete
+  autocmd FileType typescript setlocal omnifunc=lsp#complete
+  autocmd FileType javascript,javascript.jsx,typescript,typescript.jsx call s:setup_lsp()
+endif
+
+if executable('html-languageserver')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'html-languageserver',
+        \ 'cmd': {server_info->['html-languageserver', '--stdio']},
+        \ 'whitelist': ['html', 'twig'],
+        \ })
+  autocmd FileType html setlocal omnifunc=lsp#complete
+  autocmd FileType html,twig,html.twig call s:setup_lsp()
+endif
+
+if executable('css-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'css-language-server',
+        \ 'cmd': {server_info->['css-language-server', '--stdio']},
+        \ 'whitelist': ['css', 'scss'],
+        \ })
+  autocmd FileType css,scss setlocal omnifunc=lsp#complete
+  autocmd FileType css,scss call s:setup_lsp()
+endif

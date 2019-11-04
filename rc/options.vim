@@ -81,7 +81,7 @@ set termguicolors
 set visualbell t_vb=
 set confirm
 set showcmd
-set shortmess+=Icm
+set shortmess+=IFcm
 set signcolumn=number
 
 """" tabs/indent levels
@@ -112,4 +112,4 @@ set wildignore+=**/bower_components/**
 set wildcharm=<C-Z>
 
 """" update time
-set updatetime=300
+set updatetime=100

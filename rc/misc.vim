@@ -62,17 +62,61 @@ nnoremap <leader>u :UndotreeToggle<cr>
 
 " ferret, grep async
 call add(g:plugins.opt, $GITHUB_COM.'wincent/ferret')
-nnoremap <leader>f :Ack<space>
 
 " bracketed paste
 call add(g:plugins.opt, $GITHUB_COM.'ConradIrwin/vim-bracketed-paste')
+call add(g:plugins.opt, $GITHUB_COM.'Shougo/echodoc.vim')
+set cmdheight=2
+let g:echodoc_enable_at_startup = 1
 
 " completion
-call add(g:plugins.opt, $GITHUB_COM.'lifepillar/vim-mucomplete')
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#completion_delay = 1
-let g:mucomplete#chains = {}
-let g:mucomplete#chains.default  = ['path', 'omni', 'keyn', 'c-n']
-let g:mucomplete#chains.markdown = ['path', 'keyn', 'dict', 'uspl']
-let g:mucomplete#chains.vim      = ['path', 'keyn', 'dict', 'uspl']
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" call add(g:plugins.opt, $GITHUB_COM.'Shougo/neocomplete.vim')
+" let g:neocomplete#enable_at_startup = 1
+" let g:neocomplete#enable_smart_case = 1
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
+" let g:neocomplcache_min_syntax_length = 1
+" inoremap <expr><C-g>     neocomplete#undo_completion()
+" inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" call add(g:plugins.start, $GITHUB_COM.'prabirshrestha/async.vim')
+" call add(g:plugins.opt, $GITHUB_COM.'prabirshrestha/asyncomplete.vim')
+" let g:asyncomplete_remove_duplicates = 1
+" let g:asyncomplete_smart_completion = 0
+" inoremap <expr> <C-y> pumvisible() ? asyncomplete#close_popup() : "\<C-y>"
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" imap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+
+" call add(g:plugins.start, $GITHUB_COM.'prabirshrestha/asyncomplete-buffer.vim')
+" au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+"       \ 'name': 'buffer',
+"       \ 'whitelist': ['*'],
+"       \ 'blacklist': [],
+"       \ 'completor': function('asyncomplete#sources#buffer#completor'),
+"       \ 'config': {
+"       \    'max_buffer_size': 5000000,
+"       \  },
+"       \ }))
+
+" call add(g:plugins.start, $GITHUB_COM.'yami-beta/asyncomplete-omni.vim')
+" au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+"   \ 'name': 'omni',
+"   \ 'whitelist': ['*'],
+"   \ 'completor': function('asyncomplete#sources#omni#completor')
+"   \  }))
+
+" call add(g:plugins.start, $GITHUB_COM.'prabirshrestha/asyncomplete-file.vim')
+" au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+"     \ 'name': 'file',
+"     \ 'whitelist': ['*'],
+"     \ 'priority': 10,
+"     \ 'completor': function('asyncomplete#sources#file#completor')
+"     \ }))
+
+" call add(g:plugins.opt, $GITHUB_COM.'Shougo/neco-syntax')
+" call add(g:plugins.start, $GITHUB_COM.'prabirshrestha/asyncomplete-necosyntax.vim')
+" au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
+"     \ 'name': 'necosyntax',
+"     \ 'whitelist': ['*'],
+"     \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
+"     \ }))

@@ -6,7 +6,7 @@ nnoremap [fugitive]  <Nop>
 nmap <space>g [fugitive]
 nnoremap <silent> [fugitive]s :<C-u>vertical Gstatus<CR>
 nnoremap <silent> [fugitive]d :<C-u>Gvdiffsplit<CR>
-nnoremap <silent> [fugitive]l :<C-u>Gitv --all<CR>
+nnoremap <silent> [fugitive]l :<C-u>GV --all<CR>
 nnoremap <silent> [fugitive]m :<C-u>Twiggy<CR>
 
 function! InFugitive() abort
@@ -19,7 +19,7 @@ endfunction
 autocmd vimRc FileType fugitive call InFugitive()
 
 call add(g:plugins.opt, $GITHUB_COM.'mhinz/vim-signify')
-nnoremap [Space]v :SignifyDiffPreview<cr>
+nnoremap <space>h :SignifyDiff<cr>
 
 call add(g:plugins.opt, $GITHUB_COM.'junegunn/gv.vim')
 call add(g:plugins.opt, $GITHUB_COM.'Tiancheng-Luo/conflict3')

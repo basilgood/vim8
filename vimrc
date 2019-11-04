@@ -20,7 +20,8 @@ source $HOME/.vim/rc/environment.vim
 source $HOME/.vim/rc/navigation.vim
 source $HOME/.vim/rc/git.vim
 source $HOME/.vim/rc/edit.vim
-source $HOME/.vim/rc/lsp.vim
+" source $HOME/.vim/rc/lsp.vim
+" source $HOME/.vim/rc/coc.vim
 source $HOME/.vim/rc/lint.vim
 source $HOME/.vim/rc/misc.vim
 source $HOME/.vim/rc/file-type.vim
@@ -34,12 +35,10 @@ source $HOME/.vim/rc/commands.vim
 source $HOME/.vim/rc/autocmds.vim
 
 " sytax enable.
-" call vimrc#on_filetype()
-filetype plugin indent on
-syntax enable
+call vimrc#on_filetype()
 
 set background=dark
-silent! colorscheme spacegray
+silent! colorscheme apprentice
 highlight ParenMatch     guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
 highlight Comment        guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 highlight ALEWarningSign guifg=#fabd2f guibg=#191919 gui=NONE cterm=NONE
