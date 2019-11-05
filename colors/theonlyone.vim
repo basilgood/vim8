@@ -8,21 +8,22 @@ let g:colors_name = 'theonlyone'
 
 set background=dark
 
-hi Normal           guifg=#abb2bf guibg=#21252c gui=NONE cterm=NONE
+hi Normal           guifg=#abb2bf guibg=#282c34 gui=NONE cterm=NONE
 hi Terminal         guifg=#ebdbb2 guibg=#1d2021 gui=NONE cterm=NONE
-hi LineNr           guifg=#5c5c5c guibg=#14171c gui=NONE
+hi LineNr           guifg=#4b5263 guibg=NONE gui=NONE term=underline ctermfg=59
 hi FoldColumn       guifg=#5c5c5c guibg=#14171c gui=NONE
 hi Folded           guifg=#5c5c5c guibg=#14171c gui=NONE
 hi MatchParen       guifg=#e91e63 guibg=NONE    gui=underline ctermfg=197 ctermbg=NONE cterm=underline
-hi SignColumn       guifg=#6c6c6c guibg=#14171c gui=NONE
+hi SignColumn       guifg=NONE guibg=#282c34 gui=NONE cterm=NONE term=NONE ctermbg=NONE
 
 hi Comment          guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 hi Conceal          guifg=#ebdbb2 guibg=NONE    gui=NONE cterm=NONE
-hi Constant         guifg=#56b6c2 guibg=NONE    gui=NONE cterm=NONE
-hi Error            guifg=#af5f5f guibg=NONE    gui=reverse
+hi Constant         guifg=#98C379 guibg=NONE    gui=NONE cterm=NONE
+hi Number           guifg=#d19a66 guibg=NONE    gui=NONE cterm=NONE
+hi Error            guifg=#E06C75 guibg=#282c34 gui=reverse
 hi Identifier       guifg=#E06C75 guibg=NONE    gui=NONE
 hi Ignore           guifg=NONE    guibg=NONE    gui=NONE cterm=NONE
-hi PreProc          guifg=#E06C75 guibg=NONE    gui=NONE cterm=NONE
+hi PreProc          guifg=#E5C07B guibg=NONE    gui=NONE term=underline
 hi Special          guifg=#61afef guibg=NONE    gui=NONE cterm=NONE
 hi Statement        guifg=#C678DD guibg=NONE    gui=NONE cterm=NONE
 hi String           guifg=#98C379 guibg=NONE    gui=NONE cterm=NONE
@@ -30,6 +31,7 @@ hi Todo             guifg=NONE    guibg=NONE    gui=reverse cterm=reverse
 hi Type             guifg=#E5C07B guibg=NONE    gui=NONE cterm=NONE
 hi Underlined       guifg=NONE    guibg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi Label            guifg=#E06C75 guibg=NONE    gui=NONE cterm=NONE
+hi Operator         guifg=#528bff guibg=NONE    gui=NONE cterm=NONE
 
 hi NonText          guifg=#3b4048 guibg=NONE    gui=NONE cterm=NONE
 
@@ -49,15 +51,15 @@ hi TabLine          guifg=#999999 guibg=#444444 gui=NONE cterm=NONE
 hi TabLineFill      guifg=NONE    guibg=#444444 gui=NONE cterm=NONE
 hi TabLineSel       guifg=#c9d05c guibg=NONE    gui=NONE cterm=NONE
 
-hi Cursor           guifg=#000000 guibg=#99ff99 gui=NONE cterm=NONE
-hi CursorLine       guifg=NONE    guibg=#2a303b gui=NONE cterm=NONE
-hi CursorLineNr     guifg=#83a598 guibg=NONE    gui=NONE cterm=NONE
-hi CursorColumn     guifg=NONE    guibg=#2a303b gui=NONE cterm=NONE
+hi Cursor           guifg=bg guibg=#528bff gui=NONE cterm=NONE
+hi CursorLine       guifg=NONE    guibg=#2c323c gui=NONE cterm=NONE
+hi CursorLineNr     guifg=#abb2bf guibg=#2c323c    gui=NONE cterm=NONE
+hi CursorColumn     guifg=NONE    guibg=#2c323c gui=NONE cterm=NONE
 
 hi helpLeadBlank    guibg=NONE    guifg=NONE    gui=NONE
 hi helpNormal       guibg=NONE    guifg=NONE    gui=NONE
 
-hi StatusLine       guifg=#14171c guibg=#777777 gui=bold cterm=bold
+hi StatusLine       guifg=#14171c guibg=#777777 gui=NONE cterm=NONE
 hi StatusLineNC     guifg=#999999 guibg=#444444 gui=NONE cterm=NONE
 
 hi StatusLineTerm   guibg=#87875f guifg=#262626 gui=NONE
@@ -73,18 +75,17 @@ hi Function         guifg=#61AFEF guibg=NONE    gui=NONE cterm=NONE
 hi SpecialKey       guifg=#3b4048 guibg=NONE    gui=NONE cterm=NONE
 hi Title            guifg=#98c379 guibg=NONE    gui=NONE cterm=NONE
 
-hi diffAdded        guifg=#2BFF2B gui=NONE      ctermfg=46  cterm=NONE
-hi diffRemoved      guifg=#FF2B2B gui=NONE      ctermfg=203 cterm=NONE
+hi diffAdded             guifg=#a9b665 gui=NONE ctermfg=46  cterm=NONE
+hi diffRemoved           guifg=#ea6962 gui=NONE ctermfg=203 cterm=NONE
 hi link diffSubname Normal
-
-hi DiffAdd          guifg=#8ec07c guibg=#1d2021 cterm=NONE
+hi DiffAdd               guifg=#8ec07c guibg=#1d2021 cterm=NONE
 hi link DiffChange NONE
 hi clear DiffChange
-hi DiffDelete       guifg=#f93d3d guibg=#1d2021 cterm=NONE
-hi DiffText         guifg=#FFB86C guibg=#14141a gui=NONE cterm=NONE
+hi DiffDelete            guifg=#f93d3d guibg=#1d2021 cterm=NONE
+hi DiffText              guifg=#FFB86C guibg=#14141a gui=NONE cterm=NONE
 
-hi IncSearch        guifg=#1d2021 guibg=#fb4934 gui=NONE cterm=NONE
-hi Search           guibg=#ffffaf guifg=#262626 gui=bold cterm=bold,reverse
+hi IncSearch guifg=#282828 ctermfg=235 guibg=#ffffff ctermbg=15 gui=NONE cterm=NONE
+hi Search guifg=fg guibg=NONE ctermbg=NONE gui=underline,Bold cterm=underline,Bold
 
 hi Directory        guifg=#61AFEF guibg=NONE    gui=NONE cterm=NONE
 
@@ -103,8 +104,41 @@ hi ALEErrorSign     guifg=#f93d3d guibg=#14171c gui=NONE cterm=NONE
 
 hi ParenMatch term=reverse ctermbg=11 guifg=#85EB6A guibg=#135B00 gui=NONE cterm=NONE
 
-hi link javascriptObjectKey Label
-hi link javascriptNumber Type
+hi vimUserFunc guifg=#56b6c2
+hi vimFuncName guifg=#C678DD
+hi vimHighlight guifg=#61AFEF
+hi link vimFunction vimUserFunc
+hi jsArrowFunction guifg=#C678DD
+hi jsBraces guifg=#828997
+hi jsClassBraces guifg=#828997
+hi jsClassKeywords guifg=#C678DD
+hi jsDocParam guifg=#61AFEF
+hi jsDocTags guifg=#C678DD
+hi jsFuncBraces guifg=#828997
+hi jsFuncCall guifg=#61AFEF
+hi jsFuncParens guifg=#828997
+hi jsFunction guifg=#C678DD
+hi jsGlobalObjects guifg=#E5C07B
+hi jsModuleWords guifg=#C678DD
+hi jsModules guifg=#C678DD
+hi jsNoise guifg=#828997
+hi jsNull guifg=#d19a66
+hi jsOperator guifg=#C678DD
+hi jsParens guifg=#828997
+hi jsStorageClass guifg=#C678DD
+hi jsTemplateBraces guifg=#be5046
+hi jsTemplateVar guifg=#98C379
+hi jsThis guifg=#E06C75
+hi jsUndefined guifg=#d19a66
+hi jsObjectValue guifg=#61AFEF
+hi jsObjectKey guifg=#56b6c2
+hi jsReturn guifg=#C678DD
+hi htmlArg guifg=#d19a66
+hi htmlTagName guifg=#E06C75
+hi htmlTagN guifg=#E06C75
+hi htmlSpecialTagName guifg=#E06C75
+hi htmlTag guifg=#828997
+hi htmlEndTag guifg=#828997
 hi link yamlBool SpellRare
 hi link nixAttributeDefinition Type
 hi link nixAttribute Type
