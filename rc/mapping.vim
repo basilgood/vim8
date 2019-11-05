@@ -71,9 +71,6 @@ vmap <space> [space]
 nnoremap  [space] <Nop>
 vnoremap  [space] <Nop>
 
-" yank from cursor position to end of line
-nnoremap Y y$
-
 " yank to clipboard
 vnoremap [space]y "+y
 

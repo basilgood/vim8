@@ -101,18 +101,6 @@ function! functions#changedfiles() abort
   endfor
 endfunction
 
-"""" runner
-function! RedrawScreen(channel)
-    redraw!
-endfunction
-
-function! functions#runner(cmd) abort
-  let x_file = expand('%:p')
-  let x_cmd = a:cmd . x_file
-  let job = job_start(['/bin/sh', '-c', x_cmd],
-        \ {'close_cb': 'RedrawScreen'})
-endfunction
-
 " netrw
 function! functions#innetrw() abort
   nnoremap <buffer> D <Nop>
@@ -135,21 +123,21 @@ function! functions#inserttabwrapper()
 endfunction
 
 """" visual select
-function! functions#get_selected_text() abort
-  let tmp = @"
-  normal! gvy
-  normal! gv
-  let [tmp, @"] = [@", tmp]
-  return tmp
-endfunction
+" function! functions#get_selected_text() abort
+"   let tmp = @"
+"   normal! gvy
+"   normal! gv
+"   let [tmp, @"] = [@", tmp]
+"   return tmp
+" endfunction
 
-function! functions#plain_text_pattern(s) abort
-  return substitute(substitute('\V'.escape(a:s, '\'), '\n', '\\n', 'g'), '\t', '\\t', 'g')
-endfunction
+" function! functions#plain_text_pattern(s) abort
+"   return substitute(substitute('\V'.escape(a:s, '\'), '\n', '\\n', 'g'), '\t', '\\t', 'g')
+" endfunction
 
-function! functions#get_search_pat() abort
-  return functions#plain_text_pattern(functions#get_selected_text())
-endfunction
+" function! functions#get_search_pat() abort
+"   return functions#plain_text_pattern(functions#get_selected_text())
+" endfunction
 
 " search highlight
 function! functions#hlnext() abort

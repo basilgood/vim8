@@ -21,8 +21,8 @@ source $HOME/.vim/rc/navigation.vim
 source $HOME/.vim/rc/git.vim
 source $HOME/.vim/rc/edit.vim
 " source $HOME/.vim/rc/lsp.vim
-" source $HOME/.vim/rc/coc.vim
-source $HOME/.vim/rc/lint.vim
+source $HOME/.vim/rc/coc.vim
+" source $HOME/.vim/rc/lint.vim
 source $HOME/.vim/rc/misc.vim
 source $HOME/.vim/rc/file-type.vim
 source $HOME/.vim/rc/plug-manager.vim
@@ -38,10 +38,8 @@ source $HOME/.vim/rc/autocmds.vim
 call vimrc#on_filetype()
 
 set background=dark
-silent! colorscheme apprentice
+silent! colorscheme theonlyone
 highlight ParenMatch     guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
 highlight Comment        guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
-highlight ALEWarningSign guifg=#fabd2f guibg=#191919 gui=NONE cterm=NONE
-highlight ALEErrorSign   guifg=#f93d3d guibg=#191919 gui=NONE cterm=NONE
 
 set secure

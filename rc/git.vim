@@ -18,8 +18,8 @@ endfunction
 
 autocmd vimRc FileType fugitive call InFugitive()
 
-call add(g:plugins.opt, $GITHUB_COM.'mhinz/vim-signify')
-nnoremap <space>h :SignifyDiff<cr>
+" call add(g:plugins.opt, $GITHUB_COM.'mhinz/vim-signify')
+" nnoremap <space>h :SignifyDiff<cr>
 
 call add(g:plugins.opt, $GITHUB_COM.'junegunn/gv.vim')
 call add(g:plugins.opt, $GITHUB_COM.'Tiancheng-Luo/conflict3')

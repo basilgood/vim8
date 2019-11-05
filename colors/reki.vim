@@ -21,7 +21,7 @@ function! s:set() abort
   let highlight_group = {}
   " Palette
   let gray1       = {'gui': '#222222', 'cterm': '234'}
-  let gray2       = {'gui': '#292929', 'cterm': '235'}
+  let gray2       = {'gui': '#191919', 'cterm': '235'}
   let gray3       = {'gui': '#3e3e3e', 'cterm': '237'}
   let gray4       = {'gui': '#484848', 'cterm': '241'}
   let gray5       = {'gui': '#898989', 'cterm': '245'}
@@ -103,7 +103,7 @@ function! s:set() abort
   " Miscellaneous
   let highlight_group.Directory                   = [blue,        none,        none,          none]
   let highlight_group.NonText                     = [gray4,       none,        none,          none]
-  let highlight_group.SpecialKey                  = [darkcyan,    none,        none,          none]
+  let highlight_group.SpecialKey                  = [gray4,    none,        none,          none]
   let highlight_group.Conceal                     = [gray4,       none,        none,          none]
   let highlight_group.QuickFixLine                = [purple,       none,       none,          none]
 
