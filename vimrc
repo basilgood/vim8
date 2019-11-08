@@ -38,7 +38,7 @@ source $HOME/.vim/rc/autocmds.vim
 call vimrc#on_filetype()
 
 set background=dark
-silent! colorscheme theonlyone
+silent! colorscheme nordish
 highlight ParenMatch     guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
 highlight Comment        guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 
