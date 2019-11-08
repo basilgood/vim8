@@ -72,7 +72,7 @@ set tabline=%!functions#tabline()
 set t_ut=
 set cursorline
 set list
-let &g:listchars = 'tab:▸ ,trail:•,extends:❯,precedes:❮,nbsp:⦸'
+let &g:listchars = 'tab:┆ ,trail:•,extends:❯,precedes:❮,nbsp:⦸'
 autocmd vimRc InsertEnter * set listchars-=trail:•
 autocmd vimRc InsertLeave * set listchars+=trail:•
 set termguicolors
