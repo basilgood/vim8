@@ -123,21 +123,21 @@ function! functions#inserttabwrapper()
 endfunction
 
 """" visual select
-" function! functions#get_selected_text() abort
-"   let tmp = @"
-"   normal! gvy
-"   normal! gv
-"   let [tmp, @"] = [@", tmp]
-"   return tmp
-" endfunction
+function! functions#get_selected_text() abort
+  let tmp = @"
+  normal! gvy
+  normal! gv
+  let [tmp, @"] = [@", tmp]
+  return tmp
+endfunction
 
-" function! functions#plain_text_pattern(s) abort
-"   return substitute(substitute('\V'.escape(a:s, '\'), '\n', '\\n', 'g'), '\t', '\\t', 'g')
-" endfunction
+function! functions#plain_text_pattern(s) abort
+  return substitute(substitute('\V'.escape(a:s, '\'), '\n', '\\n', 'g'), '\t', '\\t', 'g')
+endfunction
 
-" function! functions#get_search_pat() abort
-"   return functions#plain_text_pattern(functions#get_selected_text())
-" endfunction
+function! functions#get_search_pat() abort
+  return functions#plain_text_pattern(functions#get_selected_text())
+endfunction
 
 " search highlight
 function! functions#hlnext() abort
