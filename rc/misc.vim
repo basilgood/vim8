@@ -23,8 +23,9 @@ function! SubMode()
 endfunction
 
 " startify.
-call add(g:plugins.start, $GITHUB_COM.'mhinz/vim-startify')
+call add(g:plugins.opt, $GITHUB_COM.'mhinz/vim-startify')
 nnoremap <space>q :SC<cr>
+let g:startify_disable_at_vimenter = 1
 let g:startify_files_number        = 5
 let g:startify_change_to_dir       = 0
 let g:startify_enable_special      = 0
