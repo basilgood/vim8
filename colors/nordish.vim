@@ -60,9 +60,9 @@ hi IncSearch guifg=#282828 ctermfg=235 guibg=#ffffff ctermbg=15 gui=NONE cterm=N
 hi Search guifg=fg guibg=NONE ctermbg=NONE gui=underline,Bold cterm=underline,Bold
 
 "+--- Tabs ---+
-hi TabLine guifg=#D8DEE9 guibg=#3B4252
-hi TabLineFill guifg=#D8DEE9 guibg=#3B4252
-hi TabLineSel guifg=#88C0D0 guibg=#4C566A
+hi TabLine guifg=#D8DEE9 guibg=#3B4252 gui=NONE cterm=NONE
+hi TabLineFill guifg=NONE guibg=#3B4252 gui=NONE cterm=NONE
+hi TabLineSel guifg=#88C0D0 guibg=NONE gui=NONE cterm=NONE
 
 "+--- Window ---+
 hi Title guifg=#D8DEE9 guibg=NONE

@@ -1,28 +1,5 @@
 scriptencoding utf-8
 
-"""" get file size
-function! functions#getfilesize() abort
-  if &encoding ==# &fileencoding || &fileencoding ==# ''
-    let size = line2byte(line('$') + 1) - 1
-    if !&endofline
-      let size -= 1
-    endif
-  else
-    let size = getfsize(expand('%'))
-  endif
-
-  if size < 0
-    let size = 0
-  endif
-  for unit in ['B', 'KB', 'MB']
-    if size < 1024
-      return size . unit
-    endif
-    let size = size / 1024
-  endfor
-  return size . 'GB'
-endfunction
-
 """" large file (lifepillar)
 function! functions#large_file(name) abort
   let b:large_file = 1
@@ -59,12 +36,6 @@ function! functions#mkdirifnotexist() abort
   endif
 endfunction
 
-function! functions#mkdir(dir) abort
-  if !isdirectory(a:dir)
-    call mkdir(a:dir, 'p')
-  endif
-endfunction
-
 """" tabline
 function! functions#tabline() abort
   let s = ''
@@ -91,6 +62,7 @@ function! functions#tabline() abort
   return s
 endfunction
 
+"""" open only changed files
 function! functions#changedfiles() abort
   only
   let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
@@ -110,16 +82,6 @@ function! functions#innetrw() abort
   nmap <buffer> K k<cr>
   nmap <buffer> qq :bn<bar>bd#<cr>
   nmap <buffer> D .terminal ++close rm -rf
-endfunction
-
-" completion
-function! functions#inserttabwrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~# '\k'
-    return "\<tab>"
-  else
-    return "\<c-n>"
-  endif
 endfunction
 
 """" visual select
@@ -151,22 +113,4 @@ function! functions#hlnext() abort
           \ | redraw
           \ | autocmd! HLNext
   augroup END
-endfunction
-
-" windows
-function! functions#nextwindow() abort
-  if winnr('$') == 1
-    silent! normal! ``z.
-  else
-    wincmd w
-  endif
-endfunction
-
-function! functions#previouswindowortab()
-  if winnr() > 1
-    wincmd W
-  else
-    tabprevious
-    execute winnr("$") . "wincmd w"
-  endif
 endfunction
