@@ -42,7 +42,7 @@ else
   call minpac#init()
   call minpac#add('tpope/vim-fugitive', {'type': 'opt'})
   call minpac#add('tpope/vim-vinegar', {'type': 'opt'})
-  call minpac#add('tpope/vim-commentary', {'type': 'opt'})
+  call minpac#add('tomtom/tcomment_vim', {'type': 'opt'})
   call minpac#add('tpope/vim-repeat', {'type': 'opt'})
   call minpac#add('tpope/vim-surround', {'type': 'opt'})
   call minpac#add('tpope/vim-dispatch', {'type': 'opt'})
@@ -87,7 +87,7 @@ function! PackLoad(timer)
   execute 'packadd targets.vim'
   execute 'packadd vim-indent-object'
   execute 'packadd vim-vinegar'
-  execute 'packadd vim-commentary'
+  execute 'packadd tcomment_vim'
   execute 'packadd vim-repeat'
   execute 'packadd vim-surround'
   execute 'packadd vim-dispatch'
