@@ -40,6 +40,7 @@ if !s:plugins
   endfun
 else
   call minpac#init()
+  call minpac#add('neoclide/coc.nvim', {'type': 'opt', 'branch': 'release'})
   call minpac#add('tpope/vim-fugitive', {'type': 'opt'})
   call minpac#add('tpope/vim-vinegar', {'type': 'opt'})
   call minpac#add('tomtom/tcomment_vim', {'type': 'opt'})
@@ -62,12 +63,19 @@ else
   call minpac#add('samoshkin/vim-mergetool', {'type': 'opt'})
   call minpac#add('da-x/conflict-marker.vim', {'type': 'opt'})
   call minpac#add('hotwatermorning/auto-git-diff', {'type': 'opt'})
-  call minpac#add('mhinz/vim-signify', {'type': 'opt'})
-  call minpac#add('sheerun/vim-polyglot', {'type': 'opt'})
-  call minpac#add('prabirshrestha/asyncomplete.vim', {'type': 'opt'})
-  call minpac#add('prabirshrestha/asyncomplete-lsp.vim', {'type': 'opt'})
-  call minpac#add('prabirshrestha/async.vim')
-  call minpac#add('prabirshrestha/vim-lsp', {'type': 'opt'})
+  call minpac#add('chemzqm/vim-jsx-improve', {'type': 'opt'})
+  call minpac#add('chemzqm/jsonc.vim', {'type': 'opt'})
+  call minpac#add('jonsmithers/vim-html-template-literals', {'type': 'opt'})
+  call minpac#add('lumiliet/vim-twig', {'type': 'opt'})
+  call minpac#add('lepture/vim-jinja', {'type': 'opt'})
+  call minpac#add('HerringtonDarkholme/yats.vim', {'type': 'opt'})
+  call minpac#add('plasticboy/vim-markdown', {'type': 'opt'})
+  call minpac#add('kchmck/vim-coffee-script', {'type': 'opt'})
+  call minpac#add('elzr/vim-json', {'type': 'opt'})
+  call minpac#add('stephpy/vim-yaml', {'type': 'opt'})
+  call minpac#add('evanleck/vim-svelte', {'type': 'opt'})
+  call minpac#add('neoclide/jsonc.vim', {'type': 'opt'})
+  call minpac#add('LnL7/vim-nix', {'type': 'opt'})
   call minpac#add('neomake/neomake', {'type': 'opt'})
 endif
 
@@ -76,12 +84,9 @@ if has('vim_starting') && has('timers')
 endif
 
 function! PackLoad(timer)
+  execute 'packadd coc.nvim'
   execute 'packadd vim-fugitive'
   doautocmd fugitive BufReadPost
-  execute 'packadd vim-lsp'
-  doautocmd lsp_auto_enable VimEnter
-  execute 'packadd asyncomplete-lsp.vim'
-  execute 'packadd asyncomplete.vim'
   execute 'packadd vim-cool'
   execute 'packadd vim-editorconfig'
   execute 'packadd targets.vim'
@@ -95,7 +100,21 @@ function! PackLoad(timer)
   execute 'packadd ctrlp.vim'
   execute 'packadd fruzzy'
   execute 'packadd vim-ctrlp-commandline'
-  execute 'packadd vim-polyglot'
+  execute 'packadd vim-jsx-improve'
+  execute 'packadd jsonc.vim'
+  execute 'packadd typescript-vim'
+  execute 'packadd vim-jsx-typescript'
+  execute 'packadd vim-html-template-literals'
+  execute 'packadd vim-twig'
+  execute 'packadd vim-jinja'
+  execute 'packadd yats.vim'
+  execute 'packadd vim-markdown'
+  execute 'packadd vim-coffee-script'
+  execute 'packadd vim-json'
+  execute 'packadd vim-yaml'
+  execute 'packadd vim-svelte'
+  execute 'packadd jsonc.vim'
+  execute 'packadd vim-nix'
   execute 'packadd traces.vim'
   execute 'packadd vim-parenmatch'
   execute 'packadd hlyank.vim'
@@ -104,9 +123,53 @@ function! PackLoad(timer)
   execute 'packadd vim-mergetool'
   execute 'packadd conflict-marker.vim'
   execute 'packadd auto-git-diff'
-  execute 'packadd vim-signify'
   execute 'packadd neomake'
 endfunction
+
+" coc.nvim
+let g:coc_global_extensions = [
+      \ 'coc-tsserver',
+      \ 'coc-emmet',
+      \ 'coc-css',
+      \ 'coc-stylelintplus',
+      \ 'coc-html',
+      \ 'coc-svelte',
+      \ 'coc-json',
+      \ 'coc-prettier',
+      \ 'coc-git',
+      \ 'coc-eslint',
+      \ 'coc-yaml',
+      \ 'coc-vimlsp',
+      \ ]
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap [c <Plug>(coc-git-prevchunk)
+nmap ]c <Plug>(coc-git-nextchunk)
+nmap gs <Plug>(coc-git-chunkinfo)
+nmap gm <Plug>(coc-git-commit)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ functions#check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+command! -nargs=0 Format :call CocAction('format')
 
 """" netrw
 let g:netrw_bufsettings         = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted hidden'
@@ -125,76 +188,6 @@ let g:neomake_error_sign = {
 augroup my_neomake
   au!
   autocmd FileType nix call neomake#configure#automake_for_buffer('nw', 1000)
-augroup END
-
-"""" asyncomplete
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-
-"""" lsp
-let g:lsp_preview_doubletap = [function('lsp#ui#vim#output#closepreview')]
-let g:lsp_preview_autoclose = 0
-let g:lsp_fold_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_signs_priority = 11
-let g:lsp_signs_enabled = 1
-let g:lsp_signs_error = {'text': '_e'}
-let g:lsp_signs_warning = {'text': '_w'}
-let g:lsp_signs_information = {'text': '_i'}
-let g:lsp_signs_hint = {'text': '_h'}
-let g:lsp_async_completion = 1
-
-function! s:configure_lsp() abort
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> gD <plug>(lsp-type-definition)
-  nmap <buffer> gs <plug>(lsp-document-symbol)
-  nmap <buffer> gS <plug>(lsp-workspace-symbol)
-  nmap <buffer> gQ <plug>(lsp-document-format)
-  vmap <buffer> gQ <plug>(lsp-document-format)
-  nmap <buffer> gr <plug>(lsp-references)
-  nmap <buffer> gR <plug>(lsp-declaration)
-  nmap <buffer> [p <plug>(lsp-previous-error)
-  nmap <buffer> ]p <plug>(lsp-next-error)
-  nmap <buffer> ]a <plug>(lsp-code-action)
-  nmap <buffer> K  <plug>(lsp-hover)
-  nmap <buffer> <F1> :<C-u>LspImplementation<CR>
-  nmap <buffer> <F2> :<C-u>LspRename<CR>
-  setlocal omnifunc=lsp#complete
-endfunction
-
-let g:lsp_diagnostics_echo_cursor = 1
-augroup lsp_lsp
-  autocmd! *
-  if executable('typescript-language-server')
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'typescript-language-server',
-          \ 'cmd': { server_info -> [&shell, &shellcmdflag, 'typescript-language-server --stdio'] },
-          \ 'whitelist': ['javascript', 'typescript'],
-          \})
-    autocmd FileType javascript call s:configure_lsp()
-    autocmd FileType typescript call s:configure_lsp()
-  endif
-
-  if executable('html-languageserver')
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'html-languageserver',
-          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'npx vscode-html-languageserver-bin --stdio']},
-          \ 'whitelist': ['html'],
-          \ })
-    autocmd FileType html call s:configure_lsp()
-  endif
-
-  if executable('efm-langserver')
-    if executable('vint')
-      autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'efm-langserver-vint',
-            \ 'cmd': { server_info -> ['efm-langserver', '-stdin', &shell, &shellcmdflag, 'vint -'] },
-            \ 'whitelist': ['vim'],
-            \})
-      autocmd FileType vim call s:configure_lsp()
-    endif
-  endif
 augroup END
 
 """" cool
@@ -346,12 +339,13 @@ endif
 """" display
 set number
 set mouse=a
+set noshowmode
 set ttymouse=sgr
 set tabline=%!functions#tabline()
 set t_ut=
 set cursorline
 set list
-set listchars=tab:│\ ,trail:•,extends:❯,precedes:❮,nbsp:⦸
+set listchars=tab:▸\ ,trail:•,extends:❯,precedes:❮,nbsp:⦸
 autocmd vimRc InsertEnter * set listchars-=trail:•
 autocmd vimRc InsertLeave * set listchars+=trail:•
 set termguicolors
@@ -394,10 +388,11 @@ set wildignore+=
 set wildcharm=<C-Z>
 
 """" update time
-set updatetime=100
+set updatetime=50
 
 set laststatus=2
 let &g:statusline=''
+let &g:statusline.=' %{toupper(mode())} '
 let &g:statusline.='%{expand("%:p:h:t")}/%t'
 let &g:statusline.='%8c:%l'
 let &g:statusline.=' %h%r'
@@ -475,12 +470,6 @@ nnoremap gQ <Nop>
 nnoremap Q @q
 """" Run macro on selected lines
 vnoremap Q :norm Q<cr>
-
-"""" search and star search
-" nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
-" nnoremap cn :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
-" nnoremap dn :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>cgn
-" vnoremap * :<c-u>let @/=functions#get_search_pat()<cr><esc><s-n>
 
 """" yank to clipboard
 vnoremap <space>y "+y
@@ -573,7 +562,7 @@ autocmd vimRc BufWinEnter * if &ft == 'help' | wincmd J | end
 autocmd vimRc InsertLeave * if &l:diff | diffupdate | endif
 
 """" external changes
-autocmd vimRc FocusGained,CursorHold * if !bufexists("[Command Line]") | checktime | endif
+autocmd vimRc FocusGained,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
 
 """" mkdir
 autocmd vimRc BufWritePre * call functions#mkdirifnotexist()
