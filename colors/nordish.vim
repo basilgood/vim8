@@ -44,7 +44,7 @@ hi Directory guifg=#ECEFF4
 
 "+--- Prompt/Status ---+
 hi EndOfBuffer guifg=#3B4252
-hi ErrorMsg guifg=#D8DEE9 guibg=#BF616A ctermfg=NONE ctermbg=1
+hi ErrorMsg guifg=#ff5f5f guibg=#161821 ctermfg=203 ctermbg=NONE
 hi ModeMsg guifg=#D8DEE9
 hi MoreMsg guifg=#D8DEE9
 hi Question guifg=#D8DEE9 ctermfg=NONE
@@ -52,12 +52,13 @@ hi StatusLine       guifg=#D8DEE9 guibg=#5f6e87 gui=NONE cterm=NONE
 hi StatusLineNC     guifg=#999999 guibg=#3c4a61 gui=NONE cterm=NONE
 hi StatusLineTerm   guibg=#87875f guifg=#262626 gui=NONE
 hi StatusLineTermNC guibg=#444444 guifg=#87875f gui=NONE
-hi WarningMsg guifg=#2E3440 guibg=#EBCB8B
+hi WarningMsg guifg=#d7ff5f ctermfg=185
 hi WildMenu guifg=#88C0D0 guibg=#3B4252
 
 "+--- Search ---+
 hi IncSearch guifg=#282828 ctermfg=235 guibg=#ffffff ctermbg=15 gui=NONE cterm=NONE
-hi Search guifg=fg guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
+" hi Search guifg=fg guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
+hi! Search ctermbg=LightCyan ctermfg=black guibg=LightCyan guifg=black
 
 "+--- Tabs ---+
 hi TabLine guifg=#D8DEE9 guibg=#3B4252 gui=NONE cterm=NONE
@@ -66,7 +67,7 @@ hi TabLineSel guifg=#88C0D0 guibg=NONE gui=NONE cterm=NONE
 
 "+--- Window ---+
 hi Title guifg=#D8DEE9 guibg=NONE
-hi VertSplit guifg=#434C5E guibg=#2E3440 ctermfg=8 ctermbg=0 cterm=NONE
+hi VertSplit guifg=#2E3440 guibg=#434C5E ctermfg=8 ctermbg=0 cterm=NONE
 
 "+ Language Base Groups +
 hi Boolean guifg=#5E81AC guibg=NONE
