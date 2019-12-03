@@ -40,20 +40,21 @@ if !s:plugins
   endfun
 else
   call minpac#init()
-  call minpac#add('dense-analysis/ale', {'type': 'opt'})
-  call minpac#add('tpope/vim-fugitive', {'type': 'opt'})
-  call minpac#add('airblade/vim-gitgutter', {'type': 'opt'})
-  call minpac#add('cocopon/vaffle.vim', {'type': 'opt'})
-  call minpac#add('tomtom/tcomment_vim', {'type': 'opt'})
-  call minpac#add('tpope/vim-repeat', {'type': 'opt'})
-  call minpac#add('tpope/vim-surround', {'type': 'opt'})
-  call minpac#add('tpope/vim-dispatch', {'type': 'opt'})
-  call minpac#add('sgur/vim-editorconfig', {'type': 'opt'})
-  call minpac#add('romainl/vim-cool', {'type': 'opt'})
-  call minpac#add('wellle/targets.vim', {'type': 'opt'})
+  call minpac#add('tpope/vim-vinegar', {'type': 'opt'})
   call minpac#add('ctrlpvim/ctrlp.vim', {'type': 'opt'})
   call minpac#add('raghur/fruzzy', {'type': 'opt', 'do': { -> fruzzy#install()}})
   call minpac#add('suy/vim-ctrlp-commandline', {'type': 'opt'})
+  call minpac#add('dense-analysis/ale', {'type': 'opt'})
+  call minpac#add('sgur/vim-editorconfig', {'type': 'opt'})
+  call minpac#add('tpope/vim-fugitive', {'type': 'opt'})
+  call minpac#add('airblade/vim-gitgutter', {'type': 'opt'})
+  call minpac#add('tomtom/tcomment_vim', {'type': 'opt'})
+  call minpac#add('Piping/vim-asyncomplete', {'type': 'opt'})
+  call minpac#add('tpope/vim-surround', {'type': 'opt'})
+  call minpac#add('tpope/vim-dispatch', {'type': 'opt'})
+  call minpac#add('tpope/vim-repeat')
+  call minpac#add('fcpg/vim-spotlightify', {'type': 'opt'})
+  call minpac#add('wellle/targets.vim', {'type': 'opt'})
   call minpac#add('michaeljsmith/vim-indent-object', {'type': 'opt'})
   call minpac#add('junegunn/vim-easy-align', {'type': 'opt'})
   call minpac#add('markonm/traces.vim', {'type': 'opt'})
@@ -64,7 +65,11 @@ else
   call minpac#add('samoshkin/vim-mergetool', {'type': 'opt'})
   call minpac#add('da-x/conflict-marker.vim', {'type': 'opt'})
   call minpac#add('hotwatermorning/auto-git-diff', {'type': 'opt'})
-  call minpac#add('chemzqm/vim-jsx-improve')
+  call minpac#add('simeji/winresizer', {'type': 'opt'})
+  call minpac#add('haya14busa/vim-edgemotion', {'type': 'opt'})
+  call minpac#add('fcpg/vim-altscreen')
+  call minpac#add('yuezk/vim-js')
+  call minpac#add('MaxMEllon/vim-jsx-pretty')
   call minpac#add('chemzqm/jsonc.vim')
   call minpac#add('jonsmithers/vim-html-template-literals')
   call minpac#add('lumiliet/vim-twig')
@@ -88,14 +93,13 @@ function! PackLoad(timer)
   execute 'packadd vim-fugitive'
   execute 'packadd vim-gitgutter'
   doautocmd fugitive BufReadPost
-  doautocmd gitgutter BufReadPost
-  execute 'packadd vim-cool'
+  execute 'packadd vim-spotlightify'
   execute 'packadd vim-editorconfig'
   execute 'packadd targets.vim'
   execute 'packadd vim-indent-object'
-  execute 'packadd vaffle.vim'
+  execute 'packadd vim-vinegar'
   execute 'packadd tcomment_vim'
-  execute 'packadd vim-repeat'
+  execute 'packadd vim-asyncomplete'
   execute 'packadd vim-surround'
   execute 'packadd vim-dispatch'
   execute 'packadd vim-easy-align'
@@ -110,6 +114,8 @@ function! PackLoad(timer)
   execute 'packadd vim-mergetool'
   execute 'packadd conflict-marker.vim'
   execute 'packadd auto-git-diff'
+  execute 'packadd winresizer'
+  execute 'packadd vim-edgemotion'
 endfunction
 
 """" path
@@ -222,19 +228,22 @@ set wildignore+=
 set wildcharm=<C-Z>
 
 """" update time
+set notimeout
+set ttimeoutlen=10
 set updatetime=50
 
 set laststatus=2
+set statusline+=
 set statusline+=%{toupper(mode())}
 set statusline+=%4c
 set statusline+=\ %{expand('%:p:h:t')}/
 set statusline+=%t
 set statusline+=%h%r
-set statusline+=\ %m
+set statusline+=\ %#search#
+set statusline+=%{&modified?'+++':''}
+set statusline+=%*
 set statusline+=%=
-set statusline+=%{exists('g:loaded_conflicted')?ConflictedVersion():''}
-set statusline+=\ %{exists('g:loaded_fugitive')?fugitive#head(5):''}
-set statusline+=\ [%{&filetype!=#''?&filetype:''}]
+set statusline+=%{&filetype!=#''?&filetype:''}
 
 """" mappings
 nnoremap j gj
@@ -262,10 +271,6 @@ noremap <expr> <C-b> max([winheight(0) - 2, 1])
       \ . "\<C-u>" . (line('w0') <= 1 ? "H" : "M")
 
 """" windows
-nnoremap <silent> <space>v  :<c-u>vsplit<cr>
-nnoremap <silent> <space>s  :<c-u>split<cr>
-nnoremap <silent> <space>o  :<c-u>only<cr>
-nnoremap <silent> <space>q  :<c-u>close<cr>
 nnoremap <silent> <Tab> :wincmd w<CR>
 nnoremap <silent> <S-Tab> :wincmd W<CR>
 
@@ -314,7 +319,6 @@ nnoremap <space>P :put!+<cr>
 vnoremap <space>P "+P
 
 """" Paste continuously.
-nnoremap [p "0p
 nnoremap ]p viw"0p
 vnoremap P "0p
 
@@ -358,7 +362,6 @@ nnoremap <silent><expr> <C-l> empty(get(b:, 'current_syntax'))
       \ ? "\<C-l>"
       \ : "\<C-l>:syntax sync fromstart\<CR>"
 
-
 filetype plugin indent on
 syntax on
 
@@ -366,5 +369,8 @@ set background=dark
 silent! colorscheme nordish
 highlight ParenMatch     guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
 highlight Comment        guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
+highlight agsvFilePath guifg=#b8d68b
+highlight link agsvLineNum Comment
+highlight link agsvResultPattern Search
 
 set secure

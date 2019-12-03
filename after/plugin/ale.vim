@@ -22,13 +22,14 @@ nnoremap [a :ALEPreviousWrap<CR>
 nnoremap ]a :ALENextWrap<CR>
 let g:ale_html_languageserver_executable = '/etc/profiles/per-user/vasy/bin/html-languageserver'
 let g:ale_fixers = {
-  \   'javascript': ['prettier', 'eslint'],
-  \   'html': ['prettier', 'eslint'],
+  \   'javascript': ['eslint'],
+  \   'html': ['eslint'],
   \   'yaml': ['prettier']
 \}
 
 let g:ale_linters = {
   \   'javascript': ['eslint', 'tsserver'],
   \   'vim': ['vint'],
+  \   'html': ['html-languageserver'],
   \   'yaml': ['yamllint'],
 \}
