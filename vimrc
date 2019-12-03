@@ -57,10 +57,10 @@ else
   call minpac#add('michaeljsmith/vim-indent-object', {'type': 'opt'})
   call minpac#add('junegunn/vim-easy-align', {'type': 'opt'})
   call minpac#add('markonm/traces.vim', {'type': 'opt'})
+  call minpac#add('linjiX/vim-star', {'type': 'opt'})
   call minpac#add('gabesoft/vim-ags', {'type': 'opt'})
   call minpac#add('itchyny/vim-parenmatch', {'type': 'opt'})
   call minpac#add('markonm/hlyank.vim', {'type': 'opt'})
-  call minpac#add('mg979/vim-visual-multi', {'type': 'opt'})
   call minpac#add('samoshkin/vim-mergetool', {'type': 'opt'})
   call minpac#add('da-x/conflict-marker.vim', {'type': 'opt'})
   call minpac#add('hotwatermorning/auto-git-diff', {'type': 'opt'})
@@ -103,9 +103,9 @@ function! PackLoad(timer)
   execute 'packadd fruzzy'
   execute 'packadd vim-ctrlp-commandline'
   execute 'packadd traces.vim'
+  execute 'packadd vim-star'
   execute 'packadd vim-parenmatch'
   execute 'packadd hlyank.vim'
-  execute 'packadd vim-visual-multi'
   execute 'packadd vim-ags'
   execute 'packadd vim-mergetool'
   execute 'packadd conflict-marker.vim'
