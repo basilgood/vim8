@@ -43,7 +43,7 @@ else
   call minpac#add('dense-analysis/ale', {'type': 'opt'})
   call minpac#add('tpope/vim-fugitive', {'type': 'opt'})
   call minpac#add('airblade/vim-gitgutter', {'type': 'opt'})
-  call minpac#add('tpope/vim-vinegar', {'type': 'opt'})
+  call minpac#add('cocopon/vaffle.vim', {'type': 'opt'})
   call minpac#add('tomtom/tcomment_vim', {'type': 'opt'})
   call minpac#add('tpope/vim-repeat', {'type': 'opt'})
   call minpac#add('tpope/vim-surround', {'type': 'opt'})
@@ -93,7 +93,7 @@ function! PackLoad(timer)
   execute 'packadd vim-editorconfig'
   execute 'packadd targets.vim'
   execute 'packadd vim-indent-object'
-  execute 'packadd vim-vinegar'
+  execute 'packadd vaffle.vim'
   execute 'packadd tcomment_vim'
   execute 'packadd vim-repeat'
   execute 'packadd vim-surround'
