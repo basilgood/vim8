@@ -57,8 +57,8 @@ hi WildMenu guifg=#88C0D0 guibg=#3B4252
 
 "+--- Search ---+
 hi IncSearch guifg=#282828 ctermfg=235 guibg=#ffffff ctermbg=15 gui=NONE cterm=NONE
-" hi Search guifg=fg guibg=NONE ctermbg=NONE gui=Bold cterm=Bold
-hi! Search ctermbg=LightCyan ctermfg=black guibg=LightCyan guifg=black
+hi Search guifg=black guibg=#a5ace6 ctermbg=blue gui=Bold cterm=Bold
+" hi! Search ctermbg=LightCyan ctermfg=black guibg=LightCyan guifg=black
 
 "+--- Tabs ---+
 hi TabLine guifg=#D8DEE9 guibg=#3B4252 gui=NONE cterm=NONE
