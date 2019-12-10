@@ -32,6 +32,13 @@ autocmd vimRc InsertEnter,WinLeave * setlocal nocursorline
 """" fugitive files
 autocmd vimRc FileType git setlocal nofoldenable
 
+"""" Add spell checking and automatic wrapping at the recommended 72 columns to commit messages
+autocmd vimRc Filetype gitcommit setlocal spell textwidth=72
+
+"""" comments handling
+autocmd vimRc FileType,BufNewFile,BufWinEnter * setlocal formatoptions-=o
+      \ formatoptions+=rjqn
+
 """" filetype
 autocmd vimRc BufWinEnter *.json setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json setlocal conceallevel=0 concealcursor=

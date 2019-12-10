@@ -14,7 +14,7 @@ function! Tabline() abort
     let s .= ' ' . tab .':'
     let s .= (bufname !=# '' ? fnamemodify(bufname, ':t') . ' ' : 'No Name ')
     if bufmodified
-      let s .= '[+] '
+      let s .= '+ '
     endif
   endfor
 

@@ -1,8 +1,10 @@
+"""" encoding
 set encoding=utf-8
 scriptencoding utf-8
 
+"""" startup time
 augroup vimRc
- autocmd!
+  autocmd!
 augroup END
 
 if has('vim_starting') && has('reltime')
@@ -11,117 +13,18 @@ if has('vim_starting') && has('reltime')
         \ | echomsg 'startuptime: ' . reltimestr(s:startuptime)
 endif
 
-" Vim 8 defaults
+"""" vim 8 defaults
 unlet! skip_defaults_vim
 silent! source $VIMRUNTIME/defaults.vim
 
-"""" unload
-let g:loaded_matchparen         = 1
-let g:loaded_rrhelper           = 1
-let g:did_install_default_menus = 1
-let g:is_bash                   = 1
-let g:sh_noisk                  = 1
-let g:loaded_vimball            = 1
-let g:loaded_vimballPlugin      = 1
-let g:loaded_getscript          = 1
-let g:loaded_getscriptPlugin    = 1
-let g:loaded_logipat            = 1
-let g:loaded_man                = 1
-
-"""" plugins
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'call minpac#status()'})
-command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
-command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
-
-let s:plugins = exists('*minpac#init')
-if !s:plugins
-  fun! InstallPlug()
-    exe '!git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac'
-  endfun
-else
-  call minpac#init()
-  call minpac#add('tpope/vim-vinegar', {'type': 'opt'})
-  call minpac#add('ctrlpvim/ctrlp.vim', {'type': 'opt'})
-  call minpac#add('raghur/fruzzy', {'type': 'opt', 'do': { -> fruzzy#install()}})
-  call minpac#add('suy/vim-ctrlp-commandline', {'type': 'opt'})
-  call minpac#add('dense-analysis/ale', {'type': 'opt'})
-  call minpac#add('sgur/vim-editorconfig', {'type': 'opt'})
-  call minpac#add('tpope/vim-fugitive', {'type': 'opt'})
-  call minpac#add('airblade/vim-gitgutter', {'type': 'opt'})
-  call minpac#add('tomtom/tcomment_vim', {'type': 'opt'})
-  call minpac#add('Piping/vim-asyncomplete', {'type': 'opt'})
-  call minpac#add('tpope/vim-surround', {'type': 'opt'})
-  call minpac#add('tpope/vim-dispatch', {'type': 'opt'})
-  call minpac#add('tpope/vim-repeat')
-  call minpac#add('fcpg/vim-spotlightify', {'type': 'opt'})
-  call minpac#add('wellle/targets.vim', {'type': 'opt'})
-  call minpac#add('michaeljsmith/vim-indent-object', {'type': 'opt'})
-  call minpac#add('junegunn/vim-easy-align', {'type': 'opt'})
-  call minpac#add('markonm/traces.vim', {'type': 'opt'})
-  call minpac#add('linjiX/vim-star', {'type': 'opt'})
-  call minpac#add('gabesoft/vim-ags', {'type': 'opt'})
-  call minpac#add('itchyny/vim-parenmatch', {'type': 'opt'})
-  call minpac#add('markonm/hlyank.vim', {'type': 'opt'})
-  call minpac#add('samoshkin/vim-mergetool', {'type': 'opt'})
-  call minpac#add('da-x/conflict-marker.vim', {'type': 'opt'})
-  call minpac#add('hotwatermorning/auto-git-diff', {'type': 'opt'})
-  call minpac#add('simeji/winresizer', {'type': 'opt'})
-  call minpac#add('haya14busa/vim-edgemotion', {'type': 'opt'})
-  call minpac#add('fcpg/vim-altscreen')
-  call minpac#add('yuezk/vim-js')
-  call minpac#add('MaxMEllon/vim-jsx-pretty')
-  call minpac#add('chemzqm/jsonc.vim')
-  call minpac#add('jonsmithers/vim-html-template-literals')
-  call minpac#add('lumiliet/vim-twig')
-  call minpac#add('lepture/vim-jinja')
-  call minpac#add('HerringtonDarkholme/yats.vim')
-  call minpac#add('plasticboy/vim-markdown')
-  call minpac#add('kchmck/vim-coffee-script')
-  call minpac#add('elzr/vim-json')
-  call minpac#add('stephpy/vim-yaml')
-  call minpac#add('evanleck/vim-svelte')
-  call minpac#add('neoclide/jsonc.vim')
-  call minpac#add('LnL7/vim-nix')
+"""" environment
+"" plugins
+let s:minpacDir = expand('~/.vim/pack/minpac/opt/minpac')
+if !isdirectory(s:minpacDir)
+  exe '!git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac'
 endif
 
-if has('vim_starting') && has('timers')
-  autocmd vimRc VimEnter * call timer_start(1, 'PackLoad', {'repeat': 0})
-endif
-
-function! PackLoad(timer)
-  execute 'packadd ale'
-  execute 'packadd vim-fugitive'
-  execute 'packadd vim-gitgutter'
-  doautocmd fugitive BufReadPost
-  execute 'packadd vim-spotlightify'
-  execute 'packadd vim-editorconfig'
-  execute 'packadd targets.vim'
-  execute 'packadd vim-indent-object'
-  execute 'packadd vim-vinegar'
-  execute 'packadd tcomment_vim'
-  execute 'packadd vim-asyncomplete'
-  execute 'packadd vim-surround'
-  execute 'packadd vim-dispatch'
-  execute 'packadd vim-easy-align'
-  execute 'packadd ctrlp.vim'
-  execute 'packadd fruzzy'
-  execute 'packadd vim-ctrlp-commandline'
-  execute 'packadd traces.vim'
-  execute 'packadd vim-star'
-  execute 'packadd vim-parenmatch'
-  execute 'packadd hlyank.vim'
-  execute 'packadd vim-ags'
-  execute 'packadd vim-mergetool'
-  execute 'packadd conflict-marker.vim'
-  execute 'packadd auto-git-diff'
-  execute 'packadd winresizer'
-  execute 'packadd vim-edgemotion'
-endfunction
-
-"""" path
-set path=.,,**
-
-"""" backup, swap, undo
+"" backup, swap, undo
 if !isdirectory($HOME.'/.cache/vim/undo-dir')
   call mkdir($HOME.'/.cache/vim/undo-dir', 'p')
 endif
@@ -130,10 +33,156 @@ set undofile
 set nobackup
 set noswapfile
 
-"""" viminfo
+"" viminfo
 set viminfo=!,'300,<50,s10,h,n$HOME/.cache/vim/.viminfo
 
+"" path
+set path=.,,**
+
+
+"""" minpac
+call plugpac#begin()
+
+Pack 'k-takata/minpac', {'type': 'opt'}
+
+Pack 'dense-analysis/ale', {'type': 'opt'}
+autocmd vimRc BufReadPost * packadd ale
+
+Pack 'prabirshrestha/async.vim'
+Pack 'prabirshrestha/vim-lsp'
+
+Pack 'ctrlpvim/ctrlp.vim', {'type': 'opt', 'on': ['CtrlP', 'CtrlPBuffer']}
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_use_caching = 0
+let g:ctrlp_show_hidden = 1
+nnoremap <c-p> :CtrlP<cr>
+nnoremap <bs> :CtrlPBuffer<cr>
+nnoremap <C-t> :CtrlPCurFile<cr>
+if executable('fd')
+  let g:ctrlp_user_command = 'fd --color=never --hidden --follow --exclude .git --exclude pack --type file . %s'
+endif
+Pack 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
+let g:fruzzy#usenative = 1
+let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
+let g:ctrlp_match_current_file = 1
+
+Pack 'sgur/vim-editorconfig', {'type': 'opt'}
+let g:editorconfig_root_chdir = 1
+let g:editorconfig_verbose    = 1
+let g:editorconfig_blacklist  = {
+      \ 'filetype': ['git.*', 'fugitive'],
+      \ 'pattern': ['\.un~$']}
+autocmd vimRc BufReadPre * packadd vim-editorconfig
+
+Pack 'tpope/vim-fugitive', {'type': 'opt', 'on': 'Gstatus'}
+autocmd vimRc BufReadPre * packadd vim-fugitive
+nnoremap [git]  <Nop>
+nmap <space>g [git]
+nnoremap <silent> [git]s :<C-u>vertical Gstatus<CR>
+nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<CR>
+nnoremap <silent> [git]l :<C-u>GV --all<CR>
+function! InFugitive() abort
+  nmap <buffer> zp :<c-u>Dispatch! git push<CR>
+  nmap <buffer> zF :<c-u>Dispatch! git push -f<CR>
+endfunction
+autocmd vimRc FileType fugitive call InFugitive()
+
+Pack 'airblade/vim-gitgutter', {'type': 'opt'}
+autocmd vimRc VimEnter * packadd vim-gitgutter
+
+Pack 'tomtom/tcomment_vim', {'type': 'opt'}
+autocmd vimRc BufReadPost * packadd tcomment_vim
+
+Pack 'tpope/vim-surround', {'type': 'opt'}
+let g:surround_no_insert_mappings = 1
+let surround_indent=1
+nmap S ysiw
+autocmd vimRc BufReadPost * packadd vim-surround
+
+Pack 'tpope/vim-dispatch', {'type': 'opt', 'on': 'Dispatch'}
+Pack 'tpope/vim-repeat'
+Pack 'fcpg/vim-spotlightify', {'type': 'opt'}
+autocmd vimRc BufReadPost * packadd vim-spotlightify
+
+Pack 'markonm/traces.vim', {'type': 'opt'}
+autocmd vimRc BufReadPost * packadd traces.vim
+
+Pack 'junegunn/vim-easy-align', {'type': 'opt', 'on': '<Plug>(EasyAlign)'}
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+
+Pack 'linjiX/vim-star', {'type': 'opt', 'on': '<Plug>(star-*)'}
+vmap <silent> * <Plug>(star-*)
+vmap <silent> # <Plug>(star-#)
+nmap <silent> * <Plug>(star-*)
+nmap <silent> # <Plug>(star-#)
+
+Pack 'gabesoft/vim-ags', {'type': 'opt', 'on': 'Ags'}
+let g:ags_winplace = 'right'
+nnoremap <leader>a :Ags<space>
+nnoremap <leader>w :Ags<cr>
+
+Pack 'machakann/vim-highlightedyank', {'type': 'opt'}
+let g:highlightedyank_highlight_duration = 200
+autocmd vimRc BufReadPost * packadd vim-highlightedyank
+
+Pack 'fcpg/vim-altscreen'
+autocmd vimRc BufReadPost * packadd vim-altscreen
+
+Pack 'wellle/targets.vim', {'type': 'opt'}
+autocmd vimRc BufReadPost * packadd targets.vim
+
+Pack 'haya14busa/vim-edgemotion', {'type': 'opt', 'on': ['<Plug>(edgemotion-j)', '<Plug>(edgemotion-k)']}
+map <C-j> <Plug>(edgemotion-j)
+map <C-k> <Plug>(edgemotion-k)
+
+Pack 'samoshkin/vim-mergetool', {'type': 'opt', 'on': '<Plug>(MergetoolToggle)'}
+let g:mergetool_layout = 'bmr'
+if &diff == 1
+  set t_Co=0
+  vmap <silent> <buffer> dg :diffget<CR>
+  vmap <silent> <buffer> dp :diffput<CR>
+  nmap <silent> <buffer> dg V:diffget<CR>
+  nmap <silent> <buffer> dp V:diffput<CR>
+endif
+
+Pack 'da-x/conflict-marker.vim', {'type': 'opt', 'on': ['<Plug>(conflict-marker-themselves)', '<Plug>(conflict-marker-ourselves)', '<Plug>(conflict-marker-both)', '<Plug>(conflict-marker-none)', '<Plug>(conflict-marker-next-hunk)', '<Plug>(conflict-marker-prev-hunk)']}
+Pack 'hotwatermorning/auto-git-diff', {'type': 'opt', 'for': 'gitrebase'}
+Pack 'LnL7/vim-nix'
+Pack 'evanleck/vim-svelte'
+Pack 'kchmck/vim-coffee-script'
+Pack 'plasticboy/vim-markdown'
+Pack 'jonsmithers/vim-html-template-literals', {'type': 'opt', 'for': 'javascript'}
+Pack 'lumiliet/vim-twig'
+Pack 'lepture/vim-jinja'
+Pack 'yuezk/vim-js'
+Pack 'MaxMEllon/vim-jsx-pretty'
+Pack 'HerringtonDarkholme/yats.vim'
+
+call plugpac#end()
+
+"""" netrw
+nmap <silent> - :call <SID>opendir('edit')<CR>
+function! s:opendir(cmd) abort
+  if expand('%') =~# '^$\|^term:[\/][\/]'
+    execute a:cmd '.'
+  else
+    execute a:cmd '%:h'
+    let pattern = '^\%(| \)*'.escape(expand('#:t'), '.*[]~\').'[/*|@=]\=\%($\|\t\)'
+    call search(pattern, 'wc')
+  endif
+endfunction
+
+"""" mkdir if not exists
+function! s:createDir()
+  call mkdir(expand('<afile>:p:h'), 'p')
+endfunction
+autocmd vimRc BufWritePre,FileWritePre * silent! call s:createDir()
+
+"""" better defaults
 """" moving around/editing
+set hidden
 set nostartofline
 set nowrap
 set virtualedit=block
@@ -152,7 +201,7 @@ set hlsearch|nohlsearch
 set gdefault
 
 """" windows, buffers
-set switchbuf=useopen,usetab
+set switchbuf+=useopen,usetab
 set splitright
 set splitbelow
 
@@ -165,6 +214,7 @@ set sessionoptions+=globals
 set sessionoptions+=unix
 
 """" Insert completion
+set omnifunc=syntaxcomplete#Complete
 set completeopt-=preview
 set completeopt+=menuone,noselect
 set complete=.,w,b,u,U,t,i,d,k
@@ -176,7 +226,9 @@ if &diff
   set t_Co=0
 endif
 
-"""" display
+" display
+set term=xterm-256color
+set t_Co=256
 set termguicolors
 set number
 set mouse=a
@@ -195,7 +247,7 @@ set visualbell t_vb=
 set confirm
 set showcmd
 set shortmess+=IFcms
-set signcolumn=yes
+set signcolumn=auto
 
 """" tabs/indent levels
 set autoindent
@@ -233,11 +285,11 @@ set ttimeoutlen=10
 set updatetime=50
 
 set laststatus=2
-set statusline+=
-set statusline+=%{toupper(mode())}
+set statusline=
+set statusline+=%<%{toupper(mode())}
 set statusline+=%4c
-set statusline+=\ %{expand('%:p:h:t')}/
-set statusline+=%t
+set statusline+=\ %{expand('%:p:h:t')}
+set statusline+=/%t
 set statusline+=%h%r
 set statusline+=\ %#search#
 set statusline+=%{&modified?'+++':''}
@@ -265,9 +317,9 @@ nnoremap } }zz
 nnoremap { {zz
 
 " Smart <C-f>, <C-b>.
-noremap <expr> <C-f> max([winheight(0) - 2, 1])
+nnoremap <expr> <C-f> max([winheight(0) - 2, 1])
       \ . "\<C-d>" . (line('w$') >= line('$') ? "L" : "M")
-noremap <expr> <C-b> max([winheight(0) - 2, 1])
+nnoremap <expr> <C-b> max([winheight(0) - 2, 1])
       \ . "\<C-u>" . (line('w0') <= 1 ? "H" : "M")
 
 """" windows
@@ -341,7 +393,7 @@ nnoremap [subst]   <Nop>
 nmap   s [subst]
 xmap   s [subst]
 nnoremap [subst]s :%s/
-nnoremap [subst]l :s/
+nnoremap [subst]l :s//<left>
 xnoremap [subst]  :s/
 nnoremap [subst]a :<c-u>%s/\C\<<c-r><c-w>\>/<c-r><c-w>
 nnoremap [subst]p vip :<c-u>s/
@@ -354,7 +406,9 @@ nnoremap <C-w>z :tabclose<cr>
 """" git commands
 nnoremap <silent> <expr> <space>dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
 
-"""" hlsearch hlnext
+"""" hlsearch
+nnoremap <silent>n n
+nnoremap <silent>N N
 nnoremap <silent> <space>n :nohlsearch<CR>
 
 " CTRL-L to fix syntax highlight
@@ -366,11 +420,11 @@ filetype plugin indent on
 syntax on
 
 set background=dark
-silent! colorscheme nordish
-highlight ParenMatch     guifg=#85EB6A guibg=#135B00 gui=NONE   cterm=NONE term=reverse ctermbg=11
+silent! colorscheme nord
 highlight Comment        guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
-highlight agsvFilePath guifg=#b8d68b
+highlight MatchParen guifg=#b8d68b guibg=#000080 term=reverse
+highlight link agsvFilePath Todo
 highlight link agsvLineNum Comment
-highlight link agsvResultPattern Search
+highlight link agsvResultPattern IncSearch
 
 set secure
