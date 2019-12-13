@@ -56,16 +56,13 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_use_caching = 0
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_follow_symlinks = 1
 nnoremap <c-p> :CtrlP<cr>
 nnoremap <bs> :CtrlPBuffer<cr>
 nnoremap <C-t> :CtrlPCurFile<cr>
 if executable('fd')
   let g:ctrlp_user_command = 'fd --color=never --hidden --follow --exclude .git --exclude pack --type file . %s'
 endif
-Pack 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
-let g:fruzzy#usenative = 1
-let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
-let g:ctrlp_match_current_file = 1
 
 Pack 'sgur/vim-editorconfig', {'type': 'opt'}
 let g:editorconfig_root_chdir = 1
@@ -161,18 +158,6 @@ Pack 'MaxMEllon/vim-jsx-pretty'
 Pack 'HerringtonDarkholme/yats.vim'
 
 call plugpac#end()
-
-"""" netrw
-nmap <silent> - :call <SID>opendir('edit')<CR>
-function! s:opendir(cmd) abort
-  if expand('%') =~# '^$\|^term:[\/][\/]'
-    execute a:cmd '.'
-  else
-    execute a:cmd '%:h'
-    let pattern = '^\%(| \)*'.escape(expand('#:t'), '.*[]~\').'[/*|@=]\=\%($\|\t\)'
-    call search(pattern, 'wc')
-  endif
-endfunction
 
 """" mkdir if not exists
 function! s:createDir()
