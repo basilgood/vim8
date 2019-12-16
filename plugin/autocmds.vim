@@ -38,10 +38,3 @@ autocmd vimRc Filetype gitcommit setlocal spell textwidth=72
 """" comments handling
 autocmd vimRc FileType,BufNewFile,BufWinEnter * setlocal formatoptions-=o
       \ formatoptions+=rjqn
-
-"""" filetype
-autocmd vimRc BufWinEnter *.json setlocal conceallevel=0 concealcursor=
-autocmd vimRc BufReadPre *.json setlocal conceallevel=0 concealcursor=
-autocmd vimRc BufReadPre *.json setlocal formatoptions=a2tq
-autocmd vimRc FileType json syntax match Comment +\/\/.\+$+
-autocmd vimRc FileType jsonc setlocal commentstring=//\ %s

@@ -189,6 +189,7 @@ set sessionoptions+=unix
 
 """ Insert completion
 set omnifunc=syntaxcomplete#Complete
+set completefunc=syntaxcomplete#Complete
 set completeopt-=preview
 set completeopt+=menuone,noselect
 set complete=.,w,b,u,U,t,i,d,k
@@ -252,7 +253,6 @@ set wildcharm=<C-Z>
 
 """" update time
 set notimeout
-set ttimeoutlen=10
 set updatetime=50
 
 set laststatus=2
@@ -400,5 +400,7 @@ highlight MatchParen guifg=#b8d68b guibg=#000080 term=reverse
 highlight link agsvFilePath Todo
 highlight link agsvLineNum Comment
 highlight link agsvResultPattern IncSearch
+highlight ALEErrorSign ctermfg=9 ctermbg=none
+highlight ALEWarningSign ctermfg=11 ctermbg=none
 
 set secure
