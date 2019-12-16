@@ -5,6 +5,9 @@ let g:netrw_altfile             = 1
 let g:netrw_dirhistmax          = 0
 let g:netrw_banner = 0
 let g:netrw_sort_sequence = '[\/]$,*'
+let g:netrw_list_hide='^\./$,^\../$'
+
+setlocal bufhidden=delete
 
 nmap <buffer> <right> <cr>
 nmap <buffer> <left> -

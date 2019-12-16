@@ -39,7 +39,6 @@ set viminfo=!,'300,<50,s10,h,n$HOME/.cache/vim/.viminfo
 "" path
 set path=.,,**
 
-
 """" minpac
 call plugpac#begin()
 
@@ -48,8 +47,10 @@ Pack 'k-takata/minpac', {'type': 'opt'}
 Pack 'dense-analysis/ale', {'type': 'opt'}
 autocmd vimRc BufReadPost * packadd ale
 
+Pack 'prabirshrestha/asyncomplete.vim'
 Pack 'prabirshrestha/async.vim'
 Pack 'prabirshrestha/vim-lsp'
+Pack 'prabirshrestha/asyncomplete-lsp.vim'
 
 Pack 'ctrlpvim/ctrlp.vim', {'type': 'opt', 'on': ['CtrlP', 'CtrlPBuffer']}
 let g:ctrlp_map = '<c-p>'
@@ -124,9 +125,6 @@ Pack 'machakann/vim-highlightedyank', {'type': 'opt'}
 let g:highlightedyank_highlight_duration = 200
 autocmd vimRc BufReadPost * packadd vim-highlightedyank
 
-Pack 'fcpg/vim-altscreen'
-autocmd vimRc BufReadPost * packadd vim-altscreen
-
 Pack 'wellle/targets.vim', {'type': 'opt'}
 autocmd vimRc BufReadPost * packadd targets.vim
 
@@ -136,37 +134,28 @@ map <C-k> <Plug>(edgemotion-k)
 
 Pack 'samoshkin/vim-mergetool', {'type': 'opt', 'on': '<Plug>(MergetoolToggle)'}
 let g:mergetool_layout = 'bmr'
-if &diff == 1
-  set t_Co=0
-  vmap <silent> <buffer> dg :diffget<CR>
-  vmap <silent> <buffer> dp :diffput<CR>
-  nmap <silent> <buffer> dg V:diffget<CR>
-  nmap <silent> <buffer> dp V:diffput<CR>
-endif
 
 Pack 'da-x/conflict-marker.vim', {'type': 'opt', 'on': ['<Plug>(conflict-marker-themselves)', '<Plug>(conflict-marker-ourselves)', '<Plug>(conflict-marker-both)', '<Plug>(conflict-marker-none)', '<Plug>(conflict-marker-next-hunk)', '<Plug>(conflict-marker-prev-hunk)']}
 Pack 'hotwatermorning/auto-git-diff', {'type': 'opt', 'for': 'gitrebase'}
-Pack 'LnL7/vim-nix'
-Pack 'evanleck/vim-svelte'
-Pack 'kchmck/vim-coffee-script'
-Pack 'plasticboy/vim-markdown'
-Pack 'jonsmithers/vim-html-template-literals', {'type': 'opt', 'for': 'javascript'}
-Pack 'lumiliet/vim-twig'
-Pack 'lepture/vim-jinja'
-Pack 'yuezk/vim-js'
-Pack 'MaxMEllon/vim-jsx-pretty'
-Pack 'HerringtonDarkholme/yats.vim'
+Pack 'fcpg/vim-altscreen'
+Pack 'rickhowe/diffchar.vim', {'type': 'opt'}
+autocmd vimRc BufReadPost * packadd diffchar.vim
+
+Pack 'jonsmithers/vim-html-template-literals', {'type': 'opt'}
+Pack 'LnL7/vim-nix', {'type': 'opt'}
+Pack 'evanleck/vim-svelte', {'type': 'opt'}
+Pack 'kchmck/vim-coffee-script', {'type': 'opt'}
+Pack 'plasticboy/vim-markdown', {'type': 'opt'}
+Pack 'lumiliet/vim-twig', {'type': 'opt'}
+Pack 'lepture/vim-jinja', {'type': 'opt'}
+Pack 'yuezk/vim-js', {'type': 'opt'}
+Pack 'MaxMEllon/vim-jsx-pretty', {'type': 'opt'}
+Pack 'HerringtonDarkholme/yats.vim', {'type': 'opt'}
 
 call plugpac#end()
 
-"""" mkdir if not exists
-function! s:createDir()
-  call mkdir(expand('<afile>:p:h'), 'p')
-endfunction
-autocmd vimRc BufWritePre,FileWritePre * silent! call s:createDir()
-
 """" better defaults
-"""" moving around/editing
+"" moving around/editing
 set hidden
 set nostartofline
 set nowrap
@@ -181,16 +170,16 @@ set matchtime=1
 set matchpairs&
 set display=lastline
 
-"""" searching and patterns
+"" searching and patterns
 set hlsearch|nohlsearch
 set gdefault
 
-"""" windows, buffers
+""" windows, buffers
 set switchbuf+=useopen,usetab
 set splitright
 set splitbelow
 
-"""" sessions
+""" sessions
 set sessionoptions-=options
 set sessionoptions-=blank
 set sessionoptions-=help
@@ -198,23 +187,20 @@ set sessionoptions-=curdir
 set sessionoptions+=globals
 set sessionoptions+=unix
 
-"""" Insert completion
+""" Insert completion
 set omnifunc=syntaxcomplete#Complete
 set completeopt-=preview
 set completeopt+=menuone,noselect
 set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 
-""""" diff
+"" diff
 set diffopt+=context:3,indent-heuristic,algorithm:patience
-if &diff
-  set t_Co=0
-endif
 
 " display
 set term=xterm-256color
 set t_Co=256
-set termguicolors
+" set termguicolors
 set number
 set mouse=a
 set ttymouse=sgr
@@ -283,8 +269,8 @@ set statusline+=%=
 set statusline+=%{&filetype!=#''?&filetype:''}
 
 """" mappings
-nnoremap j gj
-nnoremap k gk
+nnoremap <silent> j gj
+nnoremap <silent> k gk
 nnoremap > >>
 nnoremap < <<
 vnoremap > >gv
@@ -312,8 +298,8 @@ nnoremap <silent> <Tab> :wincmd w<CR>
 nnoremap <silent> <S-Tab> :wincmd W<CR>
 
 """" prev and next buffer
-nnoremap ]b :bnext<cr>
-nnoremap [b :bprev<cr>
+" nnoremap ]b :bnext<cr>
+" nnoremap [b :bprev<cr>
 
 """" lists
 nnoremap ]l :lnext<cr>
@@ -373,6 +359,9 @@ nnoremap <space>7 7<c-w>w
 nnoremap <space>8 8<c-w>w
 nnoremap <space>9 9<c-w>w
 
+"""" delete buffers
+nnoremap <space>b :ls<cr>:bd<space>
+
 """" substitute.
 nnoremap [subst]   <Nop>
 nmap   s [subst]
@@ -405,7 +394,7 @@ filetype plugin indent on
 syntax on
 
 set background=dark
-silent! colorscheme nord
+silent! colorscheme darkbase
 highlight Comment        guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 highlight MatchParen guifg=#b8d68b guibg=#000080 term=reverse
 highlight link agsvFilePath Todo

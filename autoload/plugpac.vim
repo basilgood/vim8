@@ -37,7 +37,7 @@ function! plugpac#end()
             \ [['i', '<C-O>', ''], ['n', '', ''], ['v', '', 'gv'], ['o', '', '']]
         execute printf(
         \ '%snoremap <silent> %s %s:<C-U>packadd %s<bar>call <SID>do_map(%s, %s, "%s")<CR>',
-        \  l:mode, l:map, l:map_prefix, l:name, string(l:map), l:mode != 'i', l:key_prefix)
+        \  l:mode, l:map, l:map_prefix, l:name, string(l:map), l:mode !=# 'i', l:key_prefix)
       endfor
     endfor
   endfor
@@ -74,7 +74,7 @@ function! plugpac#add(repo, ...) abort
           call s:assoc(s:lazy.map, l:name, l:cmd)
         endif
       elseif cmd =~# '^[A-Z]'
-        if exists(":".l:cmd) != 2
+        if exists(':'.l:cmd) != 2
           call s:assoc(s:lazy.cmd, l:name, l:cmd)
         endif
       else
@@ -122,8 +122,8 @@ function! s:do_map(map, with_prefix, prefix)
   if a:with_prefix
     let prefix = v:count ? v:count : ''
     let prefix .= '"'.v:register.a:prefix
-    if mode(1) == 'no'
-      if v:operator == 'c'
+    if mode(1) ==# 'no'
+      if v:operator ==# 'c'
         let prefix = "\<esc>" . prefix
       endif
       let prefix .= v:operator
@@ -172,7 +172,7 @@ function! s:plugin_dir_complete(A, L, P)
 endfunction
 
 function! s:get_plugin_list()
-  if exists("s:plugin_list")
+  if exists('s:plugin_list')
     return s:plugin_list
   endif
   let l:pat = 'pack/*/*/*'

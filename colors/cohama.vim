@@ -1,16 +1,12 @@
-hi clear
-
-" a colorscheme based on the colors of the terminal
-
-if exists("syntax_on")
-syntax reset
-endif
-
-let colors_name = "darkbase"
 set background=dark
+hi clear
+if exists("syntax_on")
+  syntax reset
+endif
+let g:colors_name = "cohama"
 
 " base
-hi Normal           ctermbg=NONE        ctermfg=249        cterm=NONE
+hi Normal          ctermfg=249  ctermbg=234
 
 " programming literals
 hi Comment         ctermfg=242
@@ -59,10 +55,10 @@ hi CursorLine                   ctermbg=232  cterm=none
 hi CursorColumn                 ctermbg=232
 hi ColorColumn                  ctermbg=23
 hi Conceal         ctermfg=240
-hi LineNr          ctermfg=239  ctermbg=none
+hi LineNr          ctermfg=239  ctermbg=233
 hi CursorLineNr    ctermfg=253  ctermbg=233
 hi FoldColumn      ctermfg=240  ctermbg=233
-hi SignColumn      ctermfg=0
+hi SignColumn                   ctermbg=234
 hi Folded          ctermfg=109  ctermbg=16
 hi Search          ctermfg=16  ctermbg=24
 hi IncSearch       ctermfg=202   ctermbg=16
@@ -80,11 +76,18 @@ hi Todo            ctermfg=33   ctermbg=NONE cterm=bold
 hi Title           ctermfg=227
 
 " diffs
-highlight DiffAdd ctermfg=119 ctermbg=NONE cterm=NONE
-highlight DiffDelete ctermfg=167 ctermbg=NONE cterm=NONE
-highlight DiffChange ctermfg=227 ctermbg=NONE cterm=NONE
-highlight DiffText ctermfg=203 ctermbg=NONE cterm=bold
+" highlight DiffAdd ctermfg=119 ctermbg=NONE cterm=NONE
+" highlight DiffDelete ctermfg=167 ctermbg=NONE cterm=NONE
+" highlight DiffChange ctermfg=227 ctermbg=NONE cterm=NONE
+" highlight DiffText ctermfg=203 ctermbg=NONE cterm=bold
 
+  hi DiffAdd ctermfg=71 ctermbg=235 guifg=#5c9a61 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
+  hi DiffAdded ctermfg=71 ctermbg=235 guifg=#5c9a61 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
+  hi DiffChange ctermfg=NONE ctermbg=236 guifg=NONE guibg=#2d3243 guisp=NONE cterm=NONE gui=NONE
+  hi DiffDelete ctermfg=174 ctermbg=235 guifg=#ca7375 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
+  hi DiffRemoved ctermfg=174 ctermbg=235 guifg=#ca7375 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
+  hi DiffChanged ctermfg=136 ctermbg=235 guifg=#a58949 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
+  hi DiffText ctermfg=136 ctermbg=235 guifg=#a58949 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
 hi diffAdded ctermfg=150 guifg=#b4be82
 hi diffRemoved ctermfg=203 guifg=#e27878
 
