@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
+let g:asyncomplete_smart_completion = 1
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-autocmd vimRc CompleteDone * if pumvisible() == 0 | pclose | endif
+inoremap <expr> <CR> pumvisible() ? asyncomplete#close_popup() : "\<CR>"
