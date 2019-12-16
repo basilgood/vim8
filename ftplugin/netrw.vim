@@ -13,7 +13,7 @@ nmap <buffer> <right> <cr>
 nmap <buffer> <left> -
 nmap <buffer> J j<cr>
 nmap <buffer> K k<cr>
-nmap <buffer> qq :bn<bar>bd#<cr>
-nmap <buffer> . :!rm -rf<space>
-nmap <buffer> ! :!
-xmap <buffer> ! :!
+nmap <buffer> gq :bn<bar>bd#<cr>
+nmap <buffer> D .!rm -rf
+nnoremap <buffer> . :<c-u> <c-r>=fnamemodify(bufname('%'),':p').getline('.')<cr><home>
+nmap <buffer> ! .!
