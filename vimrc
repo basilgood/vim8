@@ -47,23 +47,35 @@ Pack 'k-takata/minpac', {'type': 'opt'}
 Pack 'dense-analysis/ale', {'type': 'opt'}
 autocmd vimRc BufReadPost * packadd ale
 
+Pack 'Yggdroot/LeaderF', {'type': 'opt', 'on': 'Leaderf'}
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CursorBlink = 0
+let g:Lf_PreviewInPopup = 1
+let g:Lf_PreviewHorizontalPosition = 'center'
+let g:Lf_PopupColorscheme = 'default'
+let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
+let g:Lf_ShortcutF = '<C-P>'
+nnoremap <c-p> :Leaderf file<cr>
+nnoremap <bs> :Leaderf buffer<cr>
+command! Rg LeaderfRgInteractive
+
 Pack 'prabirshrestha/asyncomplete.vim'
 Pack 'prabirshrestha/async.vim'
 Pack 'prabirshrestha/vim-lsp'
 Pack 'prabirshrestha/asyncomplete-lsp.vim'
 
-Pack 'ctrlpvim/ctrlp.vim', {'type': 'opt', 'on': ['CtrlP', 'CtrlPBuffer']}
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_use_caching = 0
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_follow_symlinks = 1
-nnoremap <c-p> :CtrlP<cr>
-nnoremap <bs> :CtrlPBuffer<cr>
-nnoremap <C-t> :CtrlPCurFile<cr>
-if executable('fd')
-  let g:ctrlp_user_command = 'fd --color=never --hidden --follow --exclude .git --exclude pack --type file . %s'
-endif
+" Pack 'ctrlpvim/ctrlp.vim', {'type': 'opt', 'on': ['CtrlP', 'CtrlPBuffer']}
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_use_caching = 0
+" let g:ctrlp_show_hidden = 1
+" let g:ctrlp_follow_symlinks = 1
+" nnoremap <c-p> :CtrlP<cr>
+" nnoremap <bs> :CtrlPBuffer<cr>
+" nnoremap <C-t> :CtrlPCurFile<cr>
+" if executable('fd')
+"   let g:ctrlp_user_command = 'fd --color=never --hidden --follow --exclude .git --exclude pack --type file . %s'
+" endif
 
 Pack 'sgur/vim-editorconfig', {'type': 'opt'}
 let g:editorconfig_root_chdir = 1
