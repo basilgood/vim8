@@ -1,19 +1,21 @@
-set background=dark
 hi clear
-if exists("syntax_on")
-  syntax reset
+
+if exists('syntax_on')
+syntax reset
 endif
-let g:colors_name = "cohama"
+
+let colors_name = 'retro'
+set background=dark
 
 " base
-hi Normal          ctermfg=249  ctermbg=234
+hi Normal           ctermbg=NONE        ctermfg=249        cterm=NONE
 
 " programming literals
 hi Comment         ctermfg=242
-hi Constant        ctermfg=104               cterm=bold
+hi Constant        ctermfg=204               cterm=bold
 hi String          ctermfg=174
 hi Character       ctermfg=166
-hi Number          ctermfg=204
+hi Number          ctermfg=168
 hi Boolean         ctermfg=204
 hi Float           ctermfg=204
 
@@ -51,14 +53,14 @@ hi SpecialKey      ctermfg=61
 " vim views
 hi Cursor          ctermfg=16   ctermbg=253
 hi CursorIM        ctermfg=16   ctermbg=124
-hi CursorLine                   ctermbg=232  cterm=none
-hi CursorColumn                 ctermbg=232
+hi CursorLine                   ctermbg=235  cterm=none
+hi CursorColumn                 ctermbg=235
 hi ColorColumn                  ctermbg=23
 hi Conceal         ctermfg=240
-hi LineNr          ctermfg=239  ctermbg=233
-hi CursorLineNr    ctermfg=253  ctermbg=233
+hi LineNr          ctermfg=239  ctermbg=none
+hi CursorLineNr    ctermfg=253  ctermbg=none
 hi FoldColumn      ctermfg=240  ctermbg=233
-hi SignColumn                   ctermbg=234
+hi SignColumn      ctermfg=0
 hi Folded          ctermfg=109  ctermbg=16
 hi Search          ctermfg=16  ctermbg=24
 hi IncSearch       ctermfg=202   ctermbg=16
@@ -76,18 +78,11 @@ hi Todo            ctermfg=33   ctermbg=NONE cterm=bold
 hi Title           ctermfg=227
 
 " diffs
-" highlight DiffAdd ctermfg=119 ctermbg=NONE cterm=NONE
-" highlight DiffDelete ctermfg=167 ctermbg=NONE cterm=NONE
-" highlight DiffChange ctermfg=227 ctermbg=NONE cterm=NONE
-" highlight DiffText ctermfg=203 ctermbg=NONE cterm=bold
+highlight DiffAdd ctermfg=119 ctermbg=NONE cterm=NONE
+highlight DiffDelete ctermfg=167 ctermbg=NONE cterm=NONE
+highlight DiffChange ctermfg=227 ctermbg=NONE cterm=NONE
+highlight DiffText ctermfg=203 ctermbg=NONE cterm=bold
 
-  hi DiffAdd ctermfg=71 ctermbg=235 guifg=#5c9a61 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
-  hi DiffAdded ctermfg=71 ctermbg=235 guifg=#5c9a61 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
-  hi DiffChange ctermfg=NONE ctermbg=236 guifg=NONE guibg=#2d3243 guisp=NONE cterm=NONE gui=NONE
-  hi DiffDelete ctermfg=174 ctermbg=235 guifg=#ca7375 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
-  hi DiffRemoved ctermfg=174 ctermbg=235 guifg=#ca7375 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
-  hi DiffChanged ctermfg=136 ctermbg=235 guifg=#a58949 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
-  hi DiffText ctermfg=136 ctermbg=235 guifg=#a58949 guibg=#222532 guisp=NONE cterm=NONE,reverse gui=NONE,reverse
 hi diffAdded ctermfg=150 guifg=#b4be82
 hi diffRemoved ctermfg=203 guifg=#e27878
 
@@ -113,7 +108,7 @@ hi ModeMsg         ctermfg=229
 hi MoreMsg         ctermfg=229
 hi Question        ctermfg=110
 hi Underlined      ctermfg=244               cterm=underline
-hi VertSplit       ctermfg=232  ctermbg=232   cterm=bold
+hi VertSplit       ctermfg=235  ctermbg=235   cterm=bold
 hi Visual          ctermfg=255  ctermbg=33
 hi VisualNOS       ctermfg=255  ctermbg=33
 hi WarningMsg      ctermfg=231  ctermbg=238   cterm=bold

@@ -64,19 +64,6 @@ Pack 'prabirshrestha/async.vim'
 Pack 'prabirshrestha/vim-lsp'
 Pack 'prabirshrestha/asyncomplete-lsp.vim'
 
-" Pack 'ctrlpvim/ctrlp.vim', {'type': 'opt', 'on': ['CtrlP', 'CtrlPBuffer']}
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_use_caching = 0
-" let g:ctrlp_show_hidden = 1
-" let g:ctrlp_follow_symlinks = 1
-" nnoremap <c-p> :CtrlP<cr>
-" nnoremap <bs> :CtrlPBuffer<cr>
-" nnoremap <C-t> :CtrlPCurFile<cr>
-" if executable('fd')
-"   let g:ctrlp_user_command = 'fd --color=never --hidden --follow --exclude .git --exclude pack --type file . %s'
-" endif
-
 Pack 'sgur/vim-editorconfig', {'type': 'opt'}
 let g:editorconfig_root_chdir = 1
 let g:editorconfig_verbose    = 1
@@ -162,6 +149,7 @@ Pack 'lumiliet/vim-twig', {'type': 'opt'}
 Pack 'lepture/vim-jinja', {'type': 'opt'}
 Pack 'yuezk/vim-js', {'type': 'opt'}
 Pack 'MaxMEllon/vim-jsx-pretty', {'type': 'opt'}
+Pack 'Galooshi/vim-import-js'
 Pack 'HerringtonDarkholme/yats.vim', {'type': 'opt'}
 
 call plugpac#end()
@@ -406,7 +394,7 @@ filetype plugin indent on
 syntax on
 
 set background=dark
-silent! colorscheme darkbase
+silent! colorscheme retro
 highlight Comment        guifg=#5c6370 guibg=NONE    gui=italic cterm=italic
 highlight MatchParen guifg=#b8d68b guibg=#000080 term=reverse
 highlight link agsvFilePath Todo
