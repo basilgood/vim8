@@ -15,6 +15,9 @@ autocmd vimRc BufReadPost quickfix nnoremap <buffer> gq :bd<CR>
 autocmd vimRc FileType help nnoremap <buffer> gq :bd<CR>
 autocmd vimRc CmdwinEnter * nnoremap <silent><buffer> gq :<C-u>quit<CR>
 
+" grep.
+autocmd vimRc QuickFixCmdPost cgetexpr cwindow
+
 """" qf and help keep widow full width
 autocmd vimRc FileType qf wincmd J
 autocmd vimRc BufWinEnter * if &ft == 'help' | wincmd J | end
@@ -23,21 +26,23 @@ autocmd vimRc BufWinEnter * if &ft == 'help' | wincmd J | end
 autocmd vimRc InsertLeave * if &l:diff | diffupdate | endif
 
 """" external changes
-autocmd vimRc FocusGained,CursorHold * if !bufexists("[Command Line]") | checktime | GitGutterAll | endif
+autocmd vimRc FocusGained,CursorHold * if !bufexists("[Command Line]") | checktime | GitGutter | endif
 
-"""" cursorline
-autocmd vimRc InsertLeave,WinEnter * setlocal cursorline
-autocmd vimRc InsertEnter,WinLeave * setlocal nocursorline
+"""" mkdir
+autocmd vimRc BufWritePre *
+    \ if !isdirectory(expand('%:h', v:true)) |
+    \   call mkdir(expand('%:h', v:true), 'p') |
+    \ endif
 
 """" fugitive files
 autocmd vimRc FileType git setlocal nofoldenable
 
-"""" files with no extensions
-autocmd vimRc BufNewFile,BufRead * if &ft == '' | set ft=config | endif
-
-"""" Add spell checking and automatic wrapping at the recommended 72 columns to commit messages
-autocmd vimRc Filetype gitcommit setlocal spell textwidth=72
-
-"""" comments handling
-autocmd vimRc FileType,BufNewFile,BufWinEnter * setlocal formatoptions-=o
-      \ formatoptions+=rjqn
+"""" filetype
+autocmd vimRc BufNewFile,BufRead *.jsx setlocal filetype=javascript
+autocmd vimRc BufReadPre,BufNewFile *.tsx setlocal filetype=typescript
+autocmd vimRc BufNewFile,BufRead *.twig setlocal filetype=html.twig
+autocmd vimRc BufRead,BufNewFile *.gitignore  setlocal filetype=gitignore
+autocmd vimRc BufReadPre,BufNewFile *.twig setlocal filetype=twig.html
+autocmd vimRc BufWinEnter *.json setlocal conceallevel=0 concealcursor=
+autocmd vimRc BufReadPre *.json setlocal conceallevel=0 concealcursor=
+autocmd vimRc BufReadPre *.json setlocal formatoptions=a2tq

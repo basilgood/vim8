@@ -1,19 +1,18 @@
 hi clear
 
 if exists('syntax_on')
-syntax reset
+  syntax reset
 endif
 
 let colors_name = 'retro'
-set background=dark
 
 " base
 hi Normal           ctermbg=NONE        ctermfg=249        cterm=NONE
 
 " programming literals
-hi Comment         ctermfg=242
+hi Comment         ctermfg=8               cterm=italic
 hi Constant        ctermfg=204               cterm=bold
-hi String          ctermfg=174
+hi String          ctermfg=37
 hi Character       ctermfg=166
 hi Number          ctermfg=168
 hi Boolean         ctermfg=204
@@ -21,8 +20,8 @@ hi Float           ctermfg=204
 
 " programming statements
 hi Identifier      ctermfg=215               cterm=none
-hi Function        ctermfg=114
-hi Statement       ctermfg=219
+hi Function        ctermfg=114             cterm=italic
+hi Statement ctermfg=67 ctermbg=NONE cterm=NONE
 hi Conditional     ctermfg=217
 hi Repeat          ctermfg=217
 hi Label           ctermfg=158
@@ -32,7 +31,7 @@ hi Exception       ctermfg=217
 
 " programming pre-processes
 hi PreProc         ctermfg=37
-hi Include         ctermfg=37
+hi Include         ctermfg=174
 hi Define          ctermfg=37
 hi Macro           ctermfg=37
 hi PreCondit       ctermfg=37
@@ -46,7 +45,7 @@ hi Typedef         ctermfg=110
 " specials
 hi Special         ctermfg=69
 hi Delimiter       ctermfg=255
-hi SpecialComment  ctermfg=245               cterm=bold
+hi SpecialComment  ctermfg=245               cterm=italic
 hi Debug           ctermfg=219               cterm=bold
 hi SpecialKey      ctermfg=61
 
@@ -60,7 +59,7 @@ hi Conceal         ctermfg=240
 hi LineNr          ctermfg=239  ctermbg=none
 hi CursorLineNr    ctermfg=253  ctermbg=none
 hi FoldColumn      ctermfg=240  ctermbg=233
-hi SignColumn      ctermfg=0
+hi SignColumn      ctermfg=0    ctermbg=none
 hi Folded          ctermfg=109  ctermbg=16
 hi Search          ctermfg=16  ctermbg=24
 hi IncSearch       ctermfg=202   ctermbg=16
@@ -78,10 +77,10 @@ hi Todo            ctermfg=33   ctermbg=NONE cterm=bold
 hi Title           ctermfg=227
 
 " diffs
-highlight DiffAdd ctermfg=119 ctermbg=NONE cterm=NONE
-highlight DiffDelete ctermfg=167 ctermbg=NONE cterm=NONE
-highlight DiffChange ctermfg=227 ctermbg=NONE cterm=NONE
-highlight DiffText ctermfg=203 ctermbg=NONE cterm=bold
+hi DiffAdd cterm=NONE ctermbg=235
+hi DiffChange cterm=NONE ctermbg=235
+hi DiffDelete cterm=NONE ctermfg=238   ctermbg=244
+hi DiffText cterm=bold ctermfg=255   ctermbg=196
 
 hi diffAdded ctermfg=150 guifg=#b4be82
 hi diffRemoved ctermfg=203 guifg=#e27878
@@ -113,3 +112,7 @@ hi Visual          ctermfg=255  ctermbg=33
 hi VisualNOS       ctermfg=255  ctermbg=33
 hi WarningMsg      ctermfg=231  ctermbg=238   cterm=bold
 hi WildMenu        ctermfg=110  ctermbg=16
+hi GitGutterAdd ctermfg=22
+hi GitGutterChange ctermfg=178
+hi GitGutterDelete ctermfg=196
+hi GitGutterChangeDelete ctermfg=160

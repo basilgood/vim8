@@ -1,11 +1,15 @@
 scriptencoding utf-8
 
 setlocal iskeyword+=-
-
-let b:ale_linters = ['eslint', 'tsserver']
-let b:ale_javascript_eslint_options = '--ignore-pattern ''!.eslintrc.js'''
-let b:ale_fixers = ['eslint']
+setlocal suffixesadd+=.js
+setlocal include=^\\s*[^\/]\\+\\(from\\\|require(['\"]\\)
 
 packadd vim-html-template-literals
 packadd vim-jsx-pretty
 packadd vim-js
+
+if executable('./node_modules/.bin/prettier')
+  command! Format Dispatch! node_modules/.bin/prettier --single-quote --write %
+else
+  command! Format Dispatch! npx prettier --single-quote --write %
+endif

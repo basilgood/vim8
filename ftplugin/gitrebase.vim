@@ -1,3 +1,3 @@
 scriptencoding utf-8
 
-packadd vim-nix
+packadd auto-git-diff
