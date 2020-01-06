@@ -33,19 +33,37 @@ if exists('*minpac#init')
 
   call minpac#add('neomake/neomake')
   let g:neomake_highlight_columns = 0
-  autocmd vimRc FileType * call neomake#configure#automake_for_buffer('nw', 1000)
+  autocmd vimRc FileType *
+        \ call neomake#configure#automake_for_buffer('rnw', 500)
+  let g:neomake_error_sign = {
+        \ 'text': '_e',
+        \ 'texthl': 'GitGutterDelete',
+        \ }
+  let g:neomake_warning_sign = {
+        \   'text': '_w',
+        \   'texthl': 'GitGutterChange',
+        \ }
+  let g:neomake_message_sign = {
+        \   'text': '➤',
+        \   'texthl': 'NeomakeMessageSign',
+        \ }
+  let g:neomake_info_sign = {
+        \ 'text': 'ℹ',
+        \ 'texthl': 'NeomakeInfoSign'
+        \ }
 
   call minpac#add('ctrlpvim/ctrlp.vim', {'type': 'opt'})
   let g:ctrlp_cmd = 'CtrlP'
   let g:ctrlp_use_caching = 0
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_match_current_file = 1
-  nnoremap <C-p> :packadd ctrlp.vim<cr>:CtrlP<cr>
-  nnoremap <bs> :CtrlPBuffer<cr>
-  nnoremap <C-t> :CtrlPCurFile<cr>
+  nnoremap <silent> <C-p> :packadd ctrlp.vim<cr>:CtrlP<cr>
+  nnoremap <silent> <bs> :CtrlPBuffer<cr>
+  nnoremap <silent> <C-t> :CtrlPCurFile<cr>
 
   if executable('fd')
-    let g:ctrlp_user_command = 'fd --color=never --hidden --follow --exclude .git --exclude pack --type file . %s'
+    let g:ctrlp_user_command =
+          \ 'fd --color=never --hidden --follow --exclude .git --exclude pack --type file . %s'
   endif
 
   call minpac#add('sgur/vim-editorconfig', {'type': 'opt'})
@@ -99,9 +117,6 @@ if exists('*minpac#init')
 
   call minpac#add('markonm/traces.vim', {'type': 'opt'})
   autocmd vimRc BufReadPost * packadd traces.vim
-
-  call minpac#add('terryma/vim-multiple-cursors', {'type': 'opt'})
-  autocmd vimRc BufReadPost * packadd vim-multiple-cursors
 
   call minpac#add('junegunn/vim-easy-align', {'type': 'opt'})
   nmap ga <Plug>(EasyAlign)
