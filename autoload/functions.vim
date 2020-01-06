@@ -77,3 +77,7 @@ function! functions#toggle_option(option_name) abort
   execute 'setlocal' a:option_name.'!'
   execute 'setlocal' a:option_name.'?'
 endfunction
+
+function! functions#installplug() abort
+  execute '!git clone https://github.com/k-takata/minpac.git  ~/.vim/pack/minpac/opt/minpac'
+endfunction
