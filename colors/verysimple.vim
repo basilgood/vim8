@@ -22,8 +22,8 @@ hi DiffAdd          cterm=NONE    ctermbg=235
 hi DiffChange       cterm=NONE    ctermbg=235
 hi DiffDelete       cterm=NONE    ctermfg=238  ctermbg=244
 hi DiffText         cterm=bold    ctermfg=255  ctermbg=196
-hi diffAdded        ctermfg=150   guifg=#b4be82
-hi diffRemoved      ctermfg=203   guifg=#e27878
+hi diffAdded        ctermfg=150
+hi diffRemoved      ctermfg=203
 
 " Statusline/tabline
 hi StatusLine       cterm=reverse ctermbg=234  ctermfg=245
