@@ -71,3 +71,9 @@ function! functions#insertleave()
     return "\<Esc>"
   endif
 endfunction
+
+" toggle
+function! functions#toggle_option(option_name) abort
+  execute 'setlocal' a:option_name.'!'
+  execute 'setlocal' a:option_name.'?'
+endfunction
