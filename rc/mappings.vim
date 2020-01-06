@@ -56,6 +56,9 @@ onoremap <silent> il :<C-U>normal! ^vg_<cr>
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 
+" Better x
+nnoremap x "_x
+
 " disable EX-mode
 nnoremap Q <Nop>
 
@@ -90,15 +93,16 @@ nnoremap <space>f :find<space>
 nnoremap <space>b :ls<cr>:bd<space>
 
 " substitute.
-nnoremap [subst]   <Nop>
+nnoremap [subst] <Nop>
 nmap   s [subst]
 xmap   s [subst]
 nnoremap [subst]s :%s/
 nnoremap [subst]l :s//<left>
 xnoremap [subst]  :s/
 nnoremap [subst]a :<c-u>%s/\C\<<c-r><c-w>\>/<c-r><c-w>
-nnoremap [subst]p vip :<c-u>s/
+nnoremap [subst]p :'{,'}s//<left>
 nnoremap [subst]w :<C-u>%s/\C\<<C-R><C-w>\>//g<Left><Left>
+nnoremap [subst]n *``cgn
 
 " zoom
 nnoremap <C-w>t :tabedit %<cr>
@@ -112,7 +116,7 @@ nnoremap <silent>n n
 nnoremap <silent>N N
 
 " star search
-nnoremap * *``
+nnoremap <silent> * *``
 function! s:VSetSearch(cmdtype)
   let temp = @s
   norm! gv"sy
@@ -128,3 +132,9 @@ nnoremap <silent><expr> <C-l> empty(get(b:, 'current_syntax'))
       \ ? "\<C-l>"
       \ : "\<C-l>:syntax sync fromstart\<cr>:nohlsearch<cr>"
 
+" grep
+cnoreabbrev grep Grep
+
+" toggle
+nnoremap [Space]s
+      \ :<C-u>call functions#toggle_option('spell')<CR>
