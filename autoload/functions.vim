@@ -62,7 +62,7 @@ function! functions#tabline() abort
 endfunction
 
 " fix insert leave
-function! functions#insertleave()
+function! functions#insertleave() abort
   let cursorPos = col('.')
   let maxColumn = col('$')
   if cursorPos < maxColumn && cursorPos != 1
@@ -78,6 +78,24 @@ function! functions#toggle_option(option_name) abort
   execute 'setlocal' a:option_name.'?'
 endfunction
 
+" minpac
 function! functions#installplug() abort
   execute '!git clone https://github.com/k-takata/minpac.git  ~/.vim/pack/minpac/opt/minpac'
+endfunction
+
+" highlighting group
+function! functions#hl() abort
+  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
+endfunction
+
+" search
+highlight default link CurrentSearch IncSearch
+command! -bar Nohlsearch ClearCurrentSearch | nohlsearch
+command! -bar ClearCurrentSearch silent! call matchdelete(get(s:, 'current_search_id', -1))
+function! functions#highlight_current() abort
+  ClearCurrentSearch
+  if get(v:, 'hlsearch', 0) == 1
+    let pat = (&ignorecase && (!&smartcase || @/ !~# '\u')  ? '\c' : '\C') . '\m\%#' . (&magic ? '' : '\M') . @/
+    let s:current_search_id = matchadd('CurrentSearch', pat, 10, get(s:, 'current_search_id', -1))
+  endif
 endfunction

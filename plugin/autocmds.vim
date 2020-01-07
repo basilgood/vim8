@@ -37,6 +37,10 @@ autocmd vimRc BufWritePre *
 """" fugitive files
 autocmd vimRc FileType git setlocal nofoldenable
 
+"""" hlsearch
+autocmd vimRc CursorMoved,InsertLeave * call functions#highlight_current()
+autocmd vimRc InsertEnter * ClearCurrentSearch
+
 """" filetype
 autocmd vimRc BufNewFile,BufRead *.jsx setlocal filetype=javascript
 autocmd vimRc BufReadPre,BufNewFile *.tsx setlocal filetype=typescript
