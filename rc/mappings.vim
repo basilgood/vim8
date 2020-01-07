@@ -137,5 +137,9 @@ nnoremap <silent> <space>n :Nohlsearch<cr>
 cnoreabbrev grep Grep
 
 " toggle
-nnoremap [Space]s
+nnoremap cos
       \ :<C-u>call functions#toggle_option('spell')<CR>
+nnoremap cow
+      \ :<C-u>call functions#toggle_option('wrap')<CR>
+nnoremap con
+      \ :<C-u>call functions#toggle_option('relativenumber')<CR>

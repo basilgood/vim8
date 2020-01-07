@@ -10,7 +10,6 @@ nnoremap <silent> <bs> :CtrlPBuffer<cr>
 nnoremap <silent> <C-t> :CtrlPCurFile<cr>
 
 if executable('fd')
-  let g:ctrlp_user_command =
-        \ 'fd --color=never --hidden --follow --exclude .git --exclude pack --type file . %s'
+  let g:ctrlp_user_command = 'fd --color=never --hidden --follow --exclude .git --exclude pack --type file . %s'
 endif
 

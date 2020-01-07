@@ -8,10 +8,11 @@ scriptencoding utf-8
 " set clipboard=unnamed
 
 "" backup, swap, undo
-if !isdirectory($HOME.'/.cache/vim/undo-dir')
-  call mkdir($HOME.'/.cache/vim/undo-dir', 'p')
+let s:undoDir = $HOME . '/.cache/vim/undo-dir'
+if !isdirectory(s:undoDir)
+  call mkdir(s:undoDir, 'p')
 endif
-set undodir=~/.cache/vim/undo-dir
+let &undodir=s:undoDir
 set undofile
 set nobackup
 set noswapfile
@@ -60,7 +61,7 @@ set omnifunc=syntaxcomplete#Complete
 set completefunc=syntaxcomplete#Complete
 set completeopt-=preview
 set completeopt+=menuone,noselect,noinsert
-set complete-=i
+set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 
 " diff
