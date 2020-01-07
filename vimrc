@@ -40,6 +40,8 @@ if exists('$TMUX')
   set term=xterm-256color
 endif
 set t_Co=256
+set t_ut=
+set t_md=
 set background=dark
 silent! colorscheme verysimple
 
