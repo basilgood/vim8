@@ -150,4 +150,3 @@ set statusline+=%{&modified?'+++++':''}
 set statusline+=%*
 set statusline+=%=
 set statusline+=%{&filetype!=#''?&filetype:''}
-
