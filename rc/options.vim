@@ -72,7 +72,6 @@ set mouse=a
 set ttymouse=sgr
 set noshowmode
 set tabline=%!functions#tabline()
-set t_ut=
 set list
 set listchars=tab:›\ ,trail:•,extends:»,precedes:«,nbsp:‡
 autocmd vimRc InsertEnter * set listchars-=trail:•
