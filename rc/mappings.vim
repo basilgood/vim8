@@ -131,6 +131,7 @@ xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 nnoremap <silent><expr> <C-l> empty(get(b:, 'current_syntax'))
       \ ? "\<C-l>"
       \ : "\<C-l>:syntax sync fromstart\<cr>:nohlsearch<cr>"
+nnoremap <silent> <space>n :Nohlsearch<cr>
 
 " grep
 cnoreabbrev grep Grep
