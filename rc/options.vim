@@ -131,10 +131,10 @@ set updatetime=50
 set lazyredraw
 
 " " grep
-" if executable('ag')
-"   set grepprg=ag\ --vimgrep
-"   set grepformat=%f:%l:%c:%m
-" endif
+if executable('ag')
+  set grepprg=ag\ --vimgrep
+  set grepformat=%f:%l:%c:%m
+endif
 "
 " statusline
 set laststatus=2
