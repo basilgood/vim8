@@ -10,19 +10,6 @@ function! PackInit() abort
 
   call minpac#add('natebosch/vim-lsc')
   call minpac#add('roxma/SimpleAutoComplPop')
-  autocmd vimRc FileType nix call sacp#enableForThisBuffer({ "matches": [
-        \ { '=~': '\v[a-zA-Z]{2}$', 'feedkeys': "\<Plug>(sacp_cache_fuzzy_bufferkeyword_complete)"},
-        \ { '=~': '\v[a-zA-Z]{2}$', 'feedkeys': "\<C-x>\<C-o>"},
-        \ { '=~': '\.$'           , 'feedkeys': "\<C-x>\<C-n>"},
-        \ ]
-        \ })
-  autocmd vimRc FileType scss call sacp#enableForThisBuffer({ "matches": [
-        \ { '=~': '\v[a-zA-Z]{2}$', 'feedkeys': "\<C-x>\<C-o>"},
-        \ { '=~': '\.$'           , 'feedkeys': "\<C-x>\<C-n>"},
-        \ { '=~': '\#$'           , 'feedkeys': "\<C-x>\<C-n>"},
-        \ { '=~': '\: $'          , 'feedkeys': "\<C-x>\<C-o>"},
-        \ ]
-        \ })
 
   call minpac#add('neomake/neomake')
   call minpac#add('ctrlpvim/ctrlp.vim', {'type': 'opt'})
