@@ -8,7 +8,7 @@ nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<CR>
 function! InFugitive() abort
   nmap <buffer> zp :<c-u>AsyncDo git push<CR>
   nmap <buffer> zF :<c-u>AsyncDo git push -f<CR>
-  nmap <buffer> <c-l> :<c-u>call fugitive#ReloadStatus<cr>
+  nmap <buffer> <c-l> :<c-u>call fugitive#ReloadStatus()<cr>
 endfunction
 
 autocmd vimRc FileType fugitive call InFugitive()
