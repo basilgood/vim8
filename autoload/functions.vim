@@ -23,11 +23,13 @@ function! s:SearchWithDispatch(cmd, args) abort
     let &l:makeprg = g:grepprg . ' ' . a:args
     let &l:errorformat = '%f:%l:%c:%m,%f:%l:%m'
 
-    Make
+    execute 'silent Make'
   finally
     let &l:makeprg = l:makeprg_bak
     let &l:errorformat = l:errorformat_bak
   endtry
+  copen
+  redraw
 endfunction
 
 " highlight

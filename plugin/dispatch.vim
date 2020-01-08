@@ -1,3 +1,3 @@
 scriptencoding utf-8
 
-autocmd vimRc BufReadPost * packadd vim-dispatch
+autocmd vimRc VimEnter * packadd vim-dispatch

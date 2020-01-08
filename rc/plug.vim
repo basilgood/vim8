@@ -16,7 +16,7 @@ function! PackInit() abort
   call minpac#add('sgur/vim-editorconfig', {'type': 'opt'})
   call minpac#add('tpope/vim-fugitive', {'type': 'opt'})
   call minpac#add('airblade/vim-gitgutter', {'type': 'opt'})
-  call minpac#add('stefandtw/quickfix-reflector.vim', {'type': 'opt'})
+  call minpac#add('stefandtw/quickfix-reflector.vim')
   call minpac#add('tpope/vim-dispatch', {'type': 'opt'})
   call minpac#add('tomtom/tcomment_vim', {'type': 'opt'})
   call minpac#add('tpope/vim-surround', {'type': 'opt'})

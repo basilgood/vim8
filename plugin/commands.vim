@@ -7,7 +7,3 @@ command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | d
 command! -nargs=0 Nixfmt Dispatch! nixfmt %
 command! -bang -nargs=* -complete=file Grep call functions#grep('grep<bang>',<q-args>)
 command! HL call functions#hl()
-command! -bang -nargs=* -complete=file Make call asyncdo#run(<bang>0, &makeprg, <f-args>)
-command! -bang -nargs=* -complete=dir Grp call asyncdo#run(<bang>0,
-            \ { 'job': &grepprg, 'errorformat': &grepformat },
-            \ <f-args>)
