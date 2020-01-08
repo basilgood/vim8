@@ -23,7 +23,7 @@ let g:loaded_getscriptPlugin    = 1
 let g:loaded_logipat            = 1
 let g:loaded_man                = 1
 
-"""" vim 8 defaults
+" vim 8 defaults
 unlet! skip_defaults_vim
 silent! source $VIMRUNTIME/defaults.vim
 

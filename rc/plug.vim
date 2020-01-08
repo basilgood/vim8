@@ -30,6 +30,7 @@ function! PackInit() abort
   call minpac#add('da-x/conflict-marker.vim', {'type': 'opt'})
   call minpac#add('hotwatermorning/auto-git-diff', {'type': 'opt'})
   call minpac#add('jonsmithers/vim-html-template-literals', {'type': 'opt'})
+  call minpac#add('rhysd/vim-fixjson')
   call minpac#add('LnL7/vim-nix', {'type': 'opt'})
   call minpac#add('evanleck/vim-svelte', {'type': 'opt'})
   call minpac#add('kchmck/vim-coffee-script', {'type': 'opt'})
