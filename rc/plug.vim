@@ -12,7 +12,7 @@ function! PackInit() abort
   call minpac#add('roxma/SimpleAutoComplPop')
 
   call minpac#add('neomake/neomake')
-  call minpac#add('ctrlpvim/ctrlp.vim', {'type': 'opt'})
+  call minpac#add('Yggdroot/LeaderF', {'type': 'opt'})
   call minpac#add('sgur/vim-editorconfig', {'type': 'opt'})
   call minpac#add('tpope/vim-fugitive', {'type': 'opt'})
   call minpac#add('airblade/vim-gitgutter', {'type': 'opt'})

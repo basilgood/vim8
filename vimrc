@@ -36,9 +36,6 @@ source $HOME/.vim/rc/options.vim
 source $HOME/.vim/rc/mappings.vim
 
 syntax enable
-if exists('$TMUX')
-  set term=xterm-256color
-endif
 set t_Co=256
 set t_ut=
 set t_md=
