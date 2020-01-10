@@ -133,10 +133,14 @@ nnoremap <silent><expr> <C-l> empty(get(b:, 'current_syntax'))
       \ : "\<C-l>:syntax sync fromstart\<cr>:nohlsearch<cr>"
 nnoremap <silent> <space>n :Nohlsearch<cr>
 
-" toggle
+" toggles
 nnoremap cos
       \ :<C-u>call functions#toggle_option('spell')<CR>
 nnoremap cow
       \ :<C-u>call functions#toggle_option('wrap')<CR>
 nnoremap con
       \ :<C-u>call functions#toggle_option('relativenumber')<CR>
+nnoremap col
+      \ :<C-u>call functions#toggle_option('cursorline')<CR>
+nnoremap coc
+      \ :<C-u>call functions#toggle_option('cursorcolumn')<CR>

@@ -6,5 +6,5 @@ call sacp#enableForThisBuffer({ 'matches': [
       \ { '=~': '\.$'           , 'feedkeys': "\<C-x>\<C-n>"},
       \ ]
       \ })
-setlocal makeprg=nixfmt
-autocmd vimRc BufWrite * Autoformat
+" setlocal makeprg=nixpkgs-fmt
+autocmd vimRc BufWrite * ALEFix nixpkgs-fmt

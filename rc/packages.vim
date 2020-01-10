@@ -1,14 +1,13 @@
 scriptencoding utf-8
 
-function! PackagerInit() abort
+function! s:packager_init() abort
   packadd vim-packager
   call packager#init()
   call packager#add('kristijanhusak/vim-packager', { 'type': 'opt' })
   call packager#add('tpope/vim-vinegar', {'type': 'opt'})
   call packager#add('natebosch/vim-lsc')
   call packager#add('roxma/SimpleAutoComplPop')
-  call packager#add('neomake/neomake')
-  call packager#add('Chiel92/vim-autoformat')
+  call packager#add('dense-analysis/ale', {'type': 'opt'})
   call packager#add('airblade/vim-gitgutter', {'type': 'opt'})
   call packager#add('Yggdroot/LeaderF', {'type': 'opt'})
   call packager#add('sgur/vim-editorconfig', {'type': 'opt'})
@@ -27,7 +26,7 @@ function! PackagerInit() abort
   call packager#add('samoshkin/vim-mergetool', {'type': 'opt'})
   call packager#add('da-x/conflict-marker.vim', {'type': 'opt'})
   call packager#add('hotwatermorning/auto-git-diff', {'type': 'opt'})
-  call packager#add('jonsmithers/vim-html-template-literals', {'type': 'opt'})
+  call packager#add('jonsmithers/vim-html-template-literals', {'type': 'opt', 'branch': 'dev'})
   call packager#add('rhysd/vim-fixjson')
   call packager#add('LnL7/vim-nix', {'type': 'opt'})
   call packager#add('evanleck/vim-svelte', {'type': 'opt'})
@@ -35,14 +34,14 @@ function! PackagerInit() abort
   call packager#add('plasticboy/vim-markdown', {'type': 'opt'})
   call packager#add('lumiliet/vim-twig', {'type': 'opt'})
   call packager#add('lepture/vim-jinja', {'type': 'opt'})
-  call packager#add('yuezk/vim-js', {'type': 'opt'})
-  call packager#add('MaxMEllon/vim-jsx-pretty', {'type': 'opt'})
+  " call packager#add('yuezk/vim-js', {'type': 'opt'})
+  " call packager#add('MaxMEllon/vim-jsx-pretty', {'type': 'opt'})
   call packager#add('HerringtonDarkholme/yats.vim', {'type': 'opt'})
 endfunction
 
 
 
-command! PackagerInstall call PackagerInit() | call packager#install()
-command! -bang PackagerUpdate call PackagerInit() | call packager#update({ 'force_hooks': '<bang>' })
-command! PackagerClean call PackagerInit() | call packager#clean()
-command! PackagerStatus call PackagerInit() | call packager#status()
+command! -nargs=0 PackagerInstall call s:packager_init() | call packager#install()
+command! -bang PackagerUpdate call s:packager_init() | call packager#update({ 'force_hooks': '<bang>' })
+command! PackagerClean call s:packager_init() | call packager#clean()
+command! PackagerStatus call s:packager_init() | call packager#status()

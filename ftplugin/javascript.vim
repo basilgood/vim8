@@ -10,3 +10,4 @@ packadd vim-js
 
 setlocal makeprg=eslint
 autocmd vimRc BufWrite * Autoformat
+autocmd vimRc BufRead,BufNewFile * syn match parens /[(){}<>[]/ | hi parens ctermfg=8

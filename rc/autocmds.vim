@@ -40,6 +40,7 @@ autocmd vimRc FileType git setlocal nofoldenable
 """" hlsearch
 autocmd vimRc CursorMoved,InsertLeave * call functions#highlight_current()
 autocmd vimRc InsertEnter * ClearCurrentSearch
+" autocmd vimRc BufRead,BufNewFile * syn match parens /[(){}<>[]/ | hi parens ctermfg=8
 
 """" filetype
 autocmd vimRc BufNewFile,BufRead *.jsx setlocal filetype=javascript
