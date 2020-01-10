@@ -31,7 +31,8 @@ augroup vimRc
   autocmd!
 augroup END
 
-source $HOME/.vim/rc/plug.vim
+" source $HOME/.vim/rc/plug.vim
+source $HOME/.vim/rc/packages.vim
 source $HOME/.vim/rc/options.vim
 source $HOME/.vim/rc/mappings.vim
 
