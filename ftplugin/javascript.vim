@@ -8,6 +8,5 @@ packadd vim-html-template-literals
 packadd vim-jsx-pretty
 packadd vim-js
 
-let b:dispatch = 'make'
 setlocal makeprg=eslint
-autocmd vimRc BufWritePost <buffer> Make! --fix %
+autocmd vimRc BufWrite * Autoformat

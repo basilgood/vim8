@@ -80,9 +80,9 @@ function! functions#toggle_option(option_name) abort
   execute 'setlocal' a:option_name.'?'
 endfunction
 
-" minpac
-function! functions#installplug() abort
-  execute '!git clone https://github.com/k-takata/minpac.git  ~/.vim/pack/minpac/opt/minpac'
+" packager
+function! functions#installpackager() abort
+  execute '!git clone https://github.com/kristijanhusak/vim-packager ~/.vim/pack/packager/opt/vim-packager'
 endfunction
 
 " highlighting group
