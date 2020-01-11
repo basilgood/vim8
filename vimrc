@@ -58,7 +58,7 @@ set t_Co=256
 set t_ut=
 set t_md=
 set background=dark
-silent! colorscheme apprentice
+silent! colorscheme min
 
 if v:vim_did_enter
   filetype off

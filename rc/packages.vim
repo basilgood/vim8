@@ -34,8 +34,8 @@ function! s:packager_init() abort
   call packager#add('plasticboy/vim-markdown', {'type': 'opt'})
   call packager#add('lumiliet/vim-twig', {'type': 'opt'})
   call packager#add('lepture/vim-jinja', {'type': 'opt'})
-  " call packager#add('yuezk/vim-js', {'type': 'opt'})
-  " call packager#add('MaxMEllon/vim-jsx-pretty', {'type': 'opt'})
+  call packager#add('yuezk/vim-js', {'type': 'opt'})
+  call packager#add('MaxMEllon/vim-jsx-pretty', {'type': 'opt'})
   call packager#add('HerringtonDarkholme/yats.vim', {'type': 'opt'})
 endfunction
 
