@@ -36,7 +36,8 @@ augroup END
 
 runtime! rc/packages.vim
 runtime! rc/pluginsconf.vim
-runtime! rc/lsc.vim
+runtime! rc/lspdiagnostic.vim
+runtime! rc/lsp.vim
 runtime! rc/options.vim
 runtime! rc/mappings.vim
 runtime! rc/ruler.vim

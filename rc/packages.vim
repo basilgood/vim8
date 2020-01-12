@@ -1,13 +1,25 @@
 scriptencoding utf-8
 
+" clone packager
+if has('vim_starting')
+  if !isdirectory(expand('~/.vim/pack/packager/opt/vim-packager/'))
+    echo 'install packager...'
+    call system('git clone https://github.com/kristijanhusak/vim-packager ~/.vim/pack/packager/opt/vim-packager')
+  endif
+endif
+
 function! s:packager_init() abort
   packadd vim-packager
   call packager#init()
   call packager#add('kristijanhusak/vim-packager', { 'type': 'opt' })
   call packager#add('tpope/vim-vinegar', {'type': 'opt'})
-  call packager#add('natebosch/vim-lsc')
-  call packager#add('roxma/SimpleAutoComplPop')
-  call packager#add('dense-analysis/ale', {'type': 'opt'})
+  " call packager#add('natebosch/vim-lsc')
+  call packager#add('prabirshrestha/asyncomplete.vim')
+  call packager#add('prabirshrestha/async.vim')
+  call packager#add('prabirshrestha/vim-lsp')
+  call packager#add('prabirshrestha/asyncomplete-lsp.vim')
+  " call packager#add('roxma/SimpleAutoComplPop')
+  " call packager#add('dense-analysis/ale', {'type': 'opt'})
   call packager#add('airblade/vim-gitgutter', {'type': 'opt'})
   call packager#add('Yggdroot/LeaderF', {'type': 'opt'})
   call packager#add('sgur/vim-editorconfig', {'type': 'opt'})
@@ -26,7 +38,7 @@ function! s:packager_init() abort
   call packager#add('samoshkin/vim-mergetool', {'type': 'opt'})
   call packager#add('da-x/conflict-marker.vim', {'type': 'opt'})
   call packager#add('hotwatermorning/auto-git-diff', {'type': 'opt'})
-  call packager#add('jonsmithers/vim-html-template-literals', {'type': 'opt', 'branch': 'dev'})
+  call packager#add('jonsmithers/vim-html-template-literals', {'branch': 'dev'})
   call packager#add('rhysd/vim-fixjson')
   call packager#add('LnL7/vim-nix', {'type': 'opt'})
   call packager#add('evanleck/vim-svelte', {'type': 'opt'})
@@ -35,7 +47,8 @@ function! s:packager_init() abort
   call packager#add('lumiliet/vim-twig', {'type': 'opt'})
   call packager#add('lepture/vim-jinja', {'type': 'opt'})
   call packager#add('yuezk/vim-js', {'type': 'opt'})
-  call packager#add('MaxMEllon/vim-jsx-pretty', {'type': 'opt'})
+  call packager#add('jonsmithers/vim-html-template-literals', {'branch': 'dev'})
+  " call packager#add('MaxMEllon/vim-jsx-pretty', {'type': 'opt'})
   call packager#add('HerringtonDarkholme/yats.vim', {'type': 'opt'})
 endfunction
 

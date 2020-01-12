@@ -7,4 +7,4 @@ call sacp#enableForThisBuffer({ 'matches': [
       \ ]
       \ })
 " setlocal makeprg=nixpkgs-fmt
-autocmd vimRc BufWrite * ALEFix nixpkgs-fmt
+" autocmd vimRc BufWrite * ALEFix nixpkgs-fmt
