@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
-"""" autocmds
-"""" If a file is large, disable syntax highlighting, filetype etc
+" autocmds
+" If a file is large, disable syntax highlighting, filetype etc
 let g:LargeFile = 20*1024*1024 " 20MB
 autocmd vimRc BufReadPre *
       \ let s = getfsize(expand("<afile>")) |
@@ -9,7 +9,7 @@ autocmd vimRc BufReadPre *
       \   call functions#large_file(fnamemodify(expand("<afile>"), ":p")) |
       \ endif
 
-"""" don't list location-list / quickfix windows
+" don't list location-list / quickfix windows
 autocmd vimRc BufReadPost quickfix setlocal nobuflisted
 autocmd vimRc BufReadPost quickfix nnoremap <buffer> gq :bd<CR>
 autocmd vimRc FileType help nnoremap <buffer> gq :bd<CR>
@@ -18,31 +18,37 @@ autocmd vimRc CmdwinEnter * nnoremap <silent><buffer> gq :<C-u>quit<CR>
 " grep.
 autocmd vimRc QuickFixCmdPost cgetexpr cwindow
 
-"""" qf and help keep widow full width
+" qf and help keep widow full width
 autocmd vimRc FileType qf wincmd J
 autocmd vimRc BufWinEnter * if &ft == 'help' | wincmd J | end
 
-"""" update diff
+" update diff
 autocmd vimRc InsertLeave * if &l:diff | diffupdate | endif
+autocmd vimRc BufEnter * if &diff | call functions#diff_maps() | endif
 
-"""" external changes
+" external changes
 autocmd vimRc FocusGained,CursorHold * if !bufexists("[Command Line]") | checktime | GitGutter | endif
 
-"""" mkdir
+" mkdir
 autocmd vimRc BufWritePre *
     \ if !isdirectory(expand('%:h', v:true)) |
     \   call mkdir(expand('%:h', v:true), 'p') |
     \ endif
 
-"""" fugitive files
+" filetype detection after writing
+autocmd vimRc BufWritePost *
+    \ if empty(&filetype) |
+    \   filetype detect |
+    \ endif
+
+" fugitive files
 autocmd vimRc FileType git setlocal nofoldenable
 
-"""" hlsearch
+" hlsearch
 autocmd vimRc CursorMoved,InsertLeave * call functions#highlight_current()
 autocmd vimRc InsertEnter * ClearCurrentSearch
-" autocmd vimRc BufRead,BufNewFile * syn match parens /[(){}<>[]/ | hi parens ctermfg=8
 
-"""" filetype
+" filetype
 autocmd vimRc BufNewFile,BufRead *.jsx setlocal filetype=javascript
 autocmd vimRc BufReadPre,BufNewFile *.tsx setlocal filetype=typescript
 autocmd vimRc BufNewFile,BufRead *.twig setlocal filetype=html.twig

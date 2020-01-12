@@ -75,10 +75,10 @@ hi TabLineFill     ctermfg=245  ctermbg=245
 hi Title           ctermfg=227               cterm=NONE
 
 " diffs
-hi DiffAdd                      ctermbg=17
-hi DiffChange      ctermfg=181  ctermbg=236
-hi DiffDelete      ctermfg=162  ctermbg=53
-hi DiffText                     ctermbg=239  cterm=NONE
+hi DiffAdd               cterm=NONE     ctermbg=235
+hi DiffChange            cterm=NONE     ctermbg=235
+hi DiffDelete            cterm=NONE     ctermfg=238  ctermbg=244
+hi DiffText              cterm=bold     ctermfg=255  ctermbg=196
 hi diffAdded       ctermfg=40                cterm=NONE
 hi diffRemoved     ctermfg=204
 

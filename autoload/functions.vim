@@ -80,11 +80,6 @@ function! functions#toggle_option(option_name) abort
   execute 'setlocal' a:option_name.'?'
 endfunction
 
-" packager
-function! functions#installpackager() abort
-  execute '!git clone https://github.com/kristijanhusak/vim-packager ~/.vim/pack/packager/opt/vim-packager'
-endfunction
-
 " highlighting group
 function! functions#hl() abort
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
@@ -100,4 +95,12 @@ function! functions#highlight_current() abort
     let pat = (&ignorecase && (!&smartcase || @/ !~# '\u')  ? '\c' : '\C') . '\m\%#' . (&magic ? '' : '\M') . @/
     let s:current_search_id = matchadd('CurrentSearch', pat, 10, get(s:, 'current_search_id', -1))
   endif
+endfunction
+
+" diff mappings
+function! functions#diff_maps()
+  nnoremap <buffer> zp :diffput<CR>
+  nnoremap <buffer> zg :diffget<CR>
+  vnoremap <buffer> zg :diffget<CR>
+  vnoremap <buffer> zp :diffput<CR>
 endfunction
