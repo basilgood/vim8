@@ -11,6 +11,7 @@ autocmd! vimRc User lsp_setup call lsp#register_server({
       \     'javascript.jsx',
       \     'javascriptreact',
       \     'html',
+      \     'nix',
       \   ],
       \   'initialization_options': {
       \     'linters': {
@@ -43,6 +44,7 @@ autocmd! vimRc User lsp_setup call lsp#register_server({
       \       'typescript.tsx': 'eslint',
       \       'typescriptreact': 'eslint',
       \       'html': 'eslint',
+      \       'nix': 'nix-instantiate',
       \     },
       \     'formatters': {
       \       'eslint': {
