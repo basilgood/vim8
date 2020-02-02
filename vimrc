@@ -38,7 +38,7 @@ if dein#load_state(s:dein_dir)
         \ })
   call dein#add('roxma/SimpleAutoComplPop', {
         \ 'lazy' : 1,
-        \ 'on_i': 1
+        \ 'on_event': 'BufReadPre'
         \ })
   call dein#add('tpope/vim-vinegar', {
         \ 'lazy' : 1,
@@ -302,7 +302,6 @@ if dein#tap('SimpleAutoComplPop')
         \ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-n>"} ,
         \ ]
         \ })
-
 endif
 
 syntax enable
