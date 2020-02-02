@@ -6,101 +6,170 @@ scriptencoding utf-8
 unlet! skip_defaults_vim
 silent! source $VIMRUNTIME/defaults.vim
 
+" disable some internal plugins
+let g:loaded_rrhelper = 1
+let g:did_install_default_menus = 1
+
+" general autogroup
 augroup vimRc
   autocmd!
 augroup END
 
-let s:plugins_dir = expand('$HOME/.vim/plugins')
-if has('vim_starting')
-  if &runtimepath !~# '/neobundle.vim'
-    if ! isdirectory(s:plugins_dir.'/neobundle.vim')
-      execute printf('!git clone %s://github.com/Shougo/neobundle.vim.git',
-            \ (exists('$http_proxy') ? 'https' : 'git'))
-            \ s:plugins_dir.'/neobundle.vim'
-    endif
-    execute 'set runtimepath^='.s:plugins_dir.'/neobundle.vim'
+" dein
+let g:dein#auto_recache = 1
+let g:dein#install_progress_type = 'title'
+let g:dein#enable_notification = 1
+let s:dein_dir = expand('~/.cache/dein')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
   endif
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
 endif
 
-call neobundle#begin(expand('~/.vim/plugins/'))
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
 
-  NeoBundleFetch 'Shougo/neobundle.vim'
-
-  NeoBundle 'natebosch/vim-lsc'
-  NeoBundleLazy 'roxma/SimpleAutoComplPop', {
-        \ 'on_i': 1
-        \ }
-
-  NeoBundleLazy 'tpope/vim-vinegar', {
-        \   'autoload': {
-        \     'mappings': ['-']}}
-
-  NeoBundle 'Yggdroot/LeaderF', {
+  call dein#add('natebosch/vim-lsc', {
         \ 'lazy': 1,
-        \ 'mappings': [['n', '<Plug>', '<c-p>']],
-        \ 'on_cmd': ['Leaderf', 'LeaderfFile', 'LeaderfBuffer'],
-        \ }
-
-  NeoBundle 'dense-analysis/ale', {
+        \ 'on_event': 'BufReadPre'
+        \ })
+  call dein#add('roxma/SimpleAutoComplPop', {
+        \ 'lazy' : 1,
+        \ 'on_i': 1
+        \ })
+  call dein#add('tpope/vim-vinegar', {
+        \ 'lazy' : 1,
+        \ 'on_map': {'n': '-'}
+        \ })
+  call dein#add('Yggdroot/LeaderF', {
+        \ 'on_cmd': ['LeaderfFile', 'LeaderfBuffer'],
+        \ 'on_map': ['<Plug>', '<C-p>'],
+        \ 'hook_add': join(['let g:Lf_ShortcutF = "<C-p>"',
+        \ 'let g:Lf_ShortcutB = "<BS>"',
+        \ 'let g:Lf_WindowHeight = 0.25',
+        \ 'let g:Lf_PreviewInPopup = 1',
+        \ 'let g:Lf_PreviewHorizontalPosition = "center"',
+        \ 'let g:Lf_CursorBlink = 0',
+        \ 'let g:Lf_ShowHidden = 1',
+        \ 'let g:Lf_CommandMap = {"<C-K>": ["<Up>"], "<C-J>": ["<Down>"]}'], "\n")
+        \ })
+  call dein#add('dense-analysis/ale', {
         \ 'lazy': 1,
         \ 'on_ft': ['vim', 'javascript', 'nix', 'html', 'typescript'],
-        \ }
-
-  NeoBundleLazy 'tpope/vim-fugitive'
-  NeoBundleLazy 'airblade/vim-gitgutter'
-  NeoBundleLazy 'tpope/vim-dispatch', {
-        \ 'on_cmd': ['Dispatch', 'Make', 'Start'],
-        \ }
-
-  NeoBundle 'tpope/vim-repeat'
-  NeoBundleLazy 'tpope/vim-surround', {
-        \ 'mappings': [['n', 'ys', 'ds', 'cs'], ['x', 'S']],
-        \ }
-
-  NeoBundle 'tomtom/tcomment_vim', {
+        \ })
+  call dein#add('sgur/vim-editorconfig', {
         \ 'lazy': 1,
-        \ 'mappings': [['nx', 'gc', 'gC']],
-        \ }
-
-  NeoBundle 'fcpg/vim-altscreen'
-  NeoBundle 'markonm/traces.vim'
-  NeoBundle 'markonm/hlyank.vim'
-  NeoBundle 'stefandtw/quickfix-reflector.vim'
-
-  NeoBundleLazy 'junegunn/vim-easy-align'
-  NeoBundleLazy 'wellle/targets.vim'
-  NeoBundleLazy 'sgur/vim-editorconfig'
-  NeoBundleLazy 'samoshkin/vim-mergetool'
-  NeoBundleLazy 'da-x/conflict-marker.vim'
-  NeoBundleLazy 'hotwatermorning/auto-git-diff'
-
-  NeoBundle 'pangloss/vim-javascript', {
+        \ 'on_event': 'BufReadPost'
+        \ })
+  call dein#add('airblade/vim-gitgutter', {
         \ 'lazy': 1,
+        \ 'on_event': 'BufReadPost',
+        \ })
+  call dein#add('tpope/vim-fugitive', {
+        \ 'lazy': 1,
+        \ 'on_event': 'BufReadPost',
+        \ })
+  call dein#add('tpope/vim-dispatch', {
+        \ 'lazy': 1,
+        \ 'on_cmd': ['Dispatch', 'Make', 'Start']
+        \ })
+  call dein#add('tpope/vim-surround', {
+        \ 'lazy' : 1,
+        \ 'on_event': 'BufReadPost'
+        \ })
+  call dein#add('tpope/vim-repeat')
+  call dein#add('tomtom/tcomment_vim', {
+        \ 'lazy' : 1,
+        \ 'on_event': 'BufReadPost'
+        \ })
+  call dein#add('wellle/targets.vim', {
+        \ 'lazy' : 1,
+        \ 'on_event': 'BufReadPost'
+        \ })
+  call dein#add('markonm/hlyank.vim', {
+        \ 'lazy' : 1,
+        \ 'on_event': 'BufReadPost'
+        \ })
+  call dein#add('fcpg/vim-altscreen')
+  call dein#add('markonm/traces.vim', {
+        \ 'lazy' : 1,
+        \ 'on_event': 'BufReadPost'
+        \ })
+  call dein#add('junegunn/vim-easy-align',{
+        \ 'lazy' : 1,
+        \ 'on_map': '<Plug>(EasyAlign)',
+        \ 'on_cmd': 'EasyAlign'
+        \ })
+  call dein#add('stefandtw/quickfix-reflector.vim', {
+        \ 'on_ft': 'qf'
+        \ })
+  call dein#add('arames/vim-async-grep', {
+        \ 'lazy' : 1,
+        \ 'on_event': 'BufReadPost'
+        \ })
+  call dein#add('samoshkin/vim-mergetool', {
+        \ 'lazy' : 1,
+        \ 'on_event': 'BufReadPost'
+        \ })
+  call dein#add('da-x/conflict-marker.vim', {
+        \ 'lazy' : 1,
+        \ 'on_event': 'BufReadPost'
+        \ })
+  call dein#add('hotwatermorning/auto-git-diff', {
+        \ 'on_ft': 'gitrebase'
+        \ })
+  call dein#add('pangloss/vim-javascript', {
         \ 'on_ft': 'javascript'
-        \ }
-
-  NeoBundle 'jonsmithers/vim-html-template-literals', {
-        \ 'lazy': 1,
+        \ })
+  call dein#add('jonsmithers/vim-html-template-literals', {
         \ 'branch': 'dev',
-        \ 'on_ft': 'javascript'
-        \ }
-
-  NeoBundleLazy 'LnL7/vim-nix', {
+        \ 'on_ft': 'javascript',
+        \ 'hook_add': 'let g:htl_all_templates = 1'
+        \ })
+  call dein#add('LnL7/vim-nix', {
         \ 'on_ft': 'nix'
-        \ }
-
-  NeoBundleLazy 'digitaltoad/vim-pug', {
+        \ })
+  call dein#add('digitaltoad/vim-pug', {
         \ 'on_ft': 'pug'
-        \ }
-
-  NeoBundleLazy 'dNitro/vim-pug-complete', {
+        \ })
+  call dein#add('dNitro/vim-pug-complete', {
         \ 'on_ft': 'pug'
-        \ }
+        \ })
+  call dein#add('rhysd/vim-fixjson', {
+        \ 'on_ft': 'json'
+        \ })
+  call dein#add('kchmck/vim-coffee-script', {
+        \ 'on_ft': 'coffee'
+        \ })
+  call dein#add('plasticboy/vim-markdown', {
+        \ 'on_ft': 'markdown'
+        \ })
+  call dein#add('lepture/vim-jinja', {
+        \ 'on_ft': 'jinja'
+        \ })
+  call dein#add('lumiliet/vim-twig', {
+        \ 'on_ft': 'twig'
+        \ })
 
-call neobundle#end()
+  call dein#end()
+  call dein#save_state()
+endif
+
+if !has('vim_starting') && dein#check_install()
+  call dein#install()
+endif
+
+let s:removed_plugins = dein#check_clean()
+if len(s:removed_plugins) > 0
+  call map(s:removed_plugins, "delete(v:val, 'rf')")
+  call dein#recache_runtimepath()
+endif
 filetype plugin indent on
 
-if neobundle#is_installed('vim-lsc')
+if dein#tap('vim-lsc')
   let g:lsc_server_commands = {
         \  'javascript': {
         \    'command': 'typescript-language-server --stdio',
@@ -141,7 +210,7 @@ if neobundle#is_installed('vim-lsc')
         \ 'FindCodeActions': '<Space>a',
         \ 'Rename': '<F2>',
         \ 'ShowHover': v:true,
-        \ 'DocumentSymbol': '<Space>v',
+        \ 'DocumentSymbol': '<Space>x',
         \ 'WorkspaceSymbol': '<Space><S-v>',
         \ 'SignatureHelp': '<Space>m',
         \ 'Completion': 'omnifunc',
@@ -153,7 +222,7 @@ if neobundle#is_installed('vim-lsc')
   let g:lsc_trace_level          = 'off'
 endif
 
-if neobundle#tap('ale')
+if dein#tap('ale')
   let g:ale_set_signs = 1
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_insert_leave = 1
@@ -181,59 +250,29 @@ if neobundle#tap('ale')
 
   nnoremap [a :ALEPreviousWrap<CR>
   nnoremap ]a :ALENextWrap<CR>
-
-  call neobundle#untap()
 endif
 
-if neobundle#is_installed('vim-vinegar')
+if dein#tap('vim-vinegar')
   let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
   let g:netrw_altfile             = 1
   autocmd vimRc FileType netrw call functions#innetrw()
-
 endif
 
-if neobundle#tap('LeaderF')
-  function! neobundle#hooks.on_source(bundle)
-    let g:Lf_ShortcutF = '<C-P>'
-    let g:Lf_ShortcutB = '<BS>'
-    let g:Lf_WindowHeight = 0.25
-    let g:Lf_PreviewInPopup = 1
-    let g:Lf_PreviewHorizontalPosition = 'center'
-    let g:Lf_CursorBlink = 0
-    let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
-  endfunction
-
-  call neobundle#untap()
-endif
-
-if neobundle#tap('vim-surround')
+if dein#tap('vim-surround')
   let g:surround_no_insert_mappings = 1
   let surround_indent=1
   nmap S ysiw
 endif
 
-if neobundle#tap('vim-editorconfig')
+if dein#tap('vim-editorconfig')
   let g:editorconfig_root_chdir = 1
   let g:editorconfig_verbose    = 1
   let g:editorconfig_blacklist  = {
         \ 'filetype': ['git.*', 'fugitive'],
         \ 'pattern': ['\.un~$']}
-  function! s:load_editorconfig()
-    if findfile('.editorconfig', '.;') !=# ''
-      NeoBundleSource vim-editorconfig
-    endif
-  endfunction
-
-  autocmd vimRc BufReadPre * call s:load_editorconfig()
-
-  call neobundle#untap()
 endif
 
-if neobundle#tap('vim-fugitive')
-  if finddir('.git/') !=# ''
-    NeoBundleSource vim-fugitive
-  endif
-
+if dein#tap('vim-fugitive')
   nnoremap [git]  <Nop>
   nmap <space>g [git]
   nnoremap <silent> [git]s :<C-u>vertical Gstatus<CR>
@@ -245,30 +284,30 @@ if neobundle#tap('vim-fugitive')
   endfunction
 
   autocmd vimRc FileType fugitive call InFugitive()
-
-  call neobundle#untap()
 endif
 
-if neobundle#tap('vim-gitgutter')
-  if finddir('.git/') !=# ''
-    NeoBundleSource vim-gitgutter
-  endif
-
-  call neobundle#untap()
+if dein#tap('vim-easy-align')
+  xmap ga <Plug>(EasyAlign)
+  nmap ga <Plug>(EasyAlign)
 endif
 
-if neobundle#tap('SimpleAutoComplPop')
+if dein#tap('SimpleAutoComplPop')
   autocmd vimRc FileType pug call sacp#enableForThisBuffer({ "matches": [
         \ { '=~': '\v[a-zA-Z]{2}$' , 'feedkeys': "\<C-x>\<C-o>"} ,
         \ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-n>"} ,
         \ ]
         \ })
+  autocmd vimRc FileType nix call sacp#enableForThisBuffer({ "matches": [
+        \ { '=~': '\v[a-zA-Z]{2}$' , 'feedkeys': "\<C-x>\<C-n>"} ,
+        \ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-n>"} ,
+        \ ]
+        \ })
 
-  call neobundle#untap()
 endif
 
 syntax enable
 
+set term=xterm-256color
 " cursor shape
 let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
