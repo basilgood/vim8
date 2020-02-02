@@ -3,30 +3,30 @@ if exists('syntax_on')
   syntax reset
 endif
 
-let g:colors_name = 'new'
+let g:colors_name = 'min'
 
 " base
-hi Normal          ctermfg=249  ctermbg=NONE cterm=NONE
+hi Normal          ctermfg=181  ctermbg=NONE cterm=NONE
 hi EndOfBuffer     ctermfg=8    ctermbg=NONE cterm=NONE
 
 " programming literals
 hi Comment         ctermfg=8    ctermbg=NONE cterm=italic
 hi Constant        ctermfg=104               cterm=NONE
-hi String          ctermfg=37
+hi String          ctermfg=65
 hi Character       ctermfg=166
 hi Number          ctermfg=204
 hi Boolean         ctermfg=204
 hi Float           ctermfg=204
 
 " programming statements
-hi Identifier      ctermfg=215               cterm=NONE
-hi Function        ctermfg=103  ctermbg=NONE cterm=italic
-hi Statement       ctermfg=219               cterm=NONE
+hi Identifier      ctermfg=216               cterm=NONE
+hi Function        ctermfg=68   ctermbg=NONE cterm=italic
+hi Statement       ctermfg=175               cterm=NONE
 hi Conditional     ctermfg=217               cterm=NONE
 hi Repeat          ctermfg=217               cterm=NONE
 hi Label           ctermfg=158               cterm=NONE
 hi Operator        ctermfg=229               cterm=NONE
-hi Keyword         ctermfg=219               cterm=NONE
+hi Keyword         ctermfg=182               cterm=NONE
 hi Exception       ctermfg=217               cterm=NONE
 
 " programming pre-processes
@@ -47,13 +47,12 @@ hi Special         ctermfg=69
 hi Delimiter       ctermfg=255
 hi SpecialComment  ctermfg=245               cterm=NONE
 hi Debug           ctermfg=219               cterm=NONE
-hi SpecialKey      ctermfg=61                cterm=NONE
 
 " vim views
 hi Cursor          ctermfg=16   ctermbg=253
 hi CursorIM        ctermfg=16   ctermbg=124
-hi CursorLine                   ctermbg=235  cterm=NONE
-hi CursorColumn                 ctermbg=235  cterm=NONE
+hi CursorLine                   ctermbg=236  cterm=NONE
+hi CursorColumn                 ctermbg=236  cterm=NONE
 hi ColorColumn                  ctermbg=23
 hi Conceal         ctermfg=240
 hi LineNr          ctermfg=8    ctermbg=NONE
@@ -66,19 +65,19 @@ hi IncSearch       ctermfg=16   ctermbg=202
 hi QuickFixLine    ctermfg=202  ctermbg=NONE
 hi NonText         ctermfg=8    ctermbg=NONE cterm=NONE
 hi SpecialKey      ctermfg=8    ctermbg=NONE cterm=NONE
-hi StatusLine      ctermfg=255  ctermbg=238  cterm=NONE
-hi StatusLineNC    ctermfg=239  ctermbg=233  cterm=NONE
+hi StatusLine      ctermfg=255  ctermbg=96   cterm=NONE
+hi StatusLineNC    ctermfg=239  ctermbg=235  cterm=NONE
 hi Todo            ctermfg=33   ctermbg=NONE cterm=NONE
-hi TabLine         ctermfg=245  ctermbg=237  cterm=NONE
-hi TabLineSel      ctermfg=255  ctermbg=233  cterm=NONE
-hi TabLineFill     ctermfg=245  ctermbg=245
+" hi TabLine         ctermfg=245  ctermbg=237  cterm=NONE
+" hi TabLineSel      ctermfg=255  ctermbg=233  cterm=NONE
+" hi TabLineFill     ctermfg=245  ctermbg=245
 hi Title           ctermfg=227               cterm=NONE
 
 " diffs
 hi DiffAdd               cterm=NONE     ctermbg=235
 hi DiffChange            cterm=NONE     ctermbg=235
 hi DiffDelete            cterm=NONE     ctermfg=238  ctermbg=244
-hi DiffText              cterm=bold     ctermfg=255  ctermbg=196
+hi DiffText              cterm=bold     ctermfg=255  ctermbg=203
 hi diffAdded       ctermfg=40                cterm=NONE
 hi diffRemoved     ctermfg=204
 
@@ -104,8 +103,8 @@ hi ModeMsg         ctermfg=229
 hi MoreMsg         ctermfg=229               cterm=NONE
 hi Question        ctermfg=110
 hi Underlined      ctermfg=244               cterm=underline
-hi VertSplit       ctermfg=232  ctermbg=232  cterm=NONE
-hi Visual          ctermfg=110  ctermbg=235  cterm=reverse
+hi VertSplit       ctermfg=235  ctermbg=235  cterm=NONE
+hi Visual          ctermfg=96   ctermbg=255  cterm=reverse
 hi VisualNOS       ctermfg=NONE ctermbg=NONE cterm=underline
 hi WarningMsg      ctermfg=231  ctermbg=238  cterm=NONE
 hi WildMenu        ctermfg=110  ctermbg=16
