@@ -17,12 +17,12 @@ endif
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
-  call dein#add('natebosch/vim-lsc', {
-        \ 'lazy': 1,
-        \ 'on_event': 'BufReadPre'
+  call dein#add('autozimu/LanguageClient-neovim', {
+        \ 'rev': 'next',
+        \ 'do': '/usr/bin/env bash install.sh'
         \ })
-  call dein#add('roxma/SimpleAutoComplPop', {
-        \ 'lazy' : 1,
+  call dein#add('maralla/completor.vim', {
+        \ 'lazy': 1,
         \ 'on_event': 'BufReadPre'
         \ })
   call dein#add('tpope/vim-vinegar', {
@@ -144,4 +144,5 @@ if len(s:removed_plugins) > 0
   call map(s:removed_plugins, "delete(v:val, 'rf')")
   call dein#recache_runtimepath()
 endif
+
 filetype plugin indent on

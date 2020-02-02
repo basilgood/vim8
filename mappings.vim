@@ -57,9 +57,6 @@ onoremap <silent> il :<C-U>normal! ^vg_<cr>
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 
-" Better x
-nnoremap x "_x
-
 " disable EX-mode
 nnoremap Q <Nop>
 
@@ -69,13 +66,13 @@ nnoremap Q @q
 vnoremap Q :norm Q<cr>
 
 " yank to clipboard
-vnoremap <space>y "+y
+vnoremap <space>y :call functions#clipboardyank()<cr>
 
 " yank and keep cursor position
 vnoremap <expr>y "my\"" . v:register . "y`y"
 
 " paste from clipboard
-nnoremap <space>p :put+<cr>
+nnoremap <space>p :call functions#clipboardpaste()<cr>
 vnoremap <space>p "+p
 nnoremap <space>P :put!+<cr>
 vnoremap <space>P "+P
