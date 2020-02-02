@@ -15,12 +15,12 @@ augroup vimRc
   autocmd!
 augroup END
 
-source plugins.vim
-source plug_config.vim
-source options.vim
-source mappings.vim
-source autocmds.vim
-source commands.vim
+source $HOME/.vim/plugins.vim
+source $HOME/.vim/plug_config.vim
+source $HOME/.vim/options.vim
+source $HOME/.vim/mappings.vim
+source $HOME/.vim/autocmds.vim
+source $HOME/.vim/commands.vim
 
 syntax enable
 

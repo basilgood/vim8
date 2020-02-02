@@ -93,6 +93,9 @@ if dein#tap('LeaderF')
   let g:Lf_ShowHidden = 1
   let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
   let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
+  let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+  let g:Lf_WorkingDirectoryMode = 'Ac'
+  let g:Lf_CacheDirectory = expand('~/.cache/vim')
 endif
 
 if dein#tap('vim-vinegar')
@@ -143,6 +146,12 @@ if dein#tap('SimpleAutoComplPop')
   autocmd vimRc FileType nix call sacp#enableForThisBuffer({ "matches": [
         \ { '=~': '\v[a-zA-Z]{2}$' , 'feedkeys': "\<C-x>\<C-n>"} ,
         \ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-n>"} ,
+        \ ]
+        \ })
+  autocmd vimRc FileType scss,css call sacp#enableForThisBuffer({ "matches": [
+        \ { '=~': '\v[a-zA-Z]{2}$' , 'feedkeys': "\<C-x>\<C-o>"} ,
+        \ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-o>"} ,
+        \ { '=~': '\: $'            , 'feedkeys': "\<C-x>\<C-o>"} ,
         \ ]
         \ })
 endif
