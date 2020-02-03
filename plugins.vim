@@ -19,7 +19,7 @@ if dein#load_state(s:dein_dir)
 
   call dein#add('autozimu/LanguageClient-neovim', {
         \ 'rev': 'next',
-        \ 'do': '/usr/bin/env bash install.sh'
+        \ 'build': '/run/current-system/sw/bin/bash install.sh'
         \ })
   call dein#add('maralla/completor.vim', {
         \ 'lazy': 1,
@@ -83,9 +83,9 @@ if dein#load_state(s:dein_dir)
   call dein#add('stefandtw/quickfix-reflector.vim', {
         \ 'on_ft': 'qf'
         \ })
-  call dein#add('arames/vim-async-grep', {
+  call dein#add('mbbill/undotree', {
         \ 'lazy' : 1,
-        \ 'on_event': 'BufReadPost'
+        \ 'on_cmd': 'UndotreeToggle'
         \ })
   call dein#add('samoshkin/vim-mergetool', {
         \ 'lazy' : 1,

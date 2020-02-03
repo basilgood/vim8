@@ -77,7 +77,7 @@ endif
 if dein#tap('vim-vinegar')
   let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
   let g:netrw_altfile             = 1
-  let g:netrw_home='~/.vim/cache/'
+  let g:netrw_home='~/.cache/vim/cache/'
   autocmd vimRc FileType netrw call functions#innetrw()
 endif
 
@@ -119,6 +119,13 @@ endif
 if dein#tap('vim-easy-align')
   xmap ga <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
+endif
+
+if dein#tap('undotree')
+  let g:undotree_CustomUndotreeCmd = 'vertical 50 new'
+  let g:undotree_CustomDiffpanelCmd= 'belowright 12 new'
+  let g:undotree_SetFocusWhenToggle = 1
+  let g:undotree_ShortIndicators = 1
 endif
 
 if dein#tap('SimpleAutoComplPop')
