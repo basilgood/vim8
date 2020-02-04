@@ -23,8 +23,21 @@ if dein#load_state(s:dein_dir)
         \ })
   call dein#add('maralla/completor.vim', {
         \ 'lazy': 1,
+        \ 'build': 'make js',
         \ 'on_event': 'BufReadPre'
         \ })
+  " call dein#add('maralla/completor-typescript', {
+  "       \ 'lazy': 1,
+  "       \ 'on_ft': ['typescript', 'javascript']
+  "       \ })
+  " call dein#add('prabirshrestha/asyncomplete.vim', {
+  "       \ 'lazy': 1,
+  "       \ 'on_event': 'BufReadPre'
+  "       \ })
+  " call dein#add('tryone144/asyncomplete-LanguageClient.vim', {
+  "       \ 'lazy': 1,
+  "       \ 'on_event': 'BufReadPre'
+  "       \ })
   call dein#add('tpope/vim-vinegar', {
         \ 'lazy' : 1,
         \ 'on_map': {'n': '-'}

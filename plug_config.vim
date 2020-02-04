@@ -7,21 +7,29 @@ if dein#tap('LanguageClient-neovim')
         \ 'typescript': ['typescript-language-server', '--stdio'],
         \ 'vim': ['vim-language-server', '--stdio'],
         \ }
-endif
-
-if dein#tap('completor.vim')
-  let g:completor_refresh_always = 0
-  set formatexpr=LanguageClient_textDocument_rangeFormatting()
-  set omnifunc=LanguageClient#complete
-  let g:completor_python_omni_trigger = '.*'
-  let g:completor_nix_omni_trigger = "\\w+$|[\\w\\)\\]\\}\'\"]+\\.\\w*$"
-  let g:completor_javascript_omni_trigger = "\\w+$|[\\w\\)\\]\\}\'\"]+\\.\\w*$"
-  let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
-  let g:completor_scss_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
   nnoremap <F5> :call LanguageClient_contextMenu()<CR>
   nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
   nnoremap <silent> gld :call LanguageClient#textDocument_definition()<CR>
   nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+  set formatexpr=LanguageClient_textDocument_rangeFormatting()
+  set omnifunc=LanguageClient#complete
+endif
+
+if dein#tap('completor.vim')
+  let g:completor_refresh_always = 0
+  let g:completor_nix_omni_trigger = "\\w+$|[\\w\\)\\]\\}\'\"]+\\.\\w*$"
+  let g:completor_javascript_omni_trigger = "\\w+$|[\\w\\)\\]\\}\'\"]+\\.\\w*$"
+  let g:completor_vim_omni_trigger = "\\w+$|[\\w\\)\\]\\}\'\"]+\\.\\w*$"
+  let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+  let g:completor_scss_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+  let g:completor_html_omni_trigger = '(<[$\w]*|<\/[$\w]*)$'
+  let g:completor_xml_omni_trigger = '(<[$\w]*|<\/[$\w]*)$'
+  let g:completor_php_omni_trigger = '([$\w]{2,}|use\s*|->[$\w]*|::[$\w]*|implements\s*|extends\s*|class\s+[$\w]+|new\s*)$'
+  let g:completor_ruby_omni_trigger = '(\.[$\w]*|::[$\w]*)$'
+  let g:completor_node_binary = '/home/vasy/.nix-profile/bin/node'
+  " let g:completor_filetype_map = {}
+  " let g:completor_filetype_map.javascript = {'ft': 'lsp', 'cmd': 'typescript-language-server --stdio'}
+  " let g:completor_filetype_map.vim = {'ft': 'lsp', 'cmd': 'vim-language-server --stdio'}
 endif
 
 if dein#tap('ale')
