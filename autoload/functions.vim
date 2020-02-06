@@ -106,9 +106,15 @@ function! functions#diff_maps()
 endfunction
 
 " ale fixers
+let s:enabled = 0
 function! functions#togglefixonsave() abort
-    let g:ale_fix_on_save = !g:ale_fix_on_save
-    echo g:ale_fix_on_save == 1 ? 'ale_fix_on_save enabled' : 'ale_fix_on_save disabled'
+  if s:enabled
+    call coc#config('eslint.autoFixOnSave', v:false)
+    let s:enabled = 0
+  else
+    call coc#config('eslint.autoFixOnSave', v:true)
+    let s:enabled = 1
+  endif
 endfunction
 
 " copy-paste wayland

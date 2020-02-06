@@ -17,27 +17,18 @@ endif
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
-  call dein#add('natebosch/vim-lsc', {
-        \ 'lazy': 1,
-        \ 'on_event': 'BufReadPre'
-        \ })
+  call dein#add('neoclide/coc.nvim', { 'build': 'yarn install --frozen-lockfile', 'merged': 0 })
+  call dein#add('neoclide/coc-eslint', { 'build': 'yarn install --frozen-lockfile', 'merged': 0 })
+  call dein#add('neoclide/coc-git', { 'build': 'yarn install --frozen-lockfile', 'merged': 0 })
   call dein#add('tpope/vim-vinegar', {
         \ 'lazy' : 1,
         \ 'on_map': {'n': '-'}
         \ })
   call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
   call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-  " call dein#add('dense-analysis/ale', {
-  "       \ 'lazy': 1,
-  "       \ 'on_ft': ['vim', 'javascript', 'nix', 'html', 'typescript'],
-  "       \ })
   call dein#add('sgur/vim-editorconfig', {
         \ 'lazy': 1,
         \ 'on_event': 'BufReadPost'
-        \ })
-  call dein#add('airblade/vim-gitgutter', {
-        \ 'lazy': 1,
-        \ 'on_event': 'BufReadPost',
         \ })
   call dein#add('tpope/vim-fugitive', {
         \ 'lazy': 1,

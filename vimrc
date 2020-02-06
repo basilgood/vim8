@@ -15,8 +15,10 @@ augroup vimRc
   autocmd!
 augroup END
 
-source ~/.vim/plugins.vim
-source ~/.vim/plug_config.vim
+source ~/.vim/plug.vim
+source ~/.vim/pconf.vim
+" source ~/.vim/plugins.vim
+" source ~/.vim/plug_config.vim
 source ~/.vim/options.vim
 source ~/.vim/mappings.vim
 source ~/.vim/autocmds.vim
