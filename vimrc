@@ -330,7 +330,7 @@ function! s:saferedo()
 endfunc
 
 nnoremap u :call <sid>safeundo() <CR>
-nnoremap <C-u> :call <sid>saferedo() <CR>
+nnoremap <C-r> :call <sid>saferedo() <CR>
 
 syntax enable
 
