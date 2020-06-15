@@ -1,8 +1,2 @@
-.netrwhist
-pack
-plugins
-sessions
-files
-cache
-swap
-info/*
+plugged
+autoload
