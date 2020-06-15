@@ -78,8 +78,8 @@ Plug 'romainl/Apprentice'
 call plug#end()
 endif
 
-set backupdir=/tmp//,.
-set directory=/tmp//,.
+set nobackup
+set noswapfile
 
 set undodir=/tmp,.
 set undofile
