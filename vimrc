@@ -204,15 +204,19 @@ xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 nnoremap Q <Nop>
 vnoremap <expr>y "my\"" . v:register . "y`y"
-xnoremap <silent> <space>y y:call system("wl-copy", @")<cr>
-nnoremap <space>p :let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>p
+nmap  <Space>   [Space]
+nnoremap  [Space]   <Nop>
+xnoremap <silent> [Space]y y:call system("wl-copy", @")<cr>
+nnoremap [Space]p :let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>p
+nnoremap [Space]w diw:let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>P
+xnoremap [Space]p d:let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>P
 vnoremap P "0p
 nnoremap ss :%s/
 nnoremap sl :s/
 xnoremap s  :s/
 nnoremap sa :<c-u>%s/\C\<<c-r><c-w>\>/<c-r><c-w>
 nnoremap sw :<C-u>%s/\C\<<C-R><C-w>\>//g<Left><Left>
-nnoremap <silent> <expr> <space>dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
+nnoremap <silent> <expr> [Space]dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
 nnoremap <silent> <C-g> :file<Bar>echon ' ' system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")<CR>
 nnoremap <silent><expr> <C-l> empty(get(b:, 'current_syntax'))
       \ ? "\<C-l>"
@@ -234,7 +238,7 @@ nnoremap Q @q
 " Run macro on selected lines
 vnoremap Q :norm Q<cr>
 " find
-nnoremap <space>f :find *<c-z>
+nnoremap [Space]f :find *<c-z>
 
 " omnicomplete
 autocmd vimRc Filetype *
