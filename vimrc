@@ -348,5 +348,23 @@ hi DiffDelete      cterm=NONE   ctermfg=96  ctermbg=NONE
 hi DiffText        cterm=NONE   ctermfg=195  ctermbg=240
 hi diffAdded       ctermfg=40              cterm=NONE
 hi diffRemoved     ctermfg=204
-
+hi link nixParen Delimiter
+hi link nixListBracket Delimiter
+hi link nixFunctionArgument Delimiter
+hi link nixAttributeSet Delimiter
+hi link nixArgumentSeparator Delimiter
+hi link nixAttributeDefinition Statement
+hi link nixWithExpr Statement
+hi link typescriptParens Delimiter
+hi link typescriptBraces Delimiter
+hi link jsParens Delimiter
+hi link jsBraces Delimiter
+hi link jsBrackets Delimiter
+hi link jsRepeatBraces Delimiter
+hi link jsFuncParens Delimiter
+hi link jsIfElseBraces Delimiter
+hi link jsFuncBraces Delimiter
+hi link jsObjectBraces Delimiter
+hi link jsFunction Statement
+hi link jsReturn Type
 set secure
