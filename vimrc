@@ -52,9 +52,11 @@ nnoremap <c-h> :Files %:h<cr>
 nnoremap <bs> :Buffers<cr>
 Plug 'tpope/vim-surround'
 Plug 'tomtom/tcomment_vim'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-let g:undotree_WindowLayout = 2
-nnoremap U :UndotreeToggle<CR>
+Plug 'mbbill/undotree'
+let g:undotree_CustomUndotreeCmd = 'vertical 50 new'
+let g:undotree_CustomDiffpanelCmd= 'belowright 12 new'
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_ShortIndicators = 1
 Plug 'sgur/vim-editorconfig'
 Plug 'itchyny/vim-qfedit'
 Plug 'hotwatermorning/auto-git-diff'
