@@ -64,8 +64,7 @@ Plug 'whiteinge/diffconflicts'
 Plug 'wellle/targets.vim'
 Plug 'markonm/hlyank.vim'
 Plug 'markonm/traces.vim'
-Plug 'romainl/vim-cool'
-let g:CoolTotalMatches = 1
+Plug 'PeterRincker/vim-searchlight'
 Plug 'pangloss/vim-javascript'
 Plug 'jonsmithers/vim-html-template-literals'
 let g:htl_all_templates = 1
@@ -87,7 +86,7 @@ set undodir=/tmp,.
 set undofile
 
 set term=xterm-256color
-" set t_Co=256
+set t_Co=256
 " set t_ut=
 set t_md=
 if has('termguicolors')
@@ -369,4 +368,5 @@ hi link jsFuncBraces Delimiter
 hi link jsObjectBraces Delimiter
 hi link jsFunction Statement
 hi link jsReturn Type
+
 set secure
