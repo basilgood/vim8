@@ -343,30 +343,12 @@ silent! colorscheme apprentice
 hi QuickFixLine    ctermfg=250  ctermbg=232
 hi IncSearch ctermbg=131 ctermfg=235 cterm=NONE guibg=#af5f5f guifg=#beb8bf gui=NONE
 hi Search ctermbg=229 ctermfg=235 cterm=NONE guibg=#5c4861 guifg=#beb8bf gui=NONE
+hi MatchParen term=reverse ctermbg=6 guifg=#dfdfe0 guibg=#0f5bca
 hi DiffAdd         cterm=NONE   ctermbg=235
 hi DiffChange      cterm=NONE   ctermbg=235
 hi DiffDelete      cterm=NONE   ctermfg=96  ctermbg=NONE
 hi DiffText        cterm=NONE   ctermfg=195  ctermbg=240
 hi diffAdded       ctermfg=40              cterm=NONE
 hi diffRemoved     ctermfg=204
-hi link nixParen Delimiter
-hi link nixListBracket Delimiter
-hi link nixFunctionArgument Delimiter
-hi link nixAttributeSet Delimiter
-hi link nixArgumentSeparator Delimiter
-hi link nixAttributeDefinition Statement
-hi link nixWithExpr Statement
-hi link typescriptParens Delimiter
-hi link typescriptBraces Delimiter
-hi link jsParens Delimiter
-hi link jsBraces Delimiter
-hi link jsBrackets Delimiter
-hi link jsRepeatBraces Delimiter
-hi link jsFuncParens Delimiter
-hi link jsIfElseBraces Delimiter
-hi link jsFuncBraces Delimiter
-hi link jsObjectBraces Delimiter
-hi link jsFunction Statement
-hi link jsReturn Type
 
 set secure
