@@ -74,7 +74,7 @@ Plug 'lepture/vim-jinja'
 Plug 'lumiliet/vim-twig'
 Plug 'digitaltoad/vim-pug'
 Plug 'LnL7/vim-nix'
-Plug 'romainl/Apprentice'
+Plug 'liuchengxu/space-vim-theme'
 
 call plug#end()
 endif
@@ -339,11 +339,12 @@ nnoremap <C-r> :call <sid>saferedo() <CR>
 
 syntax enable
 
-silent! colorscheme apprentice
+silent! colorscheme space_vim_theme
+set background=dark
 hi QuickFixLine    ctermfg=250  ctermbg=232
 hi IncSearch ctermbg=131 ctermfg=235 cterm=NONE guibg=#af5f5f guifg=#beb8bf gui=NONE
 hi Search ctermbg=229 ctermfg=235 cterm=NONE guibg=#5c4861 guifg=#beb8bf gui=NONE
-hi MatchParen term=reverse ctermbg=6 guifg=#dfdfe0 guibg=#0f5bca
+hi MatchParen cterm=NONE term=reverse ctermbg=6 guifg=#dfdfe0 guibg=#0f5bca gui=NONE
 hi DiffAdd         cterm=NONE   ctermbg=235
 hi DiffChange      cterm=NONE   ctermbg=235
 hi DiffDelete      cterm=NONE   ctermfg=96  ctermbg=NONE
