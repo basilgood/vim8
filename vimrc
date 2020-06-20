@@ -393,6 +393,7 @@ fun! GitDiff() abort
   wincmd p
   diffthis
 endf
+command! -nargs=? Gdiff call GitDiff()
 
 fun! Three_Way_Diff() abort
   let l:ft = getbufvar('%', '&ft')
@@ -411,6 +412,7 @@ fun! Three_Way_Diff() abort
   wincmd p
   diffthis
 endf
+command! -nargs=? Gthree call Three_Way_Diff()
 
 syntax enable
 
