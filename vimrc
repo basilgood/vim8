@@ -1,7 +1,9 @@
-scriptencoding utf-8
+if &compatible
+  " vint: -ProhibitSetNoCompatible
+  set nocompatible
+endif
 
-unlet! skip_defaults_vim
-silent! source $VIMRUNTIME/defaults.vim
+scriptencoding utf-8
 
 augroup vimRc
   autocmd!
@@ -30,13 +32,14 @@ function! Innetrw() abort
 endfunction
 autocmd vimRc FileType netrw call Innetrw()
 Plug 'airblade/vim-gitgutter'
-let g:gitgutter_sign_priority=8
+let g:gitgutter_sign_priority = 8
+let g:gitgutter_override_sign_column_highlight = 0
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 Plug 'neomake/neomake'
 autocmd vimRc BufWritePost,BufEnter * call neomake#configure#automake('nrwi', 500)
-Plug 'Valloric/YouCompleteMe' "YCM插件"
+Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-repeat'
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -61,7 +64,7 @@ Plug 'sgur/vim-editorconfig'
 Plug 'itchyny/vim-qfedit'
 Plug 'hotwatermorning/auto-git-diff'
 Plug 'whiteinge/diffconflicts'
-Plug 'wellle/targets.vim'
+Plug 'dirkwallenstein/vim-conflict-slides'
 Plug 'markonm/hlyank.vim'
 Plug 'markonm/traces.vim'
 Plug 'PeterRincker/vim-searchlight'
@@ -74,7 +77,6 @@ Plug 'lepture/vim-jinja'
 Plug 'lumiliet/vim-twig'
 Plug 'digitaltoad/vim-pug'
 Plug 'LnL7/vim-nix'
-Plug 'liuchengxu/space-vim-theme'
 
 call plug#end()
 endif
@@ -87,13 +89,9 @@ set undofile
 
 set term=xterm-256color
 set t_Co=256
-" set t_ut=
+set t_ut=
 set t_md=
-if has('termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
+
 let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[1 q"
@@ -115,7 +113,7 @@ vmap <expr> <f28> XTermPasteBegin("c")
 cmap <f28> <nop>
 cmap <f29> <nop>
 
-set viminfo=!,'300,<50,s10,h
+set viminfo=!,'300,<50,s10,h,n~/.cache/viminfo
 set path& | let &path .= '**'
 set nostartofline
 set nowrap
@@ -127,6 +125,7 @@ set breakat=\ \ ;:,!?
 set breakindent
 set breakindentopt=sbr
 set display=lastline
+set incsearch
 set hlsearch|nohlsearch
 set gdefault
 set switchbuf+=useopen,usetab
@@ -139,7 +138,12 @@ set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 set diffopt+=vertical,context:3,indent-heuristic,algorithm:patience
 set number
+set nrformats-=octal
+set mouse=a
 set ttymouse=sgr
+set backspace=indent,eol,start
+set history=200
+set wildmenu
 set list
 set listchars=tab:›\ ,trail:•,extends:»,precedes:«,nbsp:‡
 autocmd vimRc InsertEnter * set listchars-=trail:•
@@ -160,6 +164,7 @@ set spelllang=en_us
 set history=1000
 set wildmode=longest:list,full
 set wildoptions=tagfile
+set wildignorecase
 set wildignore=
       \*/node_modules/*,
       \*/bower_components/*,
@@ -170,12 +175,14 @@ set wildignore=
       \*/.hg/*,
       \*/.svn/*
 set wildcharm=<C-Z>
+set ttimeout
+set ttimeoutlen=100
 set lazyredraw
 set updatetime=50
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
+set grepformat^=%f:%l:%c:%m
 set laststatus=2
 set statusline=%<%f\ %h%#error#%m%*%r%=%-14.(%l\:%c%)%{&filetype}
 
@@ -195,6 +202,10 @@ nnoremap ]q :cnext<cr>
 nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
 nnoremap [Q :cfirst<cr>
+nnoremap ]l :lnext<cr>
+nnoremap [l :lprevious<cr>
+nnoremap ]L :llast<cr>
+nnoremap [L :lfirst<cr>
 xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
 xnoremap <expr> A (mode()=~#'[vV]'?'<C-v>0o$A':'A')
 onoremap <silent> <expr> al v:count==0 ? ":<c-u>normal! 0V$h<cr>" : ":<c-u>normal! V" . (v:count) . "jk<cr>"
@@ -240,6 +251,8 @@ nnoremap Q @q
 vnoremap Q :norm Q<cr>
 " find
 nnoremap [Space]f :find *<c-z>
+
+nnoremap <silent> ]m /^\(<\{7\}\\|>\{7\}\\|=\{7\}\\|\|\{7\}\)\( \\|$\)<cr>
 
 " omnicomplete
 autocmd vimRc Filetype *
@@ -317,6 +330,20 @@ command! -nargs=1 TX
       \ call system('tmux split-window -h '.<q-args>)
 command! TA TX tig --all
 command! TS TX tig status
+command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+      \ | wincmd p | diffthis
+
+command! -nargs=? PreviousVersion diffthis |
+      \ vnew |
+      \ set buftype=nofile |
+      \ set bufhidden=wipe |
+      \ set noswapfile |
+      \ execute "r!git show ".(!"<args>"?'HEAD^':"<args>").":".expand('#') |
+      \ 1d_ |
+      \ let &filetype=getbufvar('#', '&filetype') |
+      \ execute 'autocmd BufWipeout <buffer> diffoff!' |
+      \ diffthis |
+      \ wincmd p
 
 function! s:safeundo()
   let s:pos = getpos( '. ')
@@ -337,19 +364,57 @@ endfunc
 nnoremap u :call <sid>safeundo() <CR>
 nnoremap <C-r> :call <sid>saferedo() <CR>
 
+" lifepillar
+fun! s:git(args, where) abort
+  call Runcmd(['git'] + a:args, {'pos': a:where})
+  setlocal nomodifiable
+endf
+
+fun! Runcmd(cmd, ...) abort
+  let l:opt = get(a:000, 0, {})
+  if !has_key(l:opt, 'cwd')
+    let l:opt['cwd'] = fnameescape(expand('%:p:h'))
+  endif
+  let l:cmd = join(map(a:cmd, 'v:val !~# "\\v^[%#<]" || expand(v:val) ==# "" ? v:val : shellescape(expand(v:val))'))
+  execute get(l:opt, 'pos', 'botright') 'new'
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  nnoremap <buffer> q <c-w>c
+  execute 'lcd' l:opt['cwd']
+  execute '%!' l:cmd
+endf
+
+fun! GitDiff() abort
+  let l:ft = getbufvar('%', '&ft') " Get the file type
+  let l:fn = expand('%:t')
+  call s:git(['show', 'HEAD:./'.l:fn], 'rightbelow vertical')
+  let &l:filetype = l:ft
+  execute 'silent file' l:fn '[HEAD]'
+  diffthis
+  autocmd vimRc BufWinLeave <buffer> diffoff!
+  wincmd p
+  diffthis
+endf
+
+fun! Three_Way_Diff() abort
+  let l:ft = getbufvar('%', '&ft')
+  let l:fn = expand('%:t')
+  call s:git(['show', ':2:./'.l:fn], 'leftabove vertical')
+  let &l:filetype = l:ft
+  execute 'silent file' l:fn '[OURS]'
+  diffthis
+  autocmd vimRc BufWinLeave <buffer> diffoff!
+  wincmd p
+  call s:git(['show', ':3:./'.l:fn], 'rightbelow vertical')
+  let &l:filetype = l:ft
+  execute 'silent file' l:fn '[THEIRS]'
+  diffthis
+  autocmd vimRc BufWinLeave <buffer> diffoff!
+  wincmd p
+  diffthis
+endf
+
 syntax enable
 
-silent! colorscheme space_vim_theme
-set background=dark
-hi QuickFixLine    ctermfg=250  ctermbg=232
-hi IncSearch ctermbg=131 ctermfg=235 cterm=NONE guibg=#af5f5f guifg=#beb8bf gui=NONE
-hi Search ctermbg=229 ctermfg=235 cterm=NONE guibg=#5c4861 guifg=#beb8bf gui=NONE
-hi MatchParen cterm=NONE term=reverse ctermbg=6 guifg=#dfdfe0 guibg=#0f5bca gui=NONE
-hi DiffAdd         cterm=NONE   ctermbg=235
-hi DiffChange      cterm=NONE   ctermbg=235
-hi DiffDelete      cterm=NONE   ctermfg=96  ctermbg=NONE
-hi DiffText        cterm=NONE   ctermfg=195  ctermbg=240
-hi diffAdded       ctermfg=40              cterm=NONE
-hi diffRemoved     ctermfg=204
+silent! colorscheme min
 
 set secure
