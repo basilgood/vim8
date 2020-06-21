@@ -31,6 +31,12 @@ function! Innetrw() abort
   nmap <buffer> h -
 endfunction
 autocmd vimRc FileType netrw call Innetrw()
+Plug 'tpope/vim-fugitive'
+nnoremap [git]  <Nop>
+nmap <space>g [git]
+nnoremap <silent> [git]s :<C-u>vertical Gstatus<CR>
+nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<CR>
+nnoremap <silent> [git]l :<C-u>vertical Git --paginate log --oneline --graph --decorate --all<CR>
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_sign_priority = 8
 let g:gitgutter_override_sign_column_highlight = 0
@@ -38,8 +44,12 @@ nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 Plug 'neomake/neomake'
-autocmd vimRc BufWritePost,BufEnter * call neomake#configure#automake('nrwi', 500)
+autocmd vimRc BufWritePost,BufEnter * call neomake#configure#automake('nrwi', 100)
 Plug 'Valloric/YouCompleteMe'
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_key_list_stop_completion = ['<Enter>']
+let g:ycm_auto_hover=''
+autocmd vimRc Filetype javascript,typescript nmap <leader>h <plug>(YCMHover)
 Plug 'tpope/vim-repeat'
 vnoremap . :normal .<CR>
 Plug 'junegunn/fzf', { 'do': './install --all' }
@@ -54,6 +64,8 @@ let g:fzf_action = {
 nnoremap <c-p> :Files<cr>
 nnoremap <c-h> :Files %:h<cr>
 nnoremap <bs> :Buffers<cr>
+Plug 'tpope/vim-repeat'
+vnoremap . :normal .<CR>
 Plug 'tpope/vim-surround'
 Plug 'tomtom/tcomment_vim'
 Plug 'mbbill/undotree'
@@ -62,12 +74,18 @@ let g:undotree_CustomDiffpanelCmd= 'belowright 12 new'
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
 Plug 'sgur/vim-editorconfig'
-Plug 'itchyny/vim-qfedit'
+Plug 'mileszs/ack.vim'
+let g:ackhighlight = 1
+let g:ackprg = 'rg --vimgrep --no-heading'
+cnoreabbrev Ack Ack!
+Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'wellle/targets.vim'
+Plug 'fcpg/vim-altscreen'
 Plug 'hotwatermorning/auto-git-diff'
 Plug 'whiteinge/diffconflicts'
 Plug 'markonm/hlyank.vim'
 Plug 'markonm/traces.vim'
-Plug 'PeterRincker/vim-searchlight'
+Plug 'romainl/vim-cool'
 Plug 'pangloss/vim-javascript'
 Plug 'jonsmithers/vim-html-template-literals'
 let g:htl_all_templates = 1
@@ -132,7 +150,6 @@ set gdefault
 set switchbuf+=useopen,usetab
 set splitright
 set splitbelow
-set completefunc=syntaxcomplete#Complete
 set completeopt-=preview
 set completeopt+=menuone,noselect,noinsert
 set complete=.,w,b,u,U,t,i,d,k
@@ -146,7 +163,7 @@ set backspace=indent,eol,start
 set history=200
 set wildmenu
 set list
-set listchars=tab:›\ ,trail:•,extends:»,precedes:«,nbsp:‡
+set listchars=tab:›\ ,trail:•,extends:»,precedes:«,nbsp:⣿
 autocmd vimRc InsertEnter * set listchars-=trail:•
 autocmd vimRc InsertLeave * set listchars+=trail:•
 set confirm
@@ -196,9 +213,9 @@ inoremap <C-e> <End>
 nnoremap } }zz
 nnoremap { {zz
 nnoremap vv viw
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "\<CR>"
 nnoremap ]q :cnext<cr>
 nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
@@ -215,9 +232,9 @@ onoremap <silent> <expr> il v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>norma
 vnoremap <silent> <expr> il v:count==0 ? ":<c-u>normal! ^vg_<cr>" : ":<c-u>normal! ^v" . (v:count) . "jkg_h<cr>"
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
-nnoremap Q <Nop>
 vnoremap <expr>y "my\"" . v:register . "y`y"
 nmap  <Space>   [Space]
+vmap  <Space>   [Space]
 nnoremap  [Space]   <Nop>
 xnoremap <silent> [Space]y y:call system("wl-copy", @")<cr>
 nnoremap [Space]p :let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>p
@@ -247,6 +264,7 @@ function! s:VSetSearch(cmdtype)
   let @s = temp
 endfunction
 " execute macro
+nnoremap Q <Nop>
 nnoremap Q @q
 " Run macro on selected lines
 vnoremap Q :norm Q<cr>
@@ -334,18 +352,6 @@ command! TS TX tig status
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
       \ | wincmd p | diffthis
 
-command! -nargs=? PreviousVersion diffthis |
-      \ vnew |
-      \ set buftype=nofile |
-      \ set bufhidden=wipe |
-      \ set noswapfile |
-      \ execute "r!git show ".(!"<args>"?'HEAD^':"<args>").":".expand('#') |
-      \ 1d_ |
-      \ let &filetype=getbufvar('#', '&filetype') |
-      \ execute 'autocmd BufWipeout <buffer> diffoff!' |
-      \ diffthis |
-      \ wincmd p
-
 function! s:safeundo()
   let s:pos = getpos( '. ')
   let s:view = winsaveview()
@@ -364,57 +370,6 @@ endfunc
 
 nnoremap u :call <sid>safeundo() <CR>
 nnoremap <C-r> :call <sid>saferedo() <CR>
-
-" lifepillar
-fun! s:git(args, where) abort
-  call Runcmd(['git'] + a:args, {'pos': a:where})
-  setlocal nomodifiable
-endf
-
-fun! Runcmd(cmd, ...) abort
-  let l:opt = get(a:000, 0, {})
-  if !has_key(l:opt, 'cwd')
-    let l:opt['cwd'] = fnameescape(expand('%:p:h'))
-  endif
-  let l:cmd = join(map(a:cmd, 'v:val !~# "\\v^[%#<]" || expand(v:val) ==# "" ? v:val : shellescape(expand(v:val))'))
-  execute get(l:opt, 'pos', 'botright') 'new'
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  nnoremap <buffer> q <c-w>c
-  execute 'lcd' l:opt['cwd']
-  execute '%!' l:cmd
-endf
-
-fun! GitDiff() abort
-  let l:ft = getbufvar('%', '&ft') " Get the file type
-  let l:fn = expand('%:t')
-  call s:git(['show', 'HEAD:./'.l:fn], 'rightbelow vertical')
-  let &l:filetype = l:ft
-  execute 'silent file' l:fn '[HEAD]'
-  diffthis
-  autocmd vimRc BufWinLeave <buffer> diffoff!
-  wincmd p
-  diffthis
-endf
-command! -nargs=? Gdiff call GitDiff()
-
-fun! Three_Way_Diff() abort
-  let l:ft = getbufvar('%', '&ft')
-  let l:fn = expand('%:t')
-  call s:git(['show', ':2:./'.l:fn], 'leftabove vertical')
-  let &l:filetype = l:ft
-  execute 'silent file' l:fn '[OURS]'
-  diffthis
-  autocmd vimRc BufWinLeave <buffer> diffoff!
-  wincmd p
-  call s:git(['show', ':3:./'.l:fn], 'rightbelow vertical')
-  let &l:filetype = l:ft
-  execute 'silent file' l:fn '[THEIRS]'
-  diffthis
-  autocmd vimRc BufWinLeave <buffer> diffoff!
-  wincmd p
-  diffthis
-endf
-command! -nargs=? Gthree call Three_Way_Diff()
 
 syntax enable
 

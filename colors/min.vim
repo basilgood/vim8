@@ -18,8 +18,8 @@ hi Boolean         ctermfg=204
 hi Float           ctermfg=204
 
 " programming statements
-hi Identifier      ctermfg=173               cterm=NONE
-hi Statement       ctermfg=174               cterm=NONE
+hi Identifier      ctermfg=103               cterm=NONE
+hi Statement       ctermfg=167               cterm=NONE
 
 " programming pre-processes
 hi PreProc         ctermfg=143                cterm=NONE
@@ -34,7 +34,7 @@ hi Structure       ctermfg=116
 
 " specials
 hi Special         ctermfg=173
-hi Delimiter       ctermfg=8
+hi Delimiter       ctermfg=59
 hi StorageClass    ctermfg=174
 
 " vim views
@@ -49,12 +49,12 @@ hi CursorLineNr    ctermfg=7    ctermbg=235  cterm=NONE
 hi FoldColumn      ctermfg=240  ctermbg=233
 hi SignColumn      ctermfg=NONE ctermbg=NONE
 hi Folded          ctermfg=109  ctermbg=16
-hi Search          ctermfg=191  ctermbg=232   cterm=NONE
-hi IncSearch       ctermfg=16   ctermbg=202
+hi Search          ctermfg=237  ctermbg=140  cterm=reverse
+hi IncSearch       ctermfg=1    ctermbg=21
 hi QuickFixLine    ctermfg=202  ctermbg=NONE
 hi NonText         ctermfg=8    ctermbg=NONE cterm=NONE
 hi SpecialKey      ctermfg=8    ctermbg=NONE cterm=NONE
-hi StatusLine      ctermfg=252  ctermbg=238   cterm=NONE
+hi StatusLine      ctermfg=252  ctermbg=237   cterm=NONE
 hi StatusLineNC    ctermfg=239  ctermbg=235  cterm=NONE
 hi Todo            ctermfg=33   ctermbg=NONE cterm=NONE
 hi TabLine         ctermfg=252  ctermbg=235 cterm=NONE
@@ -105,6 +105,7 @@ hi GitGutterDelete       ctermfg=9
 hi GitGutterChangeDelete ctermfg=9
 hi ALEWarningSign        ctermfg=142 ctermbg=NONE
 hi ALEErrorSign          ctermfg=9   ctermbg=NONE
+hi Searchlight           ctermfg=27
 
 " nixos
 hi! link nixParen Delimiter
