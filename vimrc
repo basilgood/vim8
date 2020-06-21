@@ -41,6 +41,7 @@ Plug 'neomake/neomake'
 autocmd vimRc BufWritePost,BufEnter * call neomake#configure#automake('nrwi', 500)
 Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-repeat'
+vnoremap . :normal .<CR>
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude plugged'
@@ -117,6 +118,7 @@ set path& | let &path .= '**'
 set nostartofline
 set nowrap
 set virtualedit=block
+set synmaxcol=200
 set sidescrolloff=10
 set sidescroll=1
 let &showbreak = '↳ '
