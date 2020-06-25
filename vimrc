@@ -80,6 +80,7 @@ let g:ackprg = 'rg --vimgrep --no-heading'
 cnoreabbrev Ack Ack!
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'wellle/targets.vim'
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'fcpg/vim-altscreen'
 Plug 'hotwatermorning/auto-git-diff'
 Plug 'whiteinge/diffconflicts'
@@ -113,23 +114,6 @@ set t_md=
 let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[1 q"
-
-let &t_ti .= "\<Esc>[?2004h"
-let &t_te = "\e[?2004l" . &t_te
-
-function! XTermPasteBegin(ret)
-  set pastetoggle=<f29>
-  set paste
-  return a:ret
-endfunction
-
-execute "set <f28>=\<Esc>[200~"
-execute "set <f29>=\<Esc>[201~"
-map <expr> <f28> XTermPasteBegin("i")
-imap <expr> <f28> XTermPasteBegin("")
-vmap <expr> <f28> XTermPasteBegin("c")
-cmap <f28> <nop>
-cmap <f29> <nop>
 
 set viminfo=!,'300,<50,s10,h,n~/.cache/viminfo
 set path& | let &path .= '**'
