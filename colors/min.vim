@@ -100,7 +100,7 @@ hi WildMenu        ctermfg=110  ctermbg=23
 
 " plugins settings
 hi GitGutterAdd          ctermfg=22
-hi GitGutterChange       ctermfg=142
+hi GitGutterChange       ctermfg=136
 hi GitGutterDelete       ctermfg=9
 hi GitGutterChangeDelete ctermfg=9
 hi ALEWarningSign        ctermfg=142 ctermbg=NONE
