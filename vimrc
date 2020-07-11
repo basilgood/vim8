@@ -17,20 +17,18 @@ endif
 
 silent! if plug#begin('~/.vim/plugged')
 
-" Plug 'tpope/vim-vinegar'
-" let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
-" let g:netrw_altfile = 1
-" let g:netrw_altv = 1
-" let g:netrw_preview = 1
-" let g:netrw_alto = 0
-" let g:netrw_use_errorwindow = 0
-" function! Innetrw() abort
-"   nmap <buffer> <right> <cr>
-"   nmap <buffer> l <cr>
-"   nmap <buffer> <left> -
-"   nmap <buffer> h -
-" endfunction
-" autocmd vimRc FileType netrw call Innetrw()
+Plug 'tpope/vim-vinegar'
+let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
+let g:netrw_altfile = 1
+let g:netrw_altv = 1
+let g:netrw_preview = 1
+let g:netrw_alto = 0
+let g:netrw_use_errorwindow = 0
+function! Innetrw() abort
+  nmap <buffer> <right> <cr>
+  nmap <buffer> <left> -
+endfunction
+autocmd vimRc FileType netrw call Innetrw()
 Plug 'tpope/vim-fugitive'
 nnoremap [git]  <Nop>
 nmap <space>g [git]
@@ -75,27 +73,6 @@ let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
 Plug 'sgur/vim-editorconfig'
 Plug 'mileszs/ack.vim'
-Plug 'cocopon/vaffle.vim'
-let g:vaffle_force_delete = 1
-let g:vaffle_show_hidden_files = 1
-  function! s:customize_vaffle_mappings() abort
-    nmap <buffer> - <Plug>(vaffle-open-parent)
-    nmap <buffer> <left> <Plug>(vaffle-open-parent)|
-    nmap <buffer> <right> <Plug>(vaffle-open-current)
-    nmap <buffer> % <Plug>(vaffle-new-file)
-  endfunction
-  augroup vimrc_vaffle
-    autocmd!
-    autocmd FileType vaffle call s:customize_vaffle_mappings()
-  augroup END
-function! OpenVaffle() abort
-  if bufname('%') ==# ''
-    call vaffle#init()
-  else
-    call vaffle#init(expand('%:p'))
-  endif
-endfunction
-nnoremap - :call OpenVaffle()<CR>
 let g:ackhighlight = 1
 let g:ackprg = 'rg --vimgrep --no-heading'
 cnoreabbrev Ack Ack!
@@ -103,12 +80,12 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'fcpg/vim-altscreen'
+Plug 'mg979/vim-visual-multi'
 Plug 'hotwatermorning/auto-git-diff'
 Plug 'whiteinge/diffconflicts'
 Plug 'markonm/hlyank.vim'
 Plug 'markonm/traces.vim'
 Plug 'romainl/vim-cool'
-Plug 'kana/vim-fakeclip'
 Plug 'pangloss/vim-javascript'
 Plug 'jonsmithers/vim-html-template-literals'
 let g:htl_all_templates = 1
@@ -219,6 +196,9 @@ inoremap <C-e> <End>
 nnoremap } }zz
 nnoremap { {zz
 nnoremap vv viw
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "\<CR>"
 nnoremap ]q :cnext<cr>
 nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
@@ -234,15 +214,14 @@ onoremap <silent> il :<C-U>normal! ^vg_<cr>
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 vnoremap <expr>y "my\"" . v:register . "y`y"
-" nmap  <Space>   [Space]
-" vmap  <Space>   [Space]
-" nnoremap  [Space]   <Nop>
-" xnoremap <silent> [Space]y y:call system("wl-copy", @")<cr>
-" nnoremap <silent> [Space]yy "+yy:call system("wl-copy", @")<cr>
-" nnoremap [Space]p :let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>:put<cr>
-" nnoremap [Space]w diw:let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>P
-" xnoremap [Space]p d:let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>P
-" vnoremap P "0p
+nmap  <Space>   [Space]
+vmap  <Space>   [Space]
+nnoremap  [Space]   <Nop>
+xnoremap <silent> [Space]y y:call system("wl-copy", @")<cr>
+nnoremap [Space]p :let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>:put<cr>
+nnoremap [Space]w diw:let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>P
+xnoremap [Space]p d:let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>P
+vnoremap P "0p
 nnoremap ss :%s/
 nnoremap sl :s/
 xnoremap s  :s/
