@@ -83,6 +83,7 @@ Plug 'fcpg/vim-altscreen'
 Plug 'mg979/vim-visual-multi'
 Plug 'hotwatermorning/auto-git-diff'
 Plug 'whiteinge/diffconflicts'
+Plug 'junegunn/gv.vim'
 Plug 'markonm/hlyank.vim'
 Plug 'markonm/traces.vim'
 Plug 'romainl/vim-cool'
@@ -138,7 +139,6 @@ set completeopt+=menuone,noselect,noinsert
 set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 set diffopt+=vertical,context:3,indent-heuristic,algorithm:patience
-set number
 set nrformats-=octal
 set mouse=a
 set ttymouse=sgr
