@@ -16,7 +16,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 silent! if plug#begin('~/.vim/plugged')
-
 Plug 'tpope/vim-vinegar'
 let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
 let g:netrw_altfile = 1
@@ -223,9 +222,9 @@ nmap  <Space>   [Space]
 vmap  <Space>   [Space]
 nnoremap  [Space]   <Nop>
 xnoremap <silent> [Space]y y:call system("wl-copy", @")<cr>
-nnoremap [Space]p :let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>:put<cr>
-nnoremap [Space]w diw:let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>P
-xnoremap [Space]p d:let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', '', 'g')<cr>P
+nnoremap [Space]p :let @"=substitute(system("wl-paste -n"), '<C-v><C-m>', '', 'g')<cr>:put<cr>
+nnoremap [Space]w diw:let @"=substitute(system("wl-paste -n"), '<C-v><C-m>', '', 'g')<cr>P
+xnoremap [Space]p d:let @"=substitute(system("wl-paste -n"), '<C-v><C-m>', '', 'g')<cr>P
 vnoremap P "0p
 nnoremap ss :%s/
 nnoremap sl :s/
@@ -297,6 +296,12 @@ autocmd vimRc BufWritePre *
       \ if !isdirectory(expand('%:h', v:true)) |
       \   call mkdir(expand('%:h', v:true), 'p') |
       \ endif
+
+" jump to last known position
+autocmd vimRc BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+      \ |   exe "normal! g`\""
+      \ | endif
 
 autocmd vimRc BufNewFile,BufRead *.nix        setfiletype nix
 autocmd vimRc BufNewFile,BufRead *.jsx        setfiletype javascript
