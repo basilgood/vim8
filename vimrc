@@ -1,6 +1,9 @@
-if &compatible
-  " vint: -ProhibitSetNoCompatible
-  set nocompatible
+unlet! skip_defaults_vim
+silent! source $VIMRUNTIME/defaults.vim
+
+if &encoding !=? 'utf-8'
+  let &termencoding = &encoding
+  setglobal encoding=utf-8
 endif
 
 scriptencoding utf-8
@@ -25,32 +28,25 @@ let g:netrw_alto = 0
 let g:netrw_use_errorwindow = 0
 function! Innetrw() abort
   nmap <buffer> <right> <cr>
-  nmap <buffer> <left> -
+  nmap <buffer> <left> <Plug>VinegarUp
+  nmap <buffer> J mfj
+  nmap <buffer> <space> mx
 endfunction
 autocmd vimRc FileType netrw call Innetrw()
-Plug 'tpope/vim-fugitive'
-nnoremap [git]  <Nop>
-nmap <space>g [git]
-nnoremap <silent> [git]s :<C-u>vertical Gstatus<CR>
-nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<CR>
-nnoremap <silent> [git]l :<C-u>vertical Git --paginate log --oneline --graph --decorate --all<CR>
+" Plug 'tpope/vim-fugitive'
+" nnoremap [git]  <Nop>
+" nmap <space>g [git]
+" nnoremap <silent> [git]s :<C-u>vertical Gstatus<CR>
+" nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<CR>
+" nnoremap <silent> [git]l :<C-u>vertical Git --paginate log --oneline --graph --decorate --all<CR>
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_sign_priority = 8
 let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_sign_added='┃'
-let g:gitgutter_sign_modified='┃'
-let g:gitgutter_sign_removed='◢'
-let g:gitgutter_sign_removed_first_line='◥'
-let g:gitgutter_sign_modified_removed='◢'
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 Plug 'neomake/neomake'
 autocmd vimRc BufWritePost,BufEnter * call neomake#configure#automake('nrwi', 100)
-Plug 'Valloric/YouCompleteMe'
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_key_list_stop_completion = ['<Enter>']
-let g:ycm_auto_hover=''
 autocmd vimRc Filetype javascript,typescript nmap <leader>h <plug>(YCMHover)
 Plug 'tpope/vim-repeat'
 vnoremap . :normal .<CR>
@@ -84,22 +80,28 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'fcpg/vim-altscreen'
-Plug 'mg979/vim-visual-multi'
+Plug 'vim-scripts/cmdline-completion'
 Plug 'hotwatermorning/auto-git-diff'
 Plug 'whiteinge/diffconflicts'
-Plug 'junegunn/gv.vim'
 Plug 'markonm/hlyank.vim'
 Plug 'markonm/traces.vim'
-Plug 'romainl/vim-cool'
-Plug 'pangloss/vim-javascript'
-Plug 'jonsmithers/vim-html-template-literals'
-let g:htl_all_templates = 1
-let g:htl_css_templates = 1
-Plug 'kchmck/vim-coffee-script'
-Plug 'lepture/vim-jinja'
-Plug 'lumiliet/vim-twig'
-Plug 'digitaltoad/vim-pug'
-Plug 'LnL7/vim-nix'
+Plug 'sheerun/vim-polyglot'
+Plug '$HOME/Projects/git-vim'
+Plug 'AndrewRadev/gapply.vim'
+Plug 'AndrewRadev/linediff.vim'
+Plug 'basilgood/min.vim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'paradigm/SkyBison'
+nnoremap <space>b 2:<c-u>call SkyBison("b ")<cr>
+nnoremap <space>d 2:<c-u>call SkyBison("bd ")<cr>
+nnoremap <space>e :<c-u>call SkyBison("e ")<cr>
+Plug 'tpope/vim-obsession'
+let g:sessions_dir = '~/.cache/vim-sessions'
+if !isdirectory(expand(g:sessions_dir, v:true)) |
+  call mkdir(expand(g:sessions_dir, v:true), 'p') |
+endif
+exec 'nnoremap <Leader>ss :Obsession ' . g:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
+exec 'nnoremap <Leader>sr :so ' . g:sessions_dir. '/Session.vim'
 
 call plug#end()
 endif
@@ -110,7 +112,9 @@ set noswapfile
 set undodir=/tmp,.
 set undofile
 
-set term=xterm-256color
+if exists('$TMUX')
+  set term=xterm-256color
+endif
 set t_Co=256
 set t_ut=
 set t_md=
@@ -144,6 +148,7 @@ set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 set diffopt+=vertical,context:3,indent-heuristic,algorithm:patience
 set nrformats-=octal
+set number
 set mouse=a
 set ttymouse=sgr
 set backspace=indent,eol,start
@@ -154,7 +159,7 @@ set listchars=tab:›\ ,trail:•,extends:»,precedes:«,nbsp:⣿
 autocmd vimRc InsertEnter * set listchars-=trail:•
 autocmd vimRc InsertLeave * set listchars+=trail:•
 set confirm
-set shortmess=IO
+set shortmess+=IOF
 set autoindent
 set copyindent
 set preserveindent
@@ -200,9 +205,9 @@ inoremap <C-e> <End>
 nnoremap } }zz
 nnoremap { {zz
 nnoremap vv viw
-" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "\<CR>"
 nnoremap ]q :cnext<cr>
 nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
@@ -265,8 +270,11 @@ autocmd vimRc Filetype *
       \ endif
 
 " format
+autocmd vimRc FileType nix setlocal makeprg=nix-instantiate\ --parse
+autocmd vimRc FileType nix setlocal formatprg=nixpkgs-fmt
 autocmd vimRc BufRead,BufNewFile *.nix command! F silent call system('nixpkgs-fmt ' . expand('%'))
 autocmd vimRc BufRead,BufNewFile *.js,*.jsx,*.ts,*.tsx command! F silent call system('prettier --single-quote --write ' . expand('%'))
+autocmd vimRc BufRead,BufNewFile *.js,*.jsx command! Fix silent call system('eslint --fix ' . expand('%'))
 autocmd vimRc FileType yaml command! F silent call system('prettier --write ' . expand('%'))
 autocmd vimRc FileType sh command! F silent call system('shfmt -i 2 -ci -w ' . expand('%'))
 
@@ -289,7 +297,18 @@ autocmd vimRc InsertLeave * if &l:diff | diffupdate | endif
 autocmd vimRc BufWritePost * if &filetype ==# '' | filetype detect | endif
 
 " external changes
-autocmd vimRc FocusGained,CursorHold * if !bufexists("[Command Line]") | checktime | GitGutter | endif
+autocmd vimRc FocusGained,CursorHold *
+      \ if !bufexists("[Command Line]") |
+      \ checktime |
+      \ if exists('g:loaded_gitgutter') |
+      \   call gitgutter#all(1) |
+      \ endif
+
+" Automatically set expandtab
+autocmd vimRc FileType * execute 'setlocal ' . (search('^\t.*\n\t.*\n\t', 'n') ? 'no' : '') . 'expandtab'
+
+" Set nonumber in terminal window
+autocmd vimRc BufWinEnter * if &l:buftype == 'terminal' | setlocal nonumber | endif
 
 " mkdir
 autocmd vimRc BufWritePre *
@@ -297,33 +316,13 @@ autocmd vimRc BufWritePre *
       \   call mkdir(expand('%:h', v:true), 'p') |
       \ endif
 
-" jump to last known position
-autocmd vimRc BufReadPost *
-      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-      \ |   exe "normal! g`\""
-      \ | endif
-
-autocmd vimRc BufNewFile,BufRead *.nix        setfiletype nix
-autocmd vimRc BufNewFile,BufRead *.jsx        setfiletype javascript
-autocmd vimRc BufNewFile,BufRead *.js         setfiletype javascript
-autocmd vimRc BufNewFile,BufRead *.tsx        setfiletype typescript
-autocmd vimRc BufNewFile,BufRead *.ts         setfiletype typescript
+" filetypes
 autocmd vimRc BufNewFile,BufRead *.gitignore  setfiletype gitignore
 autocmd vimRc BufNewFile,BufRead *.twig       setfiletype twig.html
 autocmd vimRc BufNewFile,BufRead config       setfiletype config
-autocmd vimRc BufNewFile,BufRead *.less       setfiletype less
-autocmd vimRc BufNewFile,BufRead *.sass       setfiletype sass
-autocmd vimRc BufNewFile,BufRead *.scss       setfiletype scss
-autocmd vimRc BufNewFile,BufRead *.toml       setfiletype toml
-autocmd vimRc BufNewFile,BufRead *.coffee     setfiletype coffeescript
+autocmd vimRc BufNewFile,BufRead *.lock       setfiletype config
 autocmd vimRc BufNewFile,BufRead .babelrc     setfiletype json
-autocmd vimRc BufNewFile,BufRead *.json       setfiletype json
-autocmd vimRc BufNewFile,BufRead Dockerfile.* setfiletype Dockerfile
 autocmd vimRc BufNewFile,BufRead *.txt        setfiletype markdown
-autocmd vimRc BufNewFile,BufRead *.md         setfiletype markdown
-autocmd vimRc BufNewFile,BufRead *.mkd        setfiletype markdown
-autocmd vimRc BufNewFile,BufRead *.markdown   setfiletype markdown
-autocmd vimRc BufNewFile,BufRead *.lock   setfiletype config
 autocmd vimRc BufWinEnter *.json setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json  setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json  setlocal formatoptions=
@@ -339,8 +338,6 @@ command! -nargs=1 TV
       \ call system('tmux split-window -h '.<q-args>)
 command! TA TV tig --all
 command! TS TV tig status
-command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-      \ | wincmd p | diffthis
 
 function! s:safeundo()
   let s:pos = getpos( '. ')
@@ -360,6 +357,32 @@ endfunc
 
 nnoremap u :call <sid>safeundo() <CR>
 nnoremap <C-r> :call <sid>saferedo() <CR>
+
+command! -complete=shellcmd -nargs=+ Shell call s:TmpShellOutput(<q-args>)
+function! s:TmpShellOutput(cmdline) abort
+	if bufexists('tmplog')
+		call deletebufline('tmplog', 1, '$')
+	else
+		call bufadd('tmplog')
+		call setbufvar('tmplog', 'buftype', 'nofile')
+		call setbufvar('tmplog', 'filetype', '')
+	endif
+	" let logjob = job_start(execute("!bash " . a:cmdline),
+	if has('nvim')
+		let logjob = jobstart(['bash', '-c', a:cmdline],
+					\ {'out_io': 'buffer', 'out_name': 'tmplog', 'out_msg': ''})
+	else
+		let logjob = job_start(['bash', '-c', a:cmdline],
+					\ {'out_io': 'buffer', 'err_io': 'buffer', 'out_name': 'tmplog', 'err_name': 'tmplog', 'out_msg': ''})
+	endif
+	let winnr = win_getid()
+	vert sbuffer tmplog
+	setlocal wrap
+	wincmd L
+	if win_getid() != winnr
+		call win_gotoid(winnr)
+	endif
+endfunction
 
 syntax enable
 
