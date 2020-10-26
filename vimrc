@@ -19,93 +19,134 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 silent! if plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-vinegar'
+
+Plug 'dense-analysis/ale'
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '➤'
+let g:ale_sign_info = '➟'
+let g:ale_set_highlights = 0
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_delay = 0
+let g:ale_echo_msg_format = '%s'
+let g:ale_linters = {
+      \   'jsx': ['eslint'],
+      \   'javascript': ['eslint'],
+      \   'typescript': ['eslint']
+      \}
+let g:ale_fixers = {
+      \   'jsx': ['eslint'],
+      \   'javascript': ['eslint'],
+      \   'typescript': ['eslint'],
+      \   'nix': ['nixpkgs-fmt']
+      \}
+let g:ale_pattern_options = {
+      \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+      \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+      \}
+nmap <silent> [a <Plug>(ale_previous_wrap)
+nmap <silent> ]a <Plug>(ale_next_wrap)
+
+Plug 'natebosch/vim-lsc'
+let g:lsc_server_commands = {'javascript': 'typescript-language-server --stdio'}
+let g:lsc_auto_map = {
+ \  'GoToDefinition': 'gd',
+ \  'FindReferences': 'gr',
+ \  'Rename': 'gR',
+ \  'ShowHover': 'K',
+ \  'FindCodeActions': 'ga',
+ \}
+let g:lsc_enable_autocomplete  = v:true
+let g:lsc_enable_diagnostics   = v:false
+let g:lsc_reference_highlights = v:false
+let g:lsc_trace_level          = 'off'
+
+Plug 'lifepillar/vim-mucomplete'
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#completion_delay = 50
+let g:mucomplete#chains = {}
+let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags']
+inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+
+" netrw
 let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
+let g:netrw_banner = 0
 let g:netrw_altfile = 1
 let g:netrw_altv = 1
 let g:netrw_preview = 1
 let g:netrw_alto = 0
 let g:netrw_use_errorwindow = 0
+let g:netrw_list_hide = '^\.\.\=/\=$'
 function! Innetrw() abort
   nmap <buffer> <right> <cr>
-  nmap <buffer> <left> <Plug>VinegarUp
-  nmap <buffer> J mfj
-  nmap <buffer> <space> mx
+  nmap <buffer> <left> -
 endfunction
 autocmd vimRc FileType netrw call Innetrw()
-" Plug 'tpope/vim-fugitive'
-" nnoremap [git]  <Nop>
-" nmap <space>g [git]
-" nnoremap <silent> [git]s :<C-u>vertical Gstatus<CR>
-" nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<CR>
-" nnoremap <silent> [git]l :<C-u>vertical Git --paginate log --oneline --graph --decorate --all<CR>
+nmap - :call Opendir('edit')<CR>
+function! Opendir(cmd) abort
+    if expand('%') =~# '^$\|^term:[\/][\/]'
+        execute a:cmd '.'
+    else
+        execute a:cmd '%:h'
+        let pattern = '^\%(| \)*'.escape(expand('#:t'), '.*[]~\').'[/*|@=]\=\%($\|\t\)'
+        call search(pattern, 'wc')
+    endif
+endfunction
+
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_sign_priority = 8
 let g:gitgutter_override_sign_column_highlight = 0
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
-Plug 'neomake/neomake'
-autocmd vimRc BufWritePost,BufEnter * call neomake#configure#automake('nrwi', 100)
-autocmd vimRc Filetype javascript,typescript nmap <leader>h <plug>(YCMHover)
-Plug 'tpope/vim-repeat'
-vnoremap . :normal .<CR>
-Plug 'junegunn/fzf', { 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude plugged'
-let g:fzf_layout = { 'down': '~25%' }
-let g:fzf_action = {
-      \ 'ctrl-t': 'tab split',
-      \ 'ctrl-s': 'split',
-      \ 'ctrl-v': 'vsplit',
-      \ 'ctrl-w': 'bdelete'}
-nnoremap <c-p> :Files<cr>
-nnoremap <c-h> :Files %:h<cr>
-nnoremap <bs> :Buffers<cr>
+
+Plug 'srstevenson/vim-picker', { 'on': ['PickerEdit', 'PickerBuffer'] }
+let g:picker_selector_executable = 'sk'
+let g:picker_selector_flags = ''
+let g:picker_custom_find_executable = 'fd'
+let g:picker_custom_find_flags = '--type f --hidden --follow --exclude ".git"'
+nnoremap <C-p> :PickerEdit<cr>
+nnoremap <bs> :PickerBuffer<cr>
+function! PickerRgLineHandler(selection) abort
+    let parts = split(a:selection, ':')
+    return {'filename': parts[0], 'line': parts[1], 'column': parts[2]}
+endfunction
+command! -nargs=? PickerRg
+    \ call picker#File('rg --color never --line-number --column '.shellescape(<q-args>), "edit", {'line_handler': 'PickerRgLineHandler'})
+
 Plug 'tpope/vim-repeat'
 vnoremap . :normal .<CR>
 Plug 'tpope/vim-surround'
 Plug 'tomtom/tcomment_vim'
-Plug 'mbbill/undotree'
+Plug 'mbbill/undotree', { 'on': 'UndoTreeToggle' }
 let g:undotree_CustomUndotreeCmd = 'vertical 50 new'
 let g:undotree_CustomDiffpanelCmd= 'belowright 12 new'
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
-Plug 'sgur/vim-editorconfig'
-Plug 'mileszs/ack.vim'
-let g:ackhighlight = 1
-let g:ackprg = 'rg --vimgrep --no-heading'
-cnoreabbrev Ack Ack!
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'fcpg/vim-altscreen'
 Plug 'vim-scripts/cmdline-completion'
 Plug 'hotwatermorning/auto-git-diff'
-Plug 'whiteinge/diffconflicts'
+Plug 'whiteinge/diffconflicts', { 'on': 'DiffConflicts' }
 Plug 'markonm/hlyank.vim'
 Plug 'markonm/traces.vim'
-Plug 'sheerun/vim-polyglot'
-Plug '$HOME/Projects/git-vim'
-Plug 'AndrewRadev/gapply.vim'
-Plug 'AndrewRadev/linediff.vim'
+
+Plug 'tpope/vim-fugitive', { 'on': ['Gstatus', 'Gvdiffsplit'] }
+nnoremap [git]  <Nop>
+nmap <space>g [git]
+nnoremap <silent> [git]s :<C-u>vertical Gstatus<cr>
+nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<cr>gg
+
 Plug 'basilgood/min.vim'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'paradigm/SkyBison'
-nnoremap <space>b 2:<c-u>call SkyBison("b ")<cr>
-nnoremap <space>d 2:<c-u>call SkyBison("bd ")<cr>
-nnoremap <space>e :<c-u>call SkyBison("e ")<cr>
-Plug 'tpope/vim-obsession'
-let g:sessions_dir = '~/.cache/vim-sessions'
-if !isdirectory(expand(g:sessions_dir, v:true)) |
-  call mkdir(expand(g:sessions_dir, v:true), 'p') |
-endif
-exec 'nnoremap <Leader>ss :Obsession ' . g:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
-exec 'nnoremap <Leader>sr :so ' . g:sessions_dir. '/Session.vim'
+
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 endif
 
+" personal options
 set nobackup
 set noswapfile
 
@@ -123,18 +164,18 @@ let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[1 q"
 
-set viminfo=!,'300,<50,s10,h,n~/.cache/viminfo
+set noswapfile
+set nobackup
+set undodir=/tmp,.
+set undofile
+set noerrorbells visualbell t_vb=
+set regexpengine=1
 set path& | let &path .= '**'
 set nostartofline
 set nowrap
 set virtualedit=block
-set synmaxcol=200
 set sidescrolloff=10
 set sidescroll=1
-let &showbreak = '↳ '
-set breakat=\ \ ;:,!?
-set breakindent
-set breakindentopt=sbr
 set display=lastline
 set incsearch
 set hlsearch|nohlsearch
@@ -150,6 +191,7 @@ set diffopt+=vertical,context:3,indent-heuristic,algorithm:patience
 set nrformats-=octal
 set number
 set mouse=a
+set ttyfast
 set ttymouse=sgr
 set backspace=indent,eol,start
 set history=200
@@ -159,7 +201,7 @@ set listchars=tab:›\ ,trail:•,extends:»,precedes:«,nbsp:⣿
 autocmd vimRc InsertEnter * set listchars-=trail:•
 autocmd vimRc InsertLeave * set listchars+=trail:•
 set confirm
-set shortmess+=IOF
+set shortmess+=IOFc
 set autoindent
 set copyindent
 set preserveindent
@@ -173,21 +215,14 @@ set helplang=en
 set spelllang=en_us
 set history=1000
 set wildmode=longest:list,full
-set wildoptions=tagfile
 set wildignorecase
 set wildignore=
       \*/node_modules/*,
-      \*/bower_components/*,
-      \*/vendor/*,
-      \*/plugged/*,
-      \*/.gem/*,
-      \*/.git/*,
-      \*/.hg/*,
-      \*/.svn/*
+      \*/.git/*
 set wildcharm=<C-Z>
 set ttimeout
-set ttimeoutlen=100
-set lazyredraw
+set timeoutlen=1000
+set ttimeoutlen=0
 set updatetime=50
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
@@ -196,8 +231,14 @@ set grepformat^=%f:%l:%c:%m
 set laststatus=2
 set statusline=%<%f\ %h%#error#%m%*%r%=%-14.(%l\:%c%)%{&filetype}
 
-nnoremap <silent> j gj
-nnoremap <silent> k gk
+" mappings
+nnoremap <leader><leader> :update<cr>
+noremap j gj
+noremap k gk
+noremap <Down> gj
+noremap <Up> gk
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 inoremap <C-a> <Home>
@@ -205,9 +246,6 @@ inoremap <C-e> <End>
 nnoremap } }zz
 nnoremap { {zz
 nnoremap vv viw
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "\<CR>"
 nnoremap ]q :cnext<cr>
 nnoremap [q :cprevious<cr>
 nnoremap ]Q :clast<cr>
@@ -260,8 +298,6 @@ nnoremap Q @q
 vnoremap Q :norm Q<cr>
 " find
 nnoremap [Space]f :find *<c-z>
-
-nnoremap <silent> ]m /^\(<\{7\}\\|>\{7\}\\|=\{7\}\\|\|\{7\}\)\( \\|$\)<cr>
 
 " omnicomplete
 autocmd vimRc Filetype *
