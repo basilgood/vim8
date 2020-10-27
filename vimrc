@@ -114,6 +114,9 @@ endfunction
 command! -nargs=? PickerRg
     \ call picker#File('rg --color never --line-number --column '.shellescape(<q-args>), "edit", {'line_handler': 'PickerRgLineHandler'})
 
+Plug 'editorconfig/editorconfig-vim'
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
 Plug 'tpope/vim-repeat'
 vnoremap . :normal .<CR>
 Plug 'tpope/vim-surround'
