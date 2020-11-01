@@ -20,6 +20,7 @@ endif
 
 silent! if plug#begin('~/.vim/plugged')
 
+" PLUGINS
 Plug 'dense-analysis/ale'
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '➤'
@@ -30,15 +31,15 @@ let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_delay = 0
 let g:ale_echo_msg_format = '%s'
 let g:ale_linters = {
-      \   'jsx': ['eslint'],
-      \   'javascript': ['eslint'],
-      \   'typescript': ['eslint']
+      \ 'jsx': ['eslint'],
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['eslint']
       \}
 let g:ale_fixers = {
-      \   'jsx': ['eslint'],
-      \   'javascript': ['eslint'],
-      \   'typescript': ['eslint'],
-      \   'nix': ['nixpkgs-fmt']
+      \ 'jsx': ['eslint'],
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['eslint'],
+      \ 'nix': ['nixpkgs-fmt']
       \}
 let g:ale_pattern_options = {
       \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
@@ -50,12 +51,12 @@ nmap <silent> ]a <Plug>(ale_next_wrap)
 Plug 'natebosch/vim-lsc'
 let g:lsc_server_commands = {'javascript': 'typescript-language-server --stdio'}
 let g:lsc_auto_map = {
- \  'GoToDefinition': 'gd',
- \  'FindReferences': 'gr',
- \  'Rename': 'gR',
- \  'ShowHover': 'K',
- \  'FindCodeActions': 'ga',
- \}
+      \ 'GoToDefinition': 'gd',
+      \ 'FindReferences': 'gr',
+      \ 'Rename': 'gR',
+      \ 'ShowHover': 'K',
+      \ 'FindCodeActions': 'ga',
+      \}
 let g:lsc_enable_autocomplete  = v:true
 let g:lsc_enable_diagnostics   = v:false
 let g:lsc_reference_highlights = v:false
@@ -64,11 +65,12 @@ let g:lsc_trace_level          = 'off'
 Plug 'lifepillar/vim-mucomplete'
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 50
+let g:mucomplete#wordlist = { 'js': ['console.log()', 'console.party()', 'console.trace()'] }
 let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags']
+let g:mucomplete#chains.default = ['path', 'omni', 'list', 'keyn', 'file']
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
 
-" netrw
+" NETRW
 let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
 let g:netrw_banner = 0
 let g:netrw_altfile = 1
@@ -84,13 +86,13 @@ endfunction
 autocmd vimRc FileType netrw call Innetrw()
 nmap - :call Opendir('edit')<CR>
 function! Opendir(cmd) abort
-    if expand('%') =~# '^$\|^term:[\/][\/]'
-        execute a:cmd '.'
-    else
-        execute a:cmd '%:h'
-        let pattern = '^\%(| \)*'.escape(expand('#:t'), '.*[]~\').'[/*|@=]\=\%($\|\t\)'
-        call search(pattern, 'wc')
-    endif
+  if expand('%') =~# '^$\|^term:[\/][\/]'
+    execute a:cmd '.'
+  else
+    execute a:cmd '%:h'
+    let pattern = '^\%(| \)*'.escape(expand('#:t'), '.*[]~\').'[/*|@=]\=\%($\|\t\)'
+    call search(pattern, 'wc')
+  endif
 endfunction
 
 Plug 'airblade/vim-gitgutter'
@@ -100,6 +102,9 @@ nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 
+Plug 'idanarye/vim-merginal', { 'on': ['MerginalToggle', 'Gstatus'] }
+nnoremap [Space]m :MerginalToggle<cr>
+
 Plug 'srstevenson/vim-picker', { 'on': ['PickerEdit', 'PickerBuffer'] }
 let g:picker_selector_executable = 'sk'
 let g:picker_selector_flags = ''
@@ -108,11 +113,11 @@ let g:picker_custom_find_flags = '--type f --hidden --follow --exclude ".git"'
 nnoremap <C-p> :PickerEdit<cr>
 nnoremap <bs> :PickerBuffer<cr>
 function! PickerRgLineHandler(selection) abort
-    let parts = split(a:selection, ':')
-    return {'filename': parts[0], 'line': parts[1], 'column': parts[2]}
+  let parts = split(a:selection, ':')
+  return {'filename': parts[0], 'line': parts[1], 'column': parts[2]}
 endfunction
 command! -nargs=? PickerRg
-    \ call picker#File('rg --color never --line-number --column '.shellescape(<q-args>), "edit", {'line_handler': 'PickerRgLineHandler'})
+      \ call picker#File('rg --color never --line-number --column '.shellescape(<q-args>), "edit", {'line_handler': 'PickerRgLineHandler'})
 
 Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
@@ -128,6 +133,8 @@ let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'wellle/targets.vim'
+Plug 'wellle/visual-split.vim'
+Plug 'bruno-/vim-vertical-move'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'fcpg/vim-altscreen'
 Plug 'vim-scripts/cmdline-completion'
@@ -136,20 +143,32 @@ Plug 'whiteinge/diffconflicts', { 'on': 'DiffConflicts' }
 Plug 'markonm/hlyank.vim'
 Plug 'markonm/traces.vim'
 
-Plug 'tpope/vim-fugitive', { 'on': ['Gstatus', 'Gvdiffsplit'] }
+Plug 'romainl/vim-cool'
+let g:CoolTotalMatches = 1
+
+Plug 'haya14busa/vim-asterisk'
+let g:asterisk#keeppos = 1
+map *  <Plug>(asterisk-z*)
+map #  <Plug>(asterisk-z#)
+map g* <Plug>(asterisk-gz*)
+map g# <Plug>(asterisk-gz#)
+
+Plug 'tpope/vim-fugitive',
+      \ { 'on': ['Gstatus', 'Gvdiffsplit', 'MerginalToggle'] }
 nnoremap [git]  <Nop>
 nmap <space>g [git]
 nnoremap <silent> [git]s :<C-u>vertical Gstatus<cr>
 nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<cr>gg
 
 Plug 'basilgood/min.vim'
+Plug 'rakr/vim-one'
 
 Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 endif
 
-" personal options
+" PERSONAL OPTIONS
 set nobackup
 set noswapfile
 
@@ -177,23 +196,26 @@ set path& | let &path .= '**'
 set nostartofline
 set nowrap
 set virtualedit=block
+set scrolloff=0
 set sidescrolloff=10
 set sidescroll=1
 set display=lastline
 set incsearch
 set hlsearch|nohlsearch
+set regexpengine=1
 set gdefault
 set switchbuf+=useopen,usetab
 set splitright
 set splitbelow
+set signcolumn=yes
 set completeopt-=preview
 set completeopt+=menuone,noselect,noinsert
 set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 set diffopt+=vertical,context:3,indent-heuristic,algorithm:patience
 set nrformats-=octal
-set number
 set mouse=a
+set lazyredraw
 set ttyfast
 set ttymouse=sgr
 set backspace=indent,eol,start
@@ -217,6 +239,7 @@ set autowrite
 set helplang=en
 set spelllang=en_us
 set history=1000
+set virtualedit=onemore
 set wildmode=longest:list,full
 set wildignorecase
 set wildignore=
@@ -234,14 +257,12 @@ set grepformat^=%f:%l:%c:%m
 set laststatus=2
 set statusline=%<%f\ %h%#error#%m%*%r%=%-14.(%l\:%c%)%{&filetype}
 
-" mappings
+" MAPPINGS
 nnoremap <leader><leader> :update<cr>
 noremap j gj
 noremap k gk
 noremap <Down> gj
 noremap <Up> gk
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 inoremap <C-a> <Home>
@@ -257,12 +278,14 @@ nnoremap ]l :lnext<cr>
 nnoremap [l :lprevious<cr>
 nnoremap ]L :llast<cr>
 nnoremap [L :lfirst<cr>
+" OBJECTS
 xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
 xnoremap <expr> A (mode()=~#'[vV]'?'<C-v>0o$A':'A')
 xnoremap <silent> il <Esc>^vg_
 onoremap <silent> il :<C-U>normal! ^vg_<cr>
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
+" COPY / paste
 vnoremap <expr>y "my\"" . v:register . "y`y"
 nmap  <Space>   [Space]
 vmap  <Space>   [Space]
@@ -272,43 +295,37 @@ nnoremap [Space]p :let @"=substitute(system("wl-paste -n"), '<C-v><C-m>', '', 'g
 nnoremap [Space]w diw:let @"=substitute(system("wl-paste -n"), '<C-v><C-m>', '', 'g')<cr>P
 xnoremap [Space]p d:let @"=substitute(system("wl-paste -n"), '<C-v><C-m>', '', 'g')<cr>P
 vnoremap P "0p
+" SUBSTITUTE
 nnoremap ss :%s/
 nnoremap sl :s/
 xnoremap s  :s/
 nnoremap sa :<c-u>%s/\C\<<c-r><c-w>\>/<c-r><c-w>
 nnoremap sw :<C-u>%s/\C\<<C-R><C-w>\>//g<Left><Left>
+" SEARCH AND REPLACE
+nnoremap sn :<C-U>let @/='\<'.expand("<cword>").'\>'<CR>:set hlsearch<CR>cgn
+" DIFF TWO BUFFERS
 nnoremap <silent> <expr> [Space]dt ":\<C-u>"."windo ".(&diff?"diffoff":"diffthis")."\<CR>"
+" C-G IMPROVED
 nnoremap <silent> <C-g> :file<Bar>echon ' ' system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")<CR>
+" RELOAD SYNTAX AND NOHL
 nnoremap <silent><expr> <C-l> empty(get(b:, 'current_syntax'))
       \ ? "\<C-l>"
       \ : "\<C-l>:syntax sync fromstart\<cr>:nohlsearch<cr>"
-nnoremap <silent>n n
-nnoremap <silent>N N
-" vim-visual-star-search
-nnoremap <silent> * *``
-nnoremap sn *``cgn
-xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>``
-function! s:VSetSearch(cmdtype)
-  let temp = @s
-  norm! gv"sy
-  let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
-  let @s = temp
-endfunction
-" execute macro
+" EXECUTE MACRO
 nnoremap Q <Nop>
 nnoremap Q @q
-" Run macro on selected lines
+" RUN MACRO ON SELECTED LINES
 vnoremap Q :norm Q<cr>
-" find
+" FIND
 nnoremap [Space]f :find *<c-z>
 
-" omnicomplete
+" OMNICOMPLETE
 autocmd vimRc Filetype *
       \ if &omnifunc == "" |
       \   setlocal omnifunc=syntaxcomplete#Complete |
       \ endif
 
-" format
+" FORMAT
 autocmd vimRc FileType nix setlocal makeprg=nix-instantiate\ --parse
 autocmd vimRc FileType nix setlocal formatprg=nixpkgs-fmt
 autocmd vimRc BufRead,BufNewFile *.nix command! F silent call system('nixpkgs-fmt ' . expand('%'))
@@ -317,25 +334,28 @@ autocmd vimRc BufRead,BufNewFile *.js,*.jsx command! Fix silent call system('esl
 autocmd vimRc FileType yaml command! F silent call system('prettier --write ' . expand('%'))
 autocmd vimRc FileType sh command! F silent call system('shfmt -i 2 -ci -w ' . expand('%'))
 
-" If a file is large, disable syntax highlighting, filetype etc
-let g:LargeFile = 20*1024*1024 " 20MB
+" LARGE FILES
+let g:large_file = 20*1024*1024 " 20MB
 autocmd vimRc BufReadPre *
-      \ let s = getfsize(expand("<afile>")) |
-      \ if s > g:LargeFile || s == -2 |
-      \   call functions#large_file(fnamemodify(expand("<afile>"), ":p")) |
+      \ let f=expand("<afile>") |
+      \ if getfsize(f) > g:large_file |
+      \ set eventignore+=FileType |
+      \ setlocal noswapfile bufhidden=unload undolevels=-1 |
+      \ else |
+      \ set eventignore-=FileType |
       \ endif
 
-" qf and help keep widow full width
+" HELP KEEP WIDOW FULL WIDTH
 autocmd vimRc FileType qf wincmd J
 autocmd vimRc BufWinEnter * if &ft == 'help' | wincmd J | end
 
-" update diff
+" UPDATE DIFF
 autocmd vimRc InsertLeave * if &l:diff | diffupdate | endif
 
-" detect filetype on save
+" DETECT FILETYPE ON SAVE
 autocmd vimRc BufWritePost * if &filetype ==# '' | filetype detect | endif
 
-" external changes
+" EXTERNAL CHANGES
 autocmd vimRc FocusGained,CursorHold *
       \ if !bufexists("[Command Line]") |
       \ checktime |
@@ -343,31 +363,34 @@ autocmd vimRc FocusGained,CursorHold *
       \   call gitgutter#all(1) |
       \ endif
 
-" Automatically set expandtab
+" AUTOMATICALLY SET EXPANDTAb
 autocmd vimRc FileType * execute 'setlocal ' . (search('^\t.*\n\t.*\n\t', 'n') ? 'no' : '') . 'expandtab'
 
-" Set nonumber in terminal window
+" SET NONUMBER IN TERMINAL Window
 autocmd vimRc BufWinEnter * if &l:buftype == 'terminal' | setlocal nonumber | endif
 
-" mkdir
+" MKDIR
 autocmd vimRc BufWritePre *
       \ if !isdirectory(expand('%:h', v:true)) |
       \   call mkdir(expand('%:h', v:true), 'p') |
       \ endif
 
-" filetypes
-autocmd vimRc BufNewFile,BufRead *.gitignore  setfiletype gitignore
-autocmd vimRc BufNewFile,BufRead *.twig       setfiletype twig.html
-autocmd vimRc BufNewFile,BufRead config       setfiletype config
-autocmd vimRc BufNewFile,BufRead *.lock       setfiletype config
-autocmd vimRc BufNewFile,BufRead .babelrc     setfiletype json
-autocmd vimRc BufNewFile,BufRead *.txt        setfiletype markdown
+" FILETYPES
+autocmd vimRc FileType javascript setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+autocmd vimRc BufNewFile,BufRead *.gitignore setfiletype gitignore
+autocmd vimRc BufNewFile,BufRead *.twig      setfiletype twig.html
+autocmd vimRc BufNewFile,BufRead config      setfiletype config
+autocmd vimRc BufNewFile,BufRead *.lock      setfiletype config
+autocmd vimRc BufNewFile,BufRead .babelrc    setfiletype json
+autocmd vimRc BufNewFile,BufRead *.txt       setfiletype markdown
 autocmd vimRc BufWinEnter *.json setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json  setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json  setlocal formatoptions=
 autocmd vimRc FileType git       setlocal nofoldenable
 
-command! DF call delete(expand('%')) | bdelete!
+" COMMANDS
+command! -nargs=0 BO silent! execute "%bd|e#|bd#"
+command BD bp | bd #
 command! -nargs=0 WS %s/\s\+$// | normal! ``
 function! Hlgroup() abort
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
@@ -378,6 +401,7 @@ command! -nargs=1 TV
 command! TA TV tig --all
 command! TS TV tig status
 
+" FUNCTIONS
 function! s:safeundo()
   let s:pos = getpos( '. ')
   let s:view = winsaveview()
@@ -396,32 +420,6 @@ endfunc
 
 nnoremap u :call <sid>safeundo() <CR>
 nnoremap <C-r> :call <sid>saferedo() <CR>
-
-command! -complete=shellcmd -nargs=+ Shell call s:TmpShellOutput(<q-args>)
-function! s:TmpShellOutput(cmdline) abort
-	if bufexists('tmplog')
-		call deletebufline('tmplog', 1, '$')
-	else
-		call bufadd('tmplog')
-		call setbufvar('tmplog', 'buftype', 'nofile')
-		call setbufvar('tmplog', 'filetype', '')
-	endif
-	" let logjob = job_start(execute("!bash " . a:cmdline),
-	if has('nvim')
-		let logjob = jobstart(['bash', '-c', a:cmdline],
-					\ {'out_io': 'buffer', 'out_name': 'tmplog', 'out_msg': ''})
-	else
-		let logjob = job_start(['bash', '-c', a:cmdline],
-					\ {'out_io': 'buffer', 'err_io': 'buffer', 'out_name': 'tmplog', 'err_name': 'tmplog', 'out_msg': ''})
-	endif
-	let winnr = win_getid()
-	vert sbuffer tmplog
-	setlocal wrap
-	wincmd L
-	if win_getid() != winnr
-		call win_gotoid(winnr)
-	endif
-endfunction
 
 syntax enable
 
