@@ -105,7 +105,7 @@ nmap ghp <Plug>(GitGutterPreviewHunk)
 Plug 'idanarye/vim-merginal', { 'on': ['MerginalToggle', 'Gstatus'] }
 nnoremap [Space]m :MerginalToggle<cr>
 
-Plug 'srstevenson/vim-picker', { 'on': ['PickerEdit', 'PickerBuffer'] }
+Plug 'srstevenson/vim-picker', { 'on': ['PickerEdit', 'PickerBuffer', 'PickerRg'] }
 let g:picker_selector_executable = 'sk'
 let g:picker_selector_flags = ''
 let g:picker_custom_find_executable = 'fd'
@@ -118,6 +118,8 @@ function! PickerRgLineHandler(selection) abort
 endfunction
 command! -nargs=? PickerRg
       \ call picker#File('rg --color never --line-number --column '.shellescape(<q-args>), "edit", {'line_handler': 'PickerRgLineHandler'})
+
+Plug   'eugen0329/vim-esearch'
 
 Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
@@ -161,7 +163,6 @@ nnoremap <silent> [git]s :<C-u>vertical Gstatus<cr>
 nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<cr>gg
 
 Plug 'basilgood/min.vim'
-Plug 'rakr/vim-one'
 
 Plug 'sheerun/vim-polyglot'
 
