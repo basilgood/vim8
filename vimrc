@@ -1,74 +1,202 @@
 unlet! skip_defaults_vim
 silent! source $VIMRUNTIME/defaults.vim
 
-if &encoding !=? 'utf-8'
-  let &termencoding = &encoding
-  setglobal encoding=utf-8
-endif
-
 scriptencoding utf-8
 
 augroup vimRc
   autocmd!
 augroup END
 
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd vimRc VimEnter * PlugInstall | source $MYVIMRC
+if has('vim_starting')
+  let s:dein_dir = expand('~/.cache/dein')
+  let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+  if &runtimepath !~# '/dein.vim'
+    if !isdirectory(s:dein_repo_dir)
+      execute '!git clone git@github.com:Shougo/dein.vim' s:dein_repo_dir
+    endif
+    execute 'set runtimepath^=' . s:dein_repo_dir
+  endif
 endif
 
-silent! if plug#begin('~/.vim/plugged')
+let g:dein#auto_recache = 1
+let g:dein#install_progress_type = 'title'
+let g:dein#enable_notification = 1
+let g:dein#install_log_filename = expand('')
+let g:dein#types#git#default_protocol = 'ssh'
 
-" PLUGINS
-Plug 'dense-analysis/ale'
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '➤'
-let g:ale_sign_info = '➟'
-let g:ale_set_highlights = 0
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_delay = 0
-let g:ale_echo_msg_format = '%s'
-let g:ale_linters = {
-      \ 'jsx': ['eslint'],
-      \ 'javascript': ['eslint'],
-      \ 'typescript': ['eslint']
-      \}
-let g:ale_fixers = {
-      \ 'jsx': ['eslint'],
-      \ 'javascript': ['eslint'],
-      \ 'typescript': ['eslint'],
-      \ 'nix': ['nixpkgs-fmt']
-      \}
-let g:ale_pattern_options = {
-      \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-      \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-      \}
-nmap <silent> [a <Plug>(ale_previous_wrap)
-nmap <silent> ]a <Plug>(ale_next_wrap)
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
 
-Plug 'natebosch/vim-lsc'
-let g:lsc_server_commands = {'javascript': 'typescript-language-server --stdio'}
-let g:lsc_auto_map = {
-      \ 'GoToDefinition': 'gd',
-      \ 'FindReferences': 'gr',
-      \ 'Rename': 'gR',
-      \ 'ShowHover': 'K',
-      \ 'FindCodeActions': 'ga',
-      \}
-let g:lsc_enable_autocomplete  = v:true
-let g:lsc_enable_diagnostics   = v:false
-let g:lsc_reference_highlights = v:false
-let g:lsc_trace_level          = 'off'
+  call dein#add('natebosch/vim-lsc', {
+        \ 'on_ft': ['javascript', 'typescript'],
+        \ 'hook_add': join([
+        \ 'let g:lsc_server_commands = {
+        \   "javascript": "typescript-language-server --stdio",
+        \ }',
+        \ 'let g:lsc_auto_map = {
+        \   "GoToDefinition": "gd",
+        \   "FindReferences": "gr",
+        \   "ShowHover": "K",
+        \   "FindCodeActions": "ga",
+        \ }',
+        \ 'let g:lsc_enable_autocomplete  = v:true',
+        \ 'let g:lsc_enable_diagnostics   = v:false',
+        \ 'let g:lsc_reference_highlights = v:false',
+        \ 'let g:lsc_trace_level          = "off"',
+        \ ], "\n")})
+  call dein#add('lifepillar/vim-mucomplete', {
+        \ 'on_event': ['BufReadPost','BufNewFile'],
+        \ 'hook_source': join([
+        \ 'let g:mucomplete#enable_auto_at_startup = 1',
+        \ 'let g:mucomplete#completion_delay = 50',
+        \ 'let g:mucomplete#always_use_completeopt = 1',
+        \ 'let g:mucomplete#wordlist = { "javascript": ["console.log()"] }',
+        \ 'let g:mucomplete#chains = {}',
+        \ 'let g:mucomplete#chains.default = ["path", "list", "c-n", "omni"]',
+        \ 'let g:mucomplete#chains = {
+        \   "default": ["path", "list", "c-n", "omni"],
+        \   "gitcommit": ["c-n", "uspl", "path"],
+        \ }',
+        \ 'inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"'
+        \ ], "\n")})
+  call dein#add('srstevenson/vim-picker', {
+        \ 'on_cmd': ['PickerEdit', 'PickerBuffer'],
+        \ 'hook_add': join([
+        \ 'let g:picker_selector_executable = "sk"',
+        \ 'let g:picker_selector_flags = ""',
+        \ 'let g:picker_custom_find_executable = "fd"',
+        \ 'let g:picker_custom_find_flags = "--type f --hidden --follow --exclude=.git"',
+        \ 'nnoremap <C-p> :PickerEdit<cr>',
+        \ 'nnoremap <bs> :PickerBuffer<cr>'], "\n")
+        \ })
+  call dein#add('dense-analysis/ale', {
+        \ 'on_event': ['BufReadPost','BufNewFile'],
+        \ 'hook_source': join([
+        \ 'nmap <silent> [a <Plug>(ale_previous_wrap)',
+        \ 'nmap <silent> ]a <Plug>(ale_next_wrap)',
+        \ 'let g:ale_sign_error = "✘"',
+        \ 'let g:ale_sign_warning = "➤"',
+        \ 'let g:ale_sign_info = "➟"',
+        \ 'let g:ale_set_highlights = 0',
+        \ 'let g:ale_lint_on_text_changed = "normal"',
+        \ 'let g:ale_lint_on_insert_leave = 1',
+        \ 'let g:ale_lint_delay = 0',
+        \ 'let g:ale_echo_msg_format = "%s"',
+        \ 'let g:ale_pattern_options = {
+        \   "\.min\.js$": {"ale_linters": [], "ale_fixers": []},
+        \   "\.min\.css$": {"ale_linters": [], "ale_fixers": []},
+        \ }',
+        \ 'let g:ale_fixers = {
+        \   "jsx": ["eslint"],
+        \   "javascript": ["eslint"],
+        \   "typescript": ["eslint"],
+        \   "nix": ["nixpkgs-fmt"]
+        \ }',
+        \ 'let g:ale_linters = {
+        \   "jsx": ["eslint"],
+        \   "javascript": ["eslint"],
+        \   "typescript": ["eslint"]
+        \  }'], "\n")
+        \ })
+  call dein#add('tpope/vim-fugitive', {
+        \ 'on_event': ['BufReadPre','BufNewFile'],
+        \ 'on_cmd': ['Gstatus','Gvdiffsplit'],
+        \ 'hook_source': join([
+        \ 'nnoremap [git]  <Nop>',
+        \ 'nmap <space>g [git]',
+        \ 'nnoremap <silent> [git]s :<C-u>vertical Gstatus<cr>',
+        \ 'nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<cr>gg'], "\n")
+        \ })
+  call dein#add('editorconfig/editorconfig-vim', {
+        \ 'on_event': ['BufReadPost','BufNewFile'],
+        \ 'hook_add': 'let g:EditorConfig_exclude_patterns = ["fugitive://.*"]'
+        \ })
+  call dein#add('airblade/vim-gitgutter', {
+        \ 'on_event': ['BufReadPost','BufNewFile'],
+        \ 'hook_source': join([
+        \ 'let g:gitgutter_sign_priority = 8',
+        \ 'let g:gitgutter_override_sign_column_highlight = 0',
+        \ 'nmap ghs <Plug>(GitGutterStageHunk)',
+        \ 'nmap ghu <Plug>(GitGutterUndoHunk)',
+        \ 'nmap ghp <Plug>(GitGutterPreviewHunk)'], "\n")
+        \ })
+  call dein#add('mbbill/undotree', {
+        \ 'on_cmd': ['UndotreeToggle'],
+        \ 'hook_add': join([
+        \ 'let g:undotree_WindowLayout = 4',
+        \ 'let g:undotree_SetFocusWhenToggle = 1',
+        \ 'let g:undotree_ShortIndicators = 1'], "\n")
+        \ })
+  call dein#add('tpope/vim-surround', {
+        \ 'on_event': ['BufReadPost','BufNewFile']
+        \ })
+  call dein#add('tpope/vim-repeat', {
+        \ 'on_event': ['BufReadPost','BufNewFile'],
+        \ 'hook_add': 'vnoremap . :normal .<CR>'
+        \ })
+  call dein#add('tomtom/tcomment_vim', {
+        \ 'on_event': ['BufReadPost','BufNewFile']
+        \ })
+  call dein#add('haya14busa/vim-asterisk', {
+        \ 'on_event': ['BufReadPost','BufNewFile'],
+        \ 'hook_source': join([
+        \ 'let g:asterisk#keeppos = 1',
+        \ 'map *  <Plug>(asterisk-z*)',
+        \ 'map #  <Plug>(asterisk-z#)',
+        \ 'map g* <Plug>(asterisk-gz*)',
+        \ 'map g# <Plug>(asterisk-gz#)'], "\n")
+        \ })
+  call dein#add('fcpg/vim-altscreen')
+  call dein#add('stefandtw/quickfix-reflector.vim', {
+        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ })
+  call dein#add('wellle/targets.vim', {
+        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ })
+  call dein#add('markonm/hlyank.vim', {
+        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ })
+  call dein#add('markonm/traces.vim', {
+        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ })
+  call dein#add('hotwatermorning/auto-git-diff', {
+        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ })
+  call dein#add('whiteinge/diffconflicts', {
+        \ 'on_cmd': 'DiffConflicts'
+        \ })
+  call dein#add('mileszs/ack.vim', {
+        \ 'on_cmd': 'Ack',
+        \ 'hook_add': join([
+        \ 'let g:ackprg = "rg --vimgrep"',
+        \ 'let g:ackhighlight = 1',
+        \ 'cnoreabbrev Ack Ack!'], "\n")
+        \ })
+  call dein#add('junegunn/vim-peekaboo', {
+        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ })
+  call dein#add('vim-scripts/cmdline-completion', {
+        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ })
+  call dein#add('romainl/vim-cool', {
+        \ 'on_event': ['BufReadPre','BufNewFile'],
+        \ 'hook_add': 'let g:CoolTotalMatches = 1'
+        \ })
+  call dein#add('sheerun/vim-polyglot', {
+        \ 'on_event': ['BufReadPost','BufNewFile']
+        \ })
+  call dein#add('basilgood/min.vim')
 
-Plug 'lifepillar/vim-mucomplete'
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#completion_delay = 50
-let g:mucomplete#wordlist = { 'js': ['console.log()', 'console.party()', 'console.trace()'] }
-let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = ['path', 'omni', 'list', 'keyn', 'file']
-inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+  call dein#end()
+  call dein#save_state()
+endif
+
+if !has('vim_starting') && dein#check_install()
+  call dein#install()
+endif
+
+filetype plugin indent on
 
 " NETRW
 let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
@@ -84,7 +212,7 @@ function! Innetrw() abort
   nmap <buffer> <left> -
 endfunction
 autocmd vimRc FileType netrw call Innetrw()
-nmap - :call Opendir('edit')<CR>
+nmap <silent> - :call Opendir('edit')<CR>
 function! Opendir(cmd) abort
   if expand('%') =~# '^$\|^term:[\/][\/]'
     execute a:cmd '.'
@@ -95,87 +223,7 @@ function! Opendir(cmd) abort
   endif
 endfunction
 
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_sign_priority = 8
-let g:gitgutter_override_sign_column_highlight = 0
-nmap ghs <Plug>(GitGutterStageHunk)
-nmap ghu <Plug>(GitGutterUndoHunk)
-nmap ghp <Plug>(GitGutterPreviewHunk)
-
-Plug 'idanarye/vim-merginal', { 'on': ['MerginalToggle', 'Gstatus'] }
-nnoremap [Space]m :MerginalToggle<cr>
-
-Plug 'srstevenson/vim-picker', { 'on': ['PickerEdit', 'PickerBuffer', 'PickerRg'] }
-let g:picker_selector_executable = 'sk'
-let g:picker_selector_flags = ''
-let g:picker_custom_find_executable = 'fd'
-let g:picker_custom_find_flags = '--type f --hidden --follow --exclude ".git"'
-nnoremap <C-p> :PickerEdit<cr>
-nnoremap <bs> :PickerBuffer<cr>
-function! PickerRgLineHandler(selection) abort
-  let parts = split(a:selection, ':')
-  return {'filename': parts[0], 'line': parts[1], 'column': parts[2]}
-endfunction
-command! -nargs=? PickerRg
-      \ call picker#File('rg --color never --line-number --column '.shellescape(<q-args>), "edit", {'line_handler': 'PickerRgLineHandler'})
-
-Plug   'eugen0329/vim-esearch'
-
-Plug 'editorconfig/editorconfig-vim'
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-
-Plug 'tpope/vim-repeat'
-vnoremap . :normal .<CR>
-Plug 'tpope/vim-surround'
-Plug 'tomtom/tcomment_vim'
-Plug 'mbbill/undotree', { 'on': 'UndoTreeToggle' }
-let g:undotree_CustomUndotreeCmd = 'vertical 50 new'
-let g:undotree_CustomDiffpanelCmd= 'belowright 12 new'
-let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_ShortIndicators = 1
-Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'wellle/targets.vim'
-Plug 'wellle/visual-split.vim'
-Plug 'bruno-/vim-vertical-move'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'fcpg/vim-altscreen'
-Plug 'vim-scripts/cmdline-completion'
-Plug 'hotwatermorning/auto-git-diff'
-Plug 'whiteinge/diffconflicts', { 'on': 'DiffConflicts' }
-Plug 'markonm/hlyank.vim'
-Plug 'markonm/traces.vim'
-
-Plug 'romainl/vim-cool'
-let g:CoolTotalMatches = 1
-
-Plug 'haya14busa/vim-asterisk'
-let g:asterisk#keeppos = 1
-map *  <Plug>(asterisk-z*)
-map #  <Plug>(asterisk-z#)
-map g* <Plug>(asterisk-gz*)
-map g# <Plug>(asterisk-gz#)
-
-Plug 'tpope/vim-fugitive',
-      \ { 'on': ['Gstatus', 'Gvdiffsplit', 'MerginalToggle'] }
-nnoremap [git]  <Nop>
-nmap <space>g [git]
-nnoremap <silent> [git]s :<C-u>vertical Gstatus<cr>
-nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<cr>gg
-
-Plug 'basilgood/min.vim'
-
-Plug 'sheerun/vim-polyglot'
-
-call plug#end()
-endif
-
 " PERSONAL OPTIONS
-set nobackup
-set noswapfile
-
-set undodir=/tmp,.
-set undofile
-
 if exists('$TMUX')
   set term=xterm-256color
 endif
@@ -187,27 +235,20 @@ let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[1 q"
 
-set noswapfile
-set nobackup
-set undodir=/tmp,.
-set undofile
+set autoread autowrite
+set noswapfile nobackup
+set undofile undodir=/tmp,.
 set noerrorbells visualbell t_vb=
-set regexpengine=1
 set path& | let &path .= '**'
 set nostartofline
 set nowrap
-set virtualedit=block
-set scrolloff=0
-set sidescrolloff=10
-set sidescroll=1
-set display=lastline
-set incsearch
-set hlsearch|nohlsearch
+set virtualedit=onemore
+set scrolloff=0 sidescrolloff=10 sidescroll=1
+set incsearch hlsearch
 set regexpengine=1
 set gdefault
 set switchbuf+=useopen,usetab
-set splitright
-set splitbelow
+set splitright splitbelow
 set signcolumn=yes
 set completeopt-=preview
 set completeopt+=menuone,noselect,noinsert
@@ -215,12 +256,9 @@ set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 set diffopt+=vertical,context:3,indent-heuristic,algorithm:patience
 set nrformats-=octal
-set mouse=a
-set lazyredraw
-set ttyfast
-set ttymouse=sgr
+set mouse=a ttymouse=sgr
+set lazyredraw ttyfast
 set backspace=indent,eol,start
-set history=200
 set wildmenu
 set list
 set listchars=tab:›\ ,trail:•,extends:»,precedes:«,nbsp:⣿
@@ -228,28 +266,17 @@ autocmd vimRc InsertEnter * set listchars-=trail:•
 autocmd vimRc InsertLeave * set listchars+=trail:•
 set confirm
 set shortmess+=IOFc
-set autoindent
-set copyindent
-set preserveindent
-set softtabstop=2
-set tabstop=2
-set shiftwidth=2
-set expandtab
-set autoread
-set autowrite
-set helplang=en
-set spelllang=en_us
-set history=1000
-set virtualedit=onemore
+set autoindent copyindent preserveindent smartindent
+set softtabstop=2 tabstop=2 shiftwidth=2 expandtab
+set helplang=en spelllang=en_us
+set history=200
 set wildmode=longest:list,full
 set wildignorecase
 set wildignore=
       \*/node_modules/*,
       \*/.git/*
 set wildcharm=<C-Z>
-set ttimeout
-set timeoutlen=1000
-set ttimeoutlen=0
+set ttimeout timeoutlen=1000 ttimeoutlen=0
 set updatetime=50
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
@@ -422,8 +449,20 @@ endfunc
 nnoremap u :call <sid>safeundo() <CR>
 nnoremap <C-r> :call <sid>saferedo() <CR>
 
-syntax enable
+function! PickerRgLineHandler(selection) abort
+  let parts = split(a:selection, ':')
+  return {'filename': parts[0], 'line': parts[1], 'column': parts[2]}
+endfunction
+command! -nargs=? PickerRg
+      \ call picker#File('rg --color never --line-number --column '.shellescape(<q-args>), "edit", {'line_handler': 'PickerRgLineHandler'})
+
+if has('vim_starting')
+  syntax enable
+endif
 
 silent! colorscheme min
+if !has('vim_starting')
+  call dein#call_hook('source')
+endif
 
 set secure
