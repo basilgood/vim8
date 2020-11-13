@@ -20,8 +20,8 @@ if has('vim_starting')
 endif
 
 let g:dein#auto_recache = 1
-let g:dein#install_progress_type = 'title'
-let g:dein#enable_notification = 1
+let g:dein#install_progress_type = 'echo'
+" let g:dein#enable_notification = 1
 let g:dein#install_log_filename = expand('')
 let g:dein#types#git#default_protocol = 'ssh'
 
@@ -29,7 +29,6 @@ if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
   call dein#add('natebosch/vim-lsc', {
-        \ 'on_ft': ['javascript', 'typescript'],
         \ 'hook_add': join([
         \ 'let g:lsc_server_commands = {
         \   "javascript": "typescript-language-server --stdio",
@@ -51,7 +50,6 @@ if dein#load_state(s:dein_dir)
         \ 'let g:mucomplete#enable_auto_at_startup = 1',
         \ 'let g:mucomplete#completion_delay = 50',
         \ 'let g:mucomplete#always_use_completeopt = 1',
-        \ 'let g:mucomplete#wordlist = { "javascript": ["console.log()"] }',
         \ 'let g:mucomplete#chains = {}',
         \ 'let g:mucomplete#chains.default = ["path", "list", "c-n", "omni"]',
         \ 'let g:mucomplete#chains = {
@@ -160,18 +158,18 @@ if dein#load_state(s:dein_dir)
   call dein#add('markonm/traces.vim', {
         \ 'on_event': ['BufReadPre','BufNewFile']
         \ })
+  call dein#add('hauleth/asyncdo.vim', {
+        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ })
+  call dein#add('igemnace/vim-sniplet', {
+        \ 'on_event': ['BufReadPre','BufNewFile'],
+        \ 'hook_add': 'imap <c-q> <Plug>SnipletExpand'
+        \ })
   call dein#add('hotwatermorning/auto-git-diff', {
         \ 'on_event': ['BufReadPre','BufNewFile']
         \ })
   call dein#add('whiteinge/diffconflicts', {
         \ 'on_cmd': 'DiffConflicts'
-        \ })
-  call dein#add('mileszs/ack.vim', {
-        \ 'on_cmd': 'Ack',
-        \ 'hook_add': join([
-        \ 'let g:ackprg = "rg --vimgrep"',
-        \ 'let g:ackhighlight = 1',
-        \ 'cnoreabbrev Ack Ack!'], "\n")
         \ })
   call dein#add('junegunn/vim-peekaboo', {
         \ 'on_event': ['BufReadPre','BufNewFile']
@@ -428,6 +426,12 @@ command! -nargs=1 TV
       \ call system('tmux split-window -h '.<q-args>)
 command! TA TV tig --all
 command! TS TV tig status
+command! -bang -nargs=* -complete=file Make
+  \ call asyncdo#run(1, &makeprg, <f-args>)
+command! -bang -nargs=* -complete=file LMake
+  \ call asyncdo#lrun(1, &makeprg, <f-args>)
+command! -bang -nargs=+ -complete=file Grep
+  \ call asyncdo#run(1, {'job': &grepprg, 'errorformat': &grepformat}, <f-args>)
 
 " FUNCTIONS
 function! s:safeundo()
