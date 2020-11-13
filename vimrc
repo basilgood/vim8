@@ -58,15 +58,19 @@ if dein#load_state(s:dein_dir)
         \ }',
         \ 'inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"'
         \ ], "\n")})
-  call dein#add('srstevenson/vim-picker', {
-        \ 'on_cmd': ['PickerEdit', 'PickerBuffer'],
+  call dein#add('junegunn/fzf', {
+        \ 'merged': 0,
+        \ 'on_event': 'CmdlineEnter'
+        \ })
+  call dein#add('junegunn/fzf.vim', {
+        \ 'depends': 'fzf',
+        \ 'on_cmd': ['Files', 'Buffers'],
         \ 'hook_add': join([
-        \ 'let g:picker_selector_executable = "sk"',
-        \ 'let g:picker_selector_flags = ""',
-        \ 'let g:picker_custom_find_executable = "fd"',
-        \ 'let g:picker_custom_find_flags = "--type f --hidden --follow --exclude=.git"',
-        \ 'nnoremap <C-p> :PickerEdit<cr>',
-        \ 'nnoremap <bs> :PickerBuffer<cr>'], "\n")
+        \ 'let $FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude plugged"',
+        \ 'let g:fzf_layout = { "down": "~15%" }',
+        \ 'nnoremap <c-p> :Files<cr>',
+        \ 'nnoremap <c-;> :Files %:h<cr>',
+        \ 'nnoremap <bs> :Buffers<cr>'], "\n")
         \ })
   call dein#add('dense-analysis/ale', {
         \ 'on_event': ['BufReadPost','BufNewFile'],
@@ -147,8 +151,8 @@ if dein#load_state(s:dein_dir)
         \ })
   call dein#add('fcpg/vim-altscreen')
   call dein#add('stefandtw/quickfix-reflector.vim', {
-        \ 'on_event': ['BufReadPre','BufNewFile']
-        \ })
+      \ 'on_ft': 'qf'
+      \ })
   call dein#add('wellle/targets.vim', {
         \ 'on_event': ['BufReadPre','BufNewFile']
         \ })
@@ -158,9 +162,7 @@ if dein#load_state(s:dein_dir)
   call dein#add('markonm/traces.vim', {
         \ 'on_event': ['BufReadPre','BufNewFile']
         \ })
-  call dein#add('hauleth/asyncdo.vim', {
-        \ 'on_event': ['BufReadPre','BufNewFile']
-        \ })
+  call dein#add('hauleth/asyncdo.vim')
   call dein#add('igemnace/vim-sniplet', {
         \ 'on_event': ['BufReadPre','BufNewFile'],
         \ 'hook_add': 'imap <c-q> <Plug>SnipletExpand'
@@ -453,12 +455,14 @@ endfunc
 nnoremap u :call <sid>safeundo() <CR>
 nnoremap <C-r> :call <sid>saferedo() <CR>
 
-function! PickerRgLineHandler(selection) abort
-  let parts = split(a:selection, ':')
-  return {'filename': parts[0], 'line': parts[1], 'column': parts[2]}
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --hidden --smart-case -g "!.git" %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
-command! -nargs=? PickerRg
-      \ call picker#File('rg --color never --line-number --column '.shellescape(<q-args>), "edit", {'line_handler': 'PickerRgLineHandler'})
+command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 if has('vim_starting')
   syntax enable
