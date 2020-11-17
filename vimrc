@@ -10,7 +10,6 @@ augroup END
 if has('vim_starting')
   let s:dein_dir = expand('~/.cache/dein')
   let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
   if &runtimepath !~# '/dein.vim'
     if !isdirectory(s:dein_repo_dir)
       execute '!git clone git@github.com:Shougo/dein.vim' s:dein_repo_dir
@@ -21,7 +20,6 @@ endif
 
 let g:dein#auto_recache = 1
 let g:dein#install_progress_type = 'echo'
-" let g:dein#enable_notification = 1
 let g:dein#install_log_filename = expand('')
 let g:dein#types#git#default_protocol = 'ssh'
 
@@ -29,35 +27,13 @@ if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
   call dein#add('natebosch/vim-lsc', {
-        \ 'hook_add': join([
-        \ 'let g:lsc_server_commands = {
-        \   "javascript": "typescript-language-server --stdio",
-        \ }',
-        \ 'let g:lsc_auto_map = {
-        \   "GoToDefinition": "gd",
-        \   "FindReferences": "gr",
-        \   "ShowHover": "K",
-        \   "FindCodeActions": "ga",
-        \ }',
-        \ 'let g:lsc_enable_autocomplete  = v:true',
-        \ 'let g:lsc_enable_diagnostics   = v:false',
-        \ 'let g:lsc_reference_highlights = v:false',
-        \ 'let g:lsc_trace_level          = "off"',
-        \ ], "\n")})
-  call dein#add('lifepillar/vim-mucomplete', {
-        \ 'on_event': ['BufReadPost','BufNewFile'],
-        \ 'hook_source': join([
-        \ 'let g:mucomplete#enable_auto_at_startup = 1',
-        \ 'let g:mucomplete#completion_delay = 50',
-        \ 'let g:mucomplete#always_use_completeopt = 1',
-        \ 'let g:mucomplete#chains = {}',
-        \ 'let g:mucomplete#chains.default = ["path", "list", "c-n", "omni"]',
-        \ 'let g:mucomplete#chains = {
-        \   "default": ["path", "list", "c-n", "omni"],
-        \   "gitcommit": ["c-n", "uspl", "path"],
-        \ }',
-        \ 'inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"'
-        \ ], "\n")})
+        \ 'lazy' : 1,
+        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ })
+  call dein#add('maralla/completor.vim', {
+        \ 'lazy' : 1,
+        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ })
   call dein#add('junegunn/fzf', {
         \ 'merged': 0,
         \ 'on_event': 'CmdlineEnter'
@@ -73,6 +49,7 @@ if dein#load_state(s:dein_dir)
         \ 'nnoremap <bs> :Buffers<cr>'], "\n")
         \ })
   call dein#add('dense-analysis/ale', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPost','BufNewFile'],
         \ 'hook_source': join([
         \ 'nmap <silent> [a <Plug>(ale_previous_wrap)',
@@ -102,6 +79,7 @@ if dein#load_state(s:dein_dir)
         \  }'], "\n")
         \ })
   call dein#add('tpope/vim-fugitive', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPre','BufNewFile'],
         \ 'on_cmd': ['Gstatus','Gvdiffsplit'],
         \ 'hook_source': join([
@@ -110,11 +88,17 @@ if dein#load_state(s:dein_dir)
         \ 'nnoremap <silent> [git]s :<C-u>vertical Gstatus<cr>',
         \ 'nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<cr>gg'], "\n")
         \ })
+  call dein#add('idanarye/vim-merginal', {
+        \ 'lazy' : 1,
+        \ 'on_cmd': ['MerginalToggle']
+        \ })
   call dein#add('editorconfig/editorconfig-vim', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPost','BufNewFile'],
         \ 'hook_add': 'let g:EditorConfig_exclude_patterns = ["fugitive://.*"]'
         \ })
   call dein#add('airblade/vim-gitgutter', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPost','BufNewFile'],
         \ 'hook_source': join([
         \ 'let g:gitgutter_sign_priority = 8',
@@ -124,6 +108,7 @@ if dein#load_state(s:dein_dir)
         \ 'nmap ghp <Plug>(GitGutterPreviewHunk)'], "\n")
         \ })
   call dein#add('mbbill/undotree', {
+        \ 'lazy' : 1,
         \ 'on_cmd': ['UndotreeToggle'],
         \ 'hook_add': join([
         \ 'let g:undotree_WindowLayout = 4',
@@ -131,16 +116,20 @@ if dein#load_state(s:dein_dir)
         \ 'let g:undotree_ShortIndicators = 1'], "\n")
         \ })
   call dein#add('tpope/vim-surround', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPost','BufNewFile']
         \ })
   call dein#add('tpope/vim-repeat', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPost','BufNewFile'],
         \ 'hook_add': 'vnoremap . :normal .<CR>'
         \ })
   call dein#add('tomtom/tcomment_vim', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPost','BufNewFile']
         \ })
   call dein#add('haya14busa/vim-asterisk', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPost','BufNewFile'],
         \ 'hook_source': join([
         \ 'let g:asterisk#keeppos = 1',
@@ -149,41 +138,55 @@ if dein#load_state(s:dein_dir)
         \ 'map g* <Plug>(asterisk-gz*)',
         \ 'map g# <Plug>(asterisk-gz#)'], "\n")
         \ })
-  call dein#add('fcpg/vim-altscreen')
+  call dein#add('fcpg/vim-altscreen', {
+        \ 'lazy' : 1,
+        \ 'on_event': ['BufWinEnter']
+        \ })
   call dein#add('stefandtw/quickfix-reflector.vim', {
-      \ 'on_ft': 'qf'
-      \ })
+        \ 'lazy' : 1,
+        \ 'on_ft': 'qf'
+        \ })
   call dein#add('wellle/targets.vim', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPre','BufNewFile']
         \ })
   call dein#add('markonm/hlyank.vim', {
-        \ 'on_event': ['BufReadPre','BufNewFile']
-        \ })
-  call dein#add('markonm/traces.vim', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPre','BufNewFile']
         \ })
   call dein#add('hauleth/asyncdo.vim')
   call dein#add('igemnace/vim-sniplet', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPre','BufNewFile'],
         \ 'hook_add': 'imap <c-q> <Plug>SnipletExpand'
         \ })
   call dein#add('hotwatermorning/auto-git-diff', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPre','BufNewFile']
         \ })
   call dein#add('whiteinge/diffconflicts', {
+        \ 'lazy' : 1,
         \ 'on_cmd': 'DiffConflicts'
         \ })
   call dein#add('junegunn/vim-peekaboo', {
+        \ 'lazy' : 1,
+        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ })
+  call dein#add('markonm/traces.vim', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPre','BufNewFile']
         \ })
   call dein#add('vim-scripts/cmdline-completion', {
-        \ 'on_event': ['BufReadPre','BufNewFile']
+        \ 'lazy' : 1,
+        \ 'on_event': ['CmdlineEnter']
         \ })
   call dein#add('romainl/vim-cool', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPre','BufNewFile'],
         \ 'hook_add': 'let g:CoolTotalMatches = 1'
         \ })
   call dein#add('sheerun/vim-polyglot', {
+        \ 'lazy' : 1,
         \ 'on_event': ['BufReadPost','BufNewFile']
         \ })
   call dein#add('basilgood/min.vim')
@@ -222,6 +225,41 @@ function! Opendir(cmd) abort
     call search(pattern, 'wc')
   endif
 endfunction
+
+" COMPLETOR
+if dein#tap('completor.vim')
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+  let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+  let g:completor_scss_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+endif
+
+" LSC
+if dein#tap('vim-lsc')
+  let g:lsc_server_commands = {
+        \ 'javascript': {
+        \   'command': 'typescript-language-server --stdio',
+        \   'log_level': -1,
+        \   'suppress_stderr': v:true
+        \ },
+        \ 'typescript': {
+        \   'command': 'typescript-language-server --stdio',
+        \   'log_level': -1,
+        \   'suppress_stderr': v:true
+        \ }
+        \}
+  let g:lsc_auto_map = {
+        \ "GoToDefinition": "gd",
+        \ "FindReferences": "gr",
+        \ "ShowHover": "K",
+        \ "FindCodeActions": "ga"
+        \ }
+  let g:lsc_enable_autocomplete  = v:true
+  let g:lsc_enable_diagnostics   = v:false
+  let g:lsc_reference_highlights = v:false
+  let g:lsc_trace_level          = 'off'
+endif
 
 " PERSONAL OPTIONS
 if exists('$TMUX')
@@ -287,6 +325,7 @@ set statusline=%<%f\ %h%#error#%m%*%r%=%-14.(%l\:%c%)%{&filetype}
 
 " MAPPINGS
 nnoremap <leader><leader> :update<cr>
+nnoremap <s-tab> <c-w>w
 noremap j gj
 noremap k gk
 noremap <Down> gj
@@ -429,11 +468,11 @@ command! -nargs=1 TV
 command! TA TV tig --all
 command! TS TV tig status
 command! -bang -nargs=* -complete=file Make
-  \ call asyncdo#run(1, &makeprg, <f-args>)
+      \ call asyncdo#run(1, &makeprg, <f-args>)
 command! -bang -nargs=* -complete=file LMake
-  \ call asyncdo#lrun(1, &makeprg, <f-args>)
+      \ call asyncdo#lrun(1, &makeprg, <f-args>)
 command! -bang -nargs=+ -complete=file Grep
-  \ call asyncdo#run(1, {'job': &grepprg, 'errorformat': &grepformat}, <f-args>)
+      \ call asyncdo#run(1, {'job': &grepprg, 'errorformat': &grepformat}, <f-args>)
 
 " FUNCTIONS
 function! s:safeundo()
