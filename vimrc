@@ -7,268 +7,253 @@ augroup vimRc
   autocmd!
 augroup END
 
+" packager
+let s:packager_dir = $HOME . '/.vim/pack/packager/opt/vim-packager'
+let s:packager_download = 0
 if has('vim_starting')
-  let s:dein_dir = expand('~/.cache/dein')
-  let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-  if &runtimepath !~# '/dein.vim'
-    if !isdirectory(s:dein_repo_dir)
-      execute '!git clone git@github.com:Shougo/dein.vim' s:dein_repo_dir
-    endif
-    execute 'set runtimepath^=' . s:dein_repo_dir
+  if !isdirectory(s:packager_dir)
+    echo 'Install vim-packager ...'
+    execute '!git clone --depth 1 https://github.com/kristijanhusak/vim-packager ' . s:packager_dir
+    let s:packager_download = 1
   endif
 endif
 
-let g:dein#auto_recache = 1
-let g:dein#install_progress_type = 'echo'
-let g:dein#install_log_filename = expand('')
-let g:dein#types#git#default_protocol = 'ssh'
+" packager init
+let s:packager_init = 0
+let s:plugins = []
+function! PackagerInit() abort
+  packadd vim-packager
 
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
+  for plugin in s:plugins
+    call packager#add(plugin[0], plugin[1])
+  endfor
+endfunction
 
-  call dein#add('natebosch/vim-lsc', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPre','BufNewFile']
-        \ })
-  call dein#add('maralla/completor.vim', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPre','BufNewFile']
-        \ })
-  call dein#add('junegunn/fzf', {
-        \ 'merged': 0,
-        \ 'on_event': 'CmdlineEnter'
-        \ })
-  call dein#add('junegunn/fzf.vim', {
-        \ 'depends': 'fzf',
-        \ 'on_cmd': ['Files', 'Buffers'],
-        \ 'hook_add': join([
-        \ 'let $FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude plugged"',
-        \ 'let g:fzf_layout = { "down": "~15%" }',
-        \ 'nnoremap <c-p> :Files<cr>',
-        \ 'nnoremap <c-;> :Files %:h<cr>',
-        \ 'nnoremap <bs> :Buffers<cr>'], "\n")
-        \ })
-  call dein#add('dense-analysis/ale', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPost','BufNewFile'],
-        \ 'hook_source': join([
-        \ 'nmap <silent> [a <Plug>(ale_previous_wrap)',
-        \ 'nmap <silent> ]a <Plug>(ale_next_wrap)',
-        \ 'let g:ale_sign_error = "✘"',
-        \ 'let g:ale_sign_warning = "➤"',
-        \ 'let g:ale_sign_info = "➟"',
-        \ 'let g:ale_set_highlights = 0',
-        \ 'let g:ale_lint_on_text_changed = "normal"',
-        \ 'let g:ale_lint_on_insert_leave = 1',
-        \ 'let g:ale_lint_delay = 0',
-        \ 'let g:ale_echo_msg_format = "%s"',
-        \ 'let g:ale_pattern_options = {
-        \   "\.min\.js$": {"ale_linters": [], "ale_fixers": []},
-        \   "\.min\.css$": {"ale_linters": [], "ale_fixers": []},
-        \ }',
-        \ 'let g:ale_fixers = {
-        \   "jsx": ["eslint"],
-        \   "javascript": ["eslint"],
-        \   "typescript": ["eslint"],
-        \   "nix": ["nixpkgs-fmt"]
-        \ }',
-        \ 'let g:ale_linters = {
-        \   "jsx": ["eslint"],
-        \   "javascript": ["eslint"],
-        \   "typescript": ["eslint"]
-        \  }'], "\n")
-        \ })
-  call dein#add('tpope/vim-fugitive', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPre','BufNewFile'],
-        \ 'on_cmd': ['Gstatus','Gvdiffsplit'],
-        \ 'hook_source': join([
-        \ 'nnoremap [git]  <Nop>',
-        \ 'nmap <space>g [git]',
-        \ 'nnoremap <silent> [git]s :<C-u>vertical Gstatus<cr>',
-        \ 'nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<cr>gg'], "\n")
-        \ })
-  call dein#add('idanarye/vim-merginal', {
-        \ 'lazy' : 1,
-        \ 'on_cmd': ['MerginalToggle']
-        \ })
-  call dein#add('editorconfig/editorconfig-vim', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPost','BufNewFile'],
-        \ 'hook_add': 'let g:EditorConfig_exclude_patterns = ["fugitive://.*"]'
-        \ })
-  call dein#add('airblade/vim-gitgutter', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPost','BufNewFile'],
-        \ 'hook_source': join([
-        \ 'let g:gitgutter_sign_priority = 8',
-        \ 'let g:gitgutter_override_sign_column_highlight = 0',
-        \ 'nmap ghs <Plug>(GitGutterStageHunk)',
-        \ 'nmap ghu <Plug>(GitGutterUndoHunk)',
-        \ 'nmap ghp <Plug>(GitGutterPreviewHunk)'], "\n")
-        \ })
-  call dein#add('mbbill/undotree', {
-        \ 'lazy' : 1,
-        \ 'on_cmd': ['UndotreeToggle'],
-        \ 'hook_add': join([
-        \ 'let g:undotree_WindowLayout = 4',
-        \ 'let g:undotree_SetFocusWhenToggle = 1',
-        \ 'let g:undotree_ShortIndicators = 1'], "\n")
-        \ })
-  call dein#add('tpope/vim-surround', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPost','BufNewFile']
-        \ })
-  call dein#add('tpope/vim-repeat', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPost','BufNewFile'],
-        \ 'hook_add': 'vnoremap . :normal .<CR>'
-        \ })
-  call dein#add('tomtom/tcomment_vim', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPost','BufNewFile']
-        \ })
-  call dein#add('haya14busa/vim-asterisk', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPost','BufNewFile'],
-        \ 'hook_source': join([
-        \ 'let g:asterisk#keeppos = 1',
-        \ 'map *  <Plug>(asterisk-z*)',
-        \ 'map #  <Plug>(asterisk-z#)',
-        \ 'map g* <Plug>(asterisk-gz*)',
-        \ 'map g# <Plug>(asterisk-gz#)'], "\n")
-        \ })
-  call dein#add('fcpg/vim-altscreen', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufWinEnter']
-        \ })
-  call dein#add('stefandtw/quickfix-reflector.vim', {
-        \ 'lazy' : 1,
-        \ 'on_ft': 'qf'
-        \ })
-  call dein#add('wellle/targets.vim', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPre','BufNewFile']
-        \ })
-  call dein#add('markonm/hlyank.vim', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPre','BufNewFile']
-        \ })
-  call dein#add('hauleth/asyncdo.vim')
-  call dein#add('igemnace/vim-sniplet', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPre','BufNewFile'],
-        \ 'hook_add': 'imap <c-q> <Plug>SnipletExpand'
-        \ })
-  call dein#add('hotwatermorning/auto-git-diff', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPre','BufNewFile']
-        \ })
-  call dein#add('whiteinge/diffconflicts', {
-        \ 'lazy' : 1,
-        \ 'on_cmd': 'DiffConflicts'
-        \ })
-  call dein#add('junegunn/vim-peekaboo', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPre','BufNewFile']
-        \ })
-  call dein#add('markonm/traces.vim', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPre','BufNewFile']
-        \ })
-  call dein#add('vim-scripts/cmdline-completion', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['CmdlineEnter']
-        \ })
-  call dein#add('romainl/vim-cool', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPre','BufNewFile'],
-        \ 'hook_add': 'let g:CoolTotalMatches = 1'
-        \ })
-  call dein#add('sheerun/vim-polyglot', {
-        \ 'lazy' : 1,
-        \ 'on_event': ['BufReadPost','BufNewFile']
-        \ })
-  call dein#add('basilgood/min.vim')
+" packager helper function
+let s:lazy_plugs = []
+function! s:packager_add(repo, ...) abort
+  let l:opts = get(a:000, 0, {})
+  if has_key(l:opts, 'if')
+    if ! l:opts.if
+      return
+    endif
+  endif
 
-  call dein#end()
-  call dein#save_state()
+  let l:name = substitute(a:repo, '^.*/', '', '')
+
+  " packadd on filetype.
+  if has_key(l:opts, 'ft')
+    let l:ft = type(l:opts.ft) == type([]) ? join(l:opts.ft, ',') : l:opts.ft
+    exe printf('au vimRc FileType %s packadd %s', l:ft, l:name)
+  endif
+
+  " packadd on cmd.
+  if has_key(l:opts, 'cmd')
+    let l:cmd = type(l:opts.cmd) == type([]) ? join(l:opts.cmd, ',') : l:opts.cmd
+    exe printf('au vimRc CmdUndefined %s packadd %s', l:cmd, l:name)
+  endif
+
+  " lazy load.
+  if has_key(l:opts, 'lazy')
+    if l:opts.lazy
+      call add(s:lazy_plugs, l:name)
+    endif
+  endif
+
+  call add(s:plugins, [a:repo, l:opts])
+endfunction
+
+com! -nargs=+ Pac call <SID>packager_add(<args>)
+
+" Load lazy plugins
+let s:idx = 0
+function! PackAddHandler(timer)
+  exe 'packadd ' . s:lazy_plugs[s:idx]
+  let s:idx += 1
+  " doautocmd BufReadPost
+  au! lazy_load_bundle
+endfunction
+
+aug lazy_load_bundle
+  au vimRc VimEnter * call timer_start(0, 'PackAddHandler', {'repeat': len(s:lazy_plugs)})
+aug END
+
+" plugins
+" start
+Pac 'tpope/vim-vinegar'
+Pac 'maralla/completor.vim'
+Pac 'natebosch/vim-lsc'
+Pac 'tpope/vim-fugitive'
+Pac 'airblade/vim-gitgutter'
+Pac 'sgur/vim-editorconfig'
+Pac 'hotwatermorning/auto-git-diff'
+Pac 'itchyny/lightline.vim'
+Pac 'kopischke/vim-stay'
+Pac 'tomtom/tcomment_vim', {'type': 'opt', 'lazy': 1}
+Pac 'tpope/vim-surround', {'type': 'opt', 'lazy': 1}
+Pac 'tpope/vim-repeat', {'type': 'opt', 'lazy': 1}
+Pac 'fcpg/vim-altscreen'
+Pac 'stefandtw/quickfix-reflector.vim'
+Pac 'wellle/targets.vim', {'type': 'opt', 'lazy': 1}
+Pac 'mbbill/undotree'
+Pac 'markonm/hlyank.vim', {'type': 'opt', 'lazy': 1}
+Pac 'hauleth/asyncdo.vim'
+Pac 'hotwatermorning/auto-git-diff', {'type': 'opt', 'lazy': 1}
+Pac 'gotchane/vim-git-commit-prefix', {'type': 'opt', 'lazy': 1}
+Pac 'whiteinge/diffconflicts', {'type': 'opt', 'lazy': 1}
+Pac 'markonm/traces.vim'
+Pac 'vim-scripts/cmdline-completion'
+Pac 'romainl/vim-cool'
+Pac 'romgrk/winteract.vim', {'type': 'opt', 'lazy': 1}
+Pac 'basilgood/smarttab.vim'
+Pac 'sheerun/vim-polyglot'
+" opt
+Pac 'basilgood/hydrangea-vim', {'type': 'opt'}
+Pac 'haya14busa/vim-asterisk', {'type': 'opt', 'lazy': 1}
+Pac 'w0rp/ale', {'type': 'opt', 'lazy': 1}
+
+com! PackagerInstall call PackagerInit() | call packager#install()
+com! PackagerUpdate call PackagerInit() | call packager#update()
+com! PackagerClean call PackagerInit() | call packager#clean()
+com! PackagerStatus call PackagerInit() | call packager#status()
+
+if s:packager_download
+  PackagerInstall
 endif
 
-if !has('vim_starting') && dein#check_install()
-  call dein#install()
-endif
+" vim-stay
+set viewoptions-=options
+
+" interactive
+nmap gw :InteractiveWindow<CR>
+
+" editorconfig
+let g:editorconfig_blacklist = {
+      \ 'filetype': ['git.*', 'fugitive'],
+      \ 'pattern': ['\.un~$']}
+
+" lightline
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+" netrw
+let g:netrw_altfile = 1
+let g:netrw_altv = 1
+let g:netrw_alto = 0
+let g:netrw_preview = 1
+let g:netrw_dirhistmax = 0
+let g:netrw_use_errorwindow = 0
+function! s:innetrw() abort
+      nmap <buffer><silent> <right> <cr>
+      nmap <buffer><silent> <left> -
+endfunction
+autocmd vimRc FileType netrw call s:innetrw()
+
+" completor
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'asyncfinder', 'asyncgrep']
+let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+let g:completor_scss_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
+
+" lsc
+let g:lsc_server_commands = {
+      \ 'javascript': {
+      \   'command': 'typescript-language-server --stdio',
+      \   'log_level': -1,
+      \   'suppress_stderr': v:true
+      \ },
+      \ 'typescript': {
+      \   'command': 'typescript-language-server --stdio',
+      \   'log_level': -1,
+      \   'suppress_stderr': v:true
+      \ }
+      \}
+let g:lsc_auto_map = {
+      \ 'GoToDefinition': 'gd',
+      \ 'FindReferences': 'gr',
+      \ 'ShowHover': 'K',
+      \ 'FindCodeActions': 'ga',
+      \ 'Completion': 'omnifunc'
+      \ }
+let g:lsc_enable_autocomplete  = v:true
+let g:lsc_enable_diagnostics   = v:false
+let g:lsc_reference_highlights = v:false
+let g:lsc_trace_level          = 'off'
+
+" lint
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '➤'
+let g:ale_sign_info = '➟'
+let g:ale_set_highlights = 0
+let g:ale_disable_lsp = 1
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_delay = 0
+let g:ale_echo_msg_format = '%s'
+let g:ale_linters = {
+      \ 'jsx': ['eslint'],
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['eslint']
+      \}
+let g:ale_fixers = {
+      \ 'jsx': ['eslint'],
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['eslint'],
+      \ 'nix': ['nixpkgs-fmt']
+      \}
+let g:ale_pattern_options = {
+      \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+      \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+      \}
+nmap <silent> [a <Plug>(ale_previous_wrap)
+nmap <silent> ]a <Plug>(ale_next_wrap)
+
+" asterisk
+let g:asterisk#keeppos = 1
+map *  <Plug>(asterisk-z*)
+map #  <Plug>(asterisk-z#)
+map g* <Plug>(asterisk-gz*)
+map g# <Plug>(asterisk-gz#)
+
+" gitgutter
+let g:gitgutter_sign_priority = 8
+let g:gitgutter_override_sign_column_highlight = 0
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+nmap ghp <Plug>(GitGutterPreviewHunk)
+
+" fugitive
+nnoremap [git]  <Nop>
+nmap <space>g [git]
+nnoremap <silent> [git]s :<C-u>vertical Gstatus<cr>
+nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<cr>gg']
 
 filetype plugin indent on
 
-" NETRW
-let g:netrw_bufsettings = 'nomodifiable nomodified relativenumber nowrap readonly nobuflisted'
-let g:netrw_banner = 0
-let g:netrw_altfile = 1
-let g:netrw_altv = 1
-let g:netrw_preview = 1
-let g:netrw_alto = 0
-let g:netrw_use_errorwindow = 0
-let g:netrw_list_hide = '^\.\.\=/\=$'
-function! Innetrw() abort
-  nmap <buffer> <right> <cr>
-  nmap <buffer> <left> -
-endfunction
-autocmd vimRc FileType netrw call Innetrw()
-nmap <silent> - :call Opendir('edit')<CR>
-function! Opendir(cmd) abort
-  if expand('%') =~# '^$\|^term:[\/][\/]'
-    execute a:cmd '.'
-  else
-    execute a:cmd '%:h'
-    let pattern = '^\%(| \)*'.escape(expand('#:t'), '.*[]~\').'[/*|@=]\=\%($\|\t\)'
-    call search(pattern, 'wc')
-  endif
-endfunction
-
-" COMPLETOR
-if dein#tap('completor.vim')
-  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-  let g:completor_css_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
-  let g:completor_scss_omni_trigger = '([\w-]+|@[\w-]*|[\w-]+:\s*[\w-]*)$'
-endif
-
-" LSC
-if dein#tap('vim-lsc')
-  let g:lsc_server_commands = {
-        \ 'javascript': {
-        \   'command': 'typescript-language-server --stdio',
-        \   'log_level': -1,
-        \   'suppress_stderr': v:true
-        \ },
-        \ 'typescript': {
-        \   'command': 'typescript-language-server --stdio',
-        \   'log_level': -1,
-        \   'suppress_stderr': v:true
-        \ }
-        \}
-  let g:lsc_auto_map = {
-        \ "GoToDefinition": "gd",
-        \ "FindReferences": "gr",
-        \ "ShowHover": "K",
-        \ "FindCodeActions": "ga"
-        \ }
-  let g:lsc_enable_autocomplete  = v:true
-  let g:lsc_enable_diagnostics   = v:false
-  let g:lsc_reference_highlights = v:false
-  let g:lsc_trace_level          = 'off'
-endif
-
-" PERSONAL OPTIONS
+" personal options
 if exists('$TMUX')
   set term=xterm-256color
 endif
+set background=dark
 set t_Co=256
-set t_ut=
-set t_md=
+" set t_ut=
+" set t_md=
 
+if has('termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[1 q"
@@ -294,12 +279,13 @@ set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 set diffopt+=vertical,context:3,indent-heuristic,algorithm:patience
 set nrformats-=octal
+set number
 set mouse=a ttymouse=sgr
 set lazyredraw ttyfast
 set backspace=indent,eol,start
 set wildmenu
 set list
-set listchars=tab:›\ ,trail:•,extends:»,precedes:«,nbsp:⣿
+set listchars=tab:┊\ ,trail:•,extends:»,precedes:«,nbsp:⣿
 autocmd vimRc InsertEnter * set listchars-=trail:•
 autocmd vimRc InsertLeave * set listchars+=trail:•
 set confirm
@@ -316,9 +302,9 @@ set wildignore=
 set wildcharm=<C-Z>
 set ttimeout timeoutlen=1000 ttimeoutlen=0
 set updatetime=50
-if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading
-endif
+" if executable('rg')
+"   set grepprg=rg\ --vimgrep\ --no-heading
+" endif
 set grepformat^=%f:%l:%c:%m
 set laststatus=2
 set statusline=%<%f\ %h%#error#%m%*%r%=%-14.(%l\:%c%)%{&filetype}
@@ -430,9 +416,6 @@ autocmd vimRc FocusGained,CursorHold *
       \   call gitgutter#all(1) |
       \ endif
 
-" AUTOMATICALLY SET EXPANDTAb
-autocmd vimRc FileType * execute 'setlocal ' . (search('^\t.*\n\t.*\n\t', 'n') ? 'no' : '') . 'expandtab'
-
 " SET NONUMBER IN TERMINAL Window
 autocmd vimRc BufWinEnter * if &l:buftype == 'terminal' | setlocal nonumber | endif
 
@@ -459,6 +442,7 @@ autocmd vimRc FileType git       setlocal nofoldenable
 command! -nargs=0 BO silent! execute "%bd|e#|bd#"
 command BD bp | bd #
 command! -nargs=0 WS %s/\s\+$// | normal! ``
+command! -nargs=0 WT %s/[^\t]\zs\t\+/ / | normal! ``
 function! Hlgroup() abort
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction
@@ -474,26 +458,6 @@ command! -bang -nargs=* -complete=file LMake
 command! -bang -nargs=+ -complete=file Grep
       \ call asyncdo#run(1, {'job': &grepprg, 'errorformat': &grepformat}, <f-args>)
 
-" FUNCTIONS
-function! s:safeundo()
-  let s:pos = getpos( '. ')
-  let s:view = winsaveview()
-  undo
-  call setpos( '.', s:pos )
-  call winrestview( s:view )
-endfunc
-
-function! s:saferedo()
-  let s:pos = getpos( '.' )
-  let s:view = winsaveview()
-  redo
-  call setpos( '.', s:pos )
-  call winrestview( s:view )
-endfunc
-
-nnoremap u :call <sid>safeundo() <CR>
-nnoremap <C-r> :call <sid>saferedo() <CR>
-
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --hidden --smart-case -g "!.git" %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
@@ -507,9 +471,4 @@ if has('vim_starting')
   syntax enable
 endif
 
-silent! colorscheme min
-if !has('vim_starting')
-  call dein#call_hook('source')
-endif
-
-set secure
+silent! colorscheme hydrangea
