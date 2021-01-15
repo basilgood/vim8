@@ -7,15 +7,3 @@ setlocal isfname+=@-@
 set wildignore=**/node_modules/**,**/dist/**
 
 " nnoremap gp m`:silent keepjump  %!prettier --stdin --trailing-comma all --single-quote --stdin-filepath %<CR>``
-let s:snippets_map={
-      \ 'cl': 'console.log()<left>',
-      \ '(': '() => {}<left>',
-      \ '=': '=> {}<left>',
-      \ 'bd': 'browser.debug();',
-      \ 'bp': 'browser.pause();<left><left>',
-      \ 'ou': '.outline();',
-      \ 'sh': '.shadow$(',
-      \ }
-for [s:pattern, s:expansion] in items(s:snippets_map)
-  execute 'ISnipletBuffer' s:pattern s:expansion
-endfor
