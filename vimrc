@@ -11,14 +11,80 @@ augroup vimRc
   autocmd!
 augroup END
 
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if empty(glob('~/.vim/pack/packager/opt/vim-packager'))
+  silent !git clone https://github.com/kristijanhusak/vim-packager
+        \ ~/.vim/pack/packager/opt/vim-packager
 endif
 
-call plug#begin('~/.vim/plugged')
+function! PackagerInit() abort
+  packadd vim-packager
+  call packager#init()
+  call packager#add('kristijanhusak/vim-packager', {'type': 'opt'})
+  call packager#add('junegunn/fzf.vim')
+  call packager#add('ycm-core/YouCompleteMe', { 'do': './install.py --ts-completer' })
+  call packager#add('dense-analysis/ale', {'type': 'opt'})
+  call packager#add('editorconfig/editorconfig-vim')
+  call packager#add('tpope/vim-fugitive')
+  call packager#add('airblade/vim-gitgutter')
+  call packager#add('tpope/vim-rhubarb', {'type': 'opt'})
+  call packager#add('junegunn/gv.vim', {'type': 'opt'})
+  call packager#add('sodapopcan/vim-twiggy', {'type': 'opt'})
+  call packager#add('christoomey/vim-system-copy', {'type': 'opt'})
+  call packager#add('wellle/targets.vim', {'type': 'opt'})
+  call packager#add('haya14busa/vim-asterisk', {'type': 'opt'})
+  call packager#add('gabesoft/vim-ags')
+  call packager#add('mbbill/undotree', {'type': 'opt'})
+  call packager#add('tomtom/tcomment_vim', {'type': 'opt'})
+  call packager#add('tpope/vim-surround', {'type': 'opt'})
+  call packager#add('tpope/vim-repeat', {'type': 'opt'})
+  call packager#add('pakutoma/toggle-terminal', {'type': 'opt'})
+  call packager#add('itchyny/vim-cmdline-ranges', {'type': 'opt'})
+  call packager#add('markonm/hlyank.vim', {'type': 'opt'})
+  call packager#add('gotchane/vim-git-commit-prefix', {'type': 'opt'})
+  call packager#add('whiteinge/diffconflicts', {'type': 'opt'})
+  call packager#add('vim-scripts/cmdline-completion', {'type': 'opt'})
+  call packager#add('romainl/vim-cool', {'type': 'opt'})
+  call packager#add('basilgood/smarttab.vim', {'type': 'opt'})
+  call packager#add('hotwatermorning/auto-git-diff', {'type': 'opt'})
+  call packager#add('romgrk/winteract.vim', {'type': 'opt'})
+  call packager#add('basilgood/memolist.vim', {'type': 'opt'})
+  call packager#add('MaxMEllon/vim-jsx-pretty')
+  call packager#add('pangloss/vim-javascript')
+  call packager#add('markonm/traces.vim')
+  call packager#add('stefandtw/quickfix-reflector.vim')
+  call packager#add('lambdalisue/edita.vim')
+  call packager#add('hauleth/asyncdo.vim')
+  call packager#add('fcpg/vim-altscreen')
+  call packager#add('basilgood/hydrangea-vim', {'type': 'opt'})
+endfunction
 
-Plug 'junegunn/fzf.vim'
+command! -nargs=* -bar PackagerInstall call PackagerInit() | call packager#install(<args>)
+command! -nargs=* -bar PackagerUpdate call PackagerInit() | call packager#update(<args>)
+command! -bar PackagerClean call PackagerInit() | call packager#clean()
+command! -bar PackagerStatus call PackagerInit() | call packager#status()
+
+" pack add and config
+silent! packadd! vim-twiggy
+silent! packadd! vim-rhubarb
+silent! packadd! vim-system-copy
+silent! packadd! targets.vim
+silent! packadd! tcomment_vim
+silent! packadd! vim-surround
+silent! packadd! vim-repeat
+silent! packadd! toggle-terminal
+silent! packadd! vim-cmdline-ranges
+silent! packadd! hlyank.vim
+silent! packadd! vim-git-commit-prefix
+silent! packadd! diffconflicts
+silent! packadd! cmdline-completion
+silent! packadd! vim-cool
+autocmd vimRc InsertEnter * packadd smarttab.vim
+silent! packadd! auto-git-diff
+silent! packadd! winteract.vim
+silent! packadd! memolist.vim
+silent! packadd! vim-wordmotion
+
+" fzf
 let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude plugged'
 let $FZF_PREVIEW_COMMAND = 'bat --color=always --style=plain -n -- {} || cat {}'
 let g:fzf_layout = {'window': { 'width': 0.7, 'height': 0.4,'yoffset':0.85,'xoffset': 0.5 } }
@@ -48,54 +114,15 @@ function! s:innetrw() abort
 endfunction
 autocmd vimRc FileType netrw call s:innetrw()
 
-Plug 'lifepillar/vim-mucomplete'
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#completion_delay = 300
-let g:mucomplete#reopen_immediately = 0
-let g:mucomplete#always_use_completeopt = 1
-let g:mucomplete#chains = {}
-let g:mucomplete#chains = {
-      \ 'default': ['path', 'list', 'c-n', 'omni'],
-      \ 'gitcommit': ['c-n', 'uspl', 'path'],
-      \ 'vim': ['omni', 'c-n', 'path'],
-      \ 'javascript': ['omni', 'c-n', 'path']
-      \ }
-let g:mucomplete#can_complete = {}
-let s:javascript_cond = { t -> t =~# '\%(\.\)$' }
-let g:mucomplete#can_complete.javascript = { 'omni': s:javascript_cond }
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+" complete
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_key_list_stop_completion = ['<Enter>']
+let g:ycm_auto_hover=''
+autocmd vimRc Filetype javascript,typescript nmap K <plug>(YCMHover)
+autocmd vimRc Filetype javascript,typescript nmap gd :YcmCompleter GoToDefinition<cr>
 
-Plug 'natebosch/vim-lsc'
-let g:lsc_server_commands = {
-      \ 'vim': {
-      \   'command': 'vim-language-server --stdio',
-      \   'log_level': -1,
-      \   'suppress_stderr': v:true
-      \ },
-      \ 'javascript': {
-      \   'command': 'typescript-language-server --stdio',
-      \   'log_level': -1,
-      \   'suppress_stderr': v:true
-      \ },
-      \ 'typescript': {
-      \   'command': 'typescript-language-server --stdio',
-      \   'log_level': -1,
-      \   'suppress_stderr': v:true
-      \ }
-      \}
-let g:lsc_auto_map = {
-      \ 'GoToDefinition': 'gd',
-      \ 'FindReferences': 'gr',
-      \ 'ShowHover': 'K',
-      \ 'FindCodeActions': 'ga',
-      \ 'Completion': 'omnifunc'
-      \ }
-let g:lsc_enable_autocomplete  = v:false
-let g:lsc_enable_diagnostics   = v:false
-let g:lsc_reference_highlights = v:false
-let g:lsc_trace_level          = 'off'
-
-Plug 'w0rp/ale'
+" lint
+silent! packadd! ale
 let g:ale_set_highlights = 0
 let g:ale_disable_lsp = 1
 let g:ale_lint_on_text_changed = 'normal'
@@ -120,44 +147,40 @@ let g:ale_pattern_options = {
 nmap <silent> [a <Plug>(ale_previous_wrap)
 nmap <silent> ]a <Plug>(ale_next_wrap)
 
-Plug 'editorconfig/editorconfig-vim'
+" editorconfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
-Plug 'tpope/vim-fugitive'
+" fugitive
 nnoremap [git]  <Nop>
 nmap <space>g [git]
 nnoremap <silent> [git]s :<C-u>Gstatus<cr>
 nnoremap <silent> [git]d :<C-u>Gvdiffsplit!<cr>gg']
-Plug 'tpope/vim-rhubarb'
-Plug 'junegunn/gv.vim'
-autocmd vimRc FileType GV nmap R q:GV --all<cr>
-command! GA GV --all
 
-Plug 'airblade/vim-gitgutter'
+" gitgutter
 let g:gitgutter_sign_priority = 8
 let g:gitgutter_override_sign_column_highlight = 0
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 
-Plug 'haya14busa/vim-asterisk'
-let g:asterisk#keeppos = 1
-map *  <Plug>(asterisk-z*)
-map #  <Plug>(asterisk-z#)
-map g* <Plug>(asterisk-gz*)
-map g# <Plug>(asterisk-gz#)
+" gv
+silent! packadd! gv.vim
+autocmd vimRc FileType GV nmap R q:GV --all<cr>
+autocmd vimRc FileType GV nmap gfa :G fetch --all --prune<cr>
+autocmd vimRc FileType GV nmap gr :G rebase<space>
+command! GA GV --all
 
-Plug 'mbbill/undotree'
+" asterisk
+silent! packadd! vim-asterisk
+map *  <Plug>(asterisk-z*)
+
+" undotree
+silent! packadd! undotree
 let g:undotree_WindowLayout = 4
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
 
-Plug 'tomtom/tcomment_vim'
-Plug 'hauleth/asyncdo.vim'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'fcpg/vim-altscreen'
-Plug 'pakutoma/toggle-terminal'
+" terminal toggle
 tnoremap <silent> <F2> <C-w>:ToggleTerminal<CR>
 nnoremap <silent> <F2> :ToggleTerminal<CR>
 if &shell ==? '/run/current-system/sw/bin/bash'
@@ -165,40 +188,25 @@ if &shell ==? '/run/current-system/sw/bin/bash'
 else
   let g:toggle_terminal#command = 'nix-shell'
 endif
-Plug 'lambdalisue/edita.vim'
-Plug 'stefandtw/quickfix-reflector.vim', {'for': 'qf'}
-Plug 'wellle/targets.vim'
-Plug 'itchyny/vim-cmdline-ranges'
+
+" cmdline ranges
 let g:cmdline_ranges_default_mapping = 0
 cmap <c-down> <Plug>(cmdline-ranges-j)
 cmap <c-up> <Plug>(cmdline-ranges-k)
 cmap <c-j> <Plug>(cmdline-ranges-})
 cmap <c-k> <Plug>(cmdline-ranges-{)
 
-Plug 'markonm/hlyank.vim'
-Plug 'gotchane/vim-git-commit-prefix'
-Plug 'whiteinge/diffconflicts', {'on': 'DiffConflicts'}
-Plug 'markonm/traces.vim'
-Plug 'vim-scripts/cmdline-completion'
-Plug 'romainl/vim-cool'
+" cool
 let g:CoolTotalMatches = 1
-Plug 'basilgood/smarttab.vim'
-Plug 'hotwatermorning/auto-git-diff'
-Plug 'romgrk/winteract.vim', {'on': 'InteractiveWindow'}
-nmap gw :InteractiveWindow<CR>
-Plug 'christoomey/vim-system-copy'
 
-Plug 'basilgood/memolist.vim'
+" interract
+nmap gw :InteractiveWindow<CR>
+
+" memo
 let g:memolist_fzf = 1
 let g:memolist_path = '~/.notes'
 
-Plug 'MaxMEllon/vim-jsx-pretty', {'for': 'javascript'}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-
-Plug 'basilgood/hydrangea-vim'
-Plug 'wadackel/vim-dogrun'
-
-call plug#end()
+filetype plugin indent on
 
 " personal options
 if exists('$TMUX')
@@ -224,11 +232,11 @@ set wildignore+=
       \*/node_modules/*,
       \*/.git/*,
       \*/recordings/*,
-      \*/plugged/*
+      \*/pack
 set autoread autowrite autowriteall
 set noswapfile
 set nowritebackup
-set undofile undodir=/tmp,.
+set undofile undodir=/tmp//,.
 set nostartofline
 set nojoinspaces
 set nofoldenable
@@ -253,10 +261,11 @@ set regexpengine=1
 set gdefault
 set completeopt-=preview
 set completeopt+=menuone,noselect,noinsert
-set omnifunc=syntaxcomplete#Complete
+setg omnifunc=syntaxcomplete#Complete
+setg completefunc=syntaxcomplete#Complete
 set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
-set diffopt+=vertical,context:3,indent-heuristic,algorithm:patience
+set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
 set listchars=tab:┊\ ,trail:•,nbsp:␣,extends:↦,precedes:↤
 autocmd vimRc InsertEnter * set listchars-=trail:•
@@ -272,6 +281,7 @@ set shiftwidth=2
 set shiftround
 set helplang=en spelllang=en_us
 set history=1000
+set viminfo+=!
 set wildmenu
 set wildmode=list,full
 set wildignorecase
@@ -283,7 +293,8 @@ set grepformat^=%f:%l:%c:%m
 set tabline=%!functions#tabline()
 set laststatus=2
 set statusline=
-set statusline=\ %f%m
+set statusline=\ %{winnr().':'}
+set statusline+=\ %f%m
 set statusline+=\ %#LineNR#
 set statusline+=%h%w%q%r
 set statusline+=\ %{exists('g:asyncdo')?'runing':''}
@@ -291,11 +302,13 @@ set statusline+=%=
 set statusline+=%{&filetype}
 set statusline+=\ %#StatusLineNC#
 set statusline+=\ %4l\ %3c
-set statusline+=\ %{functions#indentation()}
-autocmd vimRc BufWritePost * unlet! b:show_indentation
+set statusline+=\ %{''}
 
 " mappings
-nnoremap <leader><leader> :update<cr>
+autocmd vimRc CmdwinEnter * nnoremap <buffer> <cr> <cr>
+autocmd vimRc FileType qf nnoremap <buffer> <cr> <cr>
+autocmd vimRc FileType git nnoremap <buffer> <cr> <cr>
+tnoremap <c-q> <c-w>N
 noremap j gj
 noremap k gk
 noremap <Down> gj
@@ -307,6 +320,7 @@ inoremap <C-e> <End>
 nnoremap } }zz
 nnoremap { {zz
 nnoremap Y y$
+nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
 " objects
 xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
 xnoremap <expr> A (mode()=~#'[vV]'?'<C-v>0o$A':'A')
@@ -352,24 +366,19 @@ vnoremap Q :norm Q<cr>
 nnoremap <space>b :b<space><c-z>
 " jump to window no
 for i in range(1, 9)
-  execute 'nnoremap <space>'.i.' :'.i.'wincmd w<CR>'
+  execute 'nnoremap <silent> <space>'.i.' :'.i.'wincmd w<CR>'
 endfor
-execute 'nnoremap <space>0 :wincmd p<CR>'
-" jump to tab no
-for i in range(1, 9)
-  execute 'nmap <M-' . i . '> ' . i . 'gt'
-endfor
+execute 'nnoremap <silent> <space>0 :wincmd p<CR>'
 " jumping
 nnoremap <silent> ]q :call functions#listjump("c", "next", "first")<CR>
 nnoremap <silent> [q :call functions#listjump("c", "previous", "last")<CR>
 nnoremap <silent> ]w :call functions#listjump("l", "next", "first")<CR>
 nnoremap <silent> [w :call functions#listjump("l", "previous", "last")<CR>
-" allows incsearch highlighting for range commands
-cnoremap $t <CR>:t''<CR>
-cnoremap $T <CR>:T''<CR>
-cnoremap $m <CR>:m''<CR>
-cnoremap $M <CR>:M''<CR>
-cnoremap $d <CR>:d<CR>``
+
+" range commands
+cnoremap <c-x>t <CR>:t''<CR>
+cnoremap <c-x>m <CR>:m''<CR>
+cnoremap <c-x>d <CR>:d<CR>``
 
 " autocmds
 " format
@@ -448,9 +457,9 @@ command! -nargs=0 WS %s/\s\+$// | normal! ``
 command! -nargs=0 WT %s/[^\t]\zs\t\+/ / | normal! ``
 command! WW w !sudo tee % > /dev/null
 command! LCD lcd %:p:h
-command! HL echo 'hi<' . synIDattr(synID(line('.'),col('.'),1),'name') . '> trans<'
-      \ . synIDattr(synID(line('.'),col('.'),0),'name') . '> lo<'
-      \ . synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name') . '>'
+command! -bar HL echo
+      \ synIDattr(synID(line('.'),col('.'),0),'name')
+      \ synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name')
 command! -nargs=1 TV
       \ call system('tmux split-window -h '.<q-args>)
 command! TA TV tig --all
@@ -479,6 +488,8 @@ command! -bang -nargs=* Rr
       \ "rg --column --line-number --no-heading --color=always --smart-case " .
       \ <q-args>, 1, fzf#vim#with_preview(), <bang>0)
 command! Gdiffsplit call functions#diffsplit()
+
+syntax enable
 
 try
   silent! colorscheme hydrangea

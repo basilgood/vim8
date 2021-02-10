@@ -50,7 +50,7 @@ endfunction
 function! functions#listjump(list_type, direction, wrap) abort
   try
     exe a:list_type . a:direction
-  catch /E553/ " wrap around last item
+  catch /E553/
     exe a:list_type . a:wrap
   catch /E42/
     return
@@ -69,27 +69,4 @@ function! functions#diffsplit() abort
   let &filetype = s:ft
   wincmd p
   diffthis
-endfunction
-
-function! functions#indentation() abort
-  if !&modifiable
-    return
-  endif
-
-  if !exists('b:show_indentation')
-    let b:show_indentation = ''
-    let tabs = search('^\t', 'nw') != 0
-    let spaces = search('^ \{' . &tabstop . ',}[^\t]', 'nw') != 0
-
-    if search('\s\+$', 'nw') != 0
-      let b:show_indentation = '[•]'
-    endif
-
-    if tabs && spaces
-      let b:show_indentation =  '[✘]'
-    elseif (spaces && !&expandtab) || (tabs && &expandtab)
-      let b:show_indentation = '[&]'
-    endif
-  endif
-  return b:show_indentation
 endfunction
