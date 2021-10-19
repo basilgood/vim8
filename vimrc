@@ -130,6 +130,7 @@ Plug 'mbbill/undotree'
 
 " theme
 Plug 'basilgood/barow'
+Plug 'basilgood/min'
 Plug 'morhetz/gruvbox'
 call plug#end()
 
