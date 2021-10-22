@@ -40,7 +40,7 @@ function! s:opentree()
   norm! gg
   call search('\<'.fname.'\>')
 endfunction
-nnoremap - :<C-U>call <SID>opentree()<CR>
+nnoremap <silent> - :<C-U>call <SID>opentree()<CR>
 autocmd vimRc FileType netrw nmap <buffer><silent> <right> <cr>
 autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
 autocmd vimRc FileType netrw nmap <buffer> <c-x> mfmx
@@ -55,7 +55,7 @@ nnoremap <bs> :Buffers<cr>
 " lint
 Plug 'dense-analysis/ale'
 let g:ale_disable_lsp = 1
-let g:ale_sign_error = ''
+let g:ale_sign_error = '✗'
 let g:ale_sign_warning = ''
 let g:ale_set_highlights = 0
 let g:ale_lint_on_text_changed = 'normal'
@@ -64,6 +64,7 @@ let g:ale_lint_delay = 0
 nmap <silent> [a <Plug>(ale_previous)
 nmap <silent> ]a <Plug>(ale_next)
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma none --arrow-parens avoid --print-width 140'
+let g:ale_sh_shfmt_options = '-i 2 -ci'
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'javascript': ['prettier', 'eslint'],
@@ -78,7 +79,7 @@ let g:ale_fixers = {
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions =[]
 let g:coc_user_config = {}
-let g:coc_user_config = {'diagnostic.displayByAle': v:true, 'suggest.minTriggerInputLength': 2, 'suggest.triggerCompletionWait': 250}
+let g:coc_user_config = {'diagnostic.displayByAle': v:true, 'suggest.minTriggerInputLength': 2, 'suggest.triggerCompletionWait': 150}
 let g:coc_user_config['languageserver'] = {}
 let g:coc_user_config['languageserver']['typescript-language-server'] = {
       \'command': 'typescript-language-server',
@@ -106,8 +107,7 @@ Plug 'LnL7/vim-nix', { 'for': 'nix' }
 
 " edit
 Plug 'editorconfig/editorconfig-vim'
-Plug 'wellle/targets.vim'
-Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
 " git
@@ -118,12 +118,6 @@ let g:gitgutter_grep = 'rg'
 let g:gitgutter_sign_priority = 8
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_preview_win_floating = 1
-let g:gitgutter_sign_added    = '▎'
-let g:gitgutter_sign_modified = '▎'
-let g:gitgutter_sign_removed  = '▎'
-let g:gitgutter_sign_removed_first_line = '▔'
-let g:gitgutter_sign_modified_removed        = '▌'
-let g:gitgutter_sign_removed_above_and_below = '▎'
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
@@ -133,7 +127,10 @@ Plug 'hotwatermorning/auto-git-diff'
 Plug 'tpope/vim-rhubarb'
 
 "misc
-Plug 'pgdouyon/vim-evanesco'
+Plug 'wellle/targets.vim'
+Plug 'romainl/vim-cool'
+Plug 'haya14busa/vim-asterisk'
+map *  <Plug>(asterisk-z*)
 Plug 'tpope/vim-repeat'
 Plug 'markonm/traces.vim'
 Plug 'AndrewRadev/quickpeek.vim', { 'for': 'qf' }
@@ -155,8 +152,7 @@ map <C-j> <Plug>(edgemotion-j)
 map <C-k> <Plug>(edgemotion-k)
 
 " theme
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'duhduhdan/vim-nordan'
+Plug 'basilgood/vim-nordan'
 call plug#end()
 
 packadd! matchit
@@ -190,8 +186,10 @@ set breakindent breakindentopt=shift:4,sbr
 set noshowmode
 set nrformats-=octal
 set number
+set relativenumber
 set mouse=a ttymouse=sgr
 set splitright splitbelow
+set fillchars+=vert:\│
 set virtualedit=onemore
 set scrolloff=0 sidescrolloff=10 sidescroll=1
 set sessionoptions-=options
@@ -238,14 +236,9 @@ endif
 set grepformat^=%f:%l:%c:%m
 set backspace=indent,eol,start
 set laststatus=2
-set statusline=%<%.99f\ %y%h%w%m%r%=%-14.(%l,%c%V%)\ %L
-
+set statusline=%<%.99t\ %y%h%w%m%r%=%-14.(%l,%c%V%)\ %L
 
 " mappings
-map OA <Up>
-map OB <Down>
-map OC <Right>
-map OD <Left>
 " wrap
 noremap j gj
 noremap k gk
@@ -307,26 +300,9 @@ nnoremap <silent> [q :call Listjump("c", "previous", "last")<CR>
 nnoremap <silent> ]l :call Listjump("l", "next", "first")<CR>
 nnoremap <silent> [l :call Listjump("l", "previous", "last")<CR>
 
-" range commands
-cnoremap <c-x>t <CR>:t''<CR>
-cnoremap <c-x>m <CR>:m''<CR>
-cnoremap <c-x>d <CR>:d<CR>``
-
 " autocmds
 " keep cursor position
-autocmd vimRc BufReadPost *
-      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-      \ |   exe "normal! g`\""
-      \ | endif
-
-" format
-autocmd vimRc FileType nix setlocal makeprg=nix-instantiate\ --parse
-autocmd vimRc FileType nix setlocal formatprg=nixpkgs-fmt
-autocmd vimRc BufRead,BufNewFile *.nix command! FM silent call system('nixpkgs-fmt ' . expand('%'))
-autocmd vimRc BufRead,BufNewFile *.js,*.jsx,*.ts,*.tsx command! FM silent call system('prettier --single-quote --trailing-comma none --write ' . expand('%'))
-autocmd vimRc BufRead,BufNewFile *.js,*.jsx command! Fix silent call system('eslint --fix ' . expand('%'))
-autocmd vimRc FileType yaml command! FM silent call system('prettier --write ' . expand('%'))
-autocmd vimRc FileType sh command! FM silent call system('shfmt -i 2 -ci -w ' . expand('%'))
+autocmd vimRc BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
 " help keep widow full width
 autocmd vimRc FileType qf wincmd J
@@ -364,29 +340,13 @@ autocmd vimRc BufReadPre *.json  setlocal formatoptions=
 autocmd vimRc FileType git       setlocal nofoldenable
 
 " commands
-command! -nargs=0 BO silent! execute "%bd|e#|bd#"
-command BD bp | bd #
+command! -nargs=1 -complete=file Rename file <args> | call delete(expand('#')) | write
 command! -nargs=0 WS %s/\s\+$// | normal! ``
 command! -nargs=0 WT %s/[^\t]\zs\t\+/ / | normal! ``
 command! WW w !sudo tee % > /dev/null
 command! -bar HL echo
       \ synIDattr(synID(line('.'),col('.'),0),'name')
       \ synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name')
-command! -bang -nargs=* -complete=file Make
-      \ call asyncdo#run(1, &makeprg, <f-args>)
-command! -bang -nargs=* -complete=file LMake
-      \ call asyncdo#lrun(1, &makeprg, <f-args>)
-command! -bang -nargs=+ -complete=file Grep
-      \ call asyncdo#run(1, {'job': &grepprg, 'errorformat': &grepformat}, <f-args>) |
-      \ let @/=split("<args>")[0] |
-      \ call feedkeys(":let &hlsearch=1\<CR>", "n") |
-      \ copen |
-      \ redraw!
-cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
-command! -nargs=1 TV
-      \ call system('tmux split-window -h '.<q-args>)
-command! TA TV tig --all
-command! TS TV tig status
 
 " sessions
 if empty(glob('~/.cache/vim/sessions')) > 0
@@ -394,6 +354,20 @@ if empty(glob('~/.cache/vim/sessions')) > 0
 end
 autocmd! vimRc VimLeavePre * execute "mksession! ~/.cache/vim/sessions/" . split(getcwd(), "/")[-1] . ".vim"
 command! -nargs=0 SS :execute 'source ~/.cache/vim/sessions/' .  split(getcwd(), '/')[-1] . '.vim'
+
+" grep
+function! Grep(...)
+  return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+endfunction
+
+command! -nargs=+ -complete=file -bar Grep  cgetexpr Grep(<f-args>)
+command! -nargs=+ -complete=file -bar LGrep lgetexpr Grep(<f-args>)
+
+cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
+cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
+
+autocmd vimRc QuickFixCmdPost cgetexpr cwindow
+autocmd vimRc QuickFixCmdPost lgetexpr lwindow
 
 "functions
 " terminal
@@ -427,8 +401,5 @@ syntax enable
 
 set termguicolors
 colorscheme nordan
-hi Search cterm=reverse guifg=#1c1c1c
-hi ALEErrorSign guifg=#c64552 guibg=NONE
-hi ALEWarningSign guifg=#c6be45 guibg=NONE
 
 set secure
