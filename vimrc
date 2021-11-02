@@ -55,8 +55,8 @@ nnoremap <bs> :Buffers<cr>
 " lint
 Plug 'dense-analysis/ale'
 let g:ale_disable_lsp = 1
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = ''
+let g:ale_sign_error = '⧽⧽'
+let g:ale_sign_warning = '⧽'
 let g:ale_set_highlights = 0
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
@@ -208,7 +208,7 @@ set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
-set listchars=tab:⇥\ ,trail:•,nbsp:␣,extends:↦,precedes:↤
+set listchars=tab:…\ ,trail:•,nbsp:␣,extends:↦,precedes:↤
 autocmd vimRc InsertEnter * set listchars-=trail:•
 autocmd vimRc InsertLeave * set listchars+=trail:•
 set confirm
@@ -236,7 +236,7 @@ endif
 set grepformat^=%f:%l:%c:%m
 set backspace=indent,eol,start
 set laststatus=2
-set statusline=%<%.99t\ %y%h%w%m%r%=%-14.(%l,%c%V%)\ %L
+set statusline=%<%.99t\ %y%*%h%w%m%r%=%c:%l/%L
 
 " mappings
 " wrap
