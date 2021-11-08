@@ -44,13 +44,28 @@ nnoremap <silent> - :<C-U>call <SID>opentree()<CR>
 autocmd vimRc FileType netrw nmap <buffer><silent> <right> <cr>
 autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
 autocmd vimRc FileType netrw nmap <buffer> <c-x> mfmx
-Plug 'junegunn/fzf.vim'
-let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude plugged'
-let $FZF_PREVIEW_COMMAND = 'bat --color=always --style=plain -n -- {} || cat {}'
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-nnoremap <c-p> :Files<cr>
-nnoremap <c-\> :Files %:h<cr>
-nnoremap <bs> :Buffers<cr>
+" Plug 'junegunn/fzf.vim'
+" let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude plugged'
+" let $FZF_PREVIEW_COMMAND = 'bat --color=always --style=plain -n -- {} || cat {}'
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+" nnoremap <c-p> :Files<cr>
+" nnoremap <c-_> :Files %:h<cr>
+" nnoremap <bs> :Buffers<cr>
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_ExternalCommand = 'fd "%s" --type f --hidden --follow --exclude .git --exclude plugged'
+let g:Lf_RgConfig = ['--max-columns=250']
+let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
+let g:Lf_UseCache = 0
+let g:Lf_UseMemoryCache = 0
+let g:Lf_ShortcutF = '<C-P>'
+let g:Lf_ShortcutB = '<bs>'
+command! History :Leaderf mru<cr>
+command! Rg :Leaderf rg<cr>
+Plug 'voldikss/vim-floaterm'
+let g:floaterm_autoclose = 2
+let g:floaterm_keymap_toggle = '<c-\>'
 
 " lint
 Plug 'dense-analysis/ale'
@@ -127,8 +142,9 @@ Plug 'hotwatermorning/auto-git-diff'
 Plug 'tpope/vim-rhubarb'
 
 "misc
+Plug 'terryma/vim-multiple-cursors'
 Plug 'wellle/targets.vim'
-Plug 'romainl/vim-cool'
+" Plug 'romainl/vim-cool'
 Plug 'haya14busa/vim-asterisk'
 map *  <Plug>(asterisk-z*)
 Plug 'tpope/vim-repeat'
@@ -137,7 +153,6 @@ Plug 'AndrewRadev/quickpeek.vim', { 'for': 'qf' }
 autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 Plug 'fcpg/vim-altscreen'
 Plug 'markonm/hlyank.vim', { 'commit': '39e52017' }
-Plug 'basilgood/vim-system-copy'
 Plug 'vim-scripts/cmdline-completion'
 Plug 'mbbill/undotree'
 let g:undotree_WindowLayout = 4
@@ -174,6 +189,7 @@ set wildignore+=
       \*/.git/*,
       \*/recordings/*,
       \*/pack
+set hidden
 set autoread autowrite autowriteall
 set noswapfile
 set nowritebackup
@@ -256,6 +272,7 @@ nnoremap { {zz
 nnoremap <silent> <expr> <leader>n &relativenumber ? ':windo set norelativenumber<cr>' : ':windo set relativenumber<cr>'
 " close qf
 nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
+nnoremap <silent> <expr> <C-q> getqflist({'winid' : 0}).winid ? ':cclose<cr>' : ':copen<cr>'
 " objects
 xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
 xnoremap <expr> A (mode()=~#'[vV]'?'<C-v>0o$A':'A')
@@ -267,7 +284,9 @@ onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 nnoremap ]p viw"0p
 vnoremap ]p "0p
 " substitute
-nmap sn *cgn
+nnoremap <expr> <cr> (bufexists("[Command Line]")?'<cr>':':%s/')
+xnoremap <cr> :s/
+nnoremap sn *cgn
 " c-g improved
 nnoremap <silent> <C-g> :echon '['.expand("%:p:~").']'.' [L:'.line('$').']'<Bar>echon ' ['system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")']'<CR>
 " reload syntax and nohl
@@ -277,11 +296,6 @@ nnoremap Q <Nop>
 nnoremap Q @q
 " run macro on selected lines
 vnoremap Q :norm Q<cr>
-" jump to window no
-for i in range(1, 9)
-  execute 'nnoremap <silent> <space>'.i.' :'.i.'wincmd w<cr>'
-endfor
-nnoremap <silent> <space>c :wincmd c<cr>
 " jumping
 function! Listjump(list_type, direction, wrap) abort
   try
@@ -368,36 +382,6 @@ cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'L
 
 autocmd vimRc QuickFixCmdPost cgetexpr cwindow
 autocmd vimRc QuickFixCmdPost lgetexpr lwindow
-
-"functions
-" terminal
-let g:term_buf = 0
-let g:term_win = 0
-function! Termtoggle()
-  if win_gotoid(g:term_win)
-    hide
-  else
-    tabe
-    try
-      exec 'buffer ' . g:term_buf
-    catch
-      exec ':term ++curwin'
-      let g:term_buf = bufnr('')
-      setlocal nonumber norelativenumber
-      setlocal signcolumn=no
-      setlocal nobuflisted bufhidden=hide
-    endtry
-    if mode() !=# 'i' && mode() !=# 't'
-      call feedkeys('i')
-    endif
-    let g:term_win = win_getid()
-  endif
-endfunction
-tnoremap <c-q> <c-w>N
-nnoremap <c-\> :call Termtoggle()<cr>
-tnoremap <c-\> <c-w>N:call Termtoggle()<cr>
-
-syntax enable
 
 set termguicolors
 colorscheme nordan
