@@ -119,6 +119,7 @@ autocmd vimRc FileType javascript,javascriptreact,typescript,typescriptreact sil
 Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript' }
 Plug 'yuezk/vim-js', { 'for': 'javascript' }
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
 
 " edit
 Plug 'editorconfig/editorconfig-vim'
