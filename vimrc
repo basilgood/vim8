@@ -23,35 +23,122 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+  " files
+  Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+  " term
+  Plug 'voldikss/vim-floaterm'
+  " completion
+  Plug 'prabirshrestha/vim-lsp'
+  let g:lsp_document_highlight_enabled = 0
+  Plug 'mattn/vim-lsp-settings'
+  Plug 'Shougo/ddc.vim'
+  Plug 'Shougo/ddc-around'
+  Plug 'Shougo/ddc-matcher_head'
+  Plug 'Shougo/ddc-sorter_rank'
+  Plug 'Shougo/ddc-converter_remove_overlap'
+  Plug 'LumaKernel/ddc-file'
+  Plug 'shun/ddc-vim-lsp'
+  Plug 'vim-denops/denops.vim'
+  " lang
+  Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript' }
+  Plug 'yuezk/vim-js', { 'for': 'javascript' }
+  Plug 'LnL7/vim-nix', { 'for': 'nix' }
+  Plug 'cespare/vim-toml', { 'for': 'toml' }
+  Plug 'editorconfig/editorconfig-vim'
+  " lint
+  Plug 'dense-analysis/ale'
+  " edit
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-surround'
+  " git
+  Plug 'airblade/vim-gitgutter'
+  Plug 'whiteinge/diffconflicts'
+  Plug 'salcode/vim-git-stage-hunk'
+  Plug 'basilgood/git-vim'
+  "misc
+  Plug 'terryma/vim-multiple-cursors'
+  Plug 'wellle/targets.vim'
+  " Plug 'romainl/vim-cool'
+  Plug 'haya14busa/vim-asterisk'
+  map *  <Plug>(asterisk-z*)
+  Plug 'tpope/vim-repeat'
+  Plug 'markonm/traces.vim'
+  Plug 'AndrewRadev/quickpeek.vim', { 'for': 'qf' }
+  autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
+  Plug 'fcpg/vim-altscreen'
+  Plug 'markonm/hlyank.vim', { 'commit': '39e52017' }
+  " Plug 'vim-scripts/cmdline-completion'
+  Plug 'mbbill/undotree'
+  let g:undotree_WindowLayout = 4
+  let g:undotree_SetFocusWhenToggle = 1
+  let g:undotree_ShortIndicators = 1
+  " theme
+  Plug 'lifepillar/vim-gruvbox8'
+  Plug 'basilgood/vim-nordan'
+  packadd! matchit
+  packadd! cfilter
+call plug#end()
 
-" navigation
-let g:netrw_list_hide= '^\.\.\=/\=$'
-let g:netrw_banner = 0
-let g:netrw_fastbrowse = 0
-let g:netrw_altfile = 1
-let g:netrw_preview = 1
-let g:netrw_altv = 1
-let g:netrw_alto = 0
-let g:netrw_use_errorwindow = 0
-let g:netrw_localcopydircmd = 'cp -av'
-function! s:opentree()
-  let fname = expand('%:t')
-  edit %:p:h
-  norm! gg
-  call search('\<'.fname.'\>')
+" completion
+call ddc#custom#patch_global('sources', [
+      \ 'around',
+      \ 'vim-lsp',
+      \ 'file'
+      \ ])
+call ddc#custom#patch_global('sourceOptions', {
+      \ '_': {
+        \   'matchers': ['matcher_head'],
+        \   'sorters': ['sorter_rank'],
+        \   'converters': ['converter_remove_overlap'],
+        \ },
+        \ 'around': {'mark': 'Around'},
+        \ 'vim-lsp': {
+          \   'mark': 'Lsp',
+          \   'matchers': ['matcher_head'],
+          \   'forceCompletionPattern': '\.|:|->|"\w+/*'
+          \ },
+          \ 'file': {
+            \   'mark': 'File',
+            \   'isVolatile': v:true,
+            \   'forceCompletionPattern': '\S/\S*'
+            \ }})
+call ddc#enable()
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? '<C-n>' :
+      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+      \ '<TAB>' : ddc#map#manual_complete()
+inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+inoremap <silent><expr> <cr> pumvisible() ? ddc#map#confirm() : "\<C-g>u\<CR>"
+
+if executable('typescript-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'javascript support using typescript-language-server',
+        \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+        \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
 endfunction
-nnoremap <silent> - :<C-U>call <SID>opentree()<CR>
-autocmd vimRc FileType netrw nmap <buffer><silent> <right> <cr>
-autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
-autocmd vimRc FileType netrw nmap <buffer> <c-x> mfmx
-" Plug 'junegunn/fzf.vim'
-" let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude plugged'
-" let $FZF_PREVIEW_COMMAND = 'bat --color=always --style=plain -n -- {} || cat {}'
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-" nnoremap <c-p> :Files<cr>
-" nnoremap <c-_> :Files %:h<cr>
-" nnoremap <bs> :Buffers<cr>
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+" leaderf
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
 let g:Lf_ExternalCommand = 'fd "%s" --type f --hidden --follow --exclude .git --exclude plugged'
@@ -63,12 +150,8 @@ let g:Lf_ShortcutF = '<C-P>'
 let g:Lf_ShortcutB = '<bs>'
 command! History :Leaderf mru<cr>
 command! Rg :Leaderf rg<cr>
-Plug 'voldikss/vim-floaterm'
-let g:floaterm_autoclose = 2
-let g:floaterm_keymap_toggle = '<c-\>'
 
-" lint
-Plug 'dense-analysis/ale'
+" ale
 let g:ale_disable_lsp = 1
 let g:ale_sign_error = '⧽⧽'
 let g:ale_sign_warning = '⧽'
@@ -90,46 +173,11 @@ let g:ale_fixers = {
       \   'nix': ['nixpkgs-fmt'],
       \ }
 
-" complete + lsp
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions =[]
-let g:coc_user_config = {}
-let g:coc_user_config = {'diagnostic.displayByAle': v:true, 'suggest.minTriggerInputLength': 2, 'suggest.triggerCompletionWait': 150}
-let g:coc_user_config['languageserver'] = {}
-let g:coc_user_config['languageserver']['typescript-language-server'] = {
-      \'command': 'typescript-language-server',
-      \'args': ['--stdio'],
-      \'rootPatterns': ['.git/', 'package.json'],
-      \'filetypes': ['javascript', 'typescript', 'javascriptreact', 'typescriptreact']
-      \}
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-function! s:coc_mappings()
-  nmap <silent> <expr> K &filetype == 'vim' ? ":execute 'h '.expand('<cword>')<cr>" : ":call CocActionAsync('doHover')<cr>"
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> ]e <Plug>(coc-diagnostic-next)
-  nmap <silent> [e <Plug>(coc-diagnostic-prev)
-  command! -nargs=0 Format :call CocAction('format')
-endfunction
-autocmd vimRc FileType javascript,javascriptreact,typescript,typescriptreact silent! call <SID>coc_mappings()
+" floaterm
+let g:floaterm_autoclose = 2
+let g:floaterm_keymap_toggle = '<c-\>'
 
-" lang
-Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript' }
-Plug 'yuezk/vim-js', { 'for': 'javascript' }
-Plug 'LnL7/vim-nix', { 'for': 'nix' }
-Plug 'cespare/vim-toml', { 'for': 'toml' }
-
-" edit
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-
-" git
-Plug 'tpope/vim-fugitive'
-nnoremap <leader>g :G <bar> Goyo<cr>
-Plug 'airblade/vim-gitgutter'
+" gitgutter
 let g:gitgutter_grep = 'rg'
 let g:gitgutter_sign_priority = 8
 let g:gitgutter_override_sign_column_highlight = 0
@@ -137,42 +185,27 @@ let g:gitgutter_preview_win_floating = 1
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
-Plug 'gotchane/vim-git-commit-prefix'
-Plug 'whiteinge/diffconflicts'
-Plug 'hotwatermorning/auto-git-diff'
-Plug 'tpope/vim-rhubarb'
 
-"misc
-Plug 'terryma/vim-multiple-cursors'
-Plug 'wellle/targets.vim'
-" Plug 'romainl/vim-cool'
-Plug 'haya14busa/vim-asterisk'
-map *  <Plug>(asterisk-z*)
-Plug 'tpope/vim-repeat'
-Plug 'markonm/traces.vim'
-Plug 'AndrewRadev/quickpeek.vim', { 'for': 'qf' }
-autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
-Plug 'fcpg/vim-altscreen'
-Plug 'markonm/hlyank.vim', { 'commit': '39e52017' }
-Plug 'vim-scripts/cmdline-completion'
-Plug 'mbbill/undotree'
-let g:undotree_WindowLayout = 4
-let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_ShortIndicators = 1
-Plug 'junegunn/goyo.vim'
-let g:goyo_width = 300
-nnoremap <expr> <leader><leader> winnr("$") == 1 ? ":Goyo<cr>:wincmd w<cr>" : ":Goyo<cr>"
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'haya14busa/vim-edgemotion'
-map <C-j> <Plug>(edgemotion-j)
-map <C-k> <Plug>(edgemotion-k)
-
-" theme
-Plug 'basilgood/vim-nordan'
-call plug#end()
-
-packadd! matchit
-packadd! cfilter
+" netrw
+let g:netrw_list_hide= '^\.\.\=/\=$'
+let g:netrw_banner = 0
+let g:netrw_fastbrowse = 0
+let g:netrw_altfile = 1
+let g:netrw_preview = 1
+let g:netrw_altv = 1
+let g:netrw_alto = 0
+let g:netrw_use_errorwindow = 0
+let g:netrw_localcopydircmd = 'cp -av'
+function! s:opentree()
+  let fname = expand('%:t')
+  edit %:p:h
+  norm! gg
+  call search('\<'.fname.'\>')
+endfunction
+nnoremap <silent> - :<C-U>call <SID>opentree()<CR>
+autocmd vimRc FileType netrw nmap <buffer><silent> <right> <cr>
+autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
+autocmd vimRc FileType netrw nmap <buffer> <c-x> mfmx
 
 " options
 set term=xterm-256color
@@ -245,8 +278,6 @@ set wildignorecase
 set wildcharm=<C-Z>
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading gfm=%f:%l:%c:%m,%f:%l%m,%f\ \ %l%m
-elseif executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor\ --column
 else
   set grepprg=grep\ -rnH\ --exclude=tags\ --exclude-dir=.git\ --exclude-dir=node_modules
 endif
@@ -273,7 +304,6 @@ nnoremap { {zz
 nnoremap <silent> <expr> <leader>n &relativenumber ? ':windo set norelativenumber<cr>' : ':windo set relativenumber<cr>'
 " close qf
 nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
-nnoremap <silent> <expr> <C-q> getqflist({'winid' : 0}).winid ? ':cclose<cr>' : ':copen<cr>'
 " objects
 xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
 xnoremap <expr> A (mode()=~#'[vV]'?'<C-v>0o$A':'A')
@@ -285,9 +315,7 @@ onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 nnoremap ]p viw"0p
 vnoremap ]p "0p
 " substitute
-nnoremap <expr> <cr> (bufexists("[Command Line]")?'<cr>':':%s/')
-xnoremap <cr> :s/
-nnoremap sn *cgn
+nnoremap cg* *``cgn
 " c-g improved
 nnoremap <silent> <C-g> :echon '['.expand("%:p:~").']'.' [L:'.line('$').']'<Bar>echon ' ['system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")']'<CR>
 " reload syntax and nohl
@@ -297,23 +325,6 @@ nnoremap Q <Nop>
 nnoremap Q @q
 " run macro on selected lines
 vnoremap Q :norm Q<cr>
-" jumping
-function! Listjump(list_type, direction, wrap) abort
-  try
-    exe a:list_type . a:direction
-  catch /E553/
-    exe a:list_type . a:wrap
-  catch /E42/
-    return
-  catch /E163/
-    return
-  endtry
-  normal! zz
-endfunction
-nnoremap <silent> ]q :call Listjump("c", "next", "first")<CR>
-nnoremap <silent> [q :call Listjump("c", "previous", "last")<CR>
-nnoremap <silent> ]l :call Listjump("l", "next", "first")<CR>
-nnoremap <silent> [l :call Listjump("l", "previous", "last")<CR>
 
 " autocmds
 " keep cursor position
@@ -385,6 +396,21 @@ autocmd vimRc QuickFixCmdPost cgetexpr cwindow
 autocmd vimRc QuickFixCmdPost lgetexpr lwindow
 
 set termguicolors
-colorscheme nordan
+set background=dark
+let g:gruvbox_italicize_strings = 0
+let g:gruvbox_plugin_hi_groups = 1
+colorscheme gruvbox8
+hi Normal guifg=#c9bc9b
+hi Statement guifg=#e86e61
+hi Keyword guifg=#e86e61
+hi Conditional guifg=#e86e61
+hi String guifg=#adaf24
+hi Special guifg=#ea7f27
+hi Delimiter guifg=#ea7f27
+hi StorageClass guifg=#ea7f27
+hi! link Function Identifier
+hi DiffAdd gui=NONE guibg=#222222
+hi DiffDelete gui=NONE guibg=#222222
+hi DiffChange gui=NONE guibg=#222222
 
 set secure
