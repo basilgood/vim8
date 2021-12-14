@@ -23,6 +23,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
   " term
   Plug 'voldikss/vim-floaterm'
+  Plug 'lambdalisue/guise.vim'
   " completion
   Plug 'prabirshrestha/vim-lsp'
   let g:lsp_document_highlight_enabled = 0
@@ -49,9 +50,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
   " git
+  Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
   Plug 'whiteinge/diffconflicts'
-  Plug 'tpope/vim-fugitive'
+  Plug 'hotwatermorning/auto-git-diff'
+  Plug 'salcode/vim-git-stage-hunk'
   "misc
   Plug 'wellle/targets.vim'
   Plug 'mg979/vim-visual-multi'
