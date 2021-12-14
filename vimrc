@@ -1,25 +1,21 @@
-" vint: -ProhibitSetNoCompatible
-if &compatible
-  set nocompatible
-endif
-
-if &encoding !=? 'utf-8'
-  let &termencoding = &encoding
-  setglobal encoding=utf-8
-endif
+set encoding=utf-8
 scriptencoding utf-8
 
-let g:loaded_rrhelper = 1
-let g:did_install_default_menus = 1
-let g:sh_noisk = 1
+" autogroup vimRc
+augroup vimRc | autocmd! | augroup END
 
-augroup vimRc
-  autocmd!
-augroup END
+" Echo startup time on start.
+if !v:vim_did_enter && has('reltime')
+  let s:startuptime = reltime()
+  au vimRc VimEnter * ++once let s:startuptime = reltime(s:startuptime) | redraw
+        \ | echomsg 'startuptime: ' .. reltimestr(s:startuptime)
+endif
 
-if empty(glob('~/.vim/autoload/plug.vim'))
-  execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs'
-        \ 'https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+if has('vim_starting')
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs'
+          \ 'https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+  endif
 endif
 
 call plug#begin('~/.vim/plugged')
@@ -30,7 +26,9 @@ call plug#begin('~/.vim/plugged')
   " completion
   Plug 'prabirshrestha/vim-lsp'
   let g:lsp_document_highlight_enabled = 0
-  Plug 'mattn/vim-lsp-settings'
+  let g:lsp_diagnostics_highlights_enabled = 0
+  let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
+  let g:lsp_diagnostics_echo_cursor = 1
   Plug 'Shougo/ddc.vim'
   Plug 'Shougo/ddc-around'
   Plug 'Shougo/ddc-matcher_head'
@@ -44,7 +42,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'yuezk/vim-js', { 'for': 'javascript' }
   Plug 'LnL7/vim-nix', { 'for': 'nix' }
   Plug 'cespare/vim-toml', { 'for': 'toml' }
-  Plug 'editorconfig/editorconfig-vim'
   " lint
   Plug 'dense-analysis/ale'
   " edit
@@ -54,28 +51,29 @@ call plug#begin('~/.vim/plugged')
   " git
   Plug 'airblade/vim-gitgutter'
   Plug 'whiteinge/diffconflicts'
-  Plug 'salcode/vim-git-stage-hunk'
-  Plug 'basilgood/git-vim'
+  Plug 'tpope/vim-fugitive'
   "misc
-  Plug 'terryma/vim-multiple-cursors'
   Plug 'wellle/targets.vim'
-  " Plug 'romainl/vim-cool'
+  Plug 'mg979/vim-visual-multi'
   Plug 'haya14busa/vim-asterisk'
   map *  <Plug>(asterisk-z*)
   Plug 'tpope/vim-repeat'
   Plug 'markonm/traces.vim'
   Plug 'AndrewRadev/quickpeek.vim', { 'for': 'qf' }
+  Plug 'glidenote/memolist.vim'
+  let g:memolist_memo_suffix = 'markdown'
+  let g:memolist_fzf = 1
   autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
   Plug 'fcpg/vim-altscreen'
   Plug 'markonm/hlyank.vim', { 'commit': '39e52017' }
-  " Plug 'vim-scripts/cmdline-completion'
   Plug 'mbbill/undotree'
   let g:undotree_WindowLayout = 4
   let g:undotree_SetFocusWhenToggle = 1
   let g:undotree_ShortIndicators = 1
+  Plug 'kat0h/bufpreview.vim'
   " theme
-  Plug 'lifepillar/vim-gruvbox8'
-  Plug 'basilgood/vim-nordan'
+  Plug 'mg979/statusline.vim'
+  Plug 'mandreyel/vim-japanese-indigo'
   packadd! matchit
   packadd! cfilter
 call plug#end()
@@ -96,13 +94,14 @@ call ddc#custom#patch_global('sourceOptions', {
         \ 'vim-lsp': {
           \   'mark': 'Lsp',
           \   'matchers': ['matcher_head'],
-          \   'forceCompletionPattern': '\.|:|->|"\w+/*'
+          \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
           \ },
           \ 'file': {
             \   'mark': 'File',
             \   'isVolatile': v:true,
             \   'forceCompletionPattern': '\S/\S*'
-            \ }})
+            \ }
+            \ })
 call ddc#enable()
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? '<C-n>' :
@@ -112,7 +111,7 @@ inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
 inoremap <silent><expr> <cr> pumvisible() ? ddc#map#confirm() : "\<C-g>u\<CR>"
 
 if executable('typescript-language-server')
-  au User lsp_setup call lsp#register_server({
+  au vimRc User lsp_setup call lsp#register_server({
         \ 'name': 'javascript support using typescript-language-server',
         \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
         \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
@@ -122,6 +121,9 @@ endif
 
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
+  let g:lsp_diagnostics_highlights_enabled = 0
+  let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
+  let g:lsp_diagnostics_virtual_text_enabled = 1
   setlocal signcolumn=yes
   if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
   nmap <buffer> gd <plug>(lsp-definition)
@@ -208,8 +210,6 @@ autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
 autocmd vimRc FileType netrw nmap <buffer> <c-x> mfmx
 
 " options
-set term=xterm-256color
-set t_Co=256
 set t_ut=
 set t_md=
 
@@ -228,6 +228,12 @@ set autoread autowrite autowriteall
 set noswapfile
 set nowritebackup
 set undofile undodir=/tmp//,.
+set autoindent smartindent
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set shiftround
 set nostartofline
 set nojoinspaces
 set nofoldenable
@@ -241,35 +247,25 @@ set mouse=a ttymouse=sgr
 set splitright splitbelow
 set fillchars+=vert:\│
 set virtualedit=onemore
-set scrolloff=0 sidescrolloff=10 sidescroll=1
+set sidescrolloff=10 sidescroll=1
 set sessionoptions-=options
 set sessionoptions-=blank
 set sessionoptions-=help
 set lazyredraw
 set ttimeout timeoutlen=2000 ttimeoutlen=50
-set updatetime=50
+set updatetime=150
 set incsearch hlsearch
-set gdefault
 set completeopt-=preview
 set completeopt+=menuone,noselect,noinsert
-setg omnifunc=syntaxcomplete#Complete
-setg completefunc=syntaxcomplete#Complete
-set complete=.,w,b,u,U,t,i,d,k
 set pumheight=10
 set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
 set listchars=tab:…\ ,trail:•,nbsp:␣,extends:↦,precedes:↤
 autocmd vimRc InsertEnter * set listchars-=trail:•
 autocmd vimRc InsertLeave * set listchars+=trail:•
+set shortmess=
+set shortmess+=asoOtIcF
 set confirm
-set shortmess+=sIcaF
-set shortmess-=S
-set autoindent smartindent
-set expandtab
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set shiftround
 set history=1000
 set viminfo^=!
 set wildmenu
@@ -396,21 +392,9 @@ autocmd vimRc QuickFixCmdPost cgetexpr cwindow
 autocmd vimRc QuickFixCmdPost lgetexpr lwindow
 
 set termguicolors
-set background=dark
-let g:gruvbox_italicize_strings = 0
-let g:gruvbox_plugin_hi_groups = 1
-colorscheme gruvbox8
-hi Normal guifg=#c9bc9b
-hi Statement guifg=#e86e61
-hi Keyword guifg=#e86e61
-hi Conditional guifg=#e86e61
-hi String guifg=#adaf24
-hi Special guifg=#ea7f27
-hi Delimiter guifg=#ea7f27
-hi StorageClass guifg=#ea7f27
-hi! link Function Identifier
-hi DiffAdd gui=NONE guibg=#222222
-hi DiffDelete gui=NONE guibg=#222222
-hi DiffChange gui=NONE guibg=#222222
+colorscheme JapaneseIndigo
+hi Visual guibg=#161f2d
+hi Search guifg=NONE guibg=#161f2d
+hi EndOfBuffer guifg=bg
 
 set secure
