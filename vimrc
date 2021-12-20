@@ -56,6 +56,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'hotwatermorning/auto-git-diff'
   Plug 'salcode/vim-git-stage-hunk'
   "misc
+  Plug 'lifepillar/vim-colortemplate'
   Plug 'wellle/targets.vim'
   Plug 'mg979/vim-visual-multi'
   Plug 'haya14busa/vim-asterisk'
@@ -75,8 +76,7 @@ call plug#begin('~/.vim/plugged')
   let g:undotree_ShortIndicators = 1
   Plug 'kat0h/bufpreview.vim'
   " theme
-  Plug 'mg979/statusline.vim'
-  Plug 'mandreyel/vim-japanese-indigo'
+  Plug 'arzg/seoul8'
   packadd! matchit
   packadd! cfilter
 call plug#end()
@@ -115,7 +115,7 @@ inoremap <silent><expr> <cr> pumvisible() ? ddc#map#confirm() : "\<C-g>u\<CR>"
 
 if executable('typescript-language-server')
   au vimRc User lsp_setup call lsp#register_server({
-        \ 'name': 'javascript support using typescript-language-server',
+        \ 'name': 'typescript-language-server',
         \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
         \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
         \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
@@ -168,12 +168,14 @@ nmap <silent> [a <Plug>(ale_previous)
 nmap <silent> ]a <Plug>(ale_next)
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma none --arrow-parens avoid --print-width 140'
 let g:ale_sh_shfmt_options = '-i 2 -ci'
+let g:ale_linters = {}
+let g:ale_linters.json = ['jsonlint']
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'javascript': ['prettier', 'eslint'],
       \   'typescript': ['prettier', 'eslint'],
+      \   'json': ['prettier'],
       \   'css': ['stylelint'],
-      \   'json': ['fixjson'],
       \   'sh': ['shfmt'],
       \   'nix': ['nixpkgs-fmt'],
       \ }
@@ -395,9 +397,7 @@ autocmd vimRc QuickFixCmdPost cgetexpr cwindow
 autocmd vimRc QuickFixCmdPost lgetexpr lwindow
 
 set termguicolors
-colorscheme JapaneseIndigo
-hi Visual guibg=#161f2d
-hi Search guifg=NONE guibg=#161f2d
-hi EndOfBuffer guifg=bg
+colorscheme seoul8
+hi Exception guifg=#c46289
 
 set secure
