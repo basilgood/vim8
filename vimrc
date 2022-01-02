@@ -1,8 +1,9 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-" autogroup vimRc
-augroup vimRc | autocmd! | augroup END
+augroup vimRc
+  autocmd!
+augroup END
 
 " Echo startup time on start.
 if !v:vim_did_enter && has('reltime')
@@ -11,6 +12,10 @@ if !v:vim_did_enter && has('reltime')
         \ | echomsg 'startuptime: ' .. reltimestr(s:startuptime)
 endif
 
+packadd! matchit
+packadd! cfilter
+
+" plug
 if has('vim_starting')
   if empty(glob('~/.vim/autoload/plug.vim'))
     execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs'
@@ -19,147 +24,65 @@ if has('vim_starting')
 endif
 
 call plug#begin('~/.vim/plugged')
-  " files
-  Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-  " term
-  Plug 'voldikss/vim-floaterm'
-  Plug 'lambdalisue/guise.vim'
-  " completion
-  Plug 'prabirshrestha/vim-lsp'
-  let g:lsp_document_highlight_enabled = 0
-  let g:lsp_diagnostics_highlights_enabled = 0
-  let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
-  let g:lsp_diagnostics_echo_cursor = 1
-  Plug 'Shougo/ddc.vim'
-  Plug 'Shougo/ddc-around'
-  Plug 'Shougo/ddc-matcher_head'
-  Plug 'Shougo/ddc-sorter_rank'
-  Plug 'Shougo/ddc-converter_remove_overlap'
-  Plug 'LumaKernel/ddc-file'
-  Plug 'shun/ddc-vim-lsp'
-  Plug 'vim-denops/denops.vim'
-  " lang
-  Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript' }
-  Plug 'yuezk/vim-js', { 'for': 'javascript' }
-  Plug 'LnL7/vim-nix', { 'for': 'nix' }
-  Plug 'cespare/vim-toml', { 'for': 'toml' }
-  " lint
-  Plug 'dense-analysis/ale'
-  " edit
-  Plug 'editorconfig/editorconfig-vim'
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-surround'
-  " git
-  Plug 'tpope/vim-fugitive'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'whiteinge/diffconflicts'
-  Plug 'hotwatermorning/auto-git-diff'
-  Plug 'salcode/vim-git-stage-hunk'
-  "misc
-  Plug 'lifepillar/vim-colortemplate'
-  Plug 'wellle/targets.vim'
-  Plug 'mg979/vim-visual-multi'
-  Plug 'haya14busa/vim-asterisk'
-  map *  <Plug>(asterisk-z*)
-  Plug 'tpope/vim-repeat'
-  Plug 'markonm/traces.vim'
-  Plug 'AndrewRadev/quickpeek.vim', { 'for': 'qf' }
-  Plug 'glidenote/memolist.vim'
-  let g:memolist_memo_suffix = 'markdown'
-  let g:memolist_fzf = 1
-  autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
-  Plug 'fcpg/vim-altscreen'
-  Plug 'markonm/hlyank.vim', { 'commit': '39e52017' }
-  Plug 'mbbill/undotree'
-  let g:undotree_WindowLayout = 4
-  let g:undotree_SetFocusWhenToggle = 1
-  let g:undotree_ShortIndicators = 1
-  Plug 'kat0h/bufpreview.vim'
-  " theme
-  Plug 'arzg/seoul8'
-  packadd! matchit
-  packadd! cfilter
-call plug#end()
+
+" navigation
+Plug 'tpope/vim-vinegar'
+let g:netrw_fastbrowse = 0
+let g:netrw_altfile = 1
+let g:netrw_preview = 1
+let g:netrw_altv = 1
+let g:netrw_alto = 0
+let g:netrw_use_errorwindow = 0
+let g:netrw_localcopydircmd = 'cp -av'
+autocmd vimRc FileType netrw nmap <buffer><silent> <right> <cr>
+autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
+Plug 'junegunn/fzf'
+let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
+let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5 } }
+Plug 'junegunn/fzf.vim'
+nnoremap <c-p> :Files<cr>
+nnoremap <bs> :Buffers<cr>
 
 " completion
-call ddc#custom#patch_global('sources', [
-      \ 'around',
-      \ 'vim-lsp',
-      \ 'file'
-      \ ])
-call ddc#custom#patch_global('sourceOptions', {
-      \ '_': {
-        \   'matchers': ['matcher_head'],
-        \   'sorters': ['sorter_rank'],
-        \   'converters': ['converter_remove_overlap'],
-        \ },
-        \ 'around': {'mark': 'Around'},
-        \ 'vim-lsp': {
-          \   'mark': 'Lsp',
-          \   'matchers': ['matcher_head'],
-          \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
-          \ },
-          \ 'file': {
-            \   'mark': 'File',
-            \   'isVolatile': v:true,
-            \   'forceCompletionPattern': '\S/\S*'
-            \ }
-            \ })
-call ddc#enable()
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? '<C-n>' :
-      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-      \ '<TAB>' : ddc#map#manual_complete()
-inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
-inoremap <silent><expr> <cr> pumvisible() ? ddc#map#confirm() : "\<C-g>u\<CR>"
-
-if executable('typescript-language-server')
-  au vimRc User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-        \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
-        \ })
-endif
-
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  let g:lsp_diagnostics_highlights_enabled = 0
-  let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
-  let g:lsp_diagnostics_virtual_text_enabled = 1
-  setlocal signcolumn=yes
-  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> gr <plug>(lsp-references)
-  nmap <buffer> gi <plug>(lsp-implementation)
-  nmap <buffer> gt <plug>(lsp-type-definition)
-  nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
-  nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-  nmap <buffer> K <plug>(lsp-hover)
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+let g:coc_global_extensions = ['coc-tsserver']
+let g:coc_user_config = {}
+let g:coc_user_config['diagnostic.displayByAle'] = v:true
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . ' ' . expand('<cword>')
+  endif
 endfunction
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
+" term
+Plug 'voldikss/vim-floaterm'
+" floaterm
+let g:floaterm_autoclose = 2
+let g:floaterm_keymap_toggle = '<leader>t'
 
-" leaderf
-let g:Lf_WindowPosition = 'popup'
-let g:Lf_PreviewInPopup = 1
-let g:Lf_ExternalCommand = 'fd "%s" --type f --hidden --follow --exclude .git --exclude plugged'
-let g:Lf_RgConfig = ['--max-columns=250']
-let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
-let g:Lf_UseCache = 0
-let g:Lf_UseMemoryCache = 0
-let g:Lf_ShortcutF = '<C-P>'
-let g:Lf_ShortcutB = '<bs>'
-command! History :Leaderf mru<cr>
-command! Rg :Leaderf rg<cr>
+" lang
+Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript' }
+Plug 'yuezk/vim-js', { 'for': 'javascript' }
+Plug 'LnL7/vim-nix', { 'for': 'nix' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
 
-" ale
+" lint
+Plug 'dense-analysis/ale'
 let g:ale_disable_lsp = 1
-let g:ale_sign_error = '⧽⧽'
-let g:ale_sign_warning = '⧽'
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '•'
 let g:ale_set_highlights = 0
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
@@ -180,11 +103,14 @@ let g:ale_fixers = {
       \   'nix': ['nixpkgs-fmt'],
       \ }
 
-" floaterm
-let g:floaterm_autoclose = 2
-let g:floaterm_keymap_toggle = '<c-\>'
+" edit
+Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 
-" gitgutter
+" git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 let g:gitgutter_grep = 'rg'
 let g:gitgutter_sign_priority = 8
 let g:gitgutter_override_sign_column_highlight = 0
@@ -193,35 +119,52 @@ nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 
-" netrw
-let g:netrw_list_hide= '^\.\.\=/\=$'
-let g:netrw_banner = 0
-let g:netrw_fastbrowse = 0
-let g:netrw_altfile = 1
-let g:netrw_preview = 1
-let g:netrw_altv = 1
-let g:netrw_alto = 0
-let g:netrw_use_errorwindow = 0
-let g:netrw_localcopydircmd = 'cp -av'
-function! s:opentree()
-  let fname = expand('%:t')
-  edit %:p:h
-  norm! gg
-  call search('\<'.fname.'\>')
-endfunction
-nnoremap <silent> - :<C-U>call <SID>opentree()<CR>
-autocmd vimRc FileType netrw nmap <buffer><silent> <right> <cr>
-autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
-autocmd vimRc FileType netrw nmap <buffer> <c-x> mfmx
+Plug 'whiteinge/diffconflicts', { 'on': [ 'DiffConflicts' ] }
+Plug 'hotwatermorning/auto-git-diff', { 'for': 'gitrebase' }
+Plug 'gotchane/vim-git-commit-prefix', { 'for': 'gitcommit' }
+
+" misc
+Plug 'lifepillar/vim-colortemplate', { 'on': [ 'Colortemplate' ] }
+Plug 'wellle/targets.vim'
+Plug 'haya14busa/vim-asterisk'
+map *  <Plug>(asterisk-z*)
+
+Plug 'tpope/vim-repeat'
+Plug 'romainl/vim-cool'
+Plug 'vim-scripts/cmdline-completion'
+Plug 'markonm/traces.vim'
+let g:traces_num_range_preview = 1
+
+Plug 'AndrewRadev/quickpeek.vim', { 'for': 'qf' }
+autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
+
+Plug 'basilgood/memolist.vim', { 'on': [ 'MemoNew', 'MemoList', 'MemoGrep' ] }
+let g:memolist_memo_suffix = 'md'
+let g:memolist_fzf = 1
+
+Plug 'fcpg/vim-altscreen'
+Plug 'jesseleite/vim-agriculture'
+nmap <Leader>/ <Plug>RgRawSearch
+vmap <Leader>/ <Plug>RgRawVisualSelection
+nmap <Leader>* <Plug>RgRawWordUnderCursor
+
+Plug 'markonm/hlyank.vim', { 'commit': '39e52017' }
+Plug 'mbbill/undotree', { 'on': [ 'UndotreeToggle' ] }
+let g:undotree_WindowLayout = 4
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_ShortIndicators = 1
+
+" theme
+Plug 'basilgood/cinnamon-vim'
+
+call plug#end()
 
 " options
-set t_ut=
-set t_md=
-
 let &t_SI.="\e[6 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[2 q"
-
+set t_ut=
+set t_md=
 set path=.,**
 set wildignore+=
       \*/node_modules/*,
@@ -229,10 +172,11 @@ set wildignore+=
       \*/recordings/*,
       \*/pack
 set hidden
+set gdefault
 set autoread autowrite autowriteall
 set noswapfile
 set nowritebackup
-set undofile undodir=/tmp//,.
+set undofile undodir=/tmp/,.
 set autoindent smartindent
 set expandtab
 set tabstop=2
@@ -243,14 +187,15 @@ set nostartofline
 set nojoinspaces
 set nofoldenable
 set nowrap
-set breakindent breakindentopt=shift:4,sbr
+let &showbreak = '↳ '
+set breakindent
+set breakindentopt=sbr
 set noshowmode
 set nrformats-=octal
 set number
-set relativenumber
 set mouse=a ttymouse=sgr
 set splitright splitbelow
-set fillchars+=vert:\│
+set fillchars=vert:\│,fold:-
 set virtualedit=onemore
 set sidescrolloff=10 sidescroll=1
 set sessionoptions-=options
@@ -261,11 +206,12 @@ set ttimeout timeoutlen=2000 ttimeoutlen=50
 set updatetime=150
 set incsearch hlsearch
 set completeopt-=preview
+set completeopt-=menu
 set completeopt+=menuone,noselect,noinsert
 set pumheight=10
 set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
-set listchars=tab:…\ ,trail:•,nbsp:␣,extends:↦,precedes:↤
+set listchars=tab:↦\ ,trail:•,nbsp:␣,extends:↦,precedes:↤
 autocmd vimRc InsertEnter * set listchars-=trail:•
 autocmd vimRc InsertLeave * set listchars+=trail:•
 set shortmess=
@@ -288,11 +234,11 @@ set laststatus=2
 set statusline=%<%.99t\ %y%*%h%w%m%r%=%c:%l/%L
 
 " mappings
+" save
+nnoremap <leader><leader> :update<cr>
 " wrap
 noremap j gj
 noremap k gk
-noremap <Down> gj
-noremap <Up> gk
 "redline
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -302,7 +248,7 @@ inoremap <C-e> <End>
 nnoremap } }zz
 nnoremap { {zz
 " relativenumber
-nnoremap <silent> <expr> <leader>n &relativenumber ? ':windo set norelativenumber<cr>' : ':windo set relativenumber<cr>'
+nnoremap <silent> cor mP:windo set relativenumber!<cr>mP
 " close qf
 nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
 " objects
@@ -312,11 +258,14 @@ xnoremap <silent> il <Esc>^vg_
 onoremap <silent> il :<C-U>normal! ^vg_<cr>
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
-" Paste continuously.
-nnoremap ]p viw"0p
-vnoremap ]p "0p
+" allow the . to execute once for each line of a visual selection
+vnoremap . :normal .<CR>
+" copy/paste
+nnoremap ]0 viw"0p
+xnoremap ]0 "0p
 " substitute
 nnoremap cg* *``cgn
+xnoremap s :s/
 " c-g improved
 nnoremap <silent> <C-g> :echon '['.expand("%:p:~").']'.' [L:'.line('$').']'<Bar>echon ' ['system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")']'<CR>
 " reload syntax and nohl
@@ -325,7 +274,7 @@ nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>call clearmatches()<bar>syntax s
 nnoremap Q <Nop>
 nnoremap Q @q
 " run macro on selected lines
-vnoremap Q :norm Q<cr>
+xnoremap Q :norm Q<cr>
 
 " autocmds
 " keep cursor position
@@ -354,7 +303,7 @@ autocmd vimRc BufWritePre *
       \ endif
 
 " filetypes
-let g:markdown_fenced_languages = ['vim', 'ruby', 'html', 'javascript', 'css', 'bash=sh', 'sh']
+let g:markdown_fenced_languages = ['vim', 'ruby', 'html', 'js=javascript', 'json', 'css', 'bash=sh', 'sh']
 autocmd vimRc BufReadPre *.md,*.markdown setlocal conceallevel=2 concealcursor=n
 autocmd vimRc FileType javascript setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 autocmd vimRc BufNewFile,BufRead *.gitignore setfiletype gitignore
@@ -370,6 +319,7 @@ autocmd vimRc FileType git       setlocal nofoldenable
 command! -nargs=1 -complete=file Rename file <args> | call delete(expand('#')) | write
 command! -nargs=0 WS %s/\s\+$// | normal! ``
 command! -nargs=0 WT %s/[^\t]\zs\t\+/ / | normal! ``
+command! -nargs=0 CW Lines<c-r><c-w>
 command! WW w !sudo tee % > /dev/null
 command! -bar HL echo
       \ synIDattr(synID(line('.'),col('.'),0),'name')
@@ -397,7 +347,6 @@ autocmd vimRc QuickFixCmdPost cgetexpr cwindow
 autocmd vimRc QuickFixCmdPost lgetexpr lwindow
 
 set termguicolors
-colorscheme seoul8
-hi Exception guifg=#c46289
+colorscheme cinnamon
 
 set secure
