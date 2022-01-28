@@ -5,7 +5,7 @@ augroup vimRc
   autocmd!
 augroup END
 
-" Echo startup time on start.
+" startup time
 if !v:vim_did_enter && has('reltime')
   let s:startuptime = reltime()
   au vimRc VimEnter * ++once let s:startuptime = reltime(s:startuptime) | redraw
@@ -45,21 +45,29 @@ nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
 
 " completion
-Plug 'prabirshrestha/vim-lsp'
-let g:lsp_document_highlight_enabled = 0
-let g:lsp_diagnostics_highlights_enabled = 0
-let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 1
-nmap <plug>() <Plug>(lsp-float-close)
-Plug 'Shougo/ddc.vim'
-Plug 'Shougo/ddc-around'
-Plug 'Shougo/ddc-matcher_head'
-Plug 'Shougo/ddc-sorter_rank'
-Plug 'Shougo/ddc-converter_remove_overlap'
-Plug 'LumaKernel/ddc-file'
-Plug 'shun/ddc-vim-lsp'
-Plug 'matsui54/denops-popup-preview.vim'
-Plug 'vim-denops/denops.vim'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-prettier', 'coc-yaml', 'coc-html', 'coc-css']
+let g:coc_user_config = {}
+let g:coc_user_config['diagnostic.displayByAle'] = v:true
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . ' ' . expand('<cword>')
+  endif
+endfunction
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " term
 Plug 'voldikss/vim-floaterm'
@@ -84,7 +92,7 @@ let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_delay = 0
 nmap <silent> [a <Plug>(ale_previous)
 nmap <silent> ]a <Plug>(ale_next)
-let g:ale_javascript_prettier_options = '--single-quote --trailing-comma none --arrow-parens avoid --print-width 140'
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma none --arrow-parens avoid --print-width 160'
 let g:ale_sh_shfmt_options = '-i 2 -ci'
 let g:ale_linters = {}
 let g:ale_linters.json = ['jsonlint']
@@ -124,6 +132,7 @@ autocmd vimRc FileType GV nmap <buffer><silent> r q:GV<cr>
 Plug 'tpope/vim-rhubarb'
 
 " misc
+Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'lifepillar/vim-colortemplate', { 'on': [ 'Colortemplate' ] }
 Plug 'wellle/targets.vim'
 Plug 'haya14busa/vim-asterisk'
@@ -158,67 +167,6 @@ let g:undotree_ShortIndicators = 1
 Plug 'basilgood/cinnamon-vim'
 
 call plug#end()
-
-" completion
-call ddc#custom#patch_global('sources', ['around', 'vim-lsp', 'file'])
-call ddc#custom#patch_global('sourceOptions', {
-      \ '_': {
-        \   'matchers': ['matcher_head'],
-        \   'sorters': ['sorter_rank'],
-        \   'converters': ['converter_remove_overlap'],
-        \ }
-        \ })
-call ddc#custom#patch_global('sourceOptions', {
-      \ 'around': {'mark': 'Around'}
-      \ })
-call ddc#custom#patch_global('sourceOptions', {
-      \ 'vim-lsp': {
-        \   'mark': 'Lsp',
-        \   'matchers': ['matcher_head'],
-        \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
-        \ }
-        \ })
-call ddc#custom#patch_global('sourceOptions', {
-      \ 'file': {
-        \   'mark': 'File',
-        \   'isVolatile': v:true,
-        \   'forceCompletionPattern': '\S/\S*'
-        \ }
-        \ })
-call ddc#enable()
-call popup_preview#enable()
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? '<C-n>' :
-      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-      \ '<TAB>' : ddc#map#manual_complete()
-inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
-inoremap <silent><expr> <cr> pumvisible() ? ddc#map#confirm() : "\<C-g>u\<CR>"
-
-if executable('typescript-language-server')
-  au vimRc User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-        \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
-        \ })
-endif
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  let g:lsp_diagnostics_highlights_enabled = 0
-  let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
-  " let g:lsp_diagnostics_virtual_text_enabled = 1
-  let g:lsp_completion_documentation_enabled = 0
-  setlocal signcolumn=yes
-  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
-  nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-  nmap <buffer> K <plug>(lsp-hover)
-endfunction
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
 
 " options
 let &t_SI.="\e[6 q"
@@ -284,12 +232,9 @@ set wildmenu
 set wildmode=list,full
 set wildignorecase
 set wildcharm=<C-Z>
-if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading gfm=%f:%l:%c:%m,%f:%l%m,%f\ \ %l%m
-else
-  set grepprg=grep\ -rnH\ --exclude=tags\ --exclude-dir=.git\ --exclude-dir=node_modules
-endif
-set grepformat^=%f:%l:%c:%m
+set grepprg=grep\ -rnH\ --exclude=tags\ --exclude-dir=.git\ --exclude-dir=node_modules
+let &grepformat = '%f:%l:%c:%m,%f:%l:%m'
+let &errorformat ..= ',%f\|%\s%#%l col%\s%#%c%\s%#\| %m'
 set backspace=indent,eol,start
 set laststatus=2
 set statusline=%<%.99t\ %y%*%h%w%m%r%=%c:%l/%L
@@ -375,6 +320,7 @@ autocmd vimRc BufNewFile,BufRead *.txt       setfiletype markdown
 autocmd vimRc BufReadPre *.json  setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json  setlocal formatoptions=
 autocmd vimRc FileType git       setlocal nofoldenable
+autocmd vimRc FileType scss setlocal iskeyword+=@-@
 
 " commands
 command! -nargs=1 -complete=file Rename file <args> | call delete(expand('#')) | write
@@ -414,19 +360,13 @@ function! s:GrepMotion(type) abort
 
   let @@ = reg_save
 endfunction
-function! Grep(...)
-  return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+
+function! s:grep(word) abort
+  let cmd = printf('rg --vimgrep --no-heading %s', a:word)
+  cgetexpr system(cmd) | cw
 endfunction
 
-command! -nargs=+ -complete=file -bar Grep  cgetexpr Grep(<f-args>)
-command! -nargs=+ -complete=file -bar LGrep lgetexpr Grep(<f-args>)
-
-cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
-cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
-
-autocmd vimRc QuickFixCmdPost cgetexpr cwindow
-autocmd vimRc QuickFixCmdPost lgetexpr lwindow
-
+command! -nargs=1 -complete=file Grep call <SID>grep(<q-args>)
 " tabline
 function! Tabline()
   let s = ''
@@ -457,6 +397,6 @@ endfunction
 set tabline=%!Tabline()
 
 set termguicolors
-colorscheme cinnamon
+colorscheme saffran
 
 set secure
