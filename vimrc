@@ -110,6 +110,9 @@ let g:ale_fixers = {
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'wellle/targets.vim'
+Plug 'markonm/traces.vim'
 
 " git
 Plug 'tpope/vim-fugitive'
@@ -122,6 +125,7 @@ nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 
+Plug 'tpope/vim-rhubarb'
 Plug 'whiteinge/diffconflicts', { 'on': [ 'DiffConflicts' ] }
 Plug 'hotwatermorning/auto-git-diff', { 'for': 'gitrebase' }
 Plug 'gotchane/vim-git-commit-prefix', { 'for': 'gitcommit' }
@@ -129,19 +133,19 @@ Plug 'junegunn/gv.vim'
 autocmd vimRc FileType GV nmap <buffer><silent> a q:GV --all<cr>
 autocmd vimRc FileType GV nmap <buffer><silent> r q:GV<cr>
 
-Plug 'tpope/vim-rhubarb'
-
 " misc
 Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'lifepillar/vim-colortemplate', { 'on': [ 'Colortemplate' ] }
-Plug 'wellle/targets.vim'
+
 Plug 'haya14busa/vim-asterisk'
 map *  <Plug>(asterisk-z*)
+Plug 'haya14busa/vim-edgemotion'
+nmap <C-j> <Plug>(edgemotion-j)
+nmap <C-k> <Plug>(edgemotion-k)
+vmap <C-j> <Plug>(edgemotion-j)
+vmap <C-k> <Plug>(edgemotion-k)
 
-Plug 'tpope/vim-repeat'
 Plug 'romainl/vim-cool'
 Plug 'vim-scripts/cmdline-completion'
-Plug 'markonm/traces.vim'
 let g:traces_num_range_preview = 1
 
 Plug 'AndrewRadev/quickpeek.vim', { 'for': 'qf' }
@@ -323,7 +327,6 @@ autocmd vimRc FileType git       setlocal nofoldenable
 autocmd vimRc FileType scss setlocal iskeyword+=@-@
 
 " commands
-command! -nargs=1 -complete=file Rename file <args> | call delete(expand('#')) | write
 command! -nargs=0 WS %s/\s\+$// | normal! ``
 command! -nargs=0 WT %s/[^\t]\zs\t\+/ / | normal! ``
 command! -nargs=0 CW Lines<c-r><c-w>
@@ -395,6 +398,30 @@ function! Tabline()
   return s
 endfunction
 set tabline=%!Tabline()
+
+" qf
+function! s:Cprevious() abort
+  try
+    cprevious
+  catch /^Vim\%((\a\+)\)\=:E553/
+    clast
+  catch
+    echo v:exception
+  endtry
+endfunction
+function! s:Cnext() abort
+  try
+    cnext
+  catch /^Vim\%((\a\+)\)\=:E553/
+    cfirst
+  catch
+    echo v:exception
+  endtry
+endfunction
+nnoremap <silent> [q :<C-u>call <SID>Cprevious()<CR>
+nnoremap <silent> ]q :<C-u>call <SID>Cnext()<CR>
+nnoremap <silent> [Q :<C-u>cfirst<CR>
+nnoremap <silent> ]Q :<C-u>clast<CR>
 
 set termguicolors
 colorscheme saffran
