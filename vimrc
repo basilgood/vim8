@@ -1,4 +1,3 @@
-set encoding=utf-8
 scriptencoding utf-8
 
 augroup vimRc
@@ -15,18 +14,81 @@ endif
 packadd! matchit
 packadd! cfilter
 
-" plug
+" minpac
 if has('vim_starting')
-  if empty(glob('~/.vim/autoload/plug.vim'))
-    execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs'
-          \ 'https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+  if empty(glob('~/.vim/pack/minpac/opt/minpac'))
+    echo 'Install minpac ...'
+    execute 'silent! !git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac'
   endif
 endif
 
-call plug#begin('~/.vim/plugged')
+function! PackInit()
+  command! -nargs=+ Pack call minpac#add(<args>)
+  packadd minpac
+  call minpac#init()
 
-" navigation
-Plug 'tpope/vim-vinegar'
+  " Plugins
+  Pack 'k-takata/minpac', {'type': 'opt'}
+
+  Pack 'tpope/vim-vinegar', {'type': 'opt'}
+  Pack 'junegunn/fzf'
+  Pack 'junegunn/fzf.vim', {'type': 'opt'}
+
+  Pack 'prabirshrestha/vim-lsp'
+  Pack 'mattn/vim-lsp-settings', {'type': 'opt'}
+  Pack 'Shougo/ddc.vim', {'type': 'opt'}
+  Pack 'Shougo/ddc-around', {'type': 'opt'}
+  Pack 'matsui54/ddc-buffer', {'type': 'opt'}
+  Pack 'Shougo/ddc-matcher_head', {'type': 'opt'}
+  Pack 'Shougo/ddc-matcher_length', {'type': 'opt'}
+  Pack 'Shougo/ddc-sorter_rank', {'type': 'opt'}
+  Pack 'Shougo/ddc-converter_remove_overlap', {'type': 'opt'}
+  Pack 'LumaKernel/ddc-file', {'type': 'opt'}
+  Pack 'vim-denops/denops.vim', {'type': 'opt'}
+  Pack 'shun/ddc-vim-lsp'
+
+  " lang
+  Pack 'maxmellon/vim-jsx-pretty'
+  Pack 'yuezk/vim-js'
+  Pack 'LnL7/vim-nix'
+  Pack 'cespare/vim-toml'
+
+  " misc
+  Pack 'editorconfig/editorconfig-vim', {'type': 'opt'}
+  Pack 'tpope/vim-commentary', {'type': 'opt'}
+  Pack 'tpope/vim-surround', {'type': 'opt'}
+  Pack 'tpope/vim-repeat', {'type': 'opt'}
+  Pack 'wellle/targets.vim', {'type': 'opt'}
+  Pack 'tommcdo/vim-exchange', {'type': 'opt'}
+  Pack 'haya14busa/vim-asterisk', {'type': 'opt'}
+  Pack 'markonm/traces.vim', {'type': 'opt'}
+  Pack 'jesseleite/vim-agriculture', {'type': 'opt'}
+  Pack 'stefandtw/quickfix-reflector.vim'
+  Pack 'mbbill/undotree', {'type': 'opt'}
+  Pack 'basilgood/memolist.vim', {'type': 'opt'}
+  Pack 'markonm/hlyank.vim', { 'rev': '39e52017', 'type': 'opt' }
+  Pack 'AndrewRadev/quickpeek.vim', {'type': 'opt'}
+  Pack 'fcpg/vim-altscreen'
+  Pack 'voldikss/vim-floaterm', {'type': 'opt'}
+
+  " git
+  Pack 'tpope/vim-fugitive', {'type': 'opt'}
+  Pack 'airblade/vim-gitgutter', {'type': 'opt'}
+  Pack 'tpope/vim-rhubarb', {'type': 'opt'}
+  Pack 'whiteinge/diffconflicts', {'on': 'DiffConflicts'}
+  Pack 'hotwatermorning/auto-git-diff'
+  Pack 'gotchane/vim-git-commit-prefix'
+  Pack 'junegunn/gv.vim', {'type': 'opt'}
+
+  " theme
+  Pack 'basilgood/cinnamon-vim', {'type': 'opt'}
+endfunction
+
+command! PackUpdate call PackInit() | call minpac#update()
+command! PackClean call PackInit() | call minpac#clean()
+command! PackStatus packadd minpac | call minpac#status()
+
+" vinegar
 let g:netrw_fastbrowse = 0
 let g:netrw_altfile = 1
 let g:netrw_preview = 1
@@ -36,87 +98,92 @@ let g:netrw_use_errorwindow = 0
 let g:netrw_localcopydircmd = 'cp -av'
 autocmd vimRc FileType netrw nmap <buffer><silent> <right> <cr>
 autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
-Plug 'junegunn/fzf'
+autocmd vimRc VimEnter * ++once packadd vim-vinegar
+
+" fzf
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
 let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
-let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5 } }
-Plug 'junegunn/fzf.vim'
+let g:fzf_layout = {'up':'100%', 'window': { 'width': 1, 'height': 1,'yoffset':0.5,'xoffset': 0.5 } }
+autocmd vimRc VimEnter * ++once packadd fzf.vim
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
 
-" completion
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-prettier', 'coc-yaml', 'coc-html', 'coc-css']
-let g:coc_user_config = {}
-let g:coc_user_config['diagnostic.displayByAle'] = v:true
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . ' ' . expand('<cword>')
-  endif
-endfunction
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" agriculture
+autocmd vimRc BufRead * ++once packadd vim-agriculture
+nmap <leader>/ <Plug>RgRawSearch
+vmap <leader>/ <Plug>RgRawVisualSelection
+nmap <leader>* <Plug>RgRawWordUnderCursor
 
-" term
-Plug 'voldikss/vim-floaterm'
-" floaterm
-let g:floaterm_autoclose = 2
-let g:floaterm_keymap_toggle = '<leader>]'
+" ddc settings
+ packadd! denops.vim
+ packadd! ddc.vim
+ packadd! ddc-around
+ packadd! ddc-buffer
+ packadd! ddc-matcher_head
+ packadd! ddc-sorter_rank
+ packadd! ddc-converter_remove_overlap
+ packadd! ddc-file
 
-" lang
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'yuezk/vim-js'
-Plug 'LnL7/vim-nix', { 'for': 'nix' }
-Plug 'cespare/vim-toml', { 'for': 'toml' }
+ inoremap <silent><expr> <TAB>
+       \ pumvisible() ? '<C-n>' :
+       \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+       \ '<TAB>' : ddc#map#manual_complete()
+ inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+ inoremap <silent><expr> <cr> pumvisible() ? ddc#map#confirm() : "\<C-g>u\<CR>"
 
-" lint
-Plug 'dense-analysis/ale'
-let g:ale_disable_lsp = 1
-let g:ale_sign_error = '•'
-let g:ale_sign_warning = '•'
-let g:ale_set_highlights = 0
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_delay = 0
-nmap <silent> [a <Plug>(ale_previous)
-nmap <silent> ]a <Plug>(ale_next)
-let g:ale_javascript_prettier_options = '--single-quote --trailing-comma none --arrow-parens avoid --print-width 160'
-let g:ale_sh_shfmt_options = '-i 2 -ci'
-let g:ale_linters = {}
-let g:ale_linters.json = ['jsonlint']
-let g:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \   'javascript': ['prettier', 'eslint'],
-      \   'typescript': ['prettier', 'eslint'],
-      \   'json': ['prettier'],
-      \   'css': ['stylelint'],
-      \   'sh': ['shfmt'],
-      \   'nix': ['nixpkgs-fmt'],
-      \ }
+ call ddc#custom#patch_global('sources', ['around', 'buffer', 'vim-lsp', 'file'])
+ call ddc#custom#patch_global('sourceOptions', {
+       \ '_': {
+         \'ignoreCase': v:true,
+         \'matchers': ['matcher_head'],
+         \'sorters': ['sorter_rank'],
+         \'converters': ['converter_remove_overlap']
+         \}
+         \})
+ call ddc#custom#patch_global('sourceOptions', {
+       \'buffer': {'mark': 'B'},
+       \'matchers': ['matcher_head', 'matcher_length']
+       \})
+ call ddc#custom#patch_global('sourceOptions', {
+       \ 'around': {'mark': 'A'}
+       \ })
+ call ddc#custom#patch_global('sourceParams', {
+       \ 'buffer': {
+         \   'requireSameFiletype': v:false,
+         \   'limitBytes': 5000000,
+         \   'fromAltBuf': v:true,
+         \   'forceCollect': v:true,
+         \ },
+         \ })
+ call ddc#custom#patch_global('sourceOptions', {
+       \'vim-lsp': {
+         \'mark': 'Lsp',
+         \'forceCompletionPattern': '\.\w*|:\w*|->\w*'
+         \}
+         \})
+ call ddc#custom#patch_global('sourceOptions', {
+       \'file': {
+         \'mark': 'F',
+         \'isVolatile': v:true,
+         \'forceCompletionPattern': '\S/\S*'
+         \}
+         \})
+ call ddc#enable()
 
-" edit
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'wellle/targets.vim'
-Plug 'markonm/traces.vim'
+" editorconfig
+packadd! editorconfig-vim
+
+" traces
+autocmd vimRc CmdlineEnter * ++once packadd traces.vim
+let g:traces_num_range_preview = 1
+
+" asterisk
+autocmd vimRc BufRead * ++once packadd vim.asterisk
+nmap *  <Plug>(asterisk-z*)
+vmap *  <Plug>(asterisk-z*)
 
 " git
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+autocmd vimRc VimEnter * ++once packadd vim-gitgutter
 let g:gitgutter_grep = 'rg'
 let g:gitgutter_sign_priority = 8
 let g:gitgutter_override_sign_column_highlight = 0
@@ -124,53 +191,89 @@ let g:gitgutter_preview_win_floating = 1
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
-
-Plug 'tpope/vim-rhubarb'
-Plug 'whiteinge/diffconflicts', { 'on': [ 'DiffConflicts' ] }
-Plug 'hotwatermorning/auto-git-diff', { 'for': 'gitrebase' }
-Plug 'gotchane/vim-git-commit-prefix', { 'for': 'gitcommit' }
-Plug 'junegunn/gv.vim'
+autocmd vimRc CmdlineEnter * ++once packadd vim-rhubarb
 autocmd vimRc FileType GV nmap <buffer><silent> a q:GV --all<cr>
 autocmd vimRc FileType GV nmap <buffer><silent> r q:GV<cr>
 
-" misc
-Plug 'stefandtw/quickfix-reflector.vim'
+" lsp
+nmap <plug>() <Plug>(lsp-float-close)
+let s:efm_path = $HOME.'/.local/share/vim-lsp-settings/servers/efm-langserver/efm-langserver'
+let s:tls_path = $HOME.'/.local/share/vim-lsp-settings/servers/typescript-language-server/typescript-language-server'
+if executable(s:efm_path)
+  au vimRc User lsp_setup call lsp#register_server({
+        \ 'name': 'efm',
+        \ 'cmd': { server_info->[&shell, &shellcmdflag, s:efm_path.' -c ~/.vim/config.yaml']},
+        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+        \ 'whitelist': ['vim', 'javascript']
+        \ })
+endif
+if executable('rnix-lsp')
+  au vimRc User lsp_setup call lsp#register_server({
+        \ 'name': 'rnix',
+        \ 'cmd': { server_info->[&shell, &shellcmdflag, 'rnix-lsp']},
+        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+        \ 'whitelist': ['nix']
+        \ })
+endif
+if executable(s:tls_path)
+  au vimRc User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': { server_info->[&shell, &shellcmdflag, s:tls_path.' --stdio']},
+        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+        \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
+        \ })
+endif
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  let g:lsp_diagnostics_highlights_enabled = 0
+  let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
+  let g:lsp_diagnostics_echo_cursor = 1
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> [e <Plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]e <Plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+  nmap <buffer> <C-q> :LspDocumentDiagnostics<cr>
+endfunction
+autocmd vimRc User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+autocmd! BufWritePre *.nix call execute('LspDocumentFormatSync')
 
-Plug 'haya14busa/vim-asterisk'
-map *  <Plug>(asterisk-z*)
-Plug 'haya14busa/vim-edgemotion'
-nmap <C-j> <Plug>(edgemotion-j)
-nmap <C-k> <Plug>(edgemotion-k)
-vmap <C-j> <Plug>(edgemotion-j)
-vmap <C-k> <Plug>(edgemotion-k)
-
-Plug 'romainl/vim-cool'
-Plug 'vim-scripts/cmdline-completion'
-let g:traces_num_range_preview = 1
-
-Plug 'AndrewRadev/quickpeek.vim', { 'for': 'qf' }
-autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
-
-Plug 'basilgood/memolist.vim', { 'on': [ 'MemoNew', 'MemoList', 'MemoGrep' ] }
+" memolist
+autocmd vimRc CmdlineEnter * ++once packadd memolist.vim
 let g:memolist_memo_suffix = 'md'
 let g:memolist_fzf = 1
 
-Plug 'fcpg/vim-altscreen'
-Plug 'jesseleite/vim-agriculture'
-nmap <leader>/ <Plug>RgRawSearch
-vmap <leader>/ <Plug>RgRawVisualSelection
-nmap <leader>* <Plug>RgRawWordUnderCursor
-
-Plug 'markonm/hlyank.vim', { 'commit': '39e52017' }
-Plug 'mbbill/undotree', { 'on': [ 'UndotreeToggle' ] }
+" undotree
+autocmd vimRc CmdlineEnter * ++once packadd undotree
 let g:undotree_WindowLayout = 4
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
 
-" theme
-Plug 'basilgood/cinnamon-vim'
+" quickpeek
+packadd! quickpeek.vim
+autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
-call plug#end()
+" floaterm
+autocmd vimRc BufRead * ++once packadd vim-floaterm
+let g:floaterm_autoclose = 2
+let g:floaterm_keymap_toggle = '<C-h>'
+
+" plugins
+packadd! editorconfig-vim
+autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
+autocmd vimRc CmdlineEnter * ++once packadd vim-rhubarb
+autocmd vimRc CmdlineEnter * ++once packadd diffconflicts
+autocmd vimRc CmdlineEnter * ++once packadd gv.vim
+autocmd vimRc BufRead * ++once packadd vim-commentary
+autocmd vimRc BufRead * ++once packadd vim-surround
+autocmd vimRc BufRead * ++once packadd vim-repeat
+autocmd vimRc BufRead * ++once packadd targets.vim
+autocmd vimRc BufRead * ++once packadd vim-exchange
+autocmd vimRc BufRead * ++once packadd vim-asterisk
+autocmd vimRc BufRead * ++once packadd traces.vim
+autocmd vimRc BufRead * ++once packadd hlyank.vim
+
+filetype plugin indent on
 
 " options
 let &t_SI.="\e[6 q"
@@ -215,7 +318,8 @@ set sessionoptions-=options
 set sessionoptions-=blank
 set sessionoptions-=help
 set lazyredraw
-set notimeout ttimeout timeoutlen=100
+set timeoutlen=1200
+set ttimeoutlen=50
 set updatetime=150
 set incsearch hlsearch
 set completeopt-=preview
@@ -241,7 +345,7 @@ let &grepformat = '%f:%l:%c:%m,%f:%l:%m'
 let &errorformat ..= ',%f\|%\s%#%l col%\s%#%c%\s%#\| %m'
 set backspace=indent,eol,start
 set laststatus=2
-set statusline=%<%.99t\ %y%*%h%w%m%r%=%c:%l/%L
+set statusline=%<%.99{expand('%:p:h:t')}/%t\ %y%*%h%w%m%r%=%c:%l/%L
 
 " mappings
 " save
@@ -257,8 +361,6 @@ inoremap <C-e> <End>
 " paragraph
 nnoremap } }zz
 nnoremap { {zz
-" relativenumber
-nnoremap <silent> cor mP:windo set relativenumber!<cr>mP
 " close qf
 nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
 " objects
@@ -343,86 +445,13 @@ autocmd! vimRc VimLeavePre * execute "mksession! ~/.cache/vim/sessions/" . split
 command! -nargs=0 SS :execute 'source ~/.cache/vim/sessions/' .  split(getcwd(), '/')[-1] . '.vim'
 
 " grep
-nnoremap <silent> gr :set opfunc=<SID>GrepMotion<CR>g@
-xnoremap <silent> gr :<C-U>call <SID>GrepMotion(visualmode())<CR>
-
-function! s:CopyMotionForType(type)
-  if a:type ==# 'v'
-    silent execute 'normal! `<' . a:type . '`>y'
-  elseif a:type ==# 'char'
-    silent execute 'normal! `[v`]y'
-  endif
-endfunction
-
-function! s:GrepMotion(type) abort
-  let reg_save = @@
-
-  call s:CopyMotionForType(a:type)
-
-  execute ':Grep ' . shellescape(@@)
-
-  let @@ = reg_save
-endfunction
-
 function! s:grep(word) abort
   let cmd = printf('rg --vimgrep --no-heading %s', a:word)
   cgetexpr system(cmd) | cw
 endfunction
-
 command! -nargs=1 -complete=file Grep call <SID>grep(<q-args>)
-" tabline
-function! Tabline()
-  let s = ''
-  for i in range(tabpagenr('$'))
-    let tab = i + 1
-    let winnr = tabpagewinnr(tab)
-    let buflist = tabpagebuflist(tab)
-    let bufnr = buflist[winnr - 1]
-    let bufname = bufname(bufnr)
-    let bufmodified = getbufvar(bufnr, '&mod')
 
-    let s .= '%' . tab . 'T'
-    let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-    let s .= ' ' . tab .':'
-    let s .= (bufname !=? '' ? '['. fnamemodify(bufname, ':t') . '] ' : '[No Name] ')
-
-    if bufmodified
-      let s .= '[+] '
-    endif
-  endfor
-
-  let s .= '%#TabLineFill#'
-  if (exists('g:tablineclosebutton'))
-    let s .= '%=%999XX'
-  endif
-  return s
-endfunction
-set tabline=%!Tabline()
-
-" qf
-function! s:Cprevious() abort
-  try
-    cprevious
-  catch /^Vim\%((\a\+)\)\=:E553/
-    clast
-  catch
-    echo v:exception
-  endtry
-endfunction
-function! s:Cnext() abort
-  try
-    cnext
-  catch /^Vim\%((\a\+)\)\=:E553/
-    cfirst
-  catch
-    echo v:exception
-  endtry
-endfunction
-nnoremap <silent> [q :<C-u>call <SID>Cprevious()<CR>
-nnoremap <silent> ]q :<C-u>call <SID>Cnext()<CR>
-nnoremap <silent> [Q :<C-u>cfirst<CR>
-nnoremap <silent> ]Q :<C-u>clast<CR>
-
+syntax enable
 set termguicolors
 colorscheme saffran
 
