@@ -33,19 +33,9 @@ function! PackInit()
   Pack 'tpope/vim-vinegar', {'type': 'opt'}
   Pack 'junegunn/fzf'
   Pack 'junegunn/fzf.vim', {'type': 'opt'}
-
-  Pack 'prabirshrestha/vim-lsp'
-  Pack 'mattn/vim-lsp-settings', {'type': 'opt'}
-  Pack 'Shougo/ddc.vim', {'type': 'opt'}
-  Pack 'Shougo/ddc-around', {'type': 'opt'}
-  Pack 'matsui54/ddc-buffer', {'type': 'opt'}
-  Pack 'Shougo/ddc-matcher_head', {'type': 'opt'}
-  Pack 'Shougo/ddc-matcher_length', {'type': 'opt'}
-  Pack 'Shougo/ddc-sorter_rank', {'type': 'opt'}
-  Pack 'Shougo/ddc-converter_remove_overlap', {'type': 'opt'}
-  Pack 'LumaKernel/ddc-file', {'type': 'opt'}
-  Pack 'vim-denops/denops.vim', {'type': 'opt'}
-  Pack 'shun/ddc-vim-lsp'
+  Pack 'neoclide/coc.nvim', {'rev': 'release', 'type': 'opt'}
+  Pack 'neomake/neomake', {'type': 'opt'}
+  Pack 'vim-autoformat/vim-autoformat', {'type': 'opt'}
 
   " lang
   Pack 'maxmellon/vim-jsx-pretty'
@@ -114,62 +104,52 @@ nmap <leader>/ <Plug>RgRawSearch
 vmap <leader>/ <Plug>RgRawVisualSelection
 nmap <leader>* <Plug>RgRawWordUnderCursor
 
-" ddc settings
- packadd! denops.vim
- packadd! ddc.vim
- packadd! ddc-around
- packadd! ddc-buffer
- packadd! ddc-matcher_head
- packadd! ddc-sorter_rank
- packadd! ddc-converter_remove_overlap
- packadd! ddc-file
 
- inoremap <silent><expr> <TAB>
-       \ pumvisible() ? '<C-n>' :
-       \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-       \ '<TAB>' : ddc#map#manual_complete()
- inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
- inoremap <silent><expr> <cr> pumvisible() ? ddc#map#confirm() : "\<C-g>u\<CR>"
+" coc
+packadd! coc.nvim
+let g:coc_global_extensions = [
+      \ 'coc-tsserver',
+      \ 'coc-eslint',
+      \ 'coc-prettier'
+      \ ]
 
- call ddc#custom#patch_global('sources', ['around', 'buffer', 'vim-lsp', 'file'])
- call ddc#custom#patch_global('sourceOptions', {
-       \ '_': {
-         \'ignoreCase': v:true,
-         \'matchers': ['matcher_head'],
-         \'sorters': ['sorter_rank'],
-         \'converters': ['converter_remove_overlap']
-         \}
-         \})
- call ddc#custom#patch_global('sourceOptions', {
-       \'buffer': {'mark': 'B'},
-       \'matchers': ['matcher_head', 'matcher_length']
-       \})
- call ddc#custom#patch_global('sourceOptions', {
-       \ 'around': {'mark': 'A'}
-       \ })
- call ddc#custom#patch_global('sourceParams', {
-       \ 'buffer': {
-         \   'requireSameFiletype': v:false,
-         \   'limitBytes': 5000000,
-         \   'fromAltBuf': v:true,
-         \   'forceCollect': v:true,
-         \ },
-         \ })
- call ddc#custom#patch_global('sourceOptions', {
-       \'vim-lsp': {
-         \'mark': 'Lsp',
-         \'forceCompletionPattern': '\.\w*|:\w*|->\w*'
-         \}
-         \})
- call ddc#custom#patch_global('sourceOptions', {
-       \'file': {
-         \'mark': 'F',
-         \'isVolatile': v:true,
-         \'forceCompletionPattern': '\S/\S*'
-         \}
-         \})
- call ddc#enable()
+let g:coc_user_config = {
+      \ 'suggest.autoTrigger': 'always',
+      \ 'suggest.noselect': 0,
+      \ 'diagnostic': {
+        \ 'errorSign': ' ',
+        \ 'warningSign': ' ',
+        \ 'infoSign': ' ',
+        \ 'hintSign': ' ',
+        \ 'highlighLimit': 0,
+        \ },
+        \   'languageserver': {
+          \ 'rnix': {
+            \'command': 'rnix-lsp',
+            \'filetypes': ['nix']
+            \},
+            \}
+            \}
 
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <leader>k :call CocActionAsync('showSignatureHelp')<CR>
+nmap [e <Plug>(coc-diagnostic-prev)
+nmap ]e <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" lint
+autocmd vimRc BufRead * ++once packadd neomake | call neomake#configure#automake('nrwi', 500)
+let g:neomake_highlight_columns = 0
+nnoremap ]a :NeomakeNextLoclist<cr>
+nnoremap [a :NeomakePrevLoclist<cr>
+
+" autoformat
+autocmd vimRc BufRead * ++once packadd vim-autoformat
 " editorconfig
 packadd! editorconfig-vim
 
@@ -195,48 +175,6 @@ autocmd vimRc CmdlineEnter * ++once packadd vim-rhubarb
 autocmd vimRc FileType GV nmap <buffer><silent> a q:GV --all<cr>
 autocmd vimRc FileType GV nmap <buffer><silent> r q:GV<cr>
 
-" lsp
-nmap <plug>() <Plug>(lsp-float-close)
-let s:efm_path = $HOME.'/.local/share/vim-lsp-settings/servers/efm-langserver/efm-langserver'
-let s:tls_path = $HOME.'/.local/share/vim-lsp-settings/servers/typescript-language-server/typescript-language-server'
-if executable(s:efm_path)
-  au vimRc User lsp_setup call lsp#register_server({
-        \ 'name': 'efm',
-        \ 'cmd': { server_info->[&shell, &shellcmdflag, s:efm_path.' -c ~/.vim/config.yaml']},
-        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-        \ 'whitelist': ['vim', 'javascript']
-        \ })
-endif
-if executable('rnix-lsp')
-  au vimRc User lsp_setup call lsp#register_server({
-        \ 'name': 'rnix',
-        \ 'cmd': { server_info->[&shell, &shellcmdflag, 'rnix-lsp']},
-        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-        \ 'whitelist': ['nix']
-        \ })
-endif
-if executable(s:tls_path)
-  au vimRc User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': { server_info->[&shell, &shellcmdflag, s:tls_path.' --stdio']},
-        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-        \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
-        \ })
-endif
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  let g:lsp_diagnostics_highlights_enabled = 0
-  let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
-  let g:lsp_diagnostics_echo_cursor = 1
-  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> [e <Plug>(lsp-previous-diagnostic)
-  nmap <buffer> ]e <Plug>(lsp-next-diagnostic)
-  nmap <buffer> K <plug>(lsp-hover)
-  nmap <buffer> <C-q> :LspDocumentDiagnostics<cr>
-endfunction
-autocmd vimRc User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-autocmd! BufWritePre *.nix call execute('LspDocumentFormatSync')
 
 " memolist
 autocmd vimRc CmdlineEnter * ++once packadd memolist.vim
@@ -310,6 +248,7 @@ set noshowmode
 set nrformats-=octal
 set number
 set mouse=a ttymouse=sgr
+set signcolumn=yes
 set splitright splitbelow
 set fillchars=vert:\│,fold:-
 set virtualedit=onemore
@@ -337,7 +276,7 @@ set confirm
 set history=1000
 set viminfo^=!
 set wildmenu
-set wildmode=list,full
+set wildoptions=pum,tagfile
 set wildignorecase
 set wildcharm=<C-Z>
 set grepprg=grep\ -rnH\ --exclude=tags\ --exclude-dir=.git\ --exclude-dir=node_modules
