@@ -58,8 +58,9 @@ function! PackInit()
   Pack 'basilgood/memolist.vim', {'type': 'opt'}
   Pack 'markonm/hlyank.vim', { 'rev': '39e52017', 'type': 'opt' }
   Pack 'AndrewRadev/quickpeek.vim', {'type': 'opt'}
-  Pack 'fcpg/vim-altscreen'
   Pack 'voldikss/vim-floaterm', {'type': 'opt'}
+  Pack 'romainl/vim-cool', {'type': 'opt'}
+  Pack 'fcpg/vim-altscreen'
 
   " git
   Pack 'tpope/vim-fugitive', {'type': 'opt'}
@@ -91,9 +92,9 @@ autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
 autocmd vimRc VimEnter * ++once packadd vim-vinegar
 
 " fzf
-let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
-let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
-let g:fzf_layout = {'up':'100%', 'window': { 'width': 1, 'height': 1,'yoffset':0.5,'xoffset': 0.5 } }
+let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi'
+let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --color=always --exclude .git'
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1.0 } }
 autocmd vimRc VimEnter * ++once packadd fzf.vim
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
@@ -108,36 +109,33 @@ nmap <leader>* <Plug>RgRawWordUnderCursor
 " coc
 packadd! coc.nvim
 let g:coc_global_extensions = [
-      \ 'coc-tsserver',
-      \ 'coc-eslint',
-      \ 'coc-prettier'
-      \ ]
+      \'coc-tsserver',
+      \]
 
 let g:coc_user_config = {
-      \ 'suggest.autoTrigger': 'always',
-      \ 'suggest.noselect': 0,
-      \ 'diagnostic': {
-        \ 'errorSign': ' ',
-        \ 'warningSign': ' ',
-        \ 'infoSign': ' ',
-        \ 'hintSign': ' ',
-        \ 'highlighLimit': 0,
-        \ },
-        \   'languageserver': {
-          \ 'rnix': {
+      \'suggest.autoTrigger': 'always',
+      \'suggest.noselect': 0,
+      \'diagnostic': {
+        \'errorSign': ' ',
+        \'warningSign': ' ',
+        \'infoSign': ' ',
+        \'hintSign': ' ',
+        \'highlighLimit': 0,
+        \},
+        \'languageserver': {
+          \'rnix': {
             \'command': 'rnix-lsp',
             \'filetypes': ['nix']
             \},
             \}
             \}
 
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent> <leader>k :call CocActionAsync('showSignatureHelp')<CR>
-nmap [e <Plug>(coc-diagnostic-prev)
-nmap ]e <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+autocmd vimRc FileType javascript,typescript,html,css,scss
+      \ nnoremap <silent> K :call CocActionAsync('doHover')<cr> |
+      \ nmap [e <Plug>(coc-diagnostic-prev) |
+      \ nmap ]e <Plug>(coc-diagnostic-next) |
+      \ nmap <silent> gd <Plug>(coc-definition) |
+      \ nmap <silent> gr <Plug>(coc-references)
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -150,6 +148,9 @@ nnoremap [a :NeomakePrevLoclist<cr>
 
 " autoformat
 autocmd vimRc BufRead * ++once packadd vim-autoformat
+" extraformat
+command Nixfmt :NeomakeSh nixpkgs-\fmt %
+
 " editorconfig
 packadd! editorconfig-vim
 
@@ -194,7 +195,11 @@ autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 " floaterm
 autocmd vimRc BufRead * ++once packadd vim-floaterm
 let g:floaterm_autoclose = 2
-let g:floaterm_keymap_toggle = '<C-h>'
+let g:floaterm_keymap_toggle = '<C-q>'
+
+" targets
+autocmd vimRc BufRead * ++once packadd targets.vim
+let g:targets_nl = 'nN'
 
 " plugins
 packadd! editorconfig-vim
@@ -205,11 +210,11 @@ autocmd vimRc CmdlineEnter * ++once packadd gv.vim
 autocmd vimRc BufRead * ++once packadd vim-commentary
 autocmd vimRc BufRead * ++once packadd vim-surround
 autocmd vimRc BufRead * ++once packadd vim-repeat
-autocmd vimRc BufRead * ++once packadd targets.vim
 autocmd vimRc BufRead * ++once packadd vim-exchange
 autocmd vimRc BufRead * ++once packadd vim-asterisk
 autocmd vimRc BufRead * ++once packadd traces.vim
 autocmd vimRc BufRead * ++once packadd hlyank.vim
+autocmd vimRc BufRead * ++once packadd vim-cool
 
 filetype plugin indent on
 
@@ -219,12 +224,9 @@ let &t_SR.="\e[4 q"
 let &t_EI.="\e[2 q"
 set t_ut=
 set t_md=
-set path=.,**
-set wildignore+=
-      \*/node_modules/*,
-      \*/.git/*,
-      \*/recordings/*,
-      \*/pack
+set path=tests/**
+set path+=lib/**,views/**,cz-components/**,test/**
+set wildignore+=*/node_modules/*,*/.git/*,*/recordings/*,*/pack
 set hidden
 set gdefault
 set autoread autowrite autowriteall
@@ -303,19 +305,15 @@ nnoremap { {zz
 " close qf
 nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
 " objects
-xnoremap <expr> I (mode()=~#'[vV]'?'<C-v>^o^I':'I')
-xnoremap <expr> A (mode()=~#'[vV]'?'<C-v>0o$A':'A')
 xnoremap <silent> il <Esc>^vg_
 onoremap <silent> il :<C-U>normal! ^vg_<cr>
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
+nnoremap vv viw
 " allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
-" copy/paste
-nnoremap ]0 viw"0p
-xnoremap ]0 "0p
 " substitute
-nnoremap cg* *``cgn
+nmap <leader>w *cgn
 xnoremap s :s/
 " c-g improved
 nnoremap <silent> <C-g> :echon '['.expand("%:p:~").']'.' [L:'.line('$').']'<Bar>echon ' ['system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")']'<CR>
@@ -380,7 +378,7 @@ command! -bar HL echo
 if empty(glob('~/.cache/vim/sessions')) > 0
   call mkdir(expand('~/.cache/vim/sessions'), 'p')
 end
-autocmd! vimRc VimLeavePre * execute "mksession! ~/.cache/vim/sessions/" . split(getcwd(), "/")[-1] . ".vim"
+autocmd! vimRc VimLeavePre * execute 'mksession! ~/.cache/vim/sessions/' . split(getcwd(), '/')[-1] . '.vim'
 command! -nargs=0 SS :execute 'source ~/.cache/vim/sessions/' .  split(getcwd(), '/')[-1] . '.vim'
 
 " grep
