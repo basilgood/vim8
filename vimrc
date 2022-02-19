@@ -33,9 +33,25 @@ function! PackInit()
   Pack 'tpope/vim-vinegar', {'type': 'opt'}
   Pack 'junegunn/fzf'
   Pack 'junegunn/fzf.vim', {'type': 'opt'}
-  Pack 'neoclide/coc.nvim', {'rev': 'release', 'type': 'opt'}
-  Pack 'neomake/neomake', {'type': 'opt'}
+
+  " lsp
+  Pack 'prabirshrestha/vim-lsp'
+  Pack 'mattn/vim-lsp-settings', {'type': 'opt'}
+  Pack 'rhysd/vim-lsp-ale', {'type': 'opt'}
+
+  " lint and format
+  Pack 'dense-analysis/ale', {'type': 'opt'}
   Pack 'vim-autoformat/vim-autoformat', {'type': 'opt'}
+
+  " completion
+  Pack 'vim-denops/denops.vim'
+  Pack 'Shougo/ddc.vim'
+  Pack 'shun/ddc-vim-lsp'
+  Pack 'matsui54/ddc-buffer'
+  Pack 'LumaKernel/ddc-file'
+  Pack 'Shougo/ddc-matcher_head'
+  Pack 'Shougo/ddc-sorter_rank'
+  Pack 'Shougo/ddc-converter_remove_overlap'
 
   " lang
   Pack 'maxmellon/vim-jsx-pretty'
@@ -73,6 +89,7 @@ function! PackInit()
 
   " theme
   Pack 'basilgood/cinnamon-vim', {'type': 'opt'}
+  Pack 'habamax/vim-gruvbit', {'type': 'opt'}
 endfunction
 
 command! PackUpdate call PackInit() | call minpac#update()
@@ -105,46 +122,76 @@ nmap <leader>/ <Plug>RgRawSearch
 vmap <leader>/ <Plug>RgRawVisualSelection
 nmap <leader>* <Plug>RgRawWordUnderCursor
 
+" lsp
+autocmd vimRc VimEnter * ++once packadd vim-lsp-settings
+nmap <plug>() <Plug>(lsp-float-close)
+if executable('rnix-lsp')
+  autocmd vimRc User lsp_setup call lsp#register_server({
+        \ 'name': 'rnix-lsp',
+        \ 'cmd': {server_info->['rnix-lsp']},
+        \ 'allowlist': ['nix'],
+        \ })
+endif
+autocmd vimRc FileType javascript
+      \ nnoremap K :LspHover<cr> |
+      \ nnoremap gd :LspDefinition<cr>
 
-" coc
-packadd! coc.nvim
-let g:coc_global_extensions = [
-      \'coc-tsserver',
-      \]
+" autocomplete
+call ddc#custom#patch_global('sources', [
+      \ 'vim-lsp',
+      \ 'buffer',
+      \ 'file',
+      \ ])
+call ddc#custom#patch_global('sourceOptions', {
+      \ '_': {
+        \   'matchers': ['matcher_head'],
+        \   'sorters': ['sorter_rank'],
+        \     'converters': ['converter_remove_overlap'],
+        \     'ignoreCase' : v:true,
+        \     'minAutoCompleteLength': 1,
+        \ },
+        \ 'vim-lsp': {
+          \     'mark': 'L',
+          \     'matchers': ['matcher_head'],
+          \     'forceCompletionPattern': '\.|:|->|"\w*/*'
+          \ },
+          \ 'buffer': {'mark': 'B'},
+          \ 'file': {
+            \     'mark': 'F',
+            \     'isVolatile': v:true,
+            \     'forceCompletionPattern': '\S/\S*'
+            \ }
+            \ })
+call ddc#enable()
+" <TAB>: completion.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? '<C-n>' :
+      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+      \ '<TAB>' : ddc#map#manual_complete()
+inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
 
-let g:coc_user_config = {
-      \'suggest.autoTrigger': 'always',
-      \'suggest.noselect': 0,
-      \'diagnostic': {
-        \'errorSign': ' ',
-        \'warningSign': ' ',
-        \'infoSign': ' ',
-        \'hintSign': ' ',
-        \'highlighLimit': 0,
-        \},
-        \'languageserver': {
-          \'rnix': {
-            \'command': 'rnix-lsp',
-            \'filetypes': ['nix']
-            \},
-            \}
-            \}
-
-autocmd vimRc FileType javascript,typescript,html,css,scss
-      \ nnoremap <silent> K :call CocActionAsync('doHover')<cr> |
-      \ nmap [e <Plug>(coc-diagnostic-prev) |
-      \ nmap ]e <Plug>(coc-diagnostic-next) |
-      \ nmap <silent> gd <Plug>(coc-definition) |
-      \ nmap <silent> gr <Plug>(coc-references)
-
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" lint
-autocmd vimRc BufRead * ++once packadd neomake | call neomake#configure#automake('nrwi', 500)
-let g:neomake_highlight_columns = 0
-nnoremap ]a :NeomakeNextLoclist<cr>
-nnoremap [a :NeomakePrevLoclist<cr>
+" ALE Settings
+autocmd vimRc BufRead * ++once packadd ale
+autocmd vimRc VimEnter * ++once packadd vim-lsp-ale
+let g:ale_disable_lsp = 1
+let g:ale_sign_error = ' '
+let g:ale_sign_warning = ' '
+let g:ale_sign_info = '🛈 '
+let g:ale_set_highlights = 0
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+nmap <silent> [a <Plug>(ale_previous)
+nmap <silent> ]a <Plug>(ale_next)
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+      \ 'javascript': ['prettier', 'eslint'],
+      \ 'typescript': ['prettier'],
+      \ 'typescriptreact': ['prettier'],
+      \ 'css': ['prettier'],
+      \ 'json': ['fixjson'],
+      \ 'sh': ['shfmt'],
+      \ 'nix': ['nixpkgs-fmt'],
+      \}
 
 " autoformat
 autocmd vimRc BufRead * ++once packadd vim-autoformat
@@ -196,6 +243,7 @@ autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 autocmd vimRc BufRead * ++once packadd vim-floaterm
 let g:floaterm_autoclose = 2
 let g:floaterm_keymap_toggle = '<C-q>'
+tnoremap <c-x> <c-\><c-n>
 
 " targets
 autocmd vimRc BufRead * ++once packadd targets.vim
@@ -390,6 +438,13 @@ command! -nargs=1 -complete=file Grep call <SID>grep(<q-args>)
 
 syntax enable
 set termguicolors
-colorscheme saffran
+colorscheme gruvbit
+highlight ALEErrorSign          guifg=#B55E5E guibg=NONE    ctermfg=131  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
+highlight ALEWarningSign        guifg=#B59A5E guibg=NONE    ctermfg=137  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
+highlight ALEInfoSign           guifg=#B59A5E guibg=NONE    ctermfg=137  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
+highlight GitGutterAdd          guifg=#A3B55E guibg=NONE    ctermfg=143  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
+highlight GitGutterChange       guifg=#B59A5E guibg=NONE    ctermfg=137  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
+highlight GitGutterDelete       guifg=#B55E5E guibg=NONE    ctermfg=131  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
+highlight GitGutterChangeDelete guifg=#B55E5E guibg=NONE    ctermfg=131  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
 
 set secure
