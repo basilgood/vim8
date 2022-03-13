@@ -12,7 +12,6 @@ if !v:vim_did_enter && has('reltime')
 endif
 
 packadd! matchit
-packadd! cfilter
 
 " minpac
 if has('vim_starting')
