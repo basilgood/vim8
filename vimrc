@@ -13,87 +13,53 @@ endif
 
 packadd! matchit
 
-" minpac
+" " minpac
 if has('vim_starting')
   if empty(glob('~/.vim/pack/minpac/opt/minpac'))
     echo 'Install minpac ...'
     execute 'silent! !git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac'
   endif
+  if empty(glob('~/.vim/autoload'))
+    echo 'Install plugpac ...'
+    execute 'silent !wget -nc -q github.com/bennyyip/plugpac.vim/raw/master/plugpac.vim -P ~/.vim/autoload/'
+  endif
 endif
 
-function! PackInit()
-  command! -nargs=+ Pack call minpac#add(<args>)
-  packadd minpac
-  call minpac#init()
+call plugpac#begin()
 
-  " Plugins
-  Pack 'k-takata/minpac', {'type': 'opt'}
+Pack 'k-takata/minpac', {'type': 'opt'}
+Pack 'tpope/vim-vinegar', {'type': 'opt'}
+Pack 'junegunn/fzf'
+Pack 'junegunn/fzf.vim', {'type': 'opt'}
+Pack 'liyechen/vim-agriculture', {'type': 'opt'}
+Pack 'dense-analysis/ale', {'type': 'opt'}
+Pack 'neoclide/coc.nvim', {'branch': 'release'}
+Pack 'yaegassy/coc-jsdoc', {'do': {-> system('yarn install --frozen-lockfile')}}
+Pack 'vim-autoformat/vim-autoformat', {'on': 'Autoformat'}
+Pack 'maxmellon/vim-jsx-pretty'
+Pack 'yuezk/vim-js'
+Pack 'LnL7/vim-nix'
+Pack 'cespare/vim-toml'
+Pack 'editorconfig/editorconfig-vim', {'type': 'opt'}
+Pack 'tpope/vim-commentary', {'type': 'opt'}
+Pack 'tpope/vim-surround', {'type': 'opt'}
+Pack 'tpope/vim-repeat', {'type': 'opt'}
+Pack 'markonm/traces.vim', {'type': 'opt'}
+Pack 'wellle/targets.vim', {'type': 'opt'}
+Pack 'haya14busa/vim-asterisk'
+Pack 'stefandtw/quickfix-reflector.vim'
+Pack 'mbbill/undotree', {'on': 'UndotreeToggle'}
+Pack 'basilgood/memolist.vim', {'on': ['MemoList', 'MemoNew']}
+Pack 'markonm/hlyank.vim', { 'rev': '39e52017', 'type': 'opt' }
+Pack 'AndrewRadev/quickpeek.vim', {'type': 'opt'}
+Pack 'romainl/vim-cool', {'type': 'opt'}
+Pack 'voldikss/vim-floaterm', {'type': 'opt'}
+Pack 'fcpg/vim-altscreen'
+Pack 'tpope/vim-fugitive', {'type': 'opt'}
+Pack 'whiteinge/diffconflicts', {'on': 'DiffConflicts'}
+Pack 'tpope/vim-rhubarb'
 
-  Pack 'tpope/vim-vinegar', {'type': 'opt'}
-  Pack 'junegunn/fzf'
-  Pack 'junegunn/fzf.vim', {'type': 'opt'}
-
-  " lsp
-  Pack 'prabirshrestha/vim-lsp'
-  Pack 'mattn/vim-lsp-settings', {'type': 'opt'}
-  Pack 'rhysd/vim-lsp-ale', {'type': 'opt'}
-
-  " lint and format
-  Pack 'dense-analysis/ale', {'type': 'opt'}
-  Pack 'vim-autoformat/vim-autoformat', {'type': 'opt'}
-
-  " completion
-  Pack 'vim-denops/denops.vim'
-  Pack 'Shougo/ddc.vim'
-  Pack 'shun/ddc-vim-lsp'
-  Pack 'matsui54/ddc-buffer'
-  Pack 'LumaKernel/ddc-file'
-  Pack 'Shougo/ddc-matcher_head'
-  Pack 'Shougo/ddc-sorter_rank'
-  Pack 'Shougo/ddc-converter_remove_overlap'
-
-  " lang
-  Pack 'maxmellon/vim-jsx-pretty'
-  Pack 'yuezk/vim-js'
-  Pack 'LnL7/vim-nix'
-  Pack 'cespare/vim-toml'
-
-  " misc
-  Pack 'editorconfig/editorconfig-vim', {'type': 'opt'}
-  Pack 'tpope/vim-commentary', {'type': 'opt'}
-  Pack 'tpope/vim-surround', {'type': 'opt'}
-  Pack 'tpope/vim-repeat', {'type': 'opt'}
-  Pack 'wellle/targets.vim', {'type': 'opt'}
-  Pack 'tommcdo/vim-exchange', {'type': 'opt'}
-  Pack 'haya14busa/vim-asterisk', {'type': 'opt'}
-  Pack 'markonm/traces.vim', {'type': 'opt'}
-  Pack 'jesseleite/vim-agriculture', {'type': 'opt'}
-  Pack 'stefandtw/quickfix-reflector.vim'
-  Pack 'mbbill/undotree', {'type': 'opt'}
-  Pack 'basilgood/memolist.vim', {'type': 'opt'}
-  Pack 'markonm/hlyank.vim', { 'rev': '39e52017', 'type': 'opt' }
-  Pack 'AndrewRadev/quickpeek.vim', {'type': 'opt'}
-  Pack 'voldikss/vim-floaterm', {'type': 'opt'}
-  Pack 'romainl/vim-cool', {'type': 'opt'}
-  Pack 'fcpg/vim-altscreen'
-
-  " git
-  Pack 'tpope/vim-fugitive', {'type': 'opt'}
-  Pack 'airblade/vim-gitgutter', {'type': 'opt'}
-  Pack 'tpope/vim-rhubarb', {'type': 'opt'}
-  Pack 'whiteinge/diffconflicts', {'on': 'DiffConflicts'}
-  Pack 'hotwatermorning/auto-git-diff'
-  Pack 'gotchane/vim-git-commit-prefix'
-  Pack 'junegunn/gv.vim', {'type': 'opt'}
-
-  " theme
-  Pack 'basilgood/cinnamon-vim', {'type': 'opt'}
-  Pack 'habamax/vim-gruvbit', {'type': 'opt'}
-endfunction
-
-command! PackUpdate call PackInit() | call minpac#update()
-command! PackClean call PackInit() | call minpac#clean()
-command! PackStatus packadd minpac | call minpac#status()
+call plugpac#end()
 
 " vinegar
 let g:netrw_fastbrowse = 0
@@ -108,70 +74,71 @@ autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
 autocmd vimRc VimEnter * ++once packadd vim-vinegar
 
 " fzf
-let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi'
+let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
 let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --color=always --exclude .git'
-let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1.0 } }
+let g:fzf_layout = { 'window': { 'width': 0.85, 'height': 0.95 } }
+let g:fzf_preview_window = ['up:80%', 'ctrl-/']
 autocmd vimRc VimEnter * ++once packadd fzf.vim
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
 
 " agriculture
-autocmd vimRc BufRead * ++once packadd vim-agriculture
+autocmd vimRc CmdlineEnter * ++once packadd vim-agriculture
 nmap <leader>/ <Plug>RgRawSearch
 vmap <leader>/ <Plug>RgRawVisualSelection
 nmap <leader>* <Plug>RgRawWordUnderCursor
 
-" lsp
-autocmd vimRc VimEnter * ++once packadd vim-lsp-settings
-nmap <plug>() <Plug>(lsp-float-close)
-if executable('rnix-lsp')
-  autocmd vimRc User lsp_setup call lsp#register_server({
-        \ 'name': 'rnix-lsp',
-        \ 'cmd': {server_info->['rnix-lsp']},
-        \ 'allowlist': ['nix'],
-        \ })
-endif
-autocmd vimRc FileType javascript
-      \ nnoremap K :LspHover<cr> |
-      \ nnoremap gd :LspDefinition<cr>
+" completion
+let g:coc_global_extensions = [
+      \ 'coc-tsserver',
+      \ 'coc-prettier',
+      \ 'coc-eslint',
+      \ 'coc-git',
+      \ 'coc-json',
+      \ 'coc-html',
+      \ 'coc-html-css-support',
+      \ 'coc-yaml',
+      \ 'coc-vimlsp'
+      \ ]
+let g:coc_user_config = {}
+let g:coc_user_config['languageserver'] = {}
+let g:coc_user_config['diagnostic.displayByAle'] = v:true
+let g:coc_user_config['suggest.floatConfig.border'] = v:true
+let g:coc_user_config['hover.floatConfig.border'] = v:true
+let g:coc_user_config['signature.floatConfig.border'] = v:true
+let g:coc_user_config['diagnostic.floatConfig.border'] = v:true
+let g:coc_user_config['html-css-support.enabledLanguages'] = ['html', 'javascript']
 
-" autocomplete
-call ddc#custom#patch_global('sources', [
-      \ 'vim-lsp',
-      \ 'buffer',
-      \ 'file',
-      \ ])
-call ddc#custom#patch_global('sourceOptions', {
-      \ '_': {
-        \   'matchers': ['matcher_head'],
-        \   'sorters': ['sorter_rank'],
-        \     'converters': ['converter_remove_overlap'],
-        \     'ignoreCase' : v:true,
-        \     'minAutoCompleteLength': 1,
-        \ },
-        \ 'vim-lsp': {
-          \     'mark': 'L',
-          \     'matchers': ['matcher_head'],
-          \     'forceCompletionPattern': '\.|:|->|"\w*/*'
-          \ },
-          \ 'buffer': {'mark': 'B'},
-          \ 'file': {
-            \     'mark': 'F',
-            \     'isVolatile': v:true,
-            \     'forceCompletionPattern': '\S/\S*'
-            \ }
-            \ })
-call ddc#enable()
-" <TAB>: completion.
+autocmd vimRc FileType javascript,typescript,nix,vim
+      \ nmap <silent> gd <Plug>(coc-definition) |
+      \ nmap <silent> gr <Plug>(coc-references) |
+      \ nmap <leader>a :CocAction<cr> |
+      \ nmap <leader>d :CocDiagnostics<cr> |
+      \ nmap <silent> K :call CocActionAsync('doHover')<CR>
+
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? '<C-n>' :
-      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-      \ '<TAB>' : ddc#map#manual_complete()
-inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1] =~# '\s'
+endfunction
 
-" ALE Settings
+nmap [h <Plug>(coc-git-prevchunk)
+nmap ]h <Plug>(coc-git-nextchunk)
+nmap ghp <Plug>(coc-git-chunkinfo)
+nmap ghs :CocCommand git.chunkStage<cr>
+nmap ghu :CocCommand git.chunkUnstage<cr>
+nmap ghr :CocCommand git.chunkUndo<cr>
+nnoremap <silent> <leader>g  :<C-u>CocList --normal gstatus<CR>
+
+" lint
 autocmd vimRc BufRead * ++once packadd ale
-autocmd vimRc VimEnter * ++once packadd vim-lsp-ale
 let g:ale_disable_lsp = 1
 let g:ale_sign_error = ' '
 let g:ale_sign_warning = ' '
@@ -181,21 +148,13 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 nmap <silent> [a <Plug>(ale_previous)
 nmap <silent> ]a <Plug>(ale_next)
-let g:ale_fix_on_save = 1
 let g:ale_fixers = {
-      \ 'javascript': ['prettier', 'eslint'],
-      \ 'typescript': ['prettier'],
-      \ 'typescriptreact': ['prettier'],
+      \ 'javascript': ['eslint'],
       \ 'css': ['prettier'],
-      \ 'json': ['fixjson'],
+      \ 'json': ['prettier'],
       \ 'sh': ['shfmt'],
       \ 'nix': ['nixpkgs-fmt'],
       \}
-
-" autoformat
-autocmd vimRc BufRead * ++once packadd vim-autoformat
-" extraformat
-command Nixfmt :NeomakeSh nixpkgs-\fmt %
 
 " editorconfig
 packadd! editorconfig-vim
@@ -205,31 +164,14 @@ autocmd vimRc CmdlineEnter * ++once packadd traces.vim
 let g:traces_num_range_preview = 1
 
 " asterisk
-autocmd vimRc BufRead * ++once packadd vim.asterisk
 nmap *  <Plug>(asterisk-z*)
 vmap *  <Plug>(asterisk-z*)
 
-" git
-autocmd vimRc VimEnter * ++once packadd vim-gitgutter
-let g:gitgutter_grep = 'rg'
-let g:gitgutter_sign_priority = 8
-let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_preview_win_floating = 1
-nmap ghs <Plug>(GitGutterStageHunk)
-nmap ghu <Plug>(GitGutterUndoHunk)
-nmap ghp <Plug>(GitGutterPreviewHunk)
-autocmd vimRc CmdlineEnter * ++once packadd vim-rhubarb
-autocmd vimRc FileType GV nmap <buffer><silent> a q:GV --all<cr>
-autocmd vimRc FileType GV nmap <buffer><silent> r q:GV<cr>
-
-
 " memolist
-autocmd vimRc CmdlineEnter * ++once packadd memolist.vim
 let g:memolist_memo_suffix = 'md'
 let g:memolist_fzf = 1
 
 " undotree
-autocmd vimRc CmdlineEnter * ++once packadd undotree
 let g:undotree_WindowLayout = 4
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
@@ -248,17 +190,18 @@ tnoremap <c-x> <c-\><c-n>
 autocmd vimRc BufRead * ++once packadd targets.vim
 let g:targets_nl = 'nN'
 
+" fugitive
+autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
+autocmd vimRc Filetype fugitive
+      \ nmap <buffer> p :G push<cr> |
+      \ nmap <buffer> P :G push -f<cr>
+
+
 " plugins
 packadd! editorconfig-vim
-autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
-autocmd vimRc CmdlineEnter * ++once packadd vim-rhubarb
-autocmd vimRc CmdlineEnter * ++once packadd diffconflicts
-autocmd vimRc CmdlineEnter * ++once packadd gv.vim
 autocmd vimRc BufRead * ++once packadd vim-commentary
 autocmd vimRc BufRead * ++once packadd vim-surround
 autocmd vimRc BufRead * ++once packadd vim-repeat
-autocmd vimRc BufRead * ++once packadd vim-exchange
-autocmd vimRc BufRead * ++once packadd vim-asterisk
 autocmd vimRc BufRead * ++once packadd traces.vim
 autocmd vimRc BufRead * ++once packadd hlyank.vim
 autocmd vimRc BufRead * ++once packadd vim-cool
@@ -271,7 +214,7 @@ let &t_SR.="\e[4 q"
 let &t_EI.="\e[2 q"
 set t_ut=
 set t_md=
-set path=tests/**
+set path=,,.,tests/**
 set path+=lib/**,views/**,cz-components/**,test/**
 set wildignore+=*/node_modules/*,*/.git/*,*/recordings/*,*/pack
 set hidden
@@ -333,7 +276,7 @@ let &grepformat = '%f:%l:%c:%m,%f:%l:%m'
 let &errorformat ..= ',%f\|%\s%#%l col%\s%#%c%\s%#\| %m'
 set backspace=indent,eol,start
 set laststatus=2
-set statusline=%<%.99{expand('%:p:h:t')}/%t\ %y%*%h%w%m%r%=%c:%l/%L
+set statusline=%<%.99{expand('%:p:h:t')}/%t\ %*%h%w%m%r%=%{&filetype}%7c:%l/%L
 
 " mappings
 " save
@@ -422,11 +365,13 @@ command! -bar HL echo
       \ synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name')
 
 " sessions
-if empty(glob('~/.cache/vim/sessions')) > 0
-  call mkdir(expand('~/.cache/vim/sessions'), 'p')
-end
-autocmd! vimRc VimLeavePre * execute 'mksession! ~/.cache/vim/sessions/' . split(getcwd(), '/')[-1] . '.vim'
-command! -nargs=0 SS :execute 'source ~/.cache/vim/sessions/' .  split(getcwd(), '/')[-1] . '.vim'
+let g:session_path = expand('~/.cache/vim/sessions')
+if !isdirectory(g:session_path)
+  call mkdir(g:session_path, 'p')
+endif
+autocmd! vimRc VimLeavePre * execute 'mksession! '.g:session_path.'/'split(getcwd(), '/')[-1] . '.vim'
+command! -nargs=0 SS :execute 'source ' .g:session_path.'/'split(getcwd(), '/')[-1] . '.vim'
+nnoremap <F2> :SS<cr>
 
 " grep
 function! s:grep(word) abort
@@ -435,15 +380,38 @@ function! s:grep(word) abort
 endfunction
 command! -nargs=1 -complete=file Grep call <SID>grep(<q-args>)
 
+" window split
+function! WinMove(key)
+  let t:curwin = winnr()
+  exec 'wincmd '.a:key
+  if (t:curwin == winnr())
+    if (match(a:key,'[jk]'))
+      wincmd v
+    else
+      wincmd s
+    endif
+    exec 'wincmd '.a:key
+  endif
+endfunction
+
+nnoremap <silent> <C-h> :call WinMove('h')<CR>
+nnoremap <silent> <C-j> :call WinMove('j')<CR>
+nnoremap <silent> <C-k> :call WinMove('k')<CR>
+nnoremap <silent> <C-l> :call WinMove('l')<CR>
+
+" substitute
+function! Substitute(type, ...)
+  let cur = getpos("''")
+  call cursor(cur[1], cur[2])
+  let cword = expand('<cword>')
+  execute "'[,']s/" . cword . '/' . input(cword . '/')
+  call cursor(cur[1], cur[2])
+endfunction
+nmap <silent> s m':set opfunc=Substitute<CR>g@
+
 syntax enable
 set termguicolors
-colorscheme gruvbit
-highlight ALEErrorSign          guifg=#B55E5E guibg=NONE    ctermfg=131  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
-highlight ALEWarningSign        guifg=#B59A5E guibg=NONE    ctermfg=137  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
-highlight ALEInfoSign           guifg=#B59A5E guibg=NONE    ctermfg=137  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
-highlight GitGutterAdd          guifg=#A3B55E guibg=NONE    ctermfg=143  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
-highlight GitGutterChange       guifg=#B59A5E guibg=NONE    ctermfg=137  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
-highlight GitGutterDelete       guifg=#B55E5E guibg=NONE    ctermfg=131  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
-highlight GitGutterChangeDelete guifg=#B55E5E guibg=NONE    ctermfg=131  ctermbg=NONE gui=NONE      cterm=NONE      term=NONE
+set background=dark
+colorscheme OceanicNext
 
 set secure
