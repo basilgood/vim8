@@ -3,3 +3,5 @@ autoload/plug.vim
 pack
 .netrwhist
 
+
+autoload/jetpack.vim
