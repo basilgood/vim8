@@ -13,53 +13,49 @@ endif
 
 packadd! matchit
 
-" " minpac
+" plug
 if has('vim_starting')
-  if empty(glob('~/.vim/pack/minpac/opt/minpac'))
-    echo 'Install minpac ...'
-    execute 'silent! !git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac'
-  endif
-  if empty(glob('~/.vim/autoload'))
-    echo 'Install plugpac ...'
-    execute 'silent !wget -nc -q github.com/bennyyip/plugpac.vim/raw/master/plugpac.vim -P ~/.vim/autoload/'
+  if empty(glob('~/.vim/autoload/jetpack.vim'))
+    execute '!curl -fLo ~/.vim/autoload/jetpack.vim --create-dirs'
+          \ 'https://raw.githubusercontent.com/tani/vim-jetpack/master/autoload/jetpack.vim'
   endif
 endif
 
-call plugpac#begin()
+call jetpack#begin()
 
-Pack 'k-takata/minpac', {'type': 'opt'}
-Pack 'tpope/vim-vinegar', {'type': 'opt'}
-Pack 'junegunn/fzf'
-Pack 'junegunn/fzf.vim', {'type': 'opt'}
-Pack 'liyechen/vim-agriculture', {'type': 'opt'}
-Pack 'dense-analysis/ale', {'type': 'opt'}
-Pack 'neoclide/coc.nvim', {'branch': 'release'}
-Pack 'yaegassy/coc-jsdoc', {'do': {-> system('yarn install --frozen-lockfile')}}
-Pack 'vim-autoformat/vim-autoformat', {'on': 'Autoformat'}
-Pack 'maxmellon/vim-jsx-pretty'
-Pack 'yuezk/vim-js'
-Pack 'LnL7/vim-nix'
-Pack 'cespare/vim-toml'
-Pack 'editorconfig/editorconfig-vim', {'type': 'opt'}
-Pack 'tpope/vim-commentary', {'type': 'opt'}
-Pack 'tpope/vim-surround', {'type': 'opt'}
-Pack 'tpope/vim-repeat', {'type': 'opt'}
-Pack 'markonm/traces.vim', {'type': 'opt'}
-Pack 'wellle/targets.vim', {'type': 'opt'}
-Pack 'haya14busa/vim-asterisk'
-Pack 'stefandtw/quickfix-reflector.vim'
-Pack 'mbbill/undotree', {'on': 'UndotreeToggle'}
-Pack 'basilgood/memolist.vim', {'on': ['MemoList', 'MemoNew']}
-Pack 'markonm/hlyank.vim', { 'rev': '39e52017', 'type': 'opt' }
-Pack 'AndrewRadev/quickpeek.vim', {'type': 'opt'}
-Pack 'romainl/vim-cool', {'type': 'opt'}
-Pack 'voldikss/vim-floaterm', {'type': 'opt'}
-Pack 'fcpg/vim-altscreen'
-Pack 'tpope/vim-fugitive', {'type': 'opt'}
-Pack 'whiteinge/diffconflicts', {'on': 'DiffConflicts'}
-Pack 'tpope/vim-rhubarb'
+Jetpack 'tpope/vim-vinegar', {'on': 'VimEnter'}
+Jetpack 'junegunn/fzf'
+Jetpack 'junegunn/fzf.vim', {'on': 'VimEnter'}
+Jetpack 'liyechen/vim-agriculture', {'on': 'BufRead'}
+Jetpack 'dense-analysis/ale', {'on': 'BufRead'}
+Jetpack 'neoclide/coc.nvim', {'branch': 'release'}
+Jetpack 'vim-autoformat/vim-autoformat', {'on': 'BufRead'}
+Jetpack 'maxmellon/vim-jsx-pretty'
+Jetpack 'yuezk/vim-js'
+Jetpack 'LnL7/vim-nix',{'for': 'nix'}
+Jetpack 'cespare/vim-toml',{'for': 'toml'}
+Jetpack 'editorconfig/editorconfig-vim', {'on': 'BufRead'}
+Jetpack 'tpope/vim-commentary', {'on': 'BufRead'}
+Jetpack 'tpope/vim-surround', {'on': 'BufRead'}
+Jetpack 'tpope/vim-repeat', {'on': 'BufRead'}
+Jetpack 'markonm/traces.vim', {'on': 'BufRead'}
+Jetpack 'wellle/targets.vim', {'on': 'BufRead'}
+Jetpack 'haya14busa/vim-asterisk', {'on': 'BufRead'}
+Jetpack 'stefandtw/quickfix-reflector.vim'
+Jetpack 'mbbill/undotree', {'on': 'BufRead'}
+Jetpack 'basilgood/memolist.vim', {'on': 'BufRead'}
+Jetpack 'markonm/hlyank.vim', {'commit': '39e52017'}
+Jetpack 'AndrewRadev/quickpeek.vim', {'for': 'qf'}
+Jetpack 'romainl/vim-cool', {'on': 'BufRead'}
+Jetpack 'voldikss/vim-floaterm', {'on': 'BufRead'}
+Jetpack 'fcpg/vim-altscreen'
+Jetpack 'tpope/vim-fugitive', {'on': 'BufRead'}
+Jetpack 'whiteinge/diffconflicts', {'on': 'BufRead'}
+Jetpack 'tpope/vim-rhubarb', {'on': 'BufRead'}
 
-call plugpac#end()
+call jetpack#end()
+
+let g:jetpack#optimization = 2
 
 " vinegar
 let g:netrw_fastbrowse = 0
@@ -71,19 +67,16 @@ let g:netrw_use_errorwindow = 0
 let g:netrw_localcopydircmd = 'cp -av'
 autocmd vimRc FileType netrw nmap <buffer><silent> <right> <cr>
 autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
-autocmd vimRc VimEnter * ++once packadd vim-vinegar
 
 " fzf
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
 let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --color=always --exclude .git'
 let g:fzf_layout = { 'window': { 'width': 0.85, 'height': 0.95 } }
 let g:fzf_preview_window = ['up:80%', 'ctrl-/']
-autocmd vimRc VimEnter * ++once packadd fzf.vim
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
 
 " agriculture
-autocmd vimRc CmdlineEnter * ++once packadd vim-agriculture
 nmap <leader>/ <Plug>RgRawSearch
 vmap <leader>/ <Plug>RgRawVisualSelection
 nmap <leader>* <Plug>RgRawWordUnderCursor
@@ -98,7 +91,8 @@ let g:coc_global_extensions = [
       \ 'coc-html',
       \ 'coc-html-css-support',
       \ 'coc-yaml',
-      \ 'coc-vimlsp'
+      \ 'coc-vimlsp',
+      \ 'coc-snippets'
       \ ]
 let g:coc_user_config = {}
 let g:coc_user_config['languageserver'] = {}
@@ -107,7 +101,19 @@ let g:coc_user_config['suggest.floatConfig.border'] = v:true
 let g:coc_user_config['hover.floatConfig.border'] = v:true
 let g:coc_user_config['signature.floatConfig.border'] = v:true
 let g:coc_user_config['diagnostic.floatConfig.border'] = v:true
+let g:coc_user_config['snippets.ultisnips.enable'] = v:false
+let g:coc_user_config['snippets.userSnippetsDirectory'] = '~/.vim/snippets'
 let g:coc_user_config['html-css-support.enabledLanguages'] = ['html', 'javascript']
+let g:coc_user_config['git.addedSign.hlGroup'] = 'GitGutterAdd'
+let g:coc_user_config['git.addedSign.text'] = '┃'
+let g:coc_user_config['git.changeRemovedSign.hlGroup'] = 'GitGutterChangeDelete'
+let g:coc_user_config['git.changeRemovedSign.text'] = '┃'
+let g:coc_user_config['git.changedSign.hlGroup'] = 'GitGutterChange'
+let g:coc_user_config['git.changedSign.text'] = '┃'
+let g:coc_user_config['git.removedSign.hlGroup'] = 'GitGutterDelete'
+let g:coc_user_config['git.removedSign.text'] = '┃'
+let g:coc_user_config['git.topRemovedSign.hlGroup'] = 'GitGutterDelete'
+let g:coc_user_config['git.topRemovedSign.text'] = '┃'
 
 autocmd vimRc FileType javascript,typescript,nix,vim
       \ nmap <silent> gd <Plug>(coc-definition) |
@@ -138,7 +144,6 @@ nmap ghr :CocCommand git.chunkUndo<cr>
 nnoremap <silent> <leader>g  :<C-u>CocList --normal gstatus<CR>
 
 " lint
-autocmd vimRc BufRead * ++once packadd ale
 let g:ale_disable_lsp = 1
 let g:ale_sign_error = ' '
 let g:ale_sign_warning = ' '
@@ -157,10 +162,8 @@ let g:ale_fixers = {
       \}
 
 " editorconfig
-packadd! editorconfig-vim
 
 " traces
-autocmd vimRc CmdlineEnter * ++once packadd traces.vim
 let g:traces_num_range_preview = 1
 
 " asterisk
@@ -177,34 +180,23 @@ let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
 
 " quickpeek
-packadd! quickpeek.vim
 autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
 " floaterm
-autocmd vimRc BufRead * ++once packadd vim-floaterm
 let g:floaterm_autoclose = 2
 let g:floaterm_keymap_toggle = '<C-q>'
 tnoremap <c-x> <c-\><c-n>
 
 " targets
-autocmd vimRc BufRead * ++once packadd targets.vim
 let g:targets_nl = 'nN'
 
 " fugitive
-autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
 autocmd vimRc Filetype fugitive
       \ nmap <buffer> p :G push<cr> |
       \ nmap <buffer> P :G push -f<cr>
 
 
 " plugins
-packadd! editorconfig-vim
-autocmd vimRc BufRead * ++once packadd vim-commentary
-autocmd vimRc BufRead * ++once packadd vim-surround
-autocmd vimRc BufRead * ++once packadd vim-repeat
-autocmd vimRc BufRead * ++once packadd traces.vim
-autocmd vimRc BufRead * ++once packadd hlyank.vim
-autocmd vimRc BufRead * ++once packadd vim-cool
 
 filetype plugin indent on
 
