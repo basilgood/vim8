@@ -185,8 +185,9 @@ let g:targets_nl = 'nN'
 
 " fugitive
 autocmd vimRc Filetype fugitive
-      \ nmap <buffer> p :G push<cr> |
-      \ nmap <buffer> P :G push -f<cr>
+      \ nmap <buffer> ]p :G push<cr> |
+      \ nmap <buffer> ]P :G push -f<cr> |
+      \ nmap <buffer> ]f :G fetch --all --prune<cr>
 
 " subversive
 nmap s <plug>(SubversiveSubstitute)
@@ -233,7 +234,7 @@ set number
 set mouse=a ttymouse=sgr
 set signcolumn=yes
 set splitright splitbelow
-set fillchars=vert:\│,fold:-
+set fillchars=stl:-,stlnc:-,vert:\│,fold:\ ,diff:-
 set virtualedit=onemore
 set sidescrolloff=10 sidescroll=1
 set sessionoptions-=options
@@ -250,7 +251,7 @@ set completeopt+=menuone,noselect,noinsert
 set pumheight=10
 set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
-set listchars=tab:↦\ ,trail:•,nbsp:␣,extends:↦,precedes:↤
+set listchars=tab:⇀\ ,trail:•,nbsp:␣,extends:↦,precedes:↤
 autocmd vimRc InsertEnter * set listchars-=trail:•
 autocmd vimRc InsertLeave * set listchars+=trail:•
 set shortmess=
@@ -267,7 +268,12 @@ let &grepformat = '%f:%l:%c:%m,%f:%l:%m'
 let &errorformat ..= ',%f\|%\s%#%l col%\s%#%c%\s%#\| %m'
 set backspace=indent,eol,start
 set laststatus=2
-set statusline=%<%.99{expand('%:p:h:t')}/%t\ %*%h%w%m%r%=%{&filetype}%7c:%l/%L
+" set statusline=%<%.99{expand('%:p:h:t')}/%t\ %*%h%w%m%r%=%{&filetype}%7c:%l/%L
+set statusline=
+set statusline+=%<%f\ %h%m%r
+set statusline+=%=
+set statusline+=[%{&ft}]
+set statusline+=%-14.([%l/%L],%c%)
 
 " mappings
 " save
@@ -291,7 +297,7 @@ onoremap <silent> il :<C-U>normal! ^vg_<cr>
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 nnoremap vv viw
-" allow the . to execute once for each line of a visual selection
+" repeat on visual selection
 vnoremap . :normal .<CR>
 " c-g improved
 nnoremap <silent> <C-g> :echon '['.expand("%:p:~").']'.' [L:'.line('$').']'<Bar>echon ' ['system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")']'<CR>
