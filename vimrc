@@ -26,7 +26,6 @@ call jetpack#begin()
 Jetpack 'tpope/vim-vinegar', {'on': 'VimEnter'}
 Jetpack 'junegunn/fzf'
 Jetpack 'junegunn/fzf.vim', {'on': 'VimEnter'}
-Jetpack 'liyechen/vim-agriculture', {'on': 'BufRead'}
 Jetpack 'dense-analysis/ale', {'on': 'BufRead'}
 Jetpack 'neoclide/coc.nvim', {'branch': 'release'}
 Jetpack 'vim-autoformat/vim-autoformat', {'on': 'BufRead'}
@@ -40,6 +39,7 @@ Jetpack 'tpope/vim-surround', {'on': 'BufRead'}
 Jetpack 'tpope/vim-repeat', {'on': 'BufRead'}
 Jetpack 'markonm/traces.vim', {'on': 'BufRead'}
 Jetpack 'wellle/targets.vim', {'on': 'BufRead'}
+Jetpack 'svermeulen/vim-subversive', {'on': 'BufRead'}
 Jetpack 'haya14busa/vim-asterisk', {'on': 'BufRead'}
 Jetpack 'stefandtw/quickfix-reflector.vim'
 Jetpack 'mbbill/undotree', {'on': 'BufRead'}
@@ -51,7 +51,6 @@ Jetpack 'voldikss/vim-floaterm', {'on': 'BufRead'}
 Jetpack 'fcpg/vim-altscreen'
 Jetpack 'tpope/vim-fugitive', {'on': 'BufRead'}
 Jetpack 'whiteinge/diffconflicts', {'on': 'BufRead'}
-Jetpack 'tpope/vim-rhubarb', {'on': 'BufRead'}
 
 call jetpack#end()
 
@@ -76,22 +75,12 @@ let g:fzf_preview_window = ['up:80%', 'ctrl-/']
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
 
-" agriculture
-nmap <leader>/ <Plug>RgRawSearch
-vmap <leader>/ <Plug>RgRawVisualSelection
-nmap <leader>* <Plug>RgRawWordUnderCursor
-
 " completion
 let g:coc_global_extensions = [
       \ 'coc-tsserver',
-      \ 'coc-prettier',
-      \ 'coc-eslint',
       \ 'coc-git',
       \ 'coc-json',
-      \ 'coc-html',
-      \ 'coc-html-css-support',
       \ 'coc-yaml',
-      \ 'coc-vimlsp',
       \ 'coc-snippets'
       \ ]
 let g:coc_user_config = {}
@@ -122,9 +111,9 @@ autocmd vimRc FileType javascript,typescript,nix,vim
       \ nmap <leader>d :CocDiagnostics<cr> |
       \ nmap <silent> K :call CocActionAsync('doHover')<CR>
 
+command! -nargs=0 Gstatus :CocList gstatus
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
-command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -161,7 +150,9 @@ let g:ale_fixers = {
       \ 'nix': ['nixpkgs-fmt'],
       \}
 
-" editorconfig
+" autoformat
+let g:formatters_javascript = ['prettier', 'eslint_local']
+let g:run_all_formatters_javascript = 1
 
 " traces
 let g:traces_num_range_preview = 1
@@ -183,6 +174,8 @@ let g:undotree_ShortIndicators = 1
 autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
 " floaterm
+let g:floaterm_height = 0.9
+let g:floaterm_width = 0.9
 let g:floaterm_autoclose = 2
 let g:floaterm_keymap_toggle = '<C-q>'
 tnoremap <c-x> <c-\><c-n>
@@ -195,8 +188,14 @@ autocmd vimRc Filetype fugitive
       \ nmap <buffer> p :G push<cr> |
       \ nmap <buffer> P :G push -f<cr>
 
-
-" plugins
+" subversive
+nmap s <plug>(SubversiveSubstitute)
+nmap ss <plug>(SubversiveSubstituteRange)
+xmap ss <plug>(SubversiveSubstituteRange)
+nmap s. <plug>(SubversiveSubstituteWordRange)
+nmap sc <plug>(SubversiveSubstituteRangeConfirm)
+xmap sc <plug>(SubversiveSubstituteRangeConfirm)
+nmap s, <plug>(SubversiveSubstituteWordRangeConfirm)
 
 filetype plugin indent on
 
@@ -294,9 +293,6 @@ onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 nnoremap vv viw
 " allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
-" substitute
-nmap <leader>w *cgn
-xnoremap s :s/
 " c-g improved
 nnoremap <silent> <C-g> :echon '['.expand("%:p:~").']'.' [L:'.line('$').']'<Bar>echon ' ['system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")']'<CR>
 " reload syntax and nohl
@@ -372,38 +368,9 @@ function! s:grep(word) abort
 endfunction
 command! -nargs=1 -complete=file Grep call <SID>grep(<q-args>)
 
-" window split
-function! WinMove(key)
-  let t:curwin = winnr()
-  exec 'wincmd '.a:key
-  if (t:curwin == winnr())
-    if (match(a:key,'[jk]'))
-      wincmd v
-    else
-      wincmd s
-    endif
-    exec 'wincmd '.a:key
-  endif
-endfunction
-
-nnoremap <silent> <C-h> :call WinMove('h')<CR>
-nnoremap <silent> <C-j> :call WinMove('j')<CR>
-nnoremap <silent> <C-k> :call WinMove('k')<CR>
-nnoremap <silent> <C-l> :call WinMove('l')<CR>
-
-" substitute
-function! Substitute(type, ...)
-  let cur = getpos("''")
-  call cursor(cur[1], cur[2])
-  let cword = expand('<cword>')
-  execute "'[,']s/" . cword . '/' . input(cword . '/')
-  call cursor(cur[1], cur[2])
-endfunction
-nmap <silent> s m':set opfunc=Substitute<CR>g@
-
 syntax enable
 set termguicolors
 set background=dark
-colorscheme OceanicNext
+colorscheme oceanicnext
 
 set secure
