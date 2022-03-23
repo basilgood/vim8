@@ -13,50 +13,17 @@ endif
 
 packadd! matchit
 
-" plug
-if has('vim_starting')
-  if empty(glob('~/.vim/autoload/jetpack.vim'))
-    execute '!curl -fLo ~/.vim/autoload/jetpack.vim --create-dirs'
-          \ 'https://raw.githubusercontent.com/tani/vim-jetpack/master/autoload/jetpack.vim'
-  endif
+nnoremap <space> <nop>
+map <space> <leader>
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
-call jetpack#begin()
+call plug#begin('~/.vim/plugged')
 
-Jetpack 'tpope/vim-vinegar', {'on': 'VimEnter'}
-Jetpack 'junegunn/fzf'
-Jetpack 'junegunn/fzf.vim', {'on': 'VimEnter'}
-Jetpack 'dense-analysis/ale', {'on': 'BufRead'}
-Jetpack 'neoclide/coc.nvim', {'branch': 'release'}
-Jetpack 'vim-autoformat/vim-autoformat', {'on': 'BufRead'}
-Jetpack 'maxmellon/vim-jsx-pretty'
-Jetpack 'yuezk/vim-js'
-Jetpack 'LnL7/vim-nix',{'for': 'nix'}
-Jetpack 'cespare/vim-toml',{'for': 'toml'}
-Jetpack 'editorconfig/editorconfig-vim', {'on': 'BufRead'}
-Jetpack 'tpope/vim-commentary', {'on': 'BufRead'}
-Jetpack 'tpope/vim-surround', {'on': 'BufRead'}
-Jetpack 'tpope/vim-repeat', {'on': 'BufRead'}
-Jetpack 'markonm/traces.vim', {'on': 'BufRead'}
-Jetpack 'wellle/targets.vim', {'on': 'BufRead'}
-Jetpack 'svermeulen/vim-subversive', {'on': 'BufRead'}
-Jetpack 'haya14busa/vim-asterisk', {'on': 'BufRead'}
-Jetpack 'stefandtw/quickfix-reflector.vim'
-Jetpack 'mbbill/undotree', {'on': 'BufRead'}
-Jetpack 'basilgood/memolist.vim', {'on': 'BufRead'}
-Jetpack 'markonm/hlyank.vim', {'commit': '39e52017'}
-Jetpack 'AndrewRadev/quickpeek.vim', {'for': 'qf'}
-Jetpack 'romainl/vim-cool', {'on': 'BufRead'}
-Jetpack 'voldikss/vim-floaterm', {'on': 'BufRead'}
-Jetpack 'fcpg/vim-altscreen'
-Jetpack 'tpope/vim-fugitive', {'on': 'BufRead'}
-Jetpack 'whiteinge/diffconflicts', {'on': 'BufRead'}
-
-call jetpack#end()
-
-let g:jetpack#optimization = 2
-
-" vinegar
+Plug 'tpope/vim-vinegar'
 let g:netrw_fastbrowse = 0
 let g:netrw_altfile = 1
 let g:netrw_preview = 1
@@ -67,13 +34,100 @@ let g:netrw_localcopydircmd = 'cp -av'
 autocmd vimRc FileType netrw nmap <buffer><silent> <right> <cr>
 autocmd vimRc FileType netrw nmap <buffer><silent> <left> -
 
-" fzf
+Plug 'junegunn/fzf.vim'
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
 let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --color=always --exclude .git'
 let g:fzf_layout = { 'window': { 'width': 0.85, 'height': 0.95 } }
 let g:fzf_preview_window = ['up:80%', 'ctrl-/']
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
+
+Plug 'dense-analysis/ale'
+let g:ale_disable_lsp = 1
+let g:ale_sign_error = ' '
+let g:ale_sign_warning = ' '
+let g:ale_sign_info = '🛈 '
+let g:ale_set_highlights = 0
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+nmap <silent> [a <Plug>(ale_previous)
+nmap <silent> ]a <Plug>(ale_next)
+let g:ale_fixers = {
+      \ 'javascript': ['eslint'],
+      \ 'css': ['prettier'],
+      \ 'json': ['prettier'],
+      \ 'sh': ['shfmt'],
+      \ 'nix': ['nixpkgs-fmt'],
+      \}
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-autoformat/vim-autoformat', {'on': 'Autoformat'}
+let g:formatters_javascript = ['prettier', 'eslint_local']
+let g:run_all_formatters_javascript = 1
+
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+let g:undotree_WindowLayout = 4
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_ShortIndicators = 1
+
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'yuezk/vim-js'
+Plug 'LnL7/vim-nix',{'for': 'nix'}
+Plug 'cespare/vim-toml',{'for': 'toml'}
+Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+
+Plug 'markonm/traces.vim'
+let g:traces_num_range_preview = 1
+
+Plug 'basilgood/memolist.vim', {'on': ['MemoList', 'MemoGrep', 'MemoNew']}
+let g:memolist_memo_suffix = 'md'
+let g:memolist_fzf = 1
+
+Plug 'AndrewRadev/quickpeek.vim', {'for': 'qf'}
+autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
+
+Plug 'voldikss/vim-floaterm'
+let g:floaterm_height = 0.9
+let g:floaterm_width = 0.9
+let g:floaterm_autoclose = 2
+let g:floaterm_keymap_toggle = '<C-q>'
+tnoremap <c-x> <c-\><c-n>
+
+Plug 'wellle/targets.vim'
+let g:targets_nl = 'nN'
+
+Plug 'svermeulen/vim-subversive'
+nmap s <plug>(SubversiveSubstitute)
+nmap ss <plug>(SubversiveSubstituteRange)
+xmap ss <plug>(SubversiveSubstituteRange)
+nmap s. <plug>(SubversiveSubstituteWordRange)
+nmap sc <plug>(SubversiveSubstituteRangeConfirm)
+xmap sc <plug>(SubversiveSubstituteRangeConfirm)
+nmap s, <plug>(SubversiveSubstituteWordRangeConfirm)
+
+Plug 'junegunn/limelight.vim'
+nmap X <Plug>(Limelight)
+xmap X <Plug>(Limelight)
+
+Plug 'markonm/hlyank.vim', {'commit': '39e52017'}
+Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'fcpg/vim-altscreen'
+Plug 'whiteinge/diffconflicts'
+
+Plug 'haya14busa/vim-asterisk'
+let g:asterisk#keeppos = 1
+map *  <Plug>(asterisk-z*)
+map g* <Plug>(asterisk-gz*)
+map #  <Plug>(asterisk-z#)
+map g# <Plug>(asterisk-gz#)
+
+Plug 'romainl/vim-cool'
+
+call plug#end()
 
 " completion
 let g:coc_global_extensions = [
@@ -131,74 +185,6 @@ nmap ghs :CocCommand git.chunkStage<cr>
 nmap ghu :CocCommand git.chunkUnstage<cr>
 nmap ghr :CocCommand git.chunkUndo<cr>
 nnoremap <silent> <leader>g  :<C-u>CocList --normal gstatus<CR>
-
-" lint
-let g:ale_disable_lsp = 1
-let g:ale_sign_error = ' '
-let g:ale_sign_warning = ' '
-let g:ale_sign_info = '🛈 '
-let g:ale_set_highlights = 0
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-nmap <silent> [a <Plug>(ale_previous)
-nmap <silent> ]a <Plug>(ale_next)
-let g:ale_fixers = {
-      \ 'javascript': ['eslint'],
-      \ 'css': ['prettier'],
-      \ 'json': ['prettier'],
-      \ 'sh': ['shfmt'],
-      \ 'nix': ['nixpkgs-fmt'],
-      \}
-
-" autoformat
-let g:formatters_javascript = ['prettier', 'eslint_local']
-let g:run_all_formatters_javascript = 1
-
-" traces
-let g:traces_num_range_preview = 1
-
-" asterisk
-nmap *  <Plug>(asterisk-z*)
-vmap *  <Plug>(asterisk-z*)
-
-" memolist
-let g:memolist_memo_suffix = 'md'
-let g:memolist_fzf = 1
-
-" undotree
-let g:undotree_WindowLayout = 4
-let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_ShortIndicators = 1
-
-" quickpeek
-autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
-
-" floaterm
-let g:floaterm_height = 0.9
-let g:floaterm_width = 0.9
-let g:floaterm_autoclose = 2
-let g:floaterm_keymap_toggle = '<C-q>'
-tnoremap <c-x> <c-\><c-n>
-
-" targets
-let g:targets_nl = 'nN'
-
-" fugitive
-autocmd vimRc Filetype fugitive
-      \ nmap <buffer> ]p :G push<cr> |
-      \ nmap <buffer> ]P :G push -f<cr> |
-      \ nmap <buffer> ]f :G fetch --all --prune<cr>
-
-" subversive
-nmap s <plug>(SubversiveSubstitute)
-nmap ss <plug>(SubversiveSubstituteRange)
-xmap ss <plug>(SubversiveSubstituteRange)
-nmap s. <plug>(SubversiveSubstituteWordRange)
-nmap sc <plug>(SubversiveSubstituteRangeConfirm)
-xmap sc <plug>(SubversiveSubstituteRangeConfirm)
-nmap s, <plug>(SubversiveSubstituteWordRangeConfirm)
-
-filetype plugin indent on
 
 " options
 let &t_SI.="\e[6 q"
@@ -270,14 +256,14 @@ set backspace=indent,eol,start
 set laststatus=2
 " set statusline=%<%.99{expand('%:p:h:t')}/%t\ %*%h%w%m%r%=%{&filetype}%7c:%l/%L
 set statusline=
-set statusline+=%<%f\ %h%m%r
+set statusline+=%<%t
+set statusline+=\ %{&mod?'🔺':'✔'}
+set statusline+=\ %h%w%r
 set statusline+=%=
-set statusline+=[%{&ft}]
-set statusline+=%-14.([%l/%L],%c%)
+set statusline+=\ %c:%l/%L
+set statusline+=\ ---\ %{&ft}
 
 " mappings
-" save
-nnoremap <leader><leader> :update<cr>
 " wrap
 noremap j gj
 noremap k gk
@@ -302,7 +288,7 @@ vnoremap . :normal .<CR>
 " c-g improved
 nnoremap <silent> <C-g> :echon '['.expand("%:p:~").']'.' [L:'.line('$').']'<Bar>echon ' ['system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")']'<CR>
 " reload syntax and nohl
-nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>call clearmatches()<bar>syntax sync fromstart<cr><c-l>
+nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>call clearmatches()<bar>Limelight!<bar>syntax sync fromstart<cr><c-l>
 " execute macro
 nnoremap Q <Nop>
 nnoremap Q @q
