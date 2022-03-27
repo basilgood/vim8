@@ -72,6 +72,7 @@ Plug 'Shougo/ddc-converter_remove_overlap'
 Plug 'vim-autoformat/vim-autoformat', {'on': 'Autoformat'}
 g:formatters_javascript = ['prettier']
 # g:run_all_formatters_javascript = 1
+cabbrev af Autoformat
 
 Plug 'airblade/vim-gitgutter'
 g:gitgutter_preview_win_floating = 1
@@ -84,6 +85,10 @@ Plug 'whiteinge/diffconflicts'
 
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'yuezk/vim-js'
+
+Plug 'alvan/vim-closetag'
+g:closetag_filenames = '*.html,*.xhtml,*.js,*.erb,*.jsx,*.tsx'
+
 Plug 'LnL7/vim-nix',{'for': 'nix'}
 Plug 'cespare/vim-toml',{'for': 'toml'}
 Plug 'sgur/vim-editorconfig'
@@ -137,6 +142,11 @@ map g* <Plug>(asterisk-gz*)
 map #  <Plug>(asterisk-z#)
 map g# <Plug>(asterisk-gz#)
 
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+g:undotree_WindowLayout = 4
+g:undotree_SetFocusWhenToggle = 1
+g:undotree_ShortIndicators = 1
+
 Plug 'romainl/vim-cool'
 
 plug#end()
@@ -157,6 +167,7 @@ ddc#custom#patch_global('sourceOptions', {
     },
   'vim-lsp': {
     'mark': 'L',
+    'isVolatile': v:true,
     'matchers': ['matcher_head'],
     'forceCompletionPattern': '\.|:|->|"\w*/*'
     },
@@ -217,9 +228,7 @@ set timeoutlen=1200
 set ttimeoutlen=50
 set updatetime=150
 set incsearch hlsearch
-set completeopt-=preview
-set completeopt-=menu
-set completeopt+=menuone,noselect,noinsert
+set completeopt+=noselect,noinsert
 set pumheight=10
 set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
