@@ -20,6 +20,7 @@ const colors = {
     cursorlinebg: '#292523',
     black: '#0a0707',
     normal: '#b8af96',
+    normalbg: '#252c37',
     visual: '#3d3834',
     graish: '#7c6f64',
     bright: '#a89984',
@@ -378,7 +379,7 @@ HlLinks(
     'MoreMsg'
 )
 
-HlSet('Normal', colors.normal)
+HlSet('Normal', colors.normal, colors.normalbg)
 HlLinks(
     [
         'CocOutlineName',
