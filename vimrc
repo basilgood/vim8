@@ -9,7 +9,7 @@ packadd! matchit
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
 plug#begin('~/.vim/plugged')
@@ -47,6 +47,10 @@ g:ale_fixers = {
   'sh': ['shfmt'],
   'nix': ['nixpkgs-fmt'],
   }
+g:ale_pattern_options = {
+  '.*\.vim$': {'ale_enabled': 0},
+  '.*\vimrc$': {'ale_enabled': 0}
+  }
 
 Plug 'prabirshrestha/vim-lsp'
 autocmd vimRc FileType javascript {
@@ -76,6 +80,7 @@ cabbrev af Autoformat
 
 Plug 'airblade/vim-gitgutter'
 g:gitgutter_preview_win_floating = 1
+g:gitgutter_sign_priority = 8
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
@@ -83,8 +88,10 @@ nmap ghp <Plug>(GitGutterPreviewHunk)
 Plug 'tpope/vim-fugitive'
 Plug 'whiteinge/diffconflicts'
 
-Plug 'maxmellon/vim-jsx-pretty'
+# Plug 'maxmellon/vim-jsx-pretty'
 Plug 'yuezk/vim-js'
+Plug 'jonsmithers/vim-html-template-literals'
+g:htl_all_templates = 1
 
 Plug 'alvan/vim-closetag'
 g:closetag_filenames = '*.html,*.xhtml,*.js,*.erb,*.jsx,*.tsx'
@@ -128,6 +135,7 @@ nmap s, <plug>(SubversiveSubstituteWordRangeConfirm)
 Plug 'junegunn/limelight.vim'
 nmap X <Plug>(Limelight)
 xmap X <Plug>(Limelight)
+cabbrev lm Limelight!
 
 Plug 'markonm/hlyank.vim', {'commit': '39e52017'}
 Plug 'stefandtw/quickfix-reflector.vim'
@@ -217,7 +225,7 @@ set number
 set mouse=a ttymouse=sgr
 set signcolumn=yes
 set splitright splitbelow
-set fillchars=stl:-,stlnc:-,vert:\│,fold:\ ,diff:-
+set fillchars=vert:\│,fold:\ ,diff:-
 set virtualedit=onemore
 set sidescrolloff=10 sidescroll=1
 set sessionoptions-=options
@@ -252,13 +260,16 @@ set laststatus=2
 # set statusline=%<%.99{expand('%:p:h:t')}/%t\ %*%h%w%m%r%=%{&filetype}%7c:%l/%L
 set statusline=
 set statusline+=%<%t
-set statusline+=\ %{&mod?'🔺':'✔'}
+set statusline+=\ %#diffdelete#%{&mod?'(⊙_⊙)':''}
+set statusline+=%*
 set statusline+=\ %h%w%r
 set statusline+=%=
 set statusline+=\ %c:%l/%L
-set statusline+=\ ---\ %{&ft}
+set statusline+=\ %{&ft}
 
 # mappings
+# save
+noremap <leader><leader> :update<cr>
 # wrap
 noremap j gj
 noremap k gk
@@ -351,11 +362,6 @@ autocmd vimRc FileType git       setlocal nofoldenable
 autocmd vimRc FileType scss setlocal iskeyword+=@-@
 
 # commands
-command TrimWhitespace {
-    var save = winsaveview()
-    keeppattern :%s/\s\+$//e
-    winrestview(save)
-    }
 command! WW w !sudo tee % > /dev/null
 command HL {
   echo synIDattr(synID(line('.'), col('.'), 0), 'name')
@@ -386,6 +392,6 @@ command -nargs=1 -complete=file Grep {
   }
 
 set termguicolors
-colorscheme boa
+colorscheme nordan
 
 set secure
