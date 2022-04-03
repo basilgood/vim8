@@ -108,7 +108,7 @@ call s:HL('PmenuSel',                 s:nord3,    s:nord9,   '')
 call s:HL('PmenuSbar',                s:nord4,    s:nord1,   '')
 call s:HL('PmenuThumb',               s:nord2,    s:nord3,   '')
 call s:HL('Question',                 s:nord7,    '',        '')
-call s:HL('Search',                   '',         s:nord2,   '')
+call s:HL('Search',                   s:nord7,    s:nord2,   '')
 call s:HL('SpecialKey',               s:nord3,    '',        '')
 call s:HL('SpellCap',                 s:nord10,   '',        'undercurl')
 call s:HL('SpellBad',                 s:nord11,   '',        'undercurl')
@@ -197,27 +197,6 @@ call s:HL('htmlTag',                  s:nord9,    '',        '')
 call s:HL('htmlTagN',                 s:nord9,    '',        '')
 call s:HL('htmlTagName',              s:nord9,    '',        '')
 call s:HL('htmlTitle',                s:nord7,    '',        '')
-
-" ===  Javascript  =========
-call s:HL('javaScriptBraces',         s:nord7,    '',        '')
-call s:HL('javaScriptIdentifier',     s:nord7,    '',        '')
-call s:HL('javaScriptFunction',       s:nord7,    '',        '')
-call s:HL('javaScriptNumber',         s:nord7,    '',        '')
-call s:HL('javaScriptReserved',       s:nord7,    '',        '')
-call s:HL('javaScriptRequire',        s:nord7,    '',        '')
-call s:HL('javaScriptNull',           s:nord7,    '',        '')
-
-" ===  vim-javascript  =========
-call s:HL('jsFuncCall',               s:nord8,    '',        '')
-call s:HL('jsNoise',                  s:nord9,    '',        '')
-call s:HL('jsGlobalNodeObjects',      s:nord8,    '',        '')
-call s:HL('jsParen',                  s:nord7,    '',        '')
-call s:HL('jsThis',                   s:nord9,    '',        '')
-call s:HL('jsArrowFunction',          s:nord9,    '',        '')
-
-" ===  NERDTree  =========
-call s:HL('NERDTreeCWD',              s:nord15,   '',        '')
-call s:HL('NERDTreeDir',              s:nord9,    '',        '')
 
 " === GitGutter  =========
 call s:HL("GitGutterAdd", s:nord14, s:nord2, '')
