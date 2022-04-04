@@ -22,13 +22,36 @@ autocmd vimRc FileType vaffle {
   nmap <buffer><silent> <right> <Plug>(vaffle-open-current)
   }
 
-Plug 'junegunn/fzf.vim'
-$FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
-$FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --color=always --exclude .git'
-g:fzf_layout = { 'window': { 'width': 0.85, 'height': 0.95 } }
-g:fzf_preview_window = ['up:80%', 'ctrl-/']
-nnoremap <c-p> :Files<cr>
-nnoremap <bs> :Buffers<cr>
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer'] }
+g:Lf_UseVersionControlTool = 0
+g:Lf_RgConfig = [
+  '-g "!.git"',
+  '-g "!node_modules"',
+  '-g "!build"',
+  '-g "!vendor"',
+  '-g "!recordings"',
+  '--hidden',
+  ]
+g:Lf_ExternalCommand = 'fd --hidden --type file -E .git "%s"'
+g:Lf_CacheDirectory       = expand('~/.cache/vim')
+g:Lf_PopupColorscheme = 'one'
+g:Lf_CursorBlink = 0
+g:Lf_PreviewInPopup = 1
+g:Lf_PopupPosition = [45, 0]
+g:Lf_PopupHeight = float2nr(&lines * 0.3)
+g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
+g:Lf_PreviewResult        = {'File': 1, 'Rg': 1, 'BUffer': 1, 'Function': 0, 'BufTag': 0}
+g:Lf_ShowRelativePath     = 1
+g:Lf_WindowPosition = 'popup'
+g:Lf_WindowHeight = 0.1
+g:Lf_WorkingDirectoryMode = 'Ac'
+nnoremap <c-p> :LeaderfFile<cr>
+nnoremap <bs> :LeaderfBuffer<cr>
+noremap <leader>w :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+nnoremap <leader>g :LeaderfRgInteractive<cr>
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+cabbrev rg Rg
+command Rg Leaderf rg
 
 Plug 'dense-analysis/ale'
 g:ale_disable_lsp = 1
@@ -53,6 +76,7 @@ g:ale_pattern_options = {
   }
 
 Plug 'prabirshrestha/vim-lsp'
+g:lsp_document_highlight_enabled = 0
 autocmd vimRc FileType javascript {
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
@@ -88,7 +112,7 @@ nmap ghp <Plug>(GitGutterPreviewHunk)
 Plug 'tpope/vim-fugitive'
 Plug 'whiteinge/diffconflicts'
 
-# Plug 'maxmellon/vim-jsx-pretty'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'yuezk/vim-js'
 Plug 'jonsmithers/vim-html-template-literals'
 g:htl_all_templates = 1
@@ -123,7 +147,7 @@ tnoremap <c-x> <c-\><c-n>
 Plug 'wellle/targets.vim'
 g:targets_nl = 'nN'
 
-Plug 'svermeulen/vim-subversive'
+Plug 'svermeulen/vim-subversive', {'on': '<Plug>(Subversive'}
 nmap s <plug>(SubversiveSubstitute)
 nmap ss <plug>(SubversiveSubstituteRange)
 xmap ss <plug>(SubversiveSubstituteRange)
@@ -131,8 +155,10 @@ nmap s. <plug>(SubversiveSubstituteWordRange)
 nmap sc <plug>(SubversiveSubstituteRangeConfirm)
 xmap sc <plug>(SubversiveSubstituteRangeConfirm)
 nmap s, <plug>(SubversiveSubstituteWordRangeConfirm)
+nnoremap <c-n> <plug>(SubversiveSubstituteRange)iw
+xnoremap <c-n> <plug>(SubversiveSubstituteRange)
 
-Plug 'junegunn/limelight.vim'
+Plug 'junegunn/limelight.vim', {'on': '<Plug>(Limelight)'}
 nmap X <Plug>(Limelight)
 xmap X <Plug>(Limelight)
 cabbrev lm Limelight!
@@ -143,7 +169,7 @@ Plug 'blueyed/vim-qf_resize'
 Plug 'vim-scripts/cmdline-completion'
 Plug 'fcpg/vim-altscreen'
 
-Plug 'haya14busa/vim-asterisk'
+Plug 'haya14busa/vim-asterisk', {'on': '<Plug>(asterisk-'}
 g:asterisk#keeppos = 1
 map *  <Plug>(asterisk-z*)
 map g* <Plug>(asterisk-gz*)
@@ -264,12 +290,14 @@ set statusline+=\ %#diffdelete#%{&mod?'(⊙_⊙)':''}
 set statusline+=%*
 set statusline+=\ %h%w%r
 set statusline+=%=
-set statusline+=\ %c:%l/%L
-set statusline+=\ %{&ft}
+set statusline+=%{&ft}
+set statusline+=%7c:%l/%L
 
 # mappings
 # save
 noremap <leader><leader> :update<cr>
+# clipboard
+nnoremap <alt> "+
 # wrap
 noremap j gj
 noremap k gk
@@ -303,7 +331,7 @@ xnoremap Q :norm Q<cr>
 
 # autocmds
 # keep cursor position
-au BufReadPost * {
+au vimRc BufReadPost * {
   if line("'\"") > 1 && line("'\"") <= line("$") && &filetype != 'gitcommit'
     exe 'normal! g`"'
   endif
@@ -361,12 +389,12 @@ autocmd vimRc BufReadPre *.json  setlocal formatoptions=
 autocmd vimRc FileType git       setlocal nofoldenable
 autocmd vimRc FileType scss setlocal iskeyword+=@-@
 
-# commands
-command! WW w !sudo tee % > /dev/null
-command HL {
-  echo synIDattr(synID(line('.'), col('.'), 0), 'name')
-  echo synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
-  }
+# highlight groups
+def SynGroup(): void
+  var s = synID(line('.'), col('.'), 1)
+  echo synIDattr(s, 'name') .. ' -> ' .. synIDattr(synIDtrans(s), 'name')
+enddef
+command HL call SynGroup()
 
 # sessions
 g:session_path = expand('~/.cache/vim/sessions/')
