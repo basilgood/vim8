@@ -1,5 +1,10 @@
-vim9script
+vim9script noclear
 scriptencoding utf-8
+
+g:loaded_getscriptPlugin = true
+g:loaded_logiPat = true
+g:loaded_vimballPlugin = true
+g:loaded_vimball = true
 
 augroup vimRc
   autocmd!
@@ -22,36 +27,16 @@ autocmd vimRc FileType vaffle {
   nmap <buffer><silent> <right> <Plug>(vaffle-open-current)
   }
 
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer'] }
-g:Lf_UseVersionControlTool = 0
-g:Lf_RgConfig = [
-  '-g "!.git"',
-  '-g "!node_modules"',
-  '-g "!build"',
-  '-g "!vendor"',
-  '-g "!recordings"',
-  '--hidden',
-  ]
-g:Lf_ExternalCommand = 'fd --hidden --type file -E .git "%s"'
-g:Lf_CacheDirectory       = expand('~/.cache/vim')
-g:Lf_PopupColorscheme = 'one'
-g:Lf_CursorBlink = 0
-g:Lf_PreviewInPopup = 1
-g:Lf_PopupPosition = [45, 0]
-g:Lf_PopupHeight = float2nr(&lines * 0.3)
-g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
-g:Lf_PreviewResult        = {'File': 1, 'Rg': 1, 'BUffer': 1, 'Function': 0, 'BufTag': 0}
-g:Lf_ShowRelativePath     = 1
-g:Lf_WindowPosition = 'popup'
-g:Lf_WindowHeight = 0.1
-g:Lf_WorkingDirectoryMode = 'Ac'
-nnoremap <c-p> :LeaderfFile<cr>
-nnoremap <bs> :LeaderfBuffer<cr>
-noremap <leader>w :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
-nnoremap <leader>g :LeaderfRgInteractive<cr>
-xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
-cabbrev rg Rg
-command Rg Leaderf rg
+Plug 'junegunn/fzf.vim'
+$FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
+$FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --color=always --exclude .git'
+g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+g:fzf_preview_window = ['up:80%', 'ctrl-/']
+g:fzf_colors = {}
+g:fzf_colors['bg+']  = ['bg', 'CursorLine']
+g:fzf_colors.border = ['fg', 'Comment']
+nnoremap <c-p> :Files<cr>
+nnoremap <bs> :Buffers<cr>
 
 Plug 'dense-analysis/ale'
 g:ale_disable_lsp = 1
@@ -119,13 +104,16 @@ g:htl_all_templates = 1
 
 Plug 'alvan/vim-closetag'
 g:closetag_filenames = '*.html,*.xhtml,*.js,*.erb,*.jsx,*.tsx'
+Plug 'AndrewRadev/tagalong.vim'
+g:tagalong_filetypes = ['html', 'javascript']
 
 Plug 'LnL7/vim-nix',{'for': 'nix'}
 Plug 'cespare/vim-toml',{'for': 'toml'}
 Plug 'sgur/vim-editorconfig'
-Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-repeat', {'on': '<Plug>(Repeat'}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'lacygoill/vim-exchange'
 
 Plug 'markonm/traces.vim'
 g:traces_num_range_preview = 1
@@ -160,7 +148,6 @@ xnoremap <c-n> <plug>(SubversiveSubstituteRange)
 
 Plug 'junegunn/limelight.vim', {'on': '<Plug>(Limelight)'}
 nmap X <Plug>(Limelight)
-xmap X <Plug>(Limelight)
 cabbrev lm Limelight!
 
 Plug 'markonm/hlyank.vim', {'commit': '39e52017'}
@@ -283,7 +270,6 @@ set grepprg=grep\ -rnH
 &errorformat ..= ',%f\|%\s%#%l col%\s%#%c%\s%#\| %m'
 set backspace=indent,eol,start
 set laststatus=2
-# set statusline=%<%.99{expand('%:p:h:t')}/%t\ %*%h%w%m%r%=%{&filetype}%7c:%l/%L
 set statusline=
 set statusline+=%<%t
 set statusline+=\ %#diffdelete#%{&mod?'(⊙_⊙)':''}
@@ -295,9 +281,17 @@ set statusline+=%7c:%l/%L
 
 # mappings
 # save
-noremap <leader><leader> :update<cr>
-# clipboard
-nnoremap <alt> "+
+nnoremap <leader><leader> :update<cr>
+# + register shortcut
+nnoremap + "+
+vnoremap + "+
+# repetable dot
+nnoremap cn :norm n.<cr>
+nnoremap cN :norm N.<cr>
+# substitute
+nnoremap <c-n> <Plug>(asterisk-z*)cgn
+xnoremap <c-n> <Plug>(asterisk-z*)cgn
+xnoremap <c-p> <Plug>(asterisk-z*)cgN
 # wrap
 noremap j gj
 noremap k gk
@@ -309,6 +303,8 @@ inoremap <C-e> <End>
 # paragraph
 nnoremap } }zz
 nnoremap { {zz
+# tabs
+nnoremap <c-w>t :tabe %<cr><c-o>
 # close qf
 nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
 # objects
@@ -387,7 +383,8 @@ autocmd vimRc BufNewFile,BufRead *.txt       setfiletype markdown
 autocmd vimRc BufReadPre *.json  setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json  setlocal formatoptions=
 autocmd vimRc FileType git       setlocal nofoldenable
-autocmd vimRc FileType scss setlocal iskeyword+=@-@
+autocmd vimRc FileType css,scss setlocal iskeyword+=@-@
+autocmd vimRc FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
 # highlight groups
 def SynGroup(): void
