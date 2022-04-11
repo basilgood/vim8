@@ -136,15 +136,9 @@ Plug 'wellle/targets.vim'
 g:targets_nl = 'nN'
 
 Plug 'svermeulen/vim-subversive', {'on': '<Plug>(Subversive'}
-nmap s <plug>(SubversiveSubstitute)
-nmap ss <plug>(SubversiveSubstituteRange)
-xmap ss <plug>(SubversiveSubstituteRange)
-nmap s. <plug>(SubversiveSubstituteWordRange)
-nmap sc <plug>(SubversiveSubstituteRangeConfirm)
-xmap sc <plug>(SubversiveSubstituteRangeConfirm)
-nmap s, <plug>(SubversiveSubstituteWordRangeConfirm)
-nnoremap <c-n> <plug>(SubversiveSubstituteRange)iw
-xnoremap <c-n> <plug>(SubversiveSubstituteRange)
+nmap + "+<plug>(SubversiveSubstitute)
+nnoremap <c-n> <plug>(SubversiveSubstituteWordRangeConfirm)
+xnoremap <c-n> <plug>(SubversiveSubstituteRangeConfirm)
 
 Plug 'junegunn/limelight.vim', {'on': '<Plug>(Limelight)'}
 nmap X <Plug>(Limelight)
@@ -233,6 +227,7 @@ set nowrap
 set breakindent
 set breakindentopt=sbr
 set noshowmode
+set matchpairs-=<:>
 set nrformats-=octal
 set number
 set mouse=a ttymouse=sgr
@@ -282,16 +277,9 @@ set statusline+=%7c:%l/%L
 # mappings
 # save
 nnoremap <leader><leader> :update<cr>
-# + register shortcut
-nnoremap + "+
-vnoremap + "+
 # repetable dot
 nnoremap cn :norm n.<cr>
 nnoremap cN :norm N.<cr>
-# substitute
-nnoremap <c-n> <Plug>(asterisk-z*)cgn
-xnoremap <c-n> <Plug>(asterisk-z*)cgn
-xnoremap <c-p> <Plug>(asterisk-z*)cgN
 # wrap
 noremap j gj
 noremap k gk
@@ -319,11 +307,6 @@ vnoremap . :normal .<CR>
 nnoremap <silent> <C-g> :echon '['.expand("%:p:~").']'.' [L:'.line('$').']'<Bar>echon ' ['system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")']'<CR>
 # reload syntax and nohl
 nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>call clearmatches()<bar>Limelight!<bar>syntax sync fromstart<cr><c-l>
-# execute macro
-nnoremap Q <Nop>
-nnoremap Q @q
-# run macro on selected lines
-xnoremap Q :norm Q<cr>
 
 # autocmds
 # keep cursor position
