@@ -74,7 +74,6 @@ minpac#add('svermeulen/vim-subversive', {'type': 'opt'})
 minpac#add('AndrewRadev/tagalong.vim', {'type': 'opt'})
 minpac#add('AndrewRadev/sideways.vim', {'type': 'opt'})
 minpac#add('junegunn/limelight.vim', {'type': 'opt'})
-minpac#add('chaoren/vim-expandtab', {'type': 'opt'})
 
 # git
 minpac#add('tpope/vim-fugitive', {'type': 'opt'})
@@ -262,6 +261,12 @@ nnoremap c. :SidewaysRight<cr>
 autocmd vimRc BufReadPre * ++once packadd tagalong.vim
 g:tagalong_filetypes = ['html', 'javascript']
 
+# limelight
+autocmd vimRc BufRead * ++once packadd limelight.vim
+nmap gl <Plug>(Limelight)
+xmap gl <Plug>(Limelight)
+cabbrev lm Limelight!
+
 # plugins
 packadd! vim-editorconfig
 autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
@@ -272,10 +277,6 @@ autocmd vimRc BufRead * ++once packadd vim-surround
 autocmd vimRc BufRead * ++once packadd vim-repeat
 autocmd vimRc BufRead * ++once packadd vim-exchange
 autocmd vimRc BufRead * ++once packadd hlyank.vim
-autocmd vimRc BufRead * ++once packadd vim-expandtab
-autocmd vimRc BufRead * ++once packadd limelight.vim
-nmap gl <Plug>(Limelight)
-xmap gl <Plug>(Limelight)
 
 filetype plugin indent on
 
