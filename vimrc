@@ -25,9 +25,12 @@ if has('vim_starting')
 endif
 
 packadd minpac
+
+# plug list
 minpac#init()
 
 minpac#add('k-takata/minpac', {'type': 'opt'})
+minpac#add('rhysd/vim-color-spring-night', {'type': 'opt'})
 
 # navigation
 minpac#add('basilgood/vaffle.vim', {'type': 'opt'})
@@ -55,6 +58,7 @@ minpac#add('tpope/vim-repeat', {'type': 'opt'})
 minpac#add('wellle/targets.vim', {'type': 'opt'})
 minpac#add('tommcdo/vim-exchange', {'type': 'opt'})
 minpac#add('haya14busa/vim-asterisk', {'type': 'opt'})
+minpac#add('haya14busa/vim-metarepeat', {'type': 'opt'})
 minpac#add('markonm/traces.vim', {'type': 'opt'})
 minpac#add('stefandtw/quickfix-reflector.vim')
 minpac#add('blueyed/vim-qf_resize')
@@ -63,12 +67,14 @@ minpac#add('basilgood/memolist.vim', {'type': 'opt'})
 minpac#add('markonm/hlyank.vim', { 'rev': '39e52017', 'type': 'opt' })
 minpac#add('AndrewRadev/quickpeek.vim', {'type': 'opt'})
 minpac#add('voldikss/vim-floaterm', {'type': 'opt'})
-minpac#add('romainl/vim-cool', {'type': 'opt'})
+minpac#add('qxxxb/vim-searchhi', {'type': 'opt'})
 minpac#add('fcpg/vim-altscreen')
 minpac#add('vim-scripts/cmdline-completion', {'type': 'opt'})
 minpac#add('svermeulen/vim-subversive', {'type': 'opt'})
 minpac#add('AndrewRadev/tagalong.vim', {'type': 'opt'})
 minpac#add('AndrewRadev/sideways.vim', {'type': 'opt'})
+minpac#add('junegunn/limelight.vim', {'type': 'opt'})
+minpac#add('chaoren/vim-expandtab', {'type': 'opt'})
 
 # git
 minpac#add('tpope/vim-fugitive', {'type': 'opt'})
@@ -82,7 +88,7 @@ command! PackStatus minpac#status()
 # vaffle
 autocmd vimRc VimEnter * ++once packadd vaffle.vim
 g:vaffle_force_delete = 1
-nnoremap <silent> - :execute 'Vaffle' expand('%')<cr>
+nnoremap <silent> - :call vaffle#init(expand('%'))<cr>
 autocmd vimRc FileType vaffle {
   nmap <buffer><silent> <left> <Plug>(vaffle-open-parent)
   nmap <buffer><silent> <right> <Plug>(vaffle-open-current)
@@ -105,7 +111,7 @@ autocmd vimRc VimEnter * ++once packadd ale
 g:ale_disable_lsp = 1
 g:ale_sign_error = ' '
 g:ale_sign_warning = ' '
-g:ale_sign_info = '🛈 '
+g:ale_sign_info = ' '
 g:ale_set_highlights = 0
 g:ale_lint_on_text_changed = 'normal'
 g:ale_lint_on_insert_leave = 1
@@ -129,22 +135,27 @@ g:coc_global_extensions = [
   'coc-json',
   'coc-snippets',
   'coc-tsserver',
+  'coc-html',
+  'coc-html-css-support',
   'coc-yaml',
-  'coc-git'
+  'coc-git',
   ]
 
 g:coc_user_config = {}
 g:coc_user_config['languageserver'] = {}
 g:coc_user_config['diagnostic.displayByAle'] = v:true
-g:coc_user_config['suggest.floatConfig.border'] = v:true
-g:coc_user_config['hover.floatConfig.border'] = v:true
-g:coc_user_config['signature.floatConfig.border'] = v:true
-g:coc_user_config['diagnostic.floatConfig.border'] = v:true
+g:coc_user_config['diagnostic.floatConfig'] = {'highlight': 'Normal'}
+g:coc_user_config['diagnostic.signPriority'] = 20
+g:coc_user_config['diagnostic.errorSign'] = ''
+g:coc_user_config['diagnostic.warningSign'] = ''
+g:coc_user_config['diagnostic.infoSign'] = ''
+g:coc_user_config['diagnostic.hintSign'] = ''
 g:coc_user_config['snippets.ultisnips.enable'] = v:false
 g:coc_user_config['snippets.userSnippetsDirectory'] = '~/.vim/snippets'
-# g:coc_user_config['html-css-support.enabledLanguages'] = ['html', 'javascript']
+g:coc_user_config['html.filetypes'] = ['html', 'javascript']
+g:coc_user_config['html-css-support.enabledLanguages'] = ['html', 'javascript']
 
-autocmd FileType javascript,typescript,nix {
+autocmd FileType javascript,typescript,nix,vim {
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gr <Plug>(coc-references)
   nmap <leader>a :CocAction<cr>
@@ -176,6 +187,9 @@ g:htl_all_templates = 1
 
 # autoformat
 autocmd vimRc BufRead * ++once packadd vim-autoformat
+g:formatters_javascript = ['prettier', 'eslint_local']
+g:run_all_formatters_javascript = 1
+cabbrev af Autoformat
 # extraformat
 nnoremap gp :silent %!prettier --stdin-filepath %<CR>
 
@@ -185,8 +199,21 @@ g:traces_num_range_preview = 1
 
 # asterisk
 autocmd vimRc BufRead * ++once packadd vim-asterisk
-nmap *  <Plug>(asterisk-z*)
-vmap *  <Plug>(asterisk-z*)
+# nmap *  <Plug>(asterisk-z*)
+# vmap *  <Plug>(asterisk-z*)
+
+# searchhi
+autocmd vimRc BufRead * ++once packadd vim-searchhi
+g:searchhi_clear_all_asap = 1
+nmap n <Plug>(searchhi-n)
+nmap N <Plug>(searchhi-N)
+map * <Plug>(asterisk-z*)<Plug>(searchhi-update)
+map # <Plug>(asterisk-z#)<Plug>(searchhi-update)
+map g* <Plug>(asterisk-zg*)<Plug>(searchhi-update)
+map g# <Plug>(asterisk-zg#)<Plug>(searchhi-update)
+
+# metarepeat
+autocmd vimRc BufRead * ++once packadd vim-metarepeat
 
 # cmdline completion
 autocmd vimRc CmdlineEnter * ++once packadd cmdline-completion
@@ -232,7 +259,7 @@ nnoremap c, :SidewaysLeft<cr>
 nnoremap c. :SidewaysRight<cr>
 
 # tagalong
-autocmd vimRc BufRead * ++once packadd tagalong.vim
+autocmd vimRc BufReadPre * ++once packadd tagalong.vim
 g:tagalong_filetypes = ['html', 'javascript']
 
 # plugins
@@ -245,7 +272,10 @@ autocmd vimRc BufRead * ++once packadd vim-surround
 autocmd vimRc BufRead * ++once packadd vim-repeat
 autocmd vimRc BufRead * ++once packadd vim-exchange
 autocmd vimRc BufRead * ++once packadd hlyank.vim
-autocmd vimRc BufRead * ++once packadd vim-cool
+autocmd vimRc BufRead * ++once packadd vim-expandtab
+autocmd vimRc BufRead * ++once packadd limelight.vim
+nmap gl <Plug>(Limelight)
+xmap gl <Plug>(Limelight)
 
 filetype plugin indent on
 
@@ -272,7 +302,6 @@ set shiftwidth=2
 set shiftround
 set nostartofline
 set nojoinspaces
-set nofoldenable
 set nowrap
 &showbreak = '↳ '
 set breakindent
@@ -299,9 +328,9 @@ set completeopt+=noselect,noinsert
 set pumheight=10
 set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
-set listchars=tab:┊\ ,trail:•,nbsp:␣,extends:↦,precedes:↤
-autocmd vimRc InsertEnter * set listchars-=trail:•
-autocmd vimRc InsertLeave * set listchars+=trail:•
+set listchars=tab:⹃\ ,trail:⋅,nbsp:␣,extends:↦,precedes:↤
+autocmd vimRc InsertEnter * set listchars-=trail:⋅
+autocmd vimRc InsertLeave * set listchars+=trail:⋅
 set shortmess=
 set shortmess+=asoOtIcF
 set confirm
@@ -417,9 +446,10 @@ autocmd vimRc BufNewFile,BufRead .babelrc    setfiletype json
 autocmd vimRc BufNewFile,BufRead *.txt       setfiletype markdown
 autocmd vimRc BufReadPre *.json  setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json  setlocal formatoptions=
-autocmd vimRc FileType git       setlocal nofoldenable
-autocmd vimRc FileType css,scss setlocal iskeyword+=@-@
+autocmd vimRc FileType css setlocal iskeyword+=-
+autocmd vimRc FileType scss setlocal iskeyword+=@-@
 autocmd vimRc FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
+autocmd FileType vim       setlocal foldmethod=marker
 
 # functions
 # highlight groups
@@ -454,6 +484,6 @@ command -nargs=1 -complete=file Grep {
 
 syntax enable
 set termguicolors
-colorscheme nordan
+colorscheme sacredforest
 
 set secure
