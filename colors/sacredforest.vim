@@ -93,6 +93,14 @@ hi CursorLine       ctermbg=8    ctermfg=NONE  cterm=NONE      guibg=#182738 gui
 hi helpleadblank    ctermbg=NONE ctermfg=NONE  cterm=NONE      guibg=NONE    guifg=NONE      gui=NONE
 hi helpnormal       ctermbg=NONE ctermfg=NONE  cterm=NONE      guibg=NONE    guifg=NONE      gui=NONE
 
+hi! link CocErrorHighlight DiffDelete
+hi! link CocHintHighlight DiffAdd
+hi! link CocInfoHighlight DiffAdd
+hi! link CocWarningHighlight DiffChange
+
+hi! link ALEErrorSign DiffDelete
+hi! link ALEWarningSign DiffChange
+hi! link ALEInfoSign DiffAdd
 
 hi link Number             Constant
 hi link Character          Constant
