@@ -80,7 +80,7 @@ hi WarningMsg       ctermbg=NONE ctermfg=1     cterm=NONE      guibg=NONE    gui
 hi MoreMsg          ctermbg=NONE ctermfg=12    cterm=NONE      guibg=NONE    guifg=#7fc1ca   gui=NONE
 hi Question         ctermbg=NONE ctermfg=12    cterm=NONE      guibg=NONE    guifg=#7fc1ca   gui=NONE
 
-hi Error            ctermbg=NONE ctermfg=1     cterm=REVERSE   guibg=NONE    guifg=#db6c6c   gui=REVERSE
+hi Error            ctermbg=NONE ctermfg=1     cterm=NONE      guibg=NONE    guifg=#db6c6c   gui=NONE
 hi Ignore           ctermbg=NONE ctermfg=NONE  cterm=NONE      guibg=NONE    guifg=NONE      gui=NONE
 hi Todo             ctermbg=7    ctermfg=14    cterm=NONE      guibg=#c0c99b guifg=#182a3f   gui=NONE
 
