@@ -30,10 +30,9 @@ packadd minpac
 minpac#init()
 
 minpac#add('k-takata/minpac', {'type': 'opt'})
-minpac#add('rhysd/vim-color-spring-night', {'type': 'opt'})
 
 # navigation
-minpac#add('basilgood/vaffle.vim', {'type': 'opt'})
+minpac#add('tpope/vim-vinegar', {'type': 'opt'})
 minpac#add('junegunn/fzf.vim', {'type': 'opt'})
 
 # lsp
@@ -49,6 +48,7 @@ minpac#add('yuezk/vim-js')
 minpac#add('jonsmithers/vim-html-template-literals')
 minpac#add('LnL7/vim-nix')
 minpac#add('cespare/vim-toml')
+minpac#add('mattn/emmet-vim', {'type': 'opt'})
 
 # misc
 minpac#add('sgur/vim-editorconfig', {'type': 'opt'})
@@ -58,7 +58,6 @@ minpac#add('tpope/vim-repeat', {'type': 'opt'})
 minpac#add('wellle/targets.vim', {'type': 'opt'})
 minpac#add('tommcdo/vim-exchange', {'type': 'opt'})
 minpac#add('haya14busa/vim-asterisk', {'type': 'opt'})
-minpac#add('haya14busa/vim-metarepeat', {'type': 'opt'})
 minpac#add('markonm/traces.vim', {'type': 'opt'})
 minpac#add('stefandtw/quickfix-reflector.vim')
 minpac#add('blueyed/vim-qf_resize')
@@ -67,13 +66,13 @@ minpac#add('basilgood/memolist.vim', {'type': 'opt'})
 minpac#add('markonm/hlyank.vim', { 'rev': '39e52017', 'type': 'opt' })
 minpac#add('AndrewRadev/quickpeek.vim', {'type': 'opt'})
 minpac#add('voldikss/vim-floaterm', {'type': 'opt'})
-minpac#add('qxxxb/vim-searchhi', {'type': 'opt'})
+minpac#add('romainl/vim-cool', {'type': 'opt'})
 minpac#add('fcpg/vim-altscreen')
 minpac#add('vim-scripts/cmdline-completion', {'type': 'opt'})
-minpac#add('svermeulen/vim-subversive', {'type': 'opt'})
 minpac#add('AndrewRadev/tagalong.vim', {'type': 'opt'})
-minpac#add('AndrewRadev/sideways.vim', {'type': 'opt'})
 minpac#add('junegunn/limelight.vim', {'type': 'opt'})
+minpac#add('psliwka/vim-smoothie', {'type': 'opt'})
+minpac#add('jessekelighine/vindent.vim', {'type': 'opt'})
 
 # git
 minpac#add('tpope/vim-fugitive', {'type': 'opt'})
@@ -84,14 +83,23 @@ command! PackUpdate minpac#update()
 command! PackClean minpac#clean()
 command! PackStatus minpac#status()
 
-# vaffle
-autocmd vimRc VimEnter * ++once packadd vaffle.vim
-g:vaffle_force_delete = 1
-nnoremap <silent> - :call vaffle#init(expand('%'))<cr>
-autocmd vimRc FileType vaffle {
-  nmap <buffer><silent> <left> <Plug>(vaffle-open-parent)
-  nmap <buffer><silent> <right> <Plug>(vaffle-open-current)
+# packs configs
+# netrw
+g:netrw_fastbrowse = 0
+g:netrw_altfile = 1
+g:netrw_preview = 1
+g:netrw_altv = 1
+g:netrw_alto = 0
+g:netrw_use_errorwindow = 0
+g:netrw_localcopydircmd = 'cp -av'
+autocmd vimRc FileType netrw {
+  nmap <buffer> <TAB> mfj
+  nmap <buffer> <S-TAB> mfk
   }
+autocmd vimRc CursorHold *netrw {
+  silent! :e .<cr>
+  }
+autocmd vimRc VimEnter * ++once packadd vim-vinegar
 
 # fzf
 autocmd vimRc VimEnter * ++once packadd fzf.vim
@@ -157,18 +165,20 @@ g:coc_user_config['html-css-support.enabledLanguages'] = ['html', 'javascript']
 autocmd FileType javascript,typescript,nix,vim {
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gr <Plug>(coc-references)
-  nmap <leader>a :CocAction<cr>
-  nmap <leader>l :CocDiagnostics<cr>
   nmap <silent> K :call CocActionAsync('doHover')<CR>
   }
 
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 CA CocAction
+command! -nargs=0 CD CocDiagnostics
+command! -nargs=0 FM call CocAction('format')
+command! -nargs=0 OR call CocAction('runCommand', 'editor.action.organizeImport')
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "\<CR>"
 imap <C-f> <Plug>(coc-snippets-expand-jump)
+nmap <expr> ]c &diff ? ']c' : '<Plug>(coc-git-nextchunk)'
+nmap <expr> [c &diff ? '[c' : '<Plug>(coc-git-prevchunk)'
 nmap [g <Plug>(coc-git-prevchunk)
 nmap ]g <Plug>(coc-git-nextchunk)
 nmap gs <Plug>(coc-git-chunkinfo)
@@ -198,27 +208,15 @@ g:traces_num_range_preview = 1
 
 # asterisk
 autocmd vimRc BufRead * ++once packadd vim-asterisk
-# nmap *  <Plug>(asterisk-z*)
-# vmap *  <Plug>(asterisk-z*)
-
-# searchhi
-autocmd vimRc BufRead * ++once packadd vim-searchhi
-g:searchhi_clear_all_asap = 1
-nmap n <Plug>(searchhi-n)
-nmap N <Plug>(searchhi-N)
-map * <Plug>(asterisk-z*)<Plug>(searchhi-update)
-map # <Plug>(asterisk-z#)<Plug>(searchhi-update)
-map g* <Plug>(asterisk-zg*)<Plug>(searchhi-update)
-map g# <Plug>(asterisk-zg#)<Plug>(searchhi-update)
-
-# metarepeat
-autocmd vimRc BufRead * ++once packadd vim-metarepeat
+nmap *  <Plug>(asterisk-z*)
+vmap *  <Plug>(asterisk-z*)
 
 # cmdline completion
 autocmd vimRc CmdlineEnter * ++once packadd cmdline-completion
 
 # fugitive
 autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
+autocmd FileType fugitive nmap <buffer> <tab> dv:wincmd w<cr>
 
 # memolist
 autocmd vimRc CmdlineEnter * ++once packadd memolist.vim
@@ -248,14 +246,9 @@ autocmd vimRc BufRead * ++once packadd targets.vim
 g:targets_nl = 'nN'
 
 # subversive
-autocmd vimRc BufRead * ++once packadd vim-subversive
-nnoremap <c-n> <plug>(SubversiveSubstituteWordRangeConfirm)
-xnoremap <c-n> <plug>(SubversiveSubstituteRangeConfirm)
-
-# sideways
-autocmd vimRc BufRead * ++once packadd sideways.vim
-nnoremap c, :SidewaysLeft<cr>
-nnoremap c. :SidewaysRight<cr>
+# autocmd vimRc BufRead * ++once packadd vim-subversive
+# nnoremap <c-n> <plug>(SubversiveSubstituteWordRangeConfirm)
+# xnoremap <c-n> <plug>(SubversiveSubstituteRangeConfirm)
 
 # tagalong
 autocmd vimRc BufReadPre * ++once packadd tagalong.vim
@@ -267,7 +260,27 @@ nmap gl <Plug>(Limelight)
 xmap gl <Plug>(Limelight)
 cabbrev lm Limelight!
 
-# plugins
+# smoothie
+autocmd vimRc BufRead * ++once packadd vim-smoothie
+nnoremap } }zz
+nnoremap { {zz
+
+# vindent
+autocmd vimRc BufReadPre * ++once packadd vindent.vim
+g:vindent_motion_prev = '[l'
+g:vindent_motion_next = ']l'
+g:vindent_object_ii   = 'ii'
+g:vindent_object_iI   = 'iI'
+g:vindent_tabstop     = &tabstop
+
+# exchange
+autocmd vimRc BufRead * ++once packadd vim-exchange
+nmap c. cxiw
+
+# emmet
+autocmd vimRc BufRead * ++once packadd emmet-vim
+
+# event loaded packs
 packadd! vim-editorconfig
 autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
 autocmd vimRc BufRead * ++once packadd auto-git-diff
@@ -275,8 +288,9 @@ autocmd vimRc BufRead * ++once packadd diffconflicts
 autocmd vimRc BufRead * ++once packadd vim-commentary
 autocmd vimRc BufRead * ++once packadd vim-surround
 autocmd vimRc BufRead * ++once packadd vim-repeat
-autocmd vimRc BufRead * ++once packadd vim-exchange
+autocmd vimRc BufRead * ++once packadd vim-cool
 autocmd vimRc BufRead * ++once packadd hlyank.vim
+autocmd vimRc FileType qf ++once packadd cfilter
 
 filetype plugin indent on
 
@@ -314,7 +328,7 @@ set number
 set mouse=a ttymouse=sgr
 set signcolumn=yes
 set splitright splitbelow
-set fillchars=vert:│,fold:-,eob:~
+set fillchars=vert:│,fold:-,diff:\ ,eob:~
 set virtualedit=onemore
 set sidescrolloff=10 sidescroll=1
 set sessionoptions-=options
@@ -329,7 +343,7 @@ set completeopt+=noselect,noinsert
 set pumheight=10
 set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
-set listchars=tab:⹃\ ,trail:⋅,nbsp:␣,extends:↦,precedes:↤
+set listchars=tab:۔۔,trail:⋅,nbsp:␣,extends:↦,precedes:↤
 autocmd vimRc InsertEnter * set listchars-=trail:⋅
 autocmd vimRc InsertLeave * set listchars+=trail:⋅
 set shortmess=
@@ -341,27 +355,30 @@ set wildmenu
 set wildoptions=pum,tagfile
 set wildignorecase
 set wildcharm=<C-Z>
-set grepprg=grep\ -rnH
+&grepprg = 'grep -rnH'
 &grepformat = '%f:%l:%c:%m,%f:%l:%m'
 &errorformat ..= ',%f\|%\s%#%l col%\s%#%c%\s%#\| %m'
 set backspace=indent,eol,start
-set laststatus=2
+&laststatus = 2
 set statusline=
-set statusline+=%<%t
-set statusline+=\ %#diffdelete#%{&mod?'(⊙_⊙)':''}
+set statusline+=
+set statusline+=\ %<%t
+set statusline+=\ %{&mod?'✹':''}
 set statusline+=%*
 set statusline+=\ %h%w%r
 set statusline+=%=
-set statusline+=%{&ft}
+set statusline+=\ %{&ft}
 set statusline+=%7c:%l/%L
+set statusline+=\ 
 
 # mappings
 # save
 nnoremap <leader><leader> :update<cr>
-# repetable dot
-nnoremap cn :norm n.<cr>
-nnoremap cN :norm N.<cr>
-# wrap
+# bufdelete
+nnoremap <silent> <c-w>d :bp<bar>bd#<cr>
+# close qf
+nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
+# wrap true
 noremap j gj
 noremap k gk
 # redline
@@ -370,19 +387,15 @@ cnoremap <c-e> <End>
 inoremap <c-a> <Home>
 inoremap <c-e> <End>
 inoremap <c-k> <esc>lDi
-# paragraph
-nnoremap } }zz
-nnoremap { {zz
-# tabs
-nnoremap <c-w>t :tabe %<cr><c-o>
-# close qf
-nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
 # objects
 xnoremap <silent> il <Esc>^vg_
 onoremap <silent> il :<C-U>normal! ^vg_<cr>
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 nnoremap vv viw
+# substitute
+nmap <c-n> *cgn
+xnoremap s :s/
 # repeat on visual selection
 vnoremap . :normal .<CR>
 # c-g improved
@@ -452,7 +465,6 @@ autocmd vimRc FileType scss setlocal iskeyword+=@-@
 autocmd vimRc FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 autocmd FileType vim       setlocal foldmethod=marker
 
-# functions
 # highlight groups
 def SynGroup(): void
   var s = synID(line('.'), col('.'), 1)
@@ -485,6 +497,6 @@ command -nargs=1 -complete=file Grep {
 
 syntax enable
 set termguicolors
-colorscheme sacredforest
+colorscheme kanagawa
 
 set secure
