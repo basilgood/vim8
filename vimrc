@@ -71,7 +71,7 @@ minpac#add('fcpg/vim-altscreen')
 minpac#add('vim-scripts/cmdline-completion', {'type': 'opt'})
 minpac#add('AndrewRadev/tagalong.vim', {'type': 'opt'})
 minpac#add('junegunn/limelight.vim', {'type': 'opt'})
-minpac#add('psliwka/vim-smoothie', {'type': 'opt'})
+minpac#add('toombs-caeman/vim-smoothie', {'type': 'opt'})
 minpac#add('jessekelighine/vindent.vim', {'type': 'opt'})
 
 # git
@@ -262,6 +262,7 @@ cabbrev lm Limelight!
 
 # smoothie
 autocmd vimRc BufRead * ++once packadd vim-smoothie
+g:smoothie_experimental_mappings = v:true
 nnoremap } }zz
 nnoremap { {zz
 
