@@ -33,6 +33,8 @@ minpac#add('k-takata/minpac', {'type': 'opt'})
 
 # navigation
 minpac#add('tpope/vim-vinegar', {'type': 'opt'})
+# minpac#add('qpkorr/vim-renamer', {'type': 'opt'})
+minpac#add('junegunn/fzf', {'type': 'opt'})
 minpac#add('junegunn/fzf.vim', {'type': 'opt'})
 
 # lsp
@@ -48,36 +50,30 @@ minpac#add('yuezk/vim-js')
 minpac#add('jonsmithers/vim-html-template-literals')
 minpac#add('LnL7/vim-nix')
 minpac#add('cespare/vim-toml')
-minpac#add('mattn/emmet-vim', {'type': 'opt'})
 
 # misc
 minpac#add('sgur/vim-editorconfig', {'type': 'opt'})
 minpac#add('tpope/vim-commentary', {'type': 'opt'})
 minpac#add('tpope/vim-surround', {'type': 'opt'})
 minpac#add('tpope/vim-repeat', {'type': 'opt'})
-minpac#add('wellle/targets.vim', {'type': 'opt'})
 minpac#add('tommcdo/vim-exchange', {'type': 'opt'})
-minpac#add('haya14busa/vim-asterisk', {'type': 'opt'})
+minpac#add('haya14busa/vim-asterisk', {'test': 'opt'})
 minpac#add('markonm/traces.vim', {'type': 'opt'})
 minpac#add('stefandtw/quickfix-reflector.vim')
 minpac#add('blueyed/vim-qf_resize')
 minpac#add('mbbill/undotree', {'type': 'opt'})
-minpac#add('basilgood/memolist.vim', {'type': 'opt'})
 minpac#add('markonm/hlyank.vim', { 'rev': '39e52017', 'type': 'opt' })
 minpac#add('AndrewRadev/quickpeek.vim', {'type': 'opt'})
 minpac#add('voldikss/vim-floaterm', {'type': 'opt'})
 minpac#add('romainl/vim-cool', {'type': 'opt'})
 minpac#add('fcpg/vim-altscreen')
 minpac#add('vim-scripts/cmdline-completion', {'type': 'opt'})
-minpac#add('AndrewRadev/tagalong.vim', {'type': 'opt'})
 minpac#add('junegunn/limelight.vim', {'type': 'opt'})
 minpac#add('toombs-caeman/vim-smoothie', {'type': 'opt'})
-minpac#add('jessekelighine/vindent.vim', {'type': 'opt'})
 
 # git
 minpac#add('tpope/vim-fugitive', {'type': 'opt'})
 minpac#add('whiteinge/diffconflicts', {'type': 'opt'})
-minpac#add('hotwatermorning/auto-git-diff', {'type': 'opt'})
 
 command! PackUpdate minpac#update()
 command! PackClean minpac#clean()
@@ -85,31 +81,26 @@ command! PackStatus minpac#status()
 
 # packs configs
 # netrw
-g:netrw_fastbrowse = 0
 g:netrw_altfile = 1
 g:netrw_preview = 1
-g:netrw_altv = 1
 g:netrw_alto = 0
 g:netrw_use_errorwindow = 0
-g:netrw_localcopydircmd = 'cp -av'
 autocmd vimRc FileType netrw {
-  nmap <buffer> <TAB> mfj
-  nmap <buffer> <S-TAB> mfk
-  }
-autocmd vimRc CursorHold *netrw {
-  silent! :e .<cr>
+  nmap <buffer> <left> -
+  nmap <buffer> <right> <cr>
   }
 autocmd vimRc VimEnter * ++once packadd vim-vinegar
 
 # fzf
+autocmd vimRc VimEnter * ++once packadd fzf
 autocmd vimRc VimEnter * ++once packadd fzf.vim
 $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
 $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --color=always --exclude .git'
-g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-g:fzf_preview_window = ['up:80%', 'ctrl-/']
+g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
+g:fzf_preview_window = ['up:75%', 'ctrl-/']
 g:fzf_colors = {}
 g:fzf_colors['bg+']  = ['bg', 'CursorLine']
-g:fzf_colors.border = ['fg', 'Comment']
+g:fzf_colors.border = ['fg', 'Visual']
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
 
@@ -175,13 +166,10 @@ command! -nargs=0 OR call CocAction('runCommand', 'editor.action.organizeImport'
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+inoremap <expr> <CR>    pumvisible() ? "\<C-Y>" : "\<CR>"
 imap <C-f> <Plug>(coc-snippets-expand-jump)
 nmap <expr> ]c &diff ? ']c' : '<Plug>(coc-git-nextchunk)'
 nmap <expr> [c &diff ? '[c' : '<Plug>(coc-git-prevchunk)'
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
-nmap gs <Plug>(coc-git-chunkinfo)
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 omap ag <Plug>(coc-git-chunk-outer)
@@ -196,11 +184,10 @@ g:htl_all_templates = 1
 
 # autoformat
 autocmd vimRc BufRead * ++once packadd vim-autoformat
-g:formatters_javascript = ['prettier', 'eslint_local']
-g:run_all_formatters_javascript = 1
+g:formatters_javascript = ['prettier']
+g:formatdef_custom_nix = '"nixpkgs-fmt"'
+g:formatters_nix = ['custom_nix']
 cabbrev af Autoformat
-# extraformat
-nnoremap gp :silent %!prettier --stdin-filepath %<CR>
 
 # traces
 autocmd vimRc CmdlineEnter * ++once packadd traces.vim
@@ -217,11 +204,6 @@ autocmd vimRc CmdlineEnter * ++once packadd cmdline-completion
 # fugitive
 autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
 autocmd FileType fugitive nmap <buffer> <tab> dv:wincmd w<cr>
-
-# memolist
-autocmd vimRc CmdlineEnter * ++once packadd memolist.vim
-g:memolist_memo_suffix = 'md'
-g:memolist_fzf = 1
 
 # undotree
 autocmd vimRc CmdlineEnter * ++once packadd undotree
@@ -241,19 +223,6 @@ g:floaterm_autoclose = 2
 g:floaterm_keymap_toggle = '<C-q>'
 tnoremap <c-x> <c-\><c-n>
 
-# targets
-autocmd vimRc BufRead * ++once packadd targets.vim
-g:targets_nl = 'nN'
-
-# subversive
-# autocmd vimRc BufRead * ++once packadd vim-subversive
-# nnoremap <c-n> <plug>(SubversiveSubstituteWordRangeConfirm)
-# xnoremap <c-n> <plug>(SubversiveSubstituteRangeConfirm)
-
-# tagalong
-autocmd vimRc BufReadPre * ++once packadd tagalong.vim
-g:tagalong_filetypes = ['html', 'javascript']
-
 # limelight
 autocmd vimRc BufRead * ++once packadd limelight.vim
 nmap gl <Plug>(Limelight)
@@ -266,25 +235,13 @@ g:smoothie_experimental_mappings = v:true
 nnoremap } }zz
 nnoremap { {zz
 
-# vindent
-autocmd vimRc BufReadPre * ++once packadd vindent.vim
-g:vindent_motion_prev = '[l'
-g:vindent_motion_next = ']l'
-g:vindent_object_ii   = 'ii'
-g:vindent_object_iI   = 'iI'
-g:vindent_tabstop     = &tabstop
-
 # exchange
 autocmd vimRc BufRead * ++once packadd vim-exchange
 nmap c. cxiw
 
-# emmet
-autocmd vimRc BufRead * ++once packadd emmet-vim
-
 # event loaded packs
 packadd! vim-editorconfig
 autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
-autocmd vimRc BufRead * ++once packadd auto-git-diff
 autocmd vimRc BufRead * ++once packadd diffconflicts
 autocmd vimRc BufRead * ++once packadd vim-commentary
 autocmd vimRc BufRead * ++once packadd vim-surround
@@ -296,12 +253,12 @@ autocmd vimRc FileType qf ++once packadd cfilter
 filetype plugin indent on
 
 # options
-&t_SI = "\e[6 q"
-&t_SR = "\e[4 q"
-&t_EI = "\e[2 q"
+&t_EI ..= "\e[2 q"
+&t_SR ..= "\e[4 q"
+&t_SI ..= "\e[6 q"
 set t_ut=
 set t_md=
-set path=,,.,tests/**
+set path=.,,tests/**
 set path+=lib/**,views/**,cz-components/**,test/**
 set wildignore+=*/node_modules/*,*/.git/*,*/recordings/*,*/pack
 set hidden
@@ -344,7 +301,7 @@ set completeopt+=noselect,noinsert
 set pumheight=10
 set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
-set listchars=tab:۔۔,trail:⋅,nbsp:␣,extends:↦,precedes:↤
+set listchars=tab:┊\ ,trail:·,nbsp:␣,extends:❯,precedes:❮
 autocmd vimRc InsertEnter * set listchars-=trail:⋅
 autocmd vimRc InsertLeave * set listchars+=trail:⋅
 set shortmess=
@@ -353,7 +310,8 @@ set confirm
 set history=1000
 set viminfo^=!
 set wildmenu
-set wildoptions=pum,tagfile
+set wildmode=longest:full,full
+set wildoptions=tagfile,pum
 set wildignorecase
 set wildcharm=<C-Z>
 &grepprg = 'grep -rnH'
@@ -362,15 +320,11 @@ set wildcharm=<C-Z>
 set backspace=indent,eol,start
 &laststatus = 2
 set statusline=
-set statusline+=
-set statusline+=\ %<%t
-set statusline+=\ %{&mod?'✹':''}
-set statusline+=%*
-set statusline+=\ %h%w%r
+set statusline+=%<%t
+set statusline+=\ %h%w%r%m
 set statusline+=%=
 set statusline+=\ %{&ft}
 set statusline+=%7c:%l/%L
-set statusline+=\ 
 
 # mappings
 # save
@@ -395,7 +349,6 @@ xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 nnoremap vv viw
 # substitute
-nmap <c-n> *cgn
 xnoremap s :s/
 # repeat on visual selection
 vnoremap . :normal .<CR>
@@ -496,8 +449,8 @@ command -nargs=1 -complete=file Grep {
   Grep(<q-args>)
   }
 
-syntax enable
 set termguicolors
+syntax enable
 colorscheme kanagawa
 
 set secure
