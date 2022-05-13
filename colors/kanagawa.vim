@@ -74,8 +74,8 @@ hi CursorColumn guifg=NONE guibg=#282835 gui=NONE
 hi CursorLine guifg=NONE guibg=#282835 gui=NONE cterm=NONE
 hi SignColumn   guifg=NONE guibg=#1F1F28
 
-hi Visual guifg=NONE guibg=#282835 gui=NONE
-hi QuickFixLine guifg=NONE guibg=#282835 gui=NONE
+hi Visual guifg=NONE guibg=#342835 gui=NONE
+hi QuickFixLine guifg=NONE guibg=#342835 gui=NONE
 
 hi SpellBad     gui=underline guifg=NONE guibg=NONE
 hi SpellBad     gui=underline guifg=NONE guibg=NONE
