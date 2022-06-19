@@ -11,14 +11,14 @@ endif
 g:colors_name = 'kanagawa'
 
 hi Normal       guifg=#DCD7BA guibg=#1F1F28 gui=NONE
-hi EndOfBuffer  guifg=#54546D guibg=#1F1F28 gui=NONE
+hi EndOfBuffer  guifg=#363646 guibg=#1F1F28 gui=NONE
 
 hi Identifier   guifg=#E6C384 guibg=NONE gui=NONE
 hi Function     guifg=#7E9CD8 guibg=NONE gui=NONE
 
 hi Comment      guifg=#727169 guibg=NONE gui=NONE
-hi NonText      guifg=#54546D guibg=NONE gui=NONE
-hi SpecialKey   guifg=#54546D guibg=NONE gui=NONE
+hi NonText      guifg=#363646 guibg=NONE gui=NONE
+hi SpecialKey   guifg=#363646 guibg=NONE gui=NONE
 
 hi Type         guifg=#98BB6C guibg=NONE gui=NONE
 hi Directory    guifg=#98BB6C guibg=NONE gui=NONE
@@ -55,11 +55,12 @@ hi ErrorMsg     guifg=#E82424 guibg=NONE gui=NONE
 hi WarningMsg   guifg=#FF9E3B guibg=NONE gui=NONE
 
 hi Search       guifg=NONE guibg=#223249 gui=NONE
-hi IncSearch    guifg=NONE guibg=#223249 gui=NONE
+hi CurSearch    guifg=NONE guibg=#bf2232 gui=NONE
+hi IncSearch    guifg=NONE guibg=#bf2232 gui=NONE cterm=NONE
 
-hi DiffAdd     guibg=#2B3328 guifg=NONE      gui=NONE
-hi DiffDelete  guibg=#43242B guifg=NONE      gui=NONE ctermfg=NONE
-hi DiffChange  guibg=#49443C guifg=NONE      gui=NONE
+hi DiffAdd     guibg=#2C3527 guifg=NONE      gui=NONE
+hi DiffDelete  guibg=#352733 guifg=NONE      gui=NONE ctermfg=NONE
+hi DiffChange  guibg=#32301C guifg=NONE      gui=NONE
 hi DiffText    guibg=#213a59 guifg=NONE      gui=NONE
 hi diffAdded   guibg=NONE    guifg=#76946A   gui=NONE
 hi diffRemoved guibg=NONE    guifg=#B55E5E   gui=NONE
@@ -82,7 +83,7 @@ hi SpellBad     gui=underline guifg=NONE guibg=NONE
 hi Underlined   guifg=NONE guibg=NONE gui=underline
 
 
-hi VertSplit guifg=#1F1F28 guibg=#54546D gui=NONE
+hi VertSplit guifg=#1F1F28 guibg=#16161D gui=NONE
 hi Folded guifg=#8e8eb3 guibg=#272738 gui=NONE
 hi FoldColumn guifg=NONE guibg=#1F1F28 gui=NONE
 
