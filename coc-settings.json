@@ -1,0 +1,54 @@
+{
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.hintSign": "",
+  "diagnostic.floatConfig": {
+    "border": true,
+    "borderhighlight": "Comment",
+    "rounded": true,
+    "highlight": "Comment"
+  },
+
+  "signature.enable": true,
+  "signature.target": "echo",
+  "signature.hideOnTextChange": true,
+  "signature.floatConfig": {
+    "border": true,
+    "borderhighlight": "Comment",
+    "rounded": true,
+    "highlight": "black"
+  },
+
+  "suggest.floatConfig": {
+    "border": true,
+    "borderhighlight": "Comment",
+    "highlight": "black"
+  },
+
+  "hover.floatConfig": {
+    "border": true,
+    "borderhighlight": "Comment",
+    "rounded": true,
+    "highlight": "black"
+  },
+
+  "snippets.ultisnips.enable": false,
+  "snippets.userSnippetsDirectory": "~/.vim/snippets",
+
+  "html.filetypes": ["html", "javascript"],
+
+  "html-css-support.enabledLanguages": ["html", "javascript"],
+
+  "languageserver": {
+    "nix": {
+      "command": "rnix-lsp",
+      "filetypes": ["nix"]
+    }
+  },
+
+  "diagnostic-languageserver.filetypes": {
+    "lua": "luacheck",
+    "yaml": "yamllint"
+  }
+}
