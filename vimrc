@@ -13,7 +13,7 @@ augroup vimRc
   autocmd!
 augroup END
 
-&packpath = $HOME .. '/.vim,' .. $VIMRUNTIME .. ',' .. $HOME .. '/.vim/after'
+# &packpath = $HOME .. '/.vim,' .. $VIMRUNTIME .. ',' .. $HOME .. '/.vim/after'
 packadd! matchit
 
 # minpac
@@ -33,7 +33,6 @@ minpac#add('k-takata/minpac', {'type': 'opt'})
 
 # navigation
 minpac#add('tpope/vim-vinegar', {'type': 'opt'})
-# minpac#add('qpkorr/vim-renamer', {'type': 'opt'})
 minpac#add('junegunn/fzf', {'type': 'opt'})
 minpac#add('junegunn/fzf.vim', {'type': 'opt'})
 
@@ -41,7 +40,6 @@ minpac#add('junegunn/fzf.vim', {'type': 'opt'})
 minpac#add('neoclide/coc.nvim', {'branch': 'release', 'type': 'opt'})
 
 # lint and format
-minpac#add('dense-analysis/ale', {'type': 'opt'})
 minpac#add('vim-autoformat/vim-autoformat', {'type': 'opt'})
 
 # lang
@@ -61,14 +59,11 @@ minpac#add('haya14busa/vim-asterisk', {'test': 'opt'})
 minpac#add('markonm/traces.vim', {'type': 'opt'})
 minpac#add('stefandtw/quickfix-reflector.vim')
 minpac#add('blueyed/vim-qf_resize')
-minpac#add('mbbill/undotree', {'type': 'opt'})
-minpac#add('markonm/hlyank.vim', { 'rev': '39e52017', 'type': 'opt' })
+minpac#add('basilgood/hlyank.vim', { 'type': 'opt' })
 minpac#add('AndrewRadev/quickpeek.vim', {'type': 'opt'})
 minpac#add('voldikss/vim-floaterm', {'type': 'opt'})
 minpac#add('romainl/vim-cool', {'type': 'opt'})
 minpac#add('fcpg/vim-altscreen')
-minpac#add('vim-scripts/cmdline-completion', {'type': 'opt'})
-minpac#add('junegunn/limelight.vim', {'type': 'opt'})
 minpac#add('toombs-caeman/vim-smoothie', {'type': 'opt'})
 
 # git
@@ -98,34 +93,9 @@ $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
 $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --color=always --exclude .git'
 g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
 g:fzf_preview_window = ['up:75%', 'ctrl-/']
-g:fzf_colors = {}
-g:fzf_colors['bg+']  = ['bg', 'CursorLine']
-g:fzf_colors.border = ['fg', 'Visual']
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
-
-# ale
-autocmd vimRc VimEnter * ++once packadd ale
-g:ale_disable_lsp = 1
-g:ale_sign_error = ' '
-g:ale_sign_warning = ' '
-g:ale_sign_info = ' '
-g:ale_set_highlights = 0
-g:ale_lint_on_text_changed = 'normal'
-g:ale_lint_on_insert_leave = 1
-nmap <silent> [a <Plug>(ale_previous)
-nmap <silent> ]a <Plug>(ale_next)
-g:ale_fixers = {
-  'javascript': ['eslint'],
-  'css': ['prettier'],
-  'json': ['prettier'],
-  'sh': ['shfmt'],
-  'nix': ['nixpkgs-fmt'],
-  }
-g:ale_pattern_options = {
-  '.*\.vim$': {'ale_enabled': 0},
-  '.*\vimrc$': {'ale_enabled': 0}
-  }
+cnoreabbrev fl Files %:p:h
 
 # coc
 autocmd vimRc VimEnter * ++once packadd coc.nvim
@@ -133,25 +103,13 @@ g:coc_global_extensions = [
   'coc-json',
   'coc-snippets',
   'coc-tsserver',
+  'coc-eslint',
+  'coc-prettier',
   'coc-html',
   'coc-html-css-support',
-  'coc-yaml',
+  'coc-vimlsp',
   'coc-git',
   ]
-
-g:coc_user_config = {}
-g:coc_user_config['languageserver'] = {}
-g:coc_user_config['diagnostic.displayByAle'] = v:true
-g:coc_user_config['diagnostic.floatConfig'] = {'highlight': 'Normal'}
-g:coc_user_config['diagnostic.signPriority'] = 20
-g:coc_user_config['diagnostic.errorSign'] = ''
-g:coc_user_config['diagnostic.warningSign'] = ''
-g:coc_user_config['diagnostic.infoSign'] = ''
-g:coc_user_config['diagnostic.hintSign'] = ''
-g:coc_user_config['snippets.ultisnips.enable'] = v:false
-g:coc_user_config['snippets.userSnippetsDirectory'] = '~/.vim/snippets'
-g:coc_user_config['html.filetypes'] = ['html', 'javascript']
-g:coc_user_config['html-css-support.enabledLanguages'] = ['html', 'javascript']
 
 autocmd FileType javascript,typescript,nix,vim {
   nmap <silent> gd <Plug>(coc-definition)
@@ -159,15 +117,17 @@ autocmd FileType javascript,typescript,nix,vim {
   nmap <silent> K :call CocActionAsync('doHover')<CR>
   }
 
-command! -nargs=0 CA CocAction
-command! -nargs=0 CD CocDiagnostics
-command! -nargs=0 FM call CocAction('format')
-command! -nargs=0 OR call CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 Action call CocActionAsync('codeAction', '')
+command! -nargs=0 Format call CocAction('format')
+command! -nargs=0 OrgImp call CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 Prettier CocCommand prettier.forceFormatDocument
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <CR>    pumvisible() ? "\<C-Y>" : "\<CR>"
 imap <C-f> <Plug>(coc-snippets-expand-jump)
+nmap [e <Plug>(coc-diagnostic-prev)
+nmap ]e <Plug>(coc-diagnostic-next)
 nmap <expr> ]c &diff ? ']c' : '<Plug>(coc-git-nextchunk)'
 nmap <expr> [c &diff ? '[c' : '<Plug>(coc-git-prevchunk)'
 omap ig <Plug>(coc-git-chunk-inner)
@@ -198,18 +158,9 @@ autocmd vimRc BufRead * ++once packadd vim-asterisk
 nmap *  <Plug>(asterisk-z*)
 vmap *  <Plug>(asterisk-z*)
 
-# cmdline completion
-autocmd vimRc CmdlineEnter * ++once packadd cmdline-completion
-
 # fugitive
 autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
 autocmd FileType fugitive nmap <buffer> <tab> dv:wincmd w<cr>
-
-# undotree
-autocmd vimRc CmdlineEnter * ++once packadd undotree
-g:undotree_WindowLayout = 4
-g:undotree_SetFocusWhenToggle = 1
-g:undotree_ShortIndicators = 1
 
 # quickpeek
 packadd! quickpeek.vim
@@ -222,12 +173,6 @@ g:floaterm_width = 0.9
 g:floaterm_autoclose = 2
 g:floaterm_keymap_toggle = '<C-q>'
 tnoremap <c-x> <c-\><c-n>
-
-# limelight
-autocmd vimRc BufRead * ++once packadd limelight.vim
-nmap gl <Plug>(Limelight)
-xmap gl <Plug>(Limelight)
-cabbrev lm Limelight!
 
 # smoothie
 autocmd vimRc BufRead * ++once packadd vim-smoothie
@@ -301,7 +246,7 @@ set completeopt+=noselect,noinsert
 set pumheight=10
 set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
-set listchars=tab:┊\ ,trail:·,nbsp:␣,extends:❯,precedes:❮
+set listchars=tab:▫\ ,trail:·,nbsp:␣,extends:❯,precedes:❮
 autocmd vimRc InsertEnter * set listchars-=trail:⋅
 autocmd vimRc InsertLeave * set listchars+=trail:⋅
 set shortmess=
@@ -391,9 +336,6 @@ autocmd vimRc FocusGained,CursorHold * {
   if !bufexists("[Command Line]")
     checktime
   endif
-  if exists('g:loaded_gitgutter')
-    gitgutter#all(1)
-  endif
   }
 
 # mkdir
@@ -414,10 +356,6 @@ autocmd vimRc BufNewFile,BufRead .babelrc    setfiletype json
 autocmd vimRc BufNewFile,BufRead *.txt       setfiletype markdown
 autocmd vimRc BufReadPre *.json  setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json  setlocal formatoptions=
-autocmd vimRc FileType css setlocal iskeyword+=-
-autocmd vimRc FileType scss setlocal iskeyword+=@-@
-autocmd vimRc FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
-autocmd FileType vim       setlocal foldmethod=marker
 
 # highlight groups
 def SynGroup(): void
@@ -451,6 +389,6 @@ command -nargs=1 -complete=file Grep {
 
 set termguicolors
 syntax enable
-colorscheme kanagawa
+colorscheme gruvbox8
 
 set secure
