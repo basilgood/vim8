@@ -1,4 +1,4 @@
-vim9script noclear
+vim9script
 
 if !v:vim_did_enter
   const startuptime = reltime()
@@ -13,7 +13,6 @@ augroup vimRc
   autocmd!
 augroup END
 
-# &packpath = $HOME .. '/.vim,' .. $VIMRUNTIME .. ',' .. $HOME .. '/.vim/after'
 packadd! matchit
 
 # minpac
@@ -65,6 +64,7 @@ minpac#add('voldikss/vim-floaterm', {'type': 'opt'})
 minpac#add('romainl/vim-cool', {'type': 'opt'})
 minpac#add('fcpg/vim-altscreen')
 minpac#add('toombs-caeman/vim-smoothie', {'type': 'opt'})
+minpac#add('itchyny/lightline.vim', {'type': 'opt'})
 
 # git
 minpac#add('tpope/vim-fugitive', {'type': 'opt'})
@@ -128,6 +128,8 @@ inoremap <expr> <CR>    pumvisible() ? "\<C-Y>" : "\<CR>"
 imap <C-f> <Plug>(coc-snippets-expand-jump)
 nmap [e <Plug>(coc-diagnostic-prev)
 nmap ]e <Plug>(coc-diagnostic-next)
+nmap [g <Plug>(coc-git-prevconflict)
+nmap ]g <Plug>(coc-git-nextconflict)
 nmap <expr> ]c &diff ? ']c' : '<Plug>(coc-git-nextchunk)'
 nmap <expr> [c &diff ? '[c' : '<Plug>(coc-git-prevchunk)'
 omap ig <Plug>(coc-git-chunk-inner)
@@ -138,6 +140,10 @@ nnoremap ghr :CocCommand git.chunkUndo<cr>
 nnoremap ghs :CocCommand git.chunkStage<cr>
 nnoremap ghu :CocCommand git.chunkUnstage<cr>
 nnoremap ghp :CocCommand git.chunkInfo<cr>
+nnoremap ghb :CocCommand git.browserOpen<cr>
+nnoremap ghc :CocCommand git.showCommit<cr>
+nnoremap ghf :CocCommand git.foldUnchanged<cr>
+nnoremap ghg :echo b:coc_git_blame<cr>
 
 # lit
 g:htl_all_templates = 1
@@ -183,6 +189,29 @@ nnoremap { {zz
 # exchange
 autocmd vimRc BufRead * ++once packadd vim-exchange
 nmap c. cxiw
+
+# lightline
+autocmd vimRc BufRead * ++once packadd lightline.vim
+g:lightline = {
+  'colorscheme': 'wombat',
+  'active': {
+    'left': [['paste'],
+    ['readonly', 'filename', 'modified']],
+    'right': [['lineinfo'], ['filetype']]
+    },
+  'inactive': {
+    'left': [['paste'],
+    ['readonly', 'filename', 'modified']],
+    'right': [['lineinfo'], ['filetype']]
+    },
+  'component': {
+    'lineinfo': '%4c:%l/%L'
+    },
+  'separator': { 'left': "", 'right': "\ue0be" },
+  'subseparator': { 'left': "", 'right': "\ue0b9" },
+  'tabline_separator': { 'left': "", 'right': "\ue0be" },
+  'tabline_subseparator': { 'left': "", 'right': "\ue0b9" }
+  }
 
 # event loaded packs
 packadd! vim-editorconfig
@@ -238,7 +267,7 @@ set sessionoptions-=options
 set sessionoptions-=blank
 set sessionoptions-=help
 set lazyredraw
-set timeoutlen=1200
+set timeoutlen=3000
 set ttimeoutlen=50
 set updatetime=150
 set incsearch hlsearch
