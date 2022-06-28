@@ -23,7 +23,16 @@ hi! link lCursor Cursor
 hi! link iCursor Cursor
 hi! link vCursor Cursor
 
-g:terminal_ansi_colors = ['#282828', '#cc241d', '#98971a', '#d79921', '#458588', '#b16286', '#689d6a', '#a89984', '#928374', '#d85d5d', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#ebdbb2']
+g:terminal_ansi_colors = [
+  '#282828', '#cc241d',
+  '#98971a', '#d79921',
+  '#458588', '#b16286',
+  '#689d6a', '#a89984',
+  '#928374', '#d85d5d',
+  '#b8bb26', '#fabd2f',
+  '#83a598', '#d3869b',
+  '#8ec07c', '#ebdbb2'
+  ]
 
 hi Normal guifg=#ebdbb2 guibg=#282828 gui=NONE cterm=NONE
 hi CursorLineNr guifg=#8ec07c guibg=#3c3836 gui=NONE cterm=NONE
@@ -33,8 +42,8 @@ hi VertSplit guifg=#665c54 guibg=#282828 gui=NONE cterm=NONE
 hi ColorColumn guifg=NONE guibg=#1d2021 gui=NONE cterm=NONE
 hi Comment guifg=#928374 guibg=NONE gui=NONE cterm=NONE
 hi CursorLine guifg=NONE guibg=#1d2021 gui=NONE cterm=NONE
-hi Error guifg=#d85d5d guibg=#282828 gui=bold,reverse cterm=bold,reverse
-hi ErrorMsg guifg=#282828 guibg=#d85d5d gui=bold cterm=bold
+hi Error guifg=#d85d5d guibg=#282828 gui=NONE cterm=NONE
+hi ErrorMsg guifg=#d85d5d guibg=#282828 gui=NONE cterm=NONE
 hi Folded guifg=#928374 guibg=#3c3836 gui=NONE cterm=NONE
 hi LineNr guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi MatchParen guifg=NONE guibg=#504945 gui=bold,underline cterm=bold,underline
@@ -55,10 +64,10 @@ hi Visual guifg=NONE guibg=#1d2021 gui=NONE cterm=NONE
 hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
 hi Conceal guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
 hi Cursor guifg=NONE guibg=NONE gui=reverse ctermfg=NONE ctermbg=NONE cterm=reverse
-hi DiffAdd guifg=#b8bb26 guibg=#282828 gui=reverse cterm=reverse
-hi DiffChange guifg=#8ec07c guibg=#282828 gui=reverse cterm=reverse
-hi DiffDelete guifg=#d85d5d guibg=#282828 gui=reverse cterm=reverse
-hi DiffText guifg=#fabd2f guibg=#282828 gui=reverse cterm=reverse
+hi DiffAdd     guibg=#222222 guifg=NONE      gui=NONE
+hi DiffDelete  guibg=#222222 guifg=NONE      gui=NONE ctermfg=NONE
+hi DiffChange  guibg=#222222 guifg=NONE      gui=NONE
+hi DiffText    guibg=#2d3052 guifg=NONE      gui=NONE
 hi Directory guifg=#b8bb26 guibg=NONE gui=bold cterm=bold
 hi EndOfBuffer guifg=#282828 guibg=NONE gui=NONE cterm=NONE
 hi IncSearch guifg=#4780f1 guibg=NONE gui=NONE cterm=underline,bold
@@ -80,7 +89,6 @@ hi Constant guifg=#d3869b guibg=NONE gui=NONE cterm=NONE
 hi Define guifg=#8ec07c guibg=NONE gui=NONE cterm=NONE
 hi Debug guifg=#d85d5d guibg=NONE gui=NONE cterm=NONE
 hi Delimiter guifg=#fe8019 guibg=NONE gui=NONE cterm=NONE
-hi Error guifg=#d85d5d guibg=#282828 gui=bold,reverse cterm=bold,reverse
 hi Exception guifg=#d85d5d guibg=NONE gui=NONE cterm=NONE
 hi Float guifg=#d3869b guibg=NONE gui=NONE cterm=NONE
 hi Function guifg=#b8bb26 guibg=NONE gui=bold cterm=bold
