@@ -36,6 +36,11 @@
   "snippets.ultisnips.enable": false,
   "snippets.userSnippetsDirectory": "~/.vim/snippets",
 
+  "git.addGBlameToBufferVar": true,
+  "git.semanticCommit.filetypes": [
+    "gitcommit"
+  ],
+
   "html.filetypes": ["html", "javascript"],
 
   "html-css-support.enabledLanguages": ["html", "javascript"],
