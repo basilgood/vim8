@@ -418,6 +418,6 @@ command -nargs=1 -complete=file Grep {
 
 set termguicolors
 syntax enable
-colorscheme gruvbox8
+colorscheme kanagawa
 
 set secure
