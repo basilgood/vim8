@@ -105,16 +105,19 @@ hi GitGutterChangeDelete guifg=#BF616A guibg=#1F1F28
 hi GitGutterDelete guifg=#BF616A guibg=#1F1F28
 hi ALEWarningSign guifg=#EBCB8B guibg=#1F1F28
 hi ALEErrorSign guifg=#BF616A guibg=#1F1F28
-hi CocErrorSign guifg=#BF616A
-hi CocWarningSign guifg=#A3BE8C
-hi CocInfoSign guifg=#A3BE8C
-hi CocHintSign guifg=#81A1C1
-hi CocFadeOut guifg=#BF616A
-hi CocGitAddedSign guifg=#A3BE8C guibg=#1F1F28
-hi CocGitChangedSign guifg=#EBCB8B guibg=#1F1F28
-hi CocGitChangeRemovedSign guifg=#BF616A guibg=#1F1F28
-hi CocGitRemovedSign guifg=#BF616A guibg=#1F1F28
 hi link CocCodeLens Comment
+hi link CocErrorSign ALEErrorSign
+hi link CocWarningSign ALEWarningSign
+hi link CocInfoSign ALEInfoSign
+hi link CocHintSign ALEInfoSign
+hi link CocErrorHighlight ALEError
+hi link CocWarningHighlight ALEWarning
+hi link CocInfoHighlight ALEInfo
+hi link CocGitAddedSign GitGutterAdd
+hi link CocGitChangeRemovedSign GitGutterChangeDelete
+hi link CocGitChangedSign GitGutterChange
+hi link CocGitRemovedSign GitGutterDelete
+hi link CocGitTopRemovedSign GitGutterDelete
 
 g:terminal_ansi_colors = [
   '#3B4252', '#BF616A', '#A3BE8C', '#EBCB8B',
