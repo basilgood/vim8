@@ -1,8 +1,8 @@
 {
-  "diagnostic.errorSign": "",
-  "diagnostic.warningSign": "",
-  "diagnostic.infoSign": "",
-  "diagnostic.hintSign": "",
+  "diagnostic.errorSign": "➲",
+  "diagnostic.warningSign": "➲",
+  "diagnostic.infoSign": "➲",
+  "diagnostic.hintSign": "➲",
   "diagnostic.floatConfig": {
     "border": true,
     "borderhighlight": "Comment",
@@ -44,6 +44,8 @@
   "html.filetypes": ["html", "javascript"],
 
   "html-css-support.enabledLanguages": ["html", "javascript"],
+
+  "coverage.jsonReportPath": "./.tmp/coverage/coverage-final.json",
 
   "languageserver": {
     "nix": {
