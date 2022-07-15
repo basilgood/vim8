@@ -14,6 +14,7 @@ augroup vimRc
 augroup END
 
 packadd! matchit
+g:html_indent_style1 = "inc"
 
 # minpac
 if has('vim_starting')
@@ -31,9 +32,9 @@ minpac#init()
 minpac#add('k-takata/minpac', {'type': 'opt'})
 
 # navigation
-minpac#add('tpope/vim-vinegar', {'type': 'opt'})
 minpac#add('junegunn/fzf', {'type': 'opt'})
 minpac#add('junegunn/fzf.vim', {'type': 'opt'})
+minpac#add('Yggdroot/LeaderF', { 'type': 'opt' })
 
 # lsp
 minpac#add('neoclide/coc.nvim', {'branch': 'release', 'type': 'opt'})
@@ -44,12 +45,11 @@ minpac#add('vim-autoformat/vim-autoformat', {'type': 'opt'})
 # lang
 minpac#add('maxmellon/vim-jsx-pretty')
 minpac#add('yuezk/vim-js')
-minpac#add('jonsmithers/vim-html-template-literals')
 minpac#add('LnL7/vim-nix')
 minpac#add('cespare/vim-toml')
 
 # misc
-minpac#add('sgur/vim-editorconfig', {'type': 'opt'})
+minpac#add('sgur/vim-editorconfig')
 minpac#add('tpope/vim-commentary', {'type': 'opt'})
 minpac#add('tpope/vim-surround', {'type': 'opt'})
 minpac#add('tpope/vim-repeat', {'type': 'opt'})
@@ -61,10 +61,9 @@ minpac#add('blueyed/vim-qf_resize')
 minpac#add('basilgood/hlyank.vim', { 'type': 'opt' })
 minpac#add('AndrewRadev/quickpeek.vim', {'type': 'opt'})
 minpac#add('voldikss/vim-floaterm', {'type': 'opt'})
-minpac#add('romainl/vim-cool', {'type': 'opt'})
 minpac#add('fcpg/vim-altscreen')
 minpac#add('toombs-caeman/vim-smoothie', {'type': 'opt'})
-minpac#add('itchyny/lightline.vim', {'type': 'opt'})
+minpac#add('mkitt/tabline.vim', {'type': 'opt'})
 
 # git
 minpac#add('tpope/vim-fugitive', {'type': 'opt'})
@@ -76,26 +75,45 @@ command! PackStatus minpac#status()
 
 # packs configs
 # netrw
+g:netrw_list_hide = ',^\.\.\=/\=$'
+g:netrw_banner = 0
 g:netrw_altfile = 1
 g:netrw_preview = 1
 g:netrw_alto = 0
 g:netrw_use_errorwindow = 0
+g:netrw_special_syntax = 1
 autocmd vimRc FileType netrw {
   nmap <buffer> <left> -
   nmap <buffer> <right> <cr>
+  nmap <buffer> . mfmx
   }
-autocmd vimRc VimEnter * ++once packadd vim-vinegar
+cnoreabbrev ee e %:h
 
 # fzf
-autocmd vimRc VimEnter * ++once packadd fzf
-autocmd vimRc VimEnter * ++once packadd fzf.vim
-$FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
-$FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --color=always --exclude .git'
-g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
-g:fzf_preview_window = ['up:75%', 'ctrl-/']
-nnoremap <c-p> :Files<cr>
-nnoremap <bs> :Buffers<cr>
-cnoreabbrev fl Files %:p:h
+# autocmd vimRc VimEnter * ++once packadd fzf
+# autocmd vimRc VimEnter * ++once packadd fzf.vim
+# $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
+# $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --color=always --exclude .git'
+# g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
+# g:fzf_preview_window = ['up:75%', 'ctrl-/']
+# nnoremap <c-p> :Files<cr>
+# nnoremap <bs> :Buffers<cr>
+# cnoreabbrev fl Files %:p:h
+
+# leaderf
+autocmd vimRc VimEnter * ++once packadd LeaderF
+g:Lf_WindowPosition = 'popup'
+g:Lf_PreviewInPopup = 1
+g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
+g:Lf_ShortcutF = '<C-P>'
+g:Lf_ShortcutB = '<bs>'
+g:Lf_UseCache = 0
+g:Lf_UseVersionControlTool = 0
+nnoremap <leader>g :LeaderfRgInteractive<cr>
+nnoremap <leader>r :LeaderfRgRecall<cr>
+nnoremap <leader>w :<C-U><C-R>=printf("Leaderf rg -w -e %s ", expand("<cword>"))<cr><cr>
+xnoremap <leader>g :<C-U><C-R>=printf("Leaderf rg -F -e %s ", leaderf#Rg#visual())<cr><cr>
+nnoremap <leader>h :<C-U><C-R>=printf("Leaderf! rg -w -e %s --heading -C3 ", expand("<cword>"))<cr><cr>
 
 # coc
 autocmd vimRc VimEnter * ++once packadd coc.nvim
@@ -145,9 +163,6 @@ nnoremap ghc :CocCommand git.showCommit<cr>
 nnoremap ghf :CocCommand git.foldUnchanged<cr>
 nnoremap ghg :echo b:coc_git_blame<cr>
 
-# lit
-g:htl_all_templates = 1
-
 # autoformat
 autocmd vimRc BufRead * ++once packadd vim-autoformat
 g:formatters_javascript = ['prettier']
@@ -190,38 +205,14 @@ nnoremap { {zz
 autocmd vimRc BufRead * ++once packadd vim-exchange
 nmap c. cxiw
 
-# lightline
-autocmd vimRc BufRead * ++once packadd lightline.vim
-g:lightline = {
-  'colorscheme': 'wombat',
-  'active': {
-    'left': [['paste'],
-    ['readonly', 'filename', 'modified']],
-    'right': [['lineinfo'], ['filetype']]
-    },
-  'inactive': {
-    'left': [['paste'],
-    ['readonly', 'filename', 'modified']],
-    'right': [['lineinfo'], ['filetype']]
-    },
-  'component': {
-    'lineinfo': '%4c:%l/%L'
-    },
-  'separator': { 'left': "", 'right': "\ue0be" },
-  'subseparator': { 'left': "", 'right': "\ue0b9" },
-  'tabline_separator': { 'left': "", 'right': "\ue0be" },
-  'tabline_subseparator': { 'left': "", 'right': "\ue0b9" }
-  }
-
 # event loaded packs
-packadd! vim-editorconfig
 autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
-autocmd vimRc BufRead * ++once packadd diffconflicts
+autocmd vimRc CmdlineEnter * ++once packadd diffconflicts
 autocmd vimRc BufRead * ++once packadd vim-commentary
 autocmd vimRc BufRead * ++once packadd vim-surround
 autocmd vimRc BufRead * ++once packadd vim-repeat
-autocmd vimRc BufRead * ++once packadd vim-cool
 autocmd vimRc BufRead * ++once packadd hlyank.vim
+autocmd vimRc BufRead * ++once packadd tabline.vim
 autocmd vimRc FileType qf ++once packadd cfilter
 
 filetype plugin indent on
@@ -232,8 +223,7 @@ filetype plugin indent on
 &t_SI ..= "\e[6 q"
 set t_ut=
 set t_md=
-set path=.,,tests/**
-set path+=lib/**,views/**,cz-components/**,test/**
+set path=**
 set wildignore+=*/node_modules/*,*/.git/*,*/recordings/*,*/pack
 set hidden
 set gdefault
@@ -275,17 +265,14 @@ set completeopt+=noselect,noinsert
 set pumheight=10
 set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
-set listchars=tab:▫\ ,trail:·,nbsp:␣,extends:❯,precedes:❮
+set listchars=tab:🢭\ ,trail:·,nbsp:␣,extends:❯,precedes:❮
 autocmd vimRc InsertEnter * set listchars-=trail:⋅
 autocmd vimRc InsertLeave * set listchars+=trail:⋅
-set shortmess=
-set shortmess+=asoOtIcF
+set shortmess+=OI
 set confirm
-set history=1000
-set viminfo^=!
 set wildmenu
 set wildmode=longest:full,full
-set wildoptions=tagfile,pum
+set wildoptions=pum
 set wildignorecase
 set wildcharm=<C-Z>
 &grepprg = 'grep -rnH'
@@ -319,8 +306,6 @@ inoremap <c-k> <esc>lDi
 # objects
 xnoremap <silent> il <Esc>^vg_
 onoremap <silent> il :<C-U>normal! ^vg_<cr>
-xnoremap <silent> ie gg0oG$
-onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<cr>
 nnoremap vv viw
 # substitute
 xnoremap s :s/
@@ -329,7 +314,7 @@ vnoremap . :normal .<CR>
 # c-g improved
 nnoremap <silent> <C-g> :echon '['.expand("%:p:~").']'.' [L:'.line('$').']'<Bar>echon ' ['system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")']'<CR>
 # reload syntax and nohl
-nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>call clearmatches()<bar>Limelight!<bar>syntax sync fromstart<cr><c-l>
+nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>call clearmatches()<bar>syntax sync fromstart<cr><c-l>
 
 # autocmds
 # keep cursor position
@@ -377,7 +362,6 @@ autocmd vimRc BufWritePre * {
 # filetypes
 g:markdown_fenced_languages = ['vim', 'ruby', 'html', 'js=javascript', 'json', 'css', 'bash=sh', 'sh']
 autocmd vimRc BufReadPre *.md,*.markdown setlocal conceallevel=2 concealcursor=n
-autocmd vimRc FileType javascript setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 autocmd vimRc BufNewFile,BufRead *.gitignore setfiletype gitignore
 autocmd vimRc BufNewFile,BufRead config      setfiletype config
 autocmd vimRc BufNewFile,BufRead *.lock      setfiletype config
@@ -418,6 +402,6 @@ command -nargs=1 -complete=file Grep {
 
 set termguicolors
 syntax enable
-colorscheme kanagawa
+colorscheme nice
 
 set secure
