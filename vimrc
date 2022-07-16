@@ -13,6 +13,11 @@ augroup vimRc
   autocmd!
 augroup END
 
+g:loaded_getscriptPlugin = true
+g:loaded_logiPat = true
+g:loaded_vimballPlugin = true
+g:loaded_vimball = true
+
 packadd! matchit
 g:html_indent_style1 = "inc"
 
@@ -34,7 +39,6 @@ minpac#add('k-takata/minpac', {'type': 'opt'})
 # navigation
 minpac#add('junegunn/fzf', {'type': 'opt'})
 minpac#add('junegunn/fzf.vim', {'type': 'opt'})
-minpac#add('Yggdroot/LeaderF', { 'type': 'opt' })
 
 # lsp
 minpac#add('neoclide/coc.nvim', {'branch': 'release', 'type': 'opt'})
@@ -90,30 +94,19 @@ autocmd vimRc FileType netrw {
 cnoreabbrev ee e %:h
 
 # fzf
-# autocmd vimRc VimEnter * ++once packadd fzf
-# autocmd vimRc VimEnter * ++once packadd fzf.vim
-# $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
-# $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --color=always --exclude .git'
-# g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
-# g:fzf_preview_window = ['up:75%', 'ctrl-/']
-# nnoremap <c-p> :Files<cr>
-# nnoremap <bs> :Buffers<cr>
-# cnoreabbrev fl Files %:p:h
-
-# leaderf
-autocmd vimRc VimEnter * ++once packadd LeaderF
-g:Lf_WindowPosition = 'popup'
-g:Lf_PreviewInPopup = 1
-g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
-g:Lf_ShortcutF = '<C-P>'
-g:Lf_ShortcutB = '<bs>'
-g:Lf_UseCache = 0
-g:Lf_UseVersionControlTool = 0
-nnoremap <leader>g :LeaderfRgInteractive<cr>
-nnoremap <leader>r :LeaderfRgRecall<cr>
-nnoremap <leader>w :<C-U><C-R>=printf("Leaderf rg -w -e %s ", expand("<cword>"))<cr><cr>
-xnoremap <leader>g :<C-U><C-R>=printf("Leaderf rg -F -e %s ", leaderf#Rg#visual())<cr><cr>
-nnoremap <leader>h :<C-U><C-R>=printf("Leaderf! rg -w -e %s --heading -C3 ", expand("<cword>"))<cr><cr>
+autocmd vimRc VimEnter * ++once packadd fzf
+autocmd vimRc VimEnter * ++once packadd fzf.vim
+$FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
+$FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --color=always --exclude .git'
+g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
+g:fzf_preview_window = ['up:75%', 'ctrl-/']
+nnoremap <c-p> :Files<cr>
+nnoremap <bs> :Buffers<cr>
+cnoreabbrev fl Files %:p:h
+command! -bang -nargs=* Rgw
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 
 # coc
 autocmd vimRc VimEnter * ++once packadd coc.nvim
@@ -369,6 +362,7 @@ autocmd vimRc BufNewFile,BufRead .babelrc    setfiletype json
 autocmd vimRc BufNewFile,BufRead *.txt       setfiletype markdown
 autocmd vimRc BufReadPre *.json  setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json  setlocal formatoptions=
+autocmd vimRc FileType json syntax match Comment +\/\/.\+$+
 
 # highlight groups
 def SynGroup(): void
