@@ -24,7 +24,7 @@ hi! link iCursor Cursor
 hi! link vCursor Cursor
 
 g:terminal_ansi_colors = [
-  '#282828', '#cc241d',
+  '#232323', '#cc241d',
   '#98971a', '#d79921',
   '#458588', '#b16286',
   '#689d6a', '#a89984',
@@ -34,18 +34,18 @@ g:terminal_ansi_colors = [
   '#8ec07c', '#ebdbb2'
   ]
 
-hi Normal guifg=#ebdbb2 guibg=#282828 gui=NONE cterm=NONE
-hi CursorLineNr guifg=#8ec07c guibg=#3c3836 gui=NONE cterm=NONE
-hi FoldColumn guifg=#928374 guibg=#3c3836 gui=NONE cterm=NONE
-hi SignColumn guifg=#ebdbb2 guibg=#3c3836 gui=NONE cterm=NONE
-hi VertSplit guifg=#665c54 guibg=#282828 gui=NONE cterm=NONE
-hi ColorColumn guifg=NONE guibg=#1d2021 gui=NONE cterm=NONE
+hi Normal guifg=#ebdbb2 guibg=#232323 gui=NONE cterm=NONE
+hi CursorLineNr guifg=#8ec07c guibg=#1c1c1c gui=NONE cterm=NONE
+hi FoldColumn guifg=#928374 guibg=#1c1c1c gui=NONE cterm=NONE
+hi SignColumn guifg=#ebdbb2 guibg=#1c1c1c gui=NONE cterm=NONE
+hi VertSplit guifg=#1c1c1c guibg=#232323 gui=NONE cterm=NONE
+hi ColorColumn guifg=NONE guibg=#343036 gui=NONE cterm=NONE
 hi Comment guifg=#928374 guibg=NONE gui=NONE cterm=NONE
-hi CursorLine guifg=NONE guibg=#1d2021 gui=NONE cterm=NONE
-hi Error guifg=#d85d5d guibg=#282828 gui=NONE cterm=NONE
-hi ErrorMsg guifg=#d85d5d guibg=#282828 gui=NONE cterm=NONE
-hi Folded guifg=#928374 guibg=#3c3836 gui=NONE cterm=NONE
-hi LineNr guifg=#504945 guibg=NONE gui=NONE cterm=NONE
+hi CursorLine guifg=NONE guibg=#343036 gui=NONE cterm=NONE
+hi Error guifg=#d85d5d guibg=#232323 gui=NONE cterm=NONE
+hi ErrorMsg guifg=#d85d5d guibg=#232323 gui=NONE cterm=NONE
+hi Folded guifg=#928374 guibg=#1c1c1c gui=NONE cterm=NONE
+hi LineNr guifg=#3c3c3c guibg=NONE gui=NONE cterm=NONE
 hi MatchParen guifg=NONE guibg=#504945 gui=bold,underline cterm=bold,underline
 hi NonText guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi Pmenu guifg=#ebdbb2 guibg=#504945 gui=NONE cterm=NONE
@@ -53,29 +53,29 @@ hi PmenuSbar guifg=NONE guibg=#504945 gui=NONE cterm=NONE
 hi PmenuSel guifg=#504945 guibg=#83a598 gui=bold cterm=bold
 hi PmenuThumb guifg=NONE guibg=#7c6f64 gui=NONE cterm=NONE
 hi SpecialKey guifg=#504945 guibg=NONE gui=NONE cterm=NONE
-hi StatusLine guifg=#504945 guibg=#ebdbb2 gui=reverse cterm=reverse
-hi StatusLineNC guifg=#3c3836 guibg=#a89984 gui=reverse cterm=reverse
-hi TabLine guifg=#7c6f64 guibg=#3c3836 gui=NONE cterm=NONE
-hi TabLineFill guifg=#7c6f64 guibg=#3c3836 gui=NONE cterm=NONE
-hi TabLineSel guifg=#b8bb26 guibg=#3c3836 gui=NONE cterm=NONE
+hi StatusLine guifg=#3c3836 guibg=#a89984 gui=reverse cterm=reverse
+hi StatusLineNC guifg=#1c1c1c guibg=#928374 gui=reverse cterm=reverse
+hi TabLine guifg=#7c6f64 guibg=#1c1c1c gui=NONE cterm=NONE
+hi TabLineFill guifg=#7c6f64 guibg=#1c1c1c gui=NONE cterm=NONE
+hi TabLineSel guifg=#a89984 guibg=#3c3836 gui=NONE cterm=NONE
 hi ToolbarButton guifg=#fbf1c7 guibg=#665c54 gui=bold cterm=bold
 hi ToolbarLine guifg=NONE guibg=#665c54 gui=NONE cterm=NONE
-hi Visual guifg=NONE guibg=#1d2021 gui=NONE cterm=NONE
+hi Visual guifg=NONE guibg=#343036 gui=NONE cterm=NONE
 hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
 hi Conceal guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
 hi Cursor guifg=NONE guibg=NONE gui=reverse ctermfg=NONE ctermbg=NONE cterm=reverse
-hi DiffAdd     guibg=#222222 guifg=NONE      gui=NONE
-hi DiffDelete  guibg=#222222 guifg=NONE      gui=NONE ctermfg=NONE
-hi DiffChange  guibg=#222222 guifg=NONE      gui=NONE
+hi DiffAdd     guibg=#1c1c1c guifg=NONE      gui=NONE
+hi DiffDelete  guibg=#1c1c1c guifg=NONE      gui=NONE ctermfg=NONE
+hi DiffChange  guibg=#1c1c1c guifg=NONE      gui=NONE
 hi DiffText    guibg=#2d3052 guifg=NONE      gui=NONE
 hi Directory guifg=#b8bb26 guibg=NONE gui=bold cterm=bold
-hi EndOfBuffer guifg=#282828 guibg=NONE gui=NONE cterm=NONE
+hi EndOfBuffer guifg=#232323 guibg=NONE gui=NONE cterm=NONE
 hi IncSearch guifg=#4780f1 guibg=NONE gui=NONE cterm=underline,bold
 hi CurSearch guifg=#4780f1 guibg=NONE gui=NONE cterm=underline,bold
+hi Search guifg=#1eb81e guibg=NONE gui=NONE cterm=underline,bold
 hi ModeMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
 hi MoreMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
 hi Question guifg=#fe8019 guibg=NONE gui=bold cterm=bold
-hi Search guifg=#1eb81e guibg=NONE gui=NONE cterm=underline,bold
 hi SpellBad guifg=#d85d5d guibg=NONE guisp=#d85d5d gui=NONE,undercurl cterm=NONE,underline
 hi SpellCap guifg=#83a598 guibg=NONE guisp=#83a598 gui=NONE,undercurl cterm=NONE,underline
 hi SpellLocal guifg=#8ec07c guibg=NONE guisp=#8ec07c gui=NONE,undercurl cterm=NONE,underline
@@ -110,14 +110,14 @@ hi StorageClass guifg=#fe8019 guibg=NONE gui=NONE cterm=NONE
 hi Special guifg=#fe8019 guibg=NONE gui=NONE cterm=NONE
 hi String guifg=#8ec07c guibg=NONE gui=NONE cterm=NONE
 hi Structure guifg=#8ec07c guibg=NONE gui=NONE cterm=NONE
-hi Todo guifg=fg guibg=#282828 gui=bold,NONE cterm=bold,NONE
+hi Todo guifg=fg guibg=#232323 gui=bold,NONE cterm=bold,NONE
 hi Type guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
 hi Typedef guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
 hi Underlined guifg=#83a598 guibg=NONE guisp=#83a598 gui=underline cterm=underline
 hi CursorIM guifg=NONE guibg=NONE gui=reverse ctermfg=NONE ctermbg=NONE cterm=reverse
-hi ALEErrorSign guifg=#d85d5d guibg=#3c3836
-hi ALEWarningSign guifg=#fabd2f guibg=#3c3836
-hi ALEInfoSign guifg=#83a598 guibg=#3c3836
+hi ALEErrorSign guifg=#d85d5d guibg=#1c1c1c
+hi ALEWarningSign guifg=#fabd2f guibg=#1c1c1c
+hi ALEInfoSign guifg=#83a598 guibg=#1c1c1c
 hi link CocCodeLens Comment
 hi link CocErrorSign ALEErrorSign
 hi link CocWarningSign ALEWarningSign
@@ -132,10 +132,10 @@ hi link CocGitChangedSign GitGutterChange
 hi link CocGitRemovedSign GitGutterDelete
 hi link CocGitTopRemovedSign GitGutterDelete
 hi link CocCodeLens Comment
-hi GitGutterAdd guifg=#b8bb26 guibg=#3c3836 gui=NONE cterm=NONE
-hi GitGutterChange guifg=#8ec07c guibg=#3c3836 gui=NONE cterm=NONE
-hi GitGutterDelete guifg=#d85d5d guibg=#3c3836 gui=NONE cterm=NONE
-hi GitGutterChangeDelete guifg=#8ec07c guibg=#3c3836 gui=NONE cterm=NONE
+hi GitGutterAdd guifg=#b8bb26 guibg=#1c1c1c gui=NONE cterm=NONE
+hi GitGutterChange guifg=#8ec07c guibg=#1c1c1c gui=NONE cterm=NONE
+hi GitGutterDelete guifg=#d85d5d guibg=#1c1c1c gui=NONE cterm=NONE
+hi GitGutterChangeDelete guifg=#8ec07c guibg=#1c1c1c gui=NONE cterm=NONE
 hi diffAdded guifg=#b8bb26 guibg=NONE gui=NONE cterm=NONE
 hi diffRemoved guifg=#d85d5d guibg=NONE gui=NONE cterm=NONE
 hi diffChanged guifg=#8ec07c guibg=NONE gui=NONE cterm=NONE
