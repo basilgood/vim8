@@ -103,22 +103,19 @@ g:fzf_preview_window = ['up:75%', 'ctrl-/']
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
 cnoreabbrev fl Files %:p:h
-command! -bang -nargs=* Rgw
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 
 # coc
 autocmd vimRc VimEnter * ++once packadd coc.nvim
 g:coc_global_extensions = [
+  'coc-coverage',
   'coc-json',
   'coc-snippets',
   'coc-tsserver',
   'coc-eslint',
-  'coc-prettier',
   'coc-html',
   'coc-html-css-support',
   'coc-vimlsp',
+  'coc-diagnostic',
   'coc-git',
   ]
 
@@ -131,7 +128,6 @@ autocmd FileType javascript,typescript,nix,vim {
 command! -nargs=0 Action call CocActionAsync('codeAction', '')
 command! -nargs=0 Format call CocAction('format')
 command! -nargs=0 OrgImp call CocAction('runCommand', 'editor.action.organizeImport')
-command! -nargs=0 Prettier CocCommand prettier.forceFormatDocument
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -151,10 +147,10 @@ nnoremap ghr :CocCommand git.chunkUndo<cr>
 nnoremap ghs :CocCommand git.chunkStage<cr>
 nnoremap ghu :CocCommand git.chunkUnstage<cr>
 nnoremap ghp :CocCommand git.chunkInfo<cr>
-nnoremap ghb :CocCommand git.browserOpen<cr>
+nnoremap gho :CocCommand git.browserOpen<cr>
 nnoremap ghc :CocCommand git.showCommit<cr>
 nnoremap ghf :CocCommand git.foldUnchanged<cr>
-nnoremap ghg :echo b:coc_git_blame<cr>
+nnoremap ghb :echo b:coc_git_blame<cr>
 
 # autoformat
 autocmd vimRc BufRead * ++once packadd vim-autoformat
@@ -274,7 +270,7 @@ set wildcharm=<C-Z>
 set backspace=indent,eol,start
 &laststatus = 2
 set statusline=
-set statusline+=%<%t
+set statusline+=%<%{bufname('%')}
 set statusline+=\ %h%w%r%m
 set statusline+=%=
 set statusline+=\ %{&ft}
@@ -396,6 +392,6 @@ command -nargs=1 -complete=file Grep {
 
 set termguicolors
 syntax enable
-colorscheme nice
+colorscheme gruvbox8
 
 set secure
