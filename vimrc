@@ -113,7 +113,7 @@ nnoremap <bs> :Buffers<cr>
 cnoreabbrev fl Files %:p:h
 nmap <leader>/ <Plug>RgRawSearch
 vmap <leader>/ <Plug>RgRawVisualSelection
-nmap <leader>* <Plug>RgRawWordUnderCursor
+nmap <leader>w <Plug>RgRawWordUnderCursor
 
 # coc
 autocmd vimRc VimEnter * ++once packadd coc.nvim
