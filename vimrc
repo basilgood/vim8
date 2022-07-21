@@ -52,6 +52,7 @@ minpac#add('maxmellon/vim-jsx-pretty')
 minpac#add('yuezk/vim-js')
 minpac#add('LnL7/vim-nix')
 minpac#add('cespare/vim-toml')
+minpac#add('basilgood/istanbul.vim', {'type': 'opt'})
 
 # misc
 minpac#add('sgur/vim-editorconfig')
@@ -112,7 +113,6 @@ nmap <leader>* <Plug>RgRawWordUnderCursor
 # coc
 autocmd vimRc VimEnter * ++once packadd coc.nvim
 g:coc_global_extensions = [
-  'coc-coverage',
   'coc-json',
   'coc-snippets',
   'coc-tsserver',
@@ -163,6 +163,12 @@ g:formatters_javascript = ['prettier']
 g:formatdef_custom_nix = '"nixpkgs-fmt"'
 g:formatters_nix = ['custom_nix']
 cabbrev af Autoformat
+
+# coverage
+autocmd vimRc BufRead * ++once packadd istanbul.vim
+g:istanbul#jsonPath = ['coverage/coverage.json', './.tmp/coverage/coverage-final.json']
+cabbrev it IstanbulToggle
+cabbrev iu IstanbulUpdate
 
 # traces
 autocmd vimRc CmdlineEnter * ++once packadd traces.vim
