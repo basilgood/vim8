@@ -182,6 +182,7 @@ vmap *  <Plug>(asterisk-z*)
 # fugitive
 autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
 autocmd FileType fugitive nmap <buffer> <tab> dv:wincmd w<cr>
+cnoreabbrev gs tab G
 
 # quickpeek
 packadd! quickpeek.vim
@@ -206,7 +207,6 @@ autocmd vimRc BufRead * ++once packadd vim-exchange
 nmap c. cxiw
 
 # event loaded packs
-autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
 autocmd vimRc CmdlineEnter * ++once packadd diffconflicts
 autocmd vimRc BufRead * ++once packadd vim-commentary
 autocmd vimRc BufRead * ++once packadd vim-surround
