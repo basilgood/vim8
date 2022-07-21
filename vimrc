@@ -94,6 +94,11 @@ autocmd vimRc FileType netrw {
   nmap <buffer> . mfmx
   }
 cnoreabbrev ee e %:h
+autocmd vimRc CursorHold * {
+  if buffer_name() == $HOME .. '/.vim'
+    set ft=netrw
+  endif
+  }
 
 # fzf
 autocmd vimRc VimEnter * ++once packadd fzf
