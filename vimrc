@@ -39,6 +39,7 @@ minpac#add('k-takata/minpac', {'type': 'opt'})
 # navigation
 minpac#add('junegunn/fzf', {'type': 'opt'})
 minpac#add('junegunn/fzf.vim', {'type': 'opt'})
+minpac#add('jesseleite/vim-agriculture', {'type': 'opt'})
 
 # lsp
 minpac#add('neoclide/coc.nvim', {'branch': 'release', 'type': 'opt'})
@@ -96,6 +97,7 @@ cnoreabbrev ee e %:h
 # fzf
 autocmd vimRc VimEnter * ++once packadd fzf
 autocmd vimRc VimEnter * ++once packadd fzf.vim
+autocmd vimRc BufRead * ++once packadd vim-agriculture
 $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
 $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --color=always --exclude .git'
 g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
@@ -103,6 +105,9 @@ g:fzf_preview_window = ['up:75%', 'ctrl-/']
 nnoremap <c-p> :Files<cr>
 nnoremap <bs> :Buffers<cr>
 cnoreabbrev fl Files %:p:h
+nmap <leader>/ <Plug>RgRawSearch
+vmap <leader>/ <Plug>RgRawVisualSelection
+nmap <leader>* <Plug>RgRawWordUnderCursor
 
 # coc
 autocmd vimRc VimEnter * ++once packadd coc.nvim
