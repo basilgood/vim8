@@ -183,6 +183,7 @@ g:traces_num_range_preview = 1
 autocmd vimRc BufRead * ++once packadd vim-asterisk
 nmap *  <Plug>(asterisk-z*)
 vmap *  <Plug>(asterisk-z*)
+nmap c. *cgn
 
 # fugitive
 autocmd vimRc CmdlineEnter * ++once packadd vim-fugitive
@@ -198,8 +199,8 @@ autocmd vimRc BufRead * ++once packadd vim-floaterm
 g:floaterm_height = 0.9
 g:floaterm_width = 0.9
 g:floaterm_autoclose = 2
-g:floaterm_keymap_toggle = '<C-q>'
-tnoremap <c-x> <c-\><c-n>
+g:floaterm_keymap_toggle = '<C-_>'
+tnoremap <esc> <c-\><c-n>
 
 # smoothie
 autocmd vimRc BufRead * ++once packadd vim-smoothie
@@ -209,7 +210,7 @@ nnoremap { {zz
 
 # exchange
 autocmd vimRc BufRead * ++once packadd vim-exchange
-nmap c. cxiw
+nmap c, cxiw
 
 # event loaded packs
 autocmd vimRc CmdlineEnter * ++once packadd diffconflicts
