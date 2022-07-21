@@ -157,7 +157,7 @@ nnoremap ghr :CocCommand git.chunkUndo<cr>
 nnoremap ghs :CocCommand git.chunkStage<cr>
 nnoremap ghu :CocCommand git.chunkUnstage<cr>
 nnoremap ghp :CocCommand git.chunkInfo<cr>
-nnoremap gho :CocCommand git.browserOpen<cr>
+nnoremap ghl :CocCommand git.browserOpen<cr>
 nnoremap ghc :CocCommand git.showCommit<cr>
 nnoremap ghf :CocCommand git.foldUnchanged<cr>
 nnoremap ghb :echo b:coc_git_blame<cr>
