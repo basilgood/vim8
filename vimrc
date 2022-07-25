@@ -200,7 +200,7 @@ g:floaterm_height = 0.9
 g:floaterm_width = 0.9
 g:floaterm_autoclose = 2
 g:floaterm_keymap_toggle = '<C-_>'
-tnoremap <esc> <c-\><c-n>
+tnoremap <c-@> <c-\><c-n>
 
 # smoothie
 autocmd vimRc BufRead * ++once packadd vim-smoothie
