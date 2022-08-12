@@ -1,8 +1,8 @@
 {
-  "diagnostic.errorSign": "➲",
-  "diagnostic.warningSign": "➲",
-  "diagnostic.infoSign": "➲",
-  "diagnostic.hintSign": "➲",
+  "diagnostic.errorSign": "E",
+  "diagnostic.warningSign": "W",
+  "diagnostic.infoSign": "I",
+  "diagnostic.hintSign": "H",
   "diagnostic.floatConfig": {
     "border": true,
     "borderhighlight": "Comment",
@@ -10,16 +10,7 @@
     "highlight": "Comment"
   },
 
-  "signature.enable": true,
-  "signature.target": "echo",
-  "signature.hideOnTextChange": true,
-  "signature.floatConfig": {
-    "border": true,
-    "borderhighlight": "Comment",
-    "rounded": true,
-    "highlight": "black"
-  },
-
+  "explorer.floating.position":"center",
   "suggest.floatConfig": {
     "border": true,
     "borderhighlight": "Comment",
@@ -34,12 +25,11 @@
   },
 
   "snippets.ultisnips.enable": false,
-  "snippets.userSnippetsDirectory": "~/.vim/snippets",
+  "snippets.userSnippetsDirectory": "",
 
   "git.addGBlameToBufferVar": true,
-  "git.semanticCommit.filetypes": [
-    "gitcommit"
-  ],
+  "git.conflict.enabled": false,
+  "git.semanticCommit.filetypes": ["gitcommit"],
 
   "html.filetypes": ["html", "javascript"],
 
@@ -47,7 +37,7 @@
 
   "coverage.jsonReportPath": "./.tmp/coverage/coverage-final.json",
   "coverage.uncoveredSign.text": "☂ ",
-  "coverage.uncoveredSign.hlGroup": "ALEInfoSign",
+  "coverage.uncoveredSign.hlGroup": "ErrorMsg",
 
   "languageserver": {
     "nix": {
@@ -56,8 +46,22 @@
     }
   },
 
+  "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
     "lua": "luacheck",
     "yaml": "yamllint"
+  },
+  "diagnostic-languageserver.formatters": {
+    "stylua": {
+      "command": "stylua",
+      "args": ["-"]
+    },
+    "prettier": {
+      "command": "prettier"
+    }
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "javascript": "prettier",
+    "lua": "stylua"
   }
 }
