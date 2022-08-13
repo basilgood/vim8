@@ -44,8 +44,8 @@ autocmd vimRc CursorHold * {
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
-$FZF_DEFAULT_COMMAND = 'fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
-g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
+$FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
+g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 g:fzf_preview_window = ['up:75%', 'ctrl-/']
 nnoremap <c-p> :Files<cr>
 cnoreabbrev fl Files %:p:h
@@ -118,7 +118,6 @@ cabbrev af Autoformat
 # langs
 Plug 'maxmellon/vim-jsx-pretty', {'ft': ['javascript']}
 Plug 'yuezk/vim-js', {'ft': ['javascript']}
-Plug 'jonsmithers/vim-html-template-literals', {'ft': ['javascript']}
 Plug 'LnL7/vim-nix', {'ft': ['nix']}
 
 # editorconfig
@@ -187,7 +186,7 @@ g:lightline = {
     },
   'component': {
     'bufname': '%{bufname()}',
-    'lineinfo': '%3c:%l/%L'
+    'lineinfo': '%3c:%l/%L',
     }
   }
 
