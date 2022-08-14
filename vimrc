@@ -10,13 +10,11 @@ g:loaded_vimballPlugin = true
 g:loaded_vimball = true
 
 packadd! matchit
-g:html_indent_style1 = "inc"
+g:html_indent_style1 = 'inc'
 
-const plug_file = expand('~/.vim/autoload/plug.vim')
-const plug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-if empty(glob(plug_file))
-  const cmd = printf("!curl --create-dirs -fL -o %s %s", plug_file, plug_url)
-  silent exec cmd
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
 plug#begin('~/.vim/plugged')
@@ -227,7 +225,7 @@ set number
 set mouse=a ttymouse=sgr
 set signcolumn=yes
 set splitright splitbelow
-set fillchars=vert:│,fold:-,diff:\ ,eob:~
+set fillchars=diff:\ ,vert:│
 set virtualedit=onemore
 set sidescrolloff=10 sidescroll=1
 set sessionoptions-=options
