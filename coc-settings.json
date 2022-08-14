@@ -37,7 +37,7 @@
 
   "coverage.jsonReportPath": "./.tmp/coverage/coverage-final.json",
   "coverage.uncoveredSign.text": "☂ ",
-  "coverage.uncoveredSign.hlGroup": "ErrorMsg",
+  "coverage.uncoveredSign.hlGroup": "CocGitRemovedSign",
 
   "languageserver": {
     "nix": {
