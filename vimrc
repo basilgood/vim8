@@ -147,7 +147,7 @@ Plug 'tpope/vim-surround', {'on': []}
 Plug 'tpope/vim-repeat', {'on': []}
 Plug 'basilgood/hlyank.vim', {'on': []}
 Plug 'tommcdo/vim-exchange', {'on': []}
-Plug 'haya14busa/vim-asterisk', {'test': []}
+Plug 'haya14busa/vim-asterisk', {'on': []}
 nmap *  <Plug>(asterisk-z*)
 vmap *  <Plug>(asterisk-z*)
 
