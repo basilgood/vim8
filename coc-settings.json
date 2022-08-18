@@ -5,22 +5,22 @@
   "diagnostic.hintSign": "H",
   "diagnostic.floatConfig": {
     "border": true,
-    "borderhighlight": "Comment",
     "rounded": true,
+    "borderhighlight": "Comment",
     "highlight": "Comment"
   },
 
-  "explorer.floating.position":"center",
   "suggest.floatConfig": {
     "border": true,
+    "rounded": true,
     "borderhighlight": "Comment",
     "highlight": "black"
   },
 
   "hover.floatConfig": {
     "border": true,
-    "borderhighlight": "Comment",
     "rounded": true,
+    "borderhighlight": "Comment",
     "highlight": "black"
   },
 

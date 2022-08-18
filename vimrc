@@ -74,7 +74,6 @@ g:coc_global_extensions = [
   'coc-json',
   'coc-markdownlint',
   'coc-snippets',
-  'coc-tabnine',
   'coc-tsserver',
   'coc-vimlsp',
   'coc-yaml',
