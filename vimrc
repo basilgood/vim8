@@ -157,7 +157,7 @@ Plug 'blueyed/vim-qf_resize', {'ft': 'qf'}
 Plug 'AndrewRadev/quickpeek.vim', {'ft': 'qf'}
 autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
-Plug 'psliwka/vim-smoothie', {'on': []}
+Plug 'toombs-caeman/vim-smoothie', {'on': []}
 g:smoothie_remapped_commands = [
   '<C-D>', '<C-U>', '<C-F>', '<C-B>',
   '<S-Down>', '<PageDown>', '<S-Up>', '<PageUp>',
