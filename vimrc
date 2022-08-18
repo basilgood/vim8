@@ -157,8 +157,14 @@ Plug 'blueyed/vim-qf_resize', {'ft': 'qf'}
 Plug 'AndrewRadev/quickpeek.vim', {'ft': 'qf'}
 autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
-Plug 'toombs-caeman/vim-smoothie', {'on': []}
-g:smoothie_experimental_mappings = v:true
+Plug 'psliwka/vim-smoothie', {'on': []}
+g:smoothie_remapped_commands = [
+  '<C-D>', '<C-U>', '<C-F>', '<C-B>',
+  '<S-Down>', '<PageDown>', '<S-Up>', '<PageUp>',
+  'z+', 'z^', 'zt', 'z<CR>',
+  'z.', 'zz', 'z-', 'zb',
+  'gg', 'G', 'n', 'N', '{', '}'
+  ]
 
 autocmd vimRc BufReadPre * {
   call plug#load('vim-surround', 'vim-repeat', 'vim-asterisk', 'traces.vim')
