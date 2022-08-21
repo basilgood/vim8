@@ -1,16 +1,24 @@
-vim9script noclear
+vim9script
 
 augroup vimRc
   autocmd!
 augroup END
 
+var startuptime = reltime()
+def Start(): void
+  startuptime = reltime(startuptime)
+  redraw
+  echomsg 'startuptime: ' .. reltimestr(startuptime)
+enddef
+autocmd vimRc VimEnter * ++once Start()
+
 g:loaded_getscriptPlugin = true
 g:loaded_logiPat = true
 g:loaded_vimballPlugin = true
 g:loaded_vimball = true
+g:html_indent_style1 = 'inc'
 
 packadd! matchit
-g:html_indent_style1 = 'inc'
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -39,34 +47,41 @@ autocmd vimRc CursorHold * {
   endif
   }
 
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+# Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim', {'on': []}
+autocmd vimRc VimEnter * ++once plug#load('fzf.vim')
 $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
 g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-g:fzf_preview_window = ['up:75%', 'ctrl-/']
+g:fzf_preview_window = ['up:85%', 'ctrl-/']
 nnoremap <c-p> :Files<cr>
 cnoreabbrev fl Files %:p:h
 nnoremap <bs> :Buffers<cr>
-Plug 'antoinemadec/coc-fzf'
-g:fzf_preview_window = ['up:85%', 'ctrl-/']
+
+def RipgrepFzf(query: string)
+  final command_fmt = 'rg --column --line-number --no-heading --color=always '
+  final initial_command = printf(command_fmt .. shellescape(query))
+  final reload_command = printf(command_fmt .. ('%s'), '{q}')
+  final spec = {'options': ['--phony', '--query', query, '--bind', 'change:reload:eval ' .. reload_command]}
+  fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), 0)
+enddef
+
+command! -nargs=* Rg RipgrepFzf(<q-args>)
+
+Plug 'antoinemadec/coc-fzf', {'on': []}
+autocmd vimRc VimEnter * ++once plug#load('coc-fzf')
 g:coc_fzf_preview = 'up:85%'
 g:coc_fzf_preview_toggle_key = 'ctrl-/'
 nmap <silent> <leader>a :CocFzfList actions<cr>
-nmap <silent> <leader>d :CocFzfList diagnostics<cr>
-Plug 'jesseleite/vim-agriculture', {'on': ['RgRaw', '<Plug>RgRaw']}
-nmap <leader>/ <Plug>RgRawSearch
-vmap <leader>/ <Plug>RgRawVisualSelection
-nmap <leader>w <Plug>RgRawWordUnderCursor
+nmap <silent> <leader>d :CocFzfList diagnostics  --current-buf<cr>
 
 # complete/lint
 Plug 'neoclide/coc.nvim', { 'branch': 'release', 'on': [] }
-autocmd vimRc BufReadPre * {
-  call plug#load('coc.nvim')
-  }
+autocmd vimRc BufReadPre * ++once plug#load('coc.nvim')
 g:coc_global_extensions = [
   'coc-coverage',
   'coc-diagnostic',
+  'coc-docthis',
   'coc-eslint',
   'coc-git',
   'coc-html',
@@ -113,21 +128,17 @@ g:formatters_nix = ['custom_nix']
 cabbrev af Autoformat
 
 # langs
-Plug 'maxmellon/vim-jsx-pretty', {'ft': ['javascript']}
-Plug 'yuezk/vim-js', {'ft': ['javascript']}
-Plug 'LnL7/vim-nix', {'ft': ['nix']}
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'yuezk/vim-js'
+Plug 'LnL7/vim-nix', {'for': 'nix'}
 
 # editorconfig
 Plug 'sgur/vim-editorconfig', {'on': []}
-autocmd vimRc VimEnter * {
-  call plug#load('vim-editorconfig')
-  }
+autocmd vimRc BufReadPre * ++once plug#load('vim-editorconfig')
 
 # terminal
-Plug 'skywind3000/vim-terminal-help'
-g:terminal_kill = 'term'
-g:terminal_close = 1
 Plug 'voldikss/vim-floaterm', {'on': []}
+autocmd vimRc BufReadPre * ++once plug#load('vim-floaterm')
 g:floaterm_height = 0.9
 g:floaterm_width = 0.9
 g:floaterm_autoclose = 2
@@ -135,64 +146,58 @@ g:floaterm_keymap_toggle = '<C-@>'
 
 # misc
 Plug 'fcpg/vim-altscreen'
-Plug 'tpope/vim-commentary', {'on': '<Plug>Commentary'}
-xmap gc  <Plug>Commentary
-nmap gc  <Plug>Commentary
-omap gc  <Plug>Commentary
-nmap gcc <Plug>CommentaryLine
-nmap gcu <Plug>Commentary<Plug>Commentary
-
+Plug 'tpope/vim-commentary', {'on': []}
+autocmd vimRc BufReadPre * ++once plug#load('vim-commentary')
 Plug 'tpope/vim-surround', {'on': []}
+autocmd vimRc BufReadPre * ++once plug#load('vim-surround')
 Plug 'tpope/vim-repeat', {'on': []}
+autocmd vimRc BufReadPre * ++once plug#load('vim-repeat')
 Plug 'basilgood/hlyank.vim', {'on': []}
+autocmd vimRc BufReadPre * ++once plug#load('hlyank.vim')
 Plug 'tommcdo/vim-exchange', {'on': []}
+autocmd vimRc BufReadPre * ++once plug#load('vim-exchange')
 Plug 'haya14busa/vim-asterisk', {'on': []}
+autocmd vimRc BufReadPre * ++once plug#load('vim-asterisk')
 nmap *  <Plug>(asterisk-z*)
 vmap *  <Plug>(asterisk-z*)
 
 Plug 'markonm/traces.vim', {'on': []}
-Plug 'stefandtw/quickfix-reflector.vim', {'ft': 'qf'}
-Plug 'blueyed/vim-qf_resize', {'ft': 'qf'}
-Plug 'AndrewRadev/quickpeek.vim', {'ft': 'qf'}
+autocmd vimRc CmdlineEnter * ++once plug#load('traces.vim')
+Plug 'stefandtw/quickfix-reflector.vim', {'for': 'qf'}
+Plug 'AndrewRadev/quickpeek.vim', {'for': 'qf'}
 autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
 Plug 'toombs-caeman/vim-smoothie', {'on': []}
+autocmd vimRc BufReadPre * ++once plug#load('vim-smoothie')
 g:smoothie_remapped_commands = [
   '<C-D>', '<C-U>', '<C-F>', '<C-B>',
   '<S-Down>', '<PageDown>', '<S-Up>', '<PageUp>',
   'z+', 'z^', 'zt', 'z<CR>',
   'z.', 'zz', 'z-', 'zb',
-  'gg', 'G', 'n', 'N', '{', '}'
+  'gg', 'G', 'n', 'N', '{', '}', '``'
   ]
 
-autocmd vimRc BufReadPre * {
-  call plug#load('vim-surround', 'vim-repeat', 'vim-asterisk', 'traces.vim')
-  call plug#load('hlyank.vim', 'vim-floaterm', 'vim-smoothie', 'vim-exchange')
-  }
-
 # git
-Plug 'tpope/vim-fugitive', {'on': ['G', 'Gvdiffsplit', 'Gedit']}
-Plug 'rhysd/conflict-marker.vim'
-
-Plug 'itchyny/lightline.vim'
-g:lightline = {
-  'colorscheme': 'ayu',
-  'active': {
-    'left': [['paste'],
-    ['readonly', 'bufname', 'modified']],
-    'right': [['lineinfo'], ['filetype']]
-    },
-  'inactive': {
-    'left': [['paste'],
-    ['readonly', 'filename', 'modified']],
-    'right': [['lineinfo'], ['filetype']]
-    },
-  'component': {
-    'bufname': '%{bufname()}',
-    'lineinfo': '%3c:%l/%L',
-    }
+Plug 'tpope/vim-fugitive', {'on': []}
+autocmd vimRc CmdlineEnter,BufRead * ++once plug#load('vim-fugitive')
+cabbrev gg tab G log --all --graph --oneline --decorate
+cabbrev gs tab G
+cabbrev gb G branch
+autocmd vimRc FileType git {
+  nmap <buffer> g<space> :q<cr>:gg<cr>
+  nmap <buffer> b<space> :q<cr>:gb<cr>
   }
+def ConflictsHighlight()
+  syn match oursMarker "^\(<<<<<<<.*\)$"
+  syn match ancestorMarker "^\(|||||||.*\)$"
+  syn match theirsMarker "^\(>>>>>>>.*\)$"
+  hi! oursMarker guibg=#1b3218
+  hi! ancestorMarker guibg=#1c1c1c
+  hi! theirsMarker guibg=#182832
+enddef
+command! CH ConflictsHighlight()
 
+# theme
 Plug 'basilgood/ayu-vim'
 
 plug#end()
@@ -247,18 +252,18 @@ set list
 set listchars=tab:🢭\ ,trail:·,nbsp:␣,extends:❯,precedes:❮
 autocmd vimRc InsertEnter * set listchars-=trail:⋅
 autocmd vimRc InsertLeave * set listchars+=trail:⋅
-set shortmess+=OIc
+set shortmess=asOIc
 set confirm
 set wildmenu
 set wildmode=longest:full,full
 set wildoptions=pum
 set wildignorecase
 set wildcharm=<C-Z>
-&grepprg = 'grep -rn'
+&grepprg = 'grep -rnHI'
 set backspace=indent,eol,start
 &laststatus = 2
+set statusline=%<%{bufname('%')}%h%w%r%m%=%{&ft}%5c:%l/%L
 
-# mappings
 # mappings
 nnoremap <silent> <c-w>d :bp<bar>bd#<cr>
 nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
@@ -266,8 +271,8 @@ cnoremap <c-a> <Home>
 cnoremap <c-e> <End>
 nnoremap vv viw
 vnoremap . :normal .<CR>
-nnoremap <silent> <C-g> :echon '['.expand("%:p:~").']'.' [L:'.line('$').']'<Bar>echon ' ['system("git rev-parse --abbrev-ref HEAD 2>/dev/null \| tr -d '\n'")']'<CR>
-nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>call clearmatches()<bar>syntax sync fromstart<cr><c-l>
+nnoremap <silent> 3<C-g> :echon system('cat .git/HEAD')->split('\n')<CR>
+nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>syntax sync fromstart<cr><c-l>
 nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
 
@@ -279,13 +284,8 @@ au vimRc BufReadPost * {
   endif
   }
 
-# help keep widow full width
+# qf widow full width
 autocmd vimRc FileType qf wincmd J
-autocmd vimRc BufWinEnter * {
-  if &ft == 'help'
-    wincmd J
-  endif
-  }
 
 # update diff
 autocmd vimRc InsertLeave * {
@@ -318,6 +318,7 @@ autocmd vimRc BufNewFile,BufRead .babelrc    setfiletype json
 autocmd vimRc BufNewFile,BufRead *.txt       setfiletype markdown
 autocmd vimRc BufReadPre *.json  setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufReadPre *.json  setlocal formatoptions=
+autocmd vimRc BufNewFile,BufRead *.html,*.javascript  setlocal matchpairs-=<:>
 
 # highlight groups
 def SynGroup(): void
@@ -338,9 +339,6 @@ command! -nargs=0 SS {
   execute 'source ' .. g:session_path .. split(getcwd(), '/')[-1]
   }
 nnoremap <F2> :SS<cr>
-
-# commands
-command! -nargs=0 TC FloatermNew --autoclose=0 wtr --coverage %
 
 # colorscheme
 set termguicolors
