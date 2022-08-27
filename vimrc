@@ -180,12 +180,20 @@ g:smoothie_remapped_commands = [
 # git
 Plug 'tpope/vim-fugitive', {'on': []}
 autocmd vimRc CmdlineEnter,BufRead * ++once plug#load('vim-fugitive')
-cabbrev gg tab G log --all --graph --oneline --decorate
+cabbrev gl tab G log --all --graph --oneline --decorate
 cabbrev gs tab G
-cabbrev gb G branch
+cabbrev gb tab G branch
+cabbrev gp G push
+cabbrev gpf G push -f
+cabbrev gf G fetch --all --prune
 autocmd vimRc FileType git {
-  nmap <buffer> g<space> :q<cr>:gg<cr>
-  nmap <buffer> b<space> :q<cr>:gb<cr>
+  nmap <buffer> gl :q<cr>:gl<cr>
+  nmap <buffer> gb :q<cr>:gb<cr>
+  nmap <buffer> gs :q<cr>:gs<cr>
+  }
+autocmd vimRc FileType fugitive {
+  nmap <buffer> gl gq:gl<cr>
+  nmap <buffer> gb gq:gb<cr>
   }
 def ConflictsHighlight()
   syn match oursMarker "^\(<<<<<<<.*\)$"
