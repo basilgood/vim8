@@ -293,8 +293,8 @@ au vimRc BufReadPost * {
   endif
   }
 
-# qf widow full width
-autocmd vimRc FileType qf wincmd J
+# qf and help widows full width
+autocmd vimRc FileType qf,help wincmd J
 
 # update diff
 autocmd vimRc InsertLeave * {
@@ -318,16 +318,15 @@ autocmd vimRc BufWritePre * {
   }
 
 # filetypes
-autocmd vimRc BufReadPre *.md,*.markdown setlocal conceallevel=2 concealcursor=n
-autocmd vimRc FileType javascript setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-autocmd vimRc BufNewFile,BufRead *.gitignore setfiletype gitignore
-autocmd vimRc BufNewFile,BufRead config      setfiletype config
-autocmd vimRc BufNewFile,BufRead *.lock      setfiletype config
-autocmd vimRc BufNewFile,BufRead .babelrc    setfiletype json
-autocmd vimRc BufNewFile,BufRead *.txt       setfiletype markdown
-autocmd vimRc BufReadPre *.json  setlocal conceallevel=0 concealcursor=
-autocmd vimRc BufReadPre *.json  setlocal formatoptions=
-autocmd vimRc BufNewFile,BufRead *.html,*.javascript  setlocal matchpairs-=<:>
+autocmd vimRc BufNewFile,BufReadPost *.md,*.markdown setlocal conceallevel=2 concealcursor=n
+autocmd vimRc BufNewFile,BufReadPost *.gitignore setfiletype gitignore
+autocmd vimRc BufNewFile,BufReadPost config      setfiletype config
+autocmd vimRc BufNewFile,BufReadPost *.lock      setfiletype config
+autocmd vimRc BufNewFile,BufReadPost .babelrc    setfiletype json
+autocmd vimRc BufNewFile,BufReadPost *.txt       setfiletype markdown
+autocmd vimRc BufNewFile,BufReadPost *.json  setlocal conceallevel=0 concealcursor=
+autocmd vimRc BufNewFile,BufReadPost *.json  setlocal formatoptions=
+autocmd vimRc BufNewFile,BufReadPost *.html,*.javascript  setlocal matchpairs-=<:>
 
 # highlight groups
 def SynGroup(): void
