@@ -278,6 +278,7 @@ nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
 cnoremap <c-a> <Home>
 cnoremap <c-e> <End>
 nnoremap vv viw
+xnoremap il g_o^
 vnoremap . :normal .<CR>
 nnoremap <silent> 3<C-g> :echon system('cat .git/HEAD')->split('\n')<CR>
 nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>syntax sync fromstart<cr><c-l>
