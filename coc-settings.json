@@ -9,43 +9,48 @@
     "borderhighlight": "Comment",
     "highlight": "Comment"
   },
-
   "suggest.floatConfig": {
     "border": true,
     "rounded": true,
     "borderhighlight": "Comment",
     "highlight": "black"
   },
-
   "hover.floatConfig": {
     "border": true,
     "rounded": true,
     "borderhighlight": "Comment",
     "highlight": "black"
   },
-
+  "signature.floatConfig": {
+    "border": true,
+    "highlight": "black"
+  },
   "snippets.ultisnips.enable": false,
   "snippets.userSnippetsDirectory": "",
-
   "git.addGBlameToBufferVar": true,
   "git.conflict.enabled": false,
-  "git.semanticCommit.filetypes": ["gitcommit"],
-
-  "html.filetypes": ["html", "javascript"],
-
-  "html-css-support.enabledLanguages": ["html", "javascript"],
-
+  "git.semanticCommit.filetypes": [
+    "gitcommit"
+  ],
+  "html.filetypes": [
+    "html",
+    "javascript"
+  ],
+  "html-css-support.enabledLanguages": [
+    "html",
+    "javascript"
+  ],
   "coverage.jsonReportPath": "./.tmp/coverage/coverage-final.json",
   "coverage.uncoveredSign.text": "☂ ",
   "coverage.uncoveredSign.hlGroup": "CocGitRemovedSign",
-
   "languageserver": {
     "nix": {
       "command": "rnix-lsp",
-      "filetypes": ["nix"]
+      "filetypes": [
+        "nix"
+      ]
     }
   },
-
   "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
     "lua": "luacheck",
@@ -54,7 +59,9 @@
   "diagnostic-languageserver.formatters": {
     "stylua": {
       "command": "stylua",
-      "args": ["-"]
+      "args": [
+        "-"
+      ]
     },
     "prettier": {
       "command": "prettier"
