@@ -12,22 +12,50 @@ def Start(): void
 enddef
 autocmd vimRc VimEnter * ++once Start()
 
+# unload some plugins
 g:loaded_getscriptPlugin = true
 g:loaded_logiPat = true
 g:loaded_vimballPlugin = true
 g:loaded_vimball = true
 g:html_indent_style1 = 'inc'
 
+# load matchit
 packadd! matchit
 
+# install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
+# plugins
 plug#begin('~/.vim/plugged')
+# Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', { 'branch': 'release', 'on': [] }
+Plug 'vim-autoformat/vim-autoformat', {'on': 'Autoformat'}
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'yuezk/vim-js'
+Plug 'LnL7/vim-nix', {'for': 'nix'}
+Plug 'sgur/vim-editorconfig'
+Plug 'voldikss/vim-floaterm'
+Plug 'fcpg/vim-altscreen'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'basilgood/hlyank.vim'
+Plug 'tommcdo/vim-exchange'
+Plug 'haya14busa/vim-asterisk'
+Plug 'markonm/traces.vim'
+Plug 'sgur/cmdline-completion'
+Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'AndrewRadev/quickpeek.vim'
+Plug 'toombs-caeman/vim-smoothie'
+Plug 'tpope/vim-fugitive'
+plug#end()
 
-# navigation
+# pluggins configs
+# netrw
 g:netrw_list_hide = ',^\.\.\=/\=$'
 g:netrw_banner = 0
 g:netrw_altfile = 1
@@ -47,8 +75,7 @@ autocmd vimRc CursorHold * {
   endif
   }
 
-# Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+# fzf
 $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
 g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
@@ -67,8 +94,7 @@ enddef
 
 command! -nargs=* Rg RipgrepFzf(<q-args>)
 
-# complete/lint
-Plug 'neoclide/coc.nvim', { 'branch': 'release', 'on': [] }
+# coc.nvim
 autocmd vimRc VimEnter * ++once plug#load('coc.nvim')
 g:coc_global_extensions = [
   'coc-coverage',
@@ -86,20 +112,19 @@ g:coc_global_extensions = [
   'coc-yaml',
   ]
 
-autocmd FileType javascript,typescript,nix {
-  nmap <silent> gd <cmd>call CocAction('jumpDefinition')<cr>
-  nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> <leader>d <cmd>CocDiagnostics<cr>
-  nmap <silent> K :call CocAction('doHover')<CR>
-  }
+nmap gd <cmd>call CocAction('jumpDefinition')<cr>
+nmap gr <Plug>(coc-references)
+nmap ga <Plug>(coc-codeaction-cursor)
+xmap ga <Plug>(coc-codeaction-selected)
+nmap K :call CocAction('doHover')<cr>
+nmap <leader>d <cmd>CocDiagnostics<cr>
 
-command! -nargs=0 Action call CocAction('codeAction', '')
 command! -nargs=0 Format call CocAction('format')
-command! -nargs=0 OrgImp call CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OI call CocAction('runCommand', 'editor.action.organizeImport')
 
 inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#next(1) : '<tab>'
-inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"
-inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "<CR><c-r>=coc#on_enter()<CR>"
+inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "<c-h>"
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "<cr><c-r>=coc#on_enter()<cr>"
 g:coc_snippet_next = '<tab>'
 nmap [e <Plug>(coc-diagnostic-prev)
 nmap ]e <Plug>(coc-diagnostic-next)
@@ -113,65 +138,7 @@ nnoremap ghc :CocCommand git.showCommit<cr>
 nnoremap ghf :CocCommand git.foldUnchanged<cr>
 nnoremap ghb :echo b:coc_git_blame<cr>
 
-# formatter
-Plug 'vim-autoformat/vim-autoformat', {'on': 'Autoformat'}
-g:formatters_javascript = ['prettier']
-g:formatdef_custom_nix = '"nixpkgs-fmt"'
-g:formatters_nix = ['custom_nix']
-cabbrev af Autoformat
-
-# langs
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'yuezk/vim-js'
-Plug 'LnL7/vim-nix', {'for': 'nix'}
-
-# editorconfig
-Plug 'sgur/vim-editorconfig', {'on': []}
-autocmd vimRc BufReadPre * ++once plug#load('vim-editorconfig')
-
-# terminal
-Plug 'voldikss/vim-floaterm', {'on': []}
-autocmd vimRc BufReadPre * ++once plug#load('vim-floaterm')
-g:floaterm_height = 0.9
-g:floaterm_width = 0.9
-g:floaterm_autoclose = 2
-g:floaterm_keymap_toggle = '<C-@>'
-
-# misc
-Plug 'fcpg/vim-altscreen'
-Plug 'tpope/vim-commentary', {'on': []}
-autocmd vimRc BufReadPre * ++once plug#load('vim-commentary')
-Plug 'tpope/vim-surround', {'on': []}
-autocmd vimRc BufReadPre * ++once plug#load('vim-surround')
-Plug 'tpope/vim-repeat', {'on': []}
-autocmd vimRc BufReadPre * ++once plug#load('vim-repeat')
-Plug 'basilgood/hlyank.vim', {'on': []}
-autocmd vimRc BufReadPre * ++once plug#load('hlyank.vim')
-Plug 'tommcdo/vim-exchange', {'on': []}
-autocmd vimRc BufReadPre * ++once plug#load('vim-exchange')
-Plug 'haya14busa/vim-asterisk', {'on': []}
-autocmd vimRc BufReadPre * ++once plug#load('vim-asterisk')
-nmap *  <Plug>(asterisk-z*)
-vmap *  <Plug>(asterisk-z*)
-
-Plug 'markonm/traces.vim', {'on': []}
-autocmd vimRc CmdlineEnter * ++once plug#load('traces.vim')
-Plug 'stefandtw/quickfix-reflector.vim', {'for': 'qf'}
-Plug 'AndrewRadev/quickpeek.vim', {'for': 'qf'}
-autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
-
-Plug 'toombs-caeman/vim-smoothie', {'on': []}
-autocmd vimRc BufReadPre * ++once plug#load('vim-smoothie')
-g:smoothie_remapped_commands = [
-  '<C-D>', '<C-U>', '<C-F>', '<C-B>',
-  '<S-Down>', '<PageDown>', '<S-Up>', '<PageUp>',
-  'z+', 'z^', 'zt', 'z<CR>',
-  'z.', 'zz', 'z-', 'zb',
-  'gg', 'G', 'n', 'N', '{', '}', '``'
-  ]
-
-# git
-Plug 'tpope/vim-fugitive', {'on': []}
+# fugitive
 autocmd vimRc CmdlineEnter,BufReadPost * ++once plug#load('vim-fugitive')
 cabbrev gl tab G log --all --graph --oneline --decorate
 cabbrev gs tab G
@@ -188,20 +155,35 @@ autocmd vimRc FileType fugitive {
   nmap <buffer> gl gq:gl<cr>
   nmap <buffer> gb gq:gb<cr>
   }
-def ConflictsHighlight()
-  syn match oursMarker "^\(<<<<<<<.*\)$"
-  syn match ancestorMarker "^\(|||||||.*\)$"
-  syn match theirsMarker "^\(>>>>>>>.*\)$"
-  hi! oursMarker guibg=#1b3218
-  hi! ancestorMarker guibg=#1c1c1c
-  hi! theirsMarker guibg=#182832
-enddef
-command! CH ConflictsHighlight()
 
-# theme
-Plug 'basilgood/ayu-vim'
+# autoformat
+g:formatters_javascript = ['prettier']
+g:formatdef_custom_nix = '"nixpkgs-fmt"'
+g:formatters_nix = ['custom_nix']
+cabbrev af Autoformat
 
-plug#end()
+# floaterm
+autocmd vimRc BufReadPre * ++once plug#load('vim-floaterm')
+g:floaterm_height = 0.9
+g:floaterm_width = 0.9
+g:floaterm_autoclose = 2
+g:floaterm_keymap_toggle = '<C-@>'
+
+# asterisk
+nmap *  <Plug>(asterisk-z*)
+vmap *  <Plug>(asterisk-z*)
+
+# quickpeek
+autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
+
+# smoothie
+g:smoothie_remapped_commands = [
+  '<C-D>', '<C-U>', '<C-F>', '<C-B>',
+  '<S-Down>', '<PageDown>', '<S-Up>', '<PageUp>',
+  'z+', 'z^', 'zt', 'z<CR>',
+  'z.', 'zz', 'z-', 'zb',
+  'gg', 'G', 'n', 'N', '{', '}', '``'
+  ]
 
 # options
 &t_EI ..= "\e[2 q"
@@ -239,9 +221,7 @@ set splitright splitbelow
 set fillchars=diff:\ ,vert:│
 set virtualedit=onemore
 set sidescrolloff=10 sidescroll=1
-set sessionoptions-=options
-set sessionoptions-=blank
-set sessionoptions-=help
+set sessionoptions=buffers,curdir,folds,tabpages,winsize
 set lazyredraw
 set timeoutlen=3000
 set ttimeoutlen=50
@@ -323,10 +303,10 @@ autocmd vimRc BufNewFile,BufReadPost *.html,*.javascript  setlocal matchpairs-=<
 
 # highlight groups
 def SynGroup(): void
-  var s = synID(line('.'), col('.'), 1)
+  const s = synID(line('.'), col('.'), 1)
   echo synIDattr(s, 'name') .. ' -> ' .. synIDattr(synIDtrans(s), 'name')
 enddef
-command HL call SynGroup()
+command HL SynGroup()
 
 # sessions
 g:session_path = expand('~/.cache/vim/sessions/')
