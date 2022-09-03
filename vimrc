@@ -48,8 +48,7 @@ autocmd vimRc CursorHold * {
   }
 
 # Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim', {'on': []}
-autocmd vimRc VimEnter * ++once plug#load('fzf.vim')
+Plug 'junegunn/fzf.vim'
 $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --tac --ansi --margin 1,4'
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
 g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
@@ -68,16 +67,9 @@ enddef
 
 command! -nargs=* Rg RipgrepFzf(<q-args>)
 
-Plug 'antoinemadec/coc-fzf', {'on': []}
-autocmd vimRc VimEnter * ++once plug#load('coc-fzf')
-g:coc_fzf_preview = 'up:85%'
-g:coc_fzf_preview_toggle_key = 'ctrl-/'
-nmap <silent> <leader>a :CocFzfList actions<cr>
-nmap <silent> <leader>d :CocFzfList diagnostics  --current-buf<cr>
-
 # complete/lint
 Plug 'neoclide/coc.nvim', { 'branch': 'release', 'on': [] }
-autocmd vimRc BufReadPre * ++once plug#load('coc.nvim')
+autocmd vimRc VimEnter * ++once plug#load('coc.nvim')
 g:coc_global_extensions = [
   'coc-coverage',
   'coc-diagnostic',
@@ -95,12 +87,13 @@ g:coc_global_extensions = [
   ]
 
 autocmd FileType javascript,typescript,nix {
-  nmap <silent> gd <cmd>call CocActionAsync('jumpDefinition', v:false)<cr>
+  nmap <silent> gd <cmd>call CocAction('jumpDefinition')<cr>
   nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> K :call CocActionAsync('doHover')<CR>
+  nmap <silent> <leader>d <cmd>CocDiagnostics<cr>
+  nmap <silent> K :call CocAction('doHover')<CR>
   }
 
-command! -nargs=0 Action call CocActionAsync('codeAction', '')
+command! -nargs=0 Action call CocAction('codeAction', '')
 command! -nargs=0 Format call CocAction('format')
 command! -nargs=0 OrgImp call CocAction('runCommand', 'editor.action.organizeImport')
 
@@ -179,7 +172,7 @@ g:smoothie_remapped_commands = [
 
 # git
 Plug 'tpope/vim-fugitive', {'on': []}
-autocmd vimRc CmdlineEnter,BufRead * ++once plug#load('vim-fugitive')
+autocmd vimRc CmdlineEnter,BufReadPost * ++once plug#load('vim-fugitive')
 cabbrev gl tab G log --all --graph --oneline --decorate
 cabbrev gs tab G
 cabbrev gb tab G branch
@@ -346,11 +339,11 @@ autocmd! vimRc VimLeavePre * {
 command! -nargs=0 SS {
   execute 'source ' .. g:session_path .. split(getcwd(), '/')[-1]
   }
-nnoremap <F2> :SS<cr>
+nnoremap <leader>s :SS<cr>
 
 # colorscheme
 set termguicolors
 syntax enable
-colorscheme ayu
+colorscheme gruvbit
 
 set secure
