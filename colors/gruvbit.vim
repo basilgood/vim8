@@ -22,9 +22,9 @@ hi StatuslineNC guifg=#968772 guibg=#444444 gui=NONE cterm=NONE
 hi StatuslineTerm guifg=#ebdbb2 guibg=#444444 gui=bold cterm=bold
 hi StatuslineTermNC guifg=#968772 guibg=#444444 gui=NONE cterm=NONE
 hi VertSplit guifg=#444444 guibg=NONE gui=NONE cterm=NONE
-hi Pmenu guifg=NONE guibg=#444444 gui=NONE cterm=NONE
+hi Pmenu guifg=NONE guibg=#12191b gui=NONE cterm=NONE
 hi PmenuSel guifg=NONE guibg=#5a2639 gui=NONE cterm=NONE
-hi PmenuSbar guifg=NONE guibg=#444444 gui=NONE cterm=NONE
+hi PmenuSbar guifg=NONE guibg=#12191b gui=NONE cterm=NONE
 hi PmenuThumb guifg=NONE guibg=#968772 gui=NONE cterm=NONE
 hi TabLine guifg=#968772 guibg=#444444 gui=NONE cterm=NONE
 hi TabLineFill guifg=NONE guibg=#444444 gui=NONE cterm=NONE
