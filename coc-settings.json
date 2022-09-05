@@ -33,6 +33,12 @@
   "git.semanticCommit.filetypes": [
     "gitcommit"
   ],
+  "git.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "borderhighlight": "Comment",
+    "highlight": "black"
+  },
   "html.filetypes": [
     "html",
     "javascript"
