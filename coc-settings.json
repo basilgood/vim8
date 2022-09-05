@@ -27,6 +27,7 @@
   },
   "snippets.ultisnips.enable": false,
   "snippets.userSnippetsDirectory": "",
+  "git.showCommitInFloating": true,
   "git.addGBlameToBufferVar": true,
   "git.conflict.enabled": false,
   "git.semanticCommit.filetypes": [
