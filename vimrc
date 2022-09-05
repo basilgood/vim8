@@ -136,7 +136,7 @@ nnoremap ghp :CocCommand git.chunkInfo<cr>
 nnoremap ghl :CocCommand git.browserOpen<cr>
 nnoremap ghc :CocCommand git.showCommit<cr>
 nnoremap ghf :CocCommand git.foldUnchanged<cr>
-nnoremap ghb :echo b:coc_git_blame<cr>
+nnoremap ghb :CocCommand git.showBlameDoc<cr>
 
 # fugitive
 autocmd vimRc CmdlineEnter,BufReadPost * ++once plug#load('vim-fugitive')
