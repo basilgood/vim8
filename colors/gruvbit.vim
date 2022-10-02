@@ -12,15 +12,13 @@ set background=dark
 hi clear
 let g:colors_name = 'gruvbit'
 
-let g:terminal_ansi_colors = ['#000000', '#e9593d', '#8ec07c', '#dc9656',
+let g:terminal_ansi_colors = ['#000000', '#e9593d', '#8ec07c', '#dc7b56',
       \ '#83a598', '#d3869b', '#496d79', '#968772', '#444444', '#fe8019',
       \ '#3b5e48', '#fabd2f', '#496d79', '#a16946', '#475048', '#ffffff']
 hi Normal guifg=#ebdbb2 guibg=#1d2021 gui=NONE cterm=NONE
 hi EndOfBuffer guifg=#444444 guibg=NONE gui=NONE cterm=NONE
-hi Statusline guifg=#ebdbb2 guibg=#444444 gui=bold cterm=bold
-hi StatuslineNC guifg=#968772 guibg=#444444 gui=NONE cterm=NONE
-hi StatuslineTerm guifg=#ebdbb2 guibg=#444444 gui=bold cterm=bold
-hi StatuslineTermNC guifg=#968772 guibg=#444444 gui=NONE cterm=NONE
+hi Statusline guifg=#777777 guibg=NONE gui=bold cterm=bold
+hi StatuslineNC guifg=#444444 guibg=NONE gui=NONE cterm=NONE
 hi VertSplit guifg=#444444 guibg=NONE gui=NONE cterm=NONE
 hi Pmenu guifg=NONE guibg=#12191b gui=NONE cterm=NONE
 hi PmenuSel guifg=NONE guibg=#5a2639 gui=NONE cterm=NONE
@@ -47,21 +45,21 @@ hi Underlined guifg=#83a598 guibg=NONE gui=underline cterm=underline
 hi Error guifg=#e9593d guibg=NONE gui=NONE cterm=NONE
 hi ErrorMsg guifg=#e9593d guibg=NONE gui=NONE cterm=NONE
 hi ModeMsg guifg=#ebdbb2 guibg=NONE gui=bold cterm=bold
-hi WarningMsg guifg=#dc9656 guibg=NONE gui=bold cterm=bold
+hi WarningMsg guifg=#dc7b56 guibg=NONE gui=bold cterm=bold
 hi MoreMsg guifg=#8ec07c guibg=NONE gui=bold cterm=bold
 hi Question guifg=#8ec07c guibg=NONE gui=bold cterm=bold
 hi Todo guifg=#1d2021 guibg=#968772 gui=NONE cterm=NONE
-hi MatchParen guifg=#1d2021 guibg=#fe8019 gui=NONE cterm=NONE
-hi Search guifg=#8FBCBB guibg=#434C5E
-hi CurSearch guifg=NONE guibg=#bf2232 gui=NONE
-hi IncSearch guifg=NONE guibg=#bf2232 gui=NONE cterm=NONE
-hi WildMenu guifg=#1d2021 guibg=#dc9656 gui=NONE cterm=NONE
+hi MatchParen guifg=NONE guibg=#504945 gui=bold,underline cterm=bold,underline
+hi Search guifg=NONE guibg=#444444
+hi CurSearch guifg=#ebdbb2 guibg=#884a26 cterm=NONE
+hi IncSearch guifg=#ebdbb2 guibg=#884a26 cterm=NONE
+hi WildMenu guifg=#1d2021 guibg=#dc7b56 gui=NONE cterm=NONE
 hi ColorColumn guifg=NONE guibg=#2d3031 gui=NONE cterm=NONE
 hi Cursor guifg=#1d2021 guibg=#ebdbb2 gui=NONE cterm=NONE
 hi lCursor guifg=#ebdbb2 guibg=#e9593d gui=NONE cterm=NONE
-hi DiffAdd guifg=NONE guibg=#3b5e48 gui=NONE cterm=NONE
+hi DiffAdd guifg=NONE guibg=#2c4536 gui=NONE cterm=NONE
 hi DiffChange guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi DiffText guifg=NONE guibg=#496d79 gui=NONE cterm=NONE
+hi DiffText guifg=NONE guibg=#2c2e45 gui=NONE cterm=NONE
 hi DiffDelete guifg=#5c3728 guibg=NONE gui=NONE cterm=NONE
 hi diffAdded guifg=#b8bb26 guibg=NONE gui=NONE cterm=NONE
 hi diffRemoved guifg=#d85d5d guibg=NONE gui=NONE cterm=NONE
@@ -77,11 +75,11 @@ hi Identifier guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
 hi Statement guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
 hi Constant guifg=#d3869b guibg=NONE gui=NONE cterm=NONE
 hi String guifg=#8ec07c guibg=NONE gui=NONE cterm=NONE
-hi PreProc guifg=#dc9656 guibg=NONE gui=NONE cterm=NONE
+hi PreProc guifg=#dc7b56 guibg=NONE gui=NONE cterm=NONE
 hi Special guifg=#e9593d guibg=NONE gui=NONE cterm=NONE
-hi Tag guifg=#dc9656 guibg=NONE gui=NONE cterm=NONE
+hi Tag guifg=#dc7b56 guibg=NONE gui=NONE cterm=NONE
 hi Delimiter guifg=#a16946 guibg=NONE gui=NONE cterm=NONE
-hi Type guifg=#fe8019 guibg=NONE gui=NONE cterm=NONE
+hi Type guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
 hi Directory guifg=#83a598 guibg=NONE gui=bold cterm=bold
 hi Comment guifg=#968772 guibg=NONE gui=NONE cterm=NONE
 hi Conceal guifg=#968772 guibg=NONE gui=NONE cterm=NONE
