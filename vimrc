@@ -101,62 +101,38 @@ g:coc_global_extensions = [
   'coc-vimlsp',
 ]
 
-g:coc_user_config = {
-  preferences: {
-    useQuickfixForLocations: true
-  },
-  suggest: {
-    noselect: true,
-    enablePreselect: false
-  },
-  diagnostic: {
-    errorSign: 'E',
-    warningSign: 'W',
-    infoSign: 'I',
-    hintSign: 'H',
-  },
-  signature: {target: 'echo'},
-  git: {
-    conflict: {enabled: false}
-  },
-  html: {
-    filetypes: ['html', 'javascript']
-  },
-  html-css-support: {
-    enabledLanguages: ['html', 'javascript']
-  },
-  coverage: {
-    jsonReportPath: './.tmp/coverage/coverage-final.json',
-    uncoveredSign: {
-      text: '☂ ',
-      hlGroup: 'CocGitRemovedSign'
-    }
-  },
-  languageserver: {
-    rnix: {
-      command: 'rnix-lsp',
-      filetypes: ['nix']
-    },
-  },
-  diagnostic-languageserver: {
-    mergeConfig: true,
-    filetypes: {
-      yaml: 'yamllint'
-    },
-    formatters: {
-      yamlfix: {
-        command: 'yamlfix',
-        args: ['-']
-      },
-      prettier: {
-        command: 'prettier'
-      }
-    },
-    formatFiletypes: {
-      javascript: 'prettier',
-      yaml: 'yamlfix'
-    }
-  }
+g:coc_user_config = {}
+g:coc_user_config['languageserver'] = {}
+g:coc_user_config['diagnostic-languageserver'] = {}
+g:coc_user_config['suggest.noselect'] = true
+g:coc_user_config['suggest.enablePreselect'] = false
+g:coc_user_config['diagnostic.errorSign'] = 'E'
+g:coc_user_config['diagnostic.warningSign'] = 'W'
+g:coc_user_config['diagnostic.infoSign'] = 'I'
+g:coc_user_config['diagnostic.hintSign'] = 'H'
+g:coc_user_config['signature.target'] = 'echo'
+g:coc_user_config['git.conflict.enabled'] = false
+g:coc_user_config['html.filetypes'] = ['html', 'javascript']
+g:coc_user_config['html-css-support.enabledLanguages'] = ['html', 'javascript']
+g:coc_user_config['coverage.jsonReportPath'] = './.tmp/coverage/coverage-final.json'
+g:coc_user_config['coverage.uncoveredSign.text'] = '☂ '
+g:coc_user_config['coverage.uncoveredSign.hlGroup'] = 'CocGitRemovedSign'
+g:coc_user_config['languageserver']['rnix'] = {
+  command: 'rnix-lsp',
+  filetypes: ['nix']
+}
+g:coc_user_config['diagnostic-languageserver']['mergeConfig'] = true
+g:coc_user_config['diagnostic-languageserver']['filetypes.yaml'] = 'yamllint'
+g:coc_user_config['diagnostic-languageserver']['formatters.yamlfix'] = {
+  command: 'yamlfix',
+  args: ['-']
+}
+g:coc_user_config['diagnostic-languageserver']['formatters.prettier'] = {
+  command: 'prettier'
+}
+g:coc_user_config['diagnostic-languageserver']['formatFiletypes'] = {
+  yaml: 'yamlfix',
+  javascript: 'prettier'
 }
 
 nmap gd <Plug>(coc-definition)
