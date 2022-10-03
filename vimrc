@@ -14,38 +14,43 @@ g:html_indent_style1 = 'inc'
 # load matchit
 packadd! matchit
 
-# install vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+const minpac_dir = '~/.vim/pack/minpac/opt/minpac'
+if !isdirectory(expand(minpac_dir))
+  echo "Install minpac ..."
+  execute 'silent! !git clone --depth 1 https://github.com/k-takata/minpac ' .. minpac_dir
 endif
 
-# plugins
-plug#begin('~/.vim/plugged')
-# Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
-Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'vim-autoformat/vim-autoformat', {'on': 'Autoformat'}
-Plug 'tpope/vim-fugitive'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'yuezk/vim-js'
-Plug 'LnL7/vim-nix', {'for': 'nix'}
-Plug 'sgur/vim-editorconfig'
-Plug 'voldikss/vim-floaterm'
-Plug 'fcpg/vim-altscreen'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'basilgood/hlyank.vim'
-Plug 'tommcdo/vim-exchange'
-Plug 'linjiX/vim-star', {'on': '<Plug>(star-'}
-Plug 'markonm/traces.vim'
-Plug 'sgur/cmdline-completion'
-Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'AndrewRadev/quickpeek.vim'
-Plug 'toombs-caeman/vim-smoothie'
-Plug 'basilgood/vim-options'
-plug#end()
+packadd minpac
+minpac#init()
+minpac#add('k-takata/minpac', {'type': 'opt'})
+minpac#add('junegunn/fzf.vim')
+minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+minpac#add('vim-autoformat/vim-autoformat')
+minpac#add('tpope/vim-fugitive')
+minpac#add('maxmellon/vim-jsx-pretty')
+minpac#add('yuezk/vim-js')
+minpac#add('LnL7/vim-nix')
+minpac#add('sgur/vim-editorconfig')
+minpac#add('voldikss/vim-floaterm')
+minpac#add('fcpg/vim-altscreen')
+minpac#add('tpope/vim-commentary')
+minpac#add('tpope/vim-surround')
+minpac#add('tpope/vim-repeat')
+minpac#add('basilgood/hlyank.vim')
+minpac#add('tommcdo/vim-exchange')
+minpac#add('linjiX/vim-star')
+minpac#add('markonm/traces.vim')
+minpac#add('sgur/cmdline-completion')
+minpac#add('stefandtw/quickfix-reflector.vim')
+minpac#add('AndrewRadev/quickpeek.vim')
+minpac#add('toombs-caeman/vim-smoothie')
+minpac#add('basilgood/vim-options')
+
+command! PackUpdate minpac#update()
+command! PackClean  minpac#clean()
+command! PackStatus minpac#status()
+
+filetype plugin indent on
 
 # pluggins configs
 # netrw
@@ -165,7 +170,6 @@ nnoremap <silent> ghf :CocCommand git.foldUnchanged<cr>
 nnoremap <silent> ghb :CocCommand git.showBlameDoc<cr>
 
 # fugitive
-autocmd vimRc CmdlineEnter,BufReadPost * ++once plug#load('vim-fugitive')
 cabbrev gl tab G log --all --graph --oneline --decorate
 cabbrev gs tab G
 cabbrev gb tab G branch
