@@ -20,35 +20,36 @@ if !isdirectory(expand(minpac_dir))
   execute 'silent! !git clone --depth 1 https://github.com/k-takata/minpac ' .. minpac_dir
 endif
 
-packadd minpac
-minpac#init()
-minpac#add('k-takata/minpac', {'type': 'opt'})
-minpac#add('junegunn/fzf.vim')
-minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-minpac#add('vim-autoformat/vim-autoformat')
-minpac#add('tpope/vim-fugitive')
-minpac#add('maxmellon/vim-jsx-pretty')
-minpac#add('yuezk/vim-js')
-minpac#add('LnL7/vim-nix')
-minpac#add('sgur/vim-editorconfig')
-minpac#add('voldikss/vim-floaterm')
-minpac#add('fcpg/vim-altscreen')
-minpac#add('tpope/vim-commentary')
-minpac#add('tpope/vim-surround')
-minpac#add('tpope/vim-repeat')
-minpac#add('basilgood/hlyank.vim')
-minpac#add('tommcdo/vim-exchange')
-minpac#add('linjiX/vim-star')
-minpac#add('markonm/traces.vim')
-minpac#add('sgur/cmdline-completion')
-minpac#add('stefandtw/quickfix-reflector.vim')
-minpac#add('AndrewRadev/quickpeek.vim')
-minpac#add('toombs-caeman/vim-smoothie')
-minpac#add('basilgood/vim-options')
+def PackInit()
+  packadd minpac
+  minpac#init()
+  minpac#add('k-takata/minpac', {'type': 'opt'})
+  minpac#add('junegunn/fzf.vim')
+  minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+  minpac#add('tpope/vim-fugitive')
+  minpac#add('maxmellon/vim-jsx-pretty')
+  minpac#add('yuezk/vim-js')
+  minpac#add('LnL7/vim-nix')
+  minpac#add('sgur/vim-editorconfig')
+  minpac#add('voldikss/vim-floaterm')
+  minpac#add('fcpg/vim-altscreen')
+  minpac#add('tpope/vim-commentary')
+  minpac#add('tpope/vim-surround')
+  minpac#add('tpope/vim-repeat')
+  minpac#add('basilgood/hlyank.vim')
+  minpac#add('tommcdo/vim-exchange')
+  minpac#add('linjiX/vim-star')
+  minpac#add('markonm/traces.vim')
+  minpac#add('sgur/cmdline-completion')
+  minpac#add('stefandtw/quickfix-reflector.vim')
+  minpac#add('AndrewRadev/quickpeek.vim')
+  minpac#add('toombs-caeman/vim-smoothie')
+  minpac#add('basilgood/vim-options')
+enddef
 
-command! PackUpdate minpac#update()
-command! PackClean  minpac#clean()
-command! PackStatus minpac#status()
+command! PackUpdate PackInit() | call minpac#update()
+command! PackClean  PackInit() | call minpac#clean()
+command! PackStatus packadd minpac | call minpac#status()
 
 filetype plugin indent on
 
@@ -111,11 +112,15 @@ g:coc_user_config['languageserver'] = {}
 g:coc_user_config['diagnostic-languageserver'] = {}
 g:coc_user_config['suggest.noselect'] = true
 g:coc_user_config['suggest.enablePreselect'] = false
+g:coc_user_config['suggest.floatConfig.border'] = true
+g:coc_user_config['hover.floatConfig.border'] = true
+g:coc_user_config['diagnostic.floatConfig.border'] = true
 g:coc_user_config['diagnostic.errorSign'] = 'E'
 g:coc_user_config['diagnostic.warningSign'] = 'W'
 g:coc_user_config['diagnostic.infoSign'] = 'I'
 g:coc_user_config['diagnostic.hintSign'] = 'H'
 g:coc_user_config['signature.target'] = 'echo'
+g:coc_user_config['signature.floatConfig.border'] = true
 g:coc_user_config['git.conflict.enabled'] = false
 g:coc_user_config['html.filetypes'] = ['html', 'javascript']
 g:coc_user_config['html-css-support.enabledLanguages'] = ['html', 'javascript']
@@ -139,6 +144,7 @@ g:coc_user_config['diagnostic-languageserver']['formatFiletypes'] = {
   yaml: 'yamlfix',
   javascript: 'prettier'
 }
+g:coc_borderchars = ['-', '|', '-', '|', '+', '+', '+', '+']
 
 nmap gd <Plug>(coc-definition)
 nmap gr <Plug>(coc-references)
@@ -185,12 +191,6 @@ autocmd vimRc FileType fugitive {
   nmap <buffer> gb gq:gb<cr>
 }
 
-# autoformat
-g:formatters_javascript = ['prettier']
-g:formatdef_custom_nix = '"nixpkgs-fmt"'
-g:formatters_nix = ['custom_nix']
-cabbrev af Autoformat
-
 # floaterm
 g:floaterm_height = 0.9
 g:floaterm_width = 0.9
@@ -221,6 +221,6 @@ g:smoothie_remapped_commands = [
 # colorscheme
 set termguicolors
 syntax enable
-colorscheme gruvbit
+colorscheme gruvbox8
 
 set secure
