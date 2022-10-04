@@ -54,24 +54,6 @@ command! PackStatus packadd minpac | call minpac#status()
 filetype plugin indent on
 
 # pluggins configs
-# netrw
-g:netrw_list_hide = '^./$'
-g:netrw_banner = 0
-g:netrw_altfile = 1
-g:netrw_preview = 1
-g:netrw_alto = 0
-g:netrw_use_errorwindow = 0
-g:netrw_special_syntax = 1
-autocmd vimRc FileType netrw {
-  nmap <buffer> . mfmx
-}
-cnoreabbrev <silent> ee e %:h
-autocmd vimRc CursorHold * {
-  if buffer_name() == $HOME .. '/.vim'
-    set ft=netrw
-  endif
-}
-
 # fzf
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
 g:fzf_layout = {'window': {'width': 1, 'height': 1, 'border': 'sharp'}}
