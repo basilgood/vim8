@@ -130,7 +130,7 @@ if &background ==# 'dark'
   hi link SignifySignChangeDelete    GitGutterChangeDelete
   hi link SignifySignDelete          GitGutterDelete
   hi link SignifySignDeleteFirstLine GitGutterDelete
-  hi CocFloating guibg=#3c3836
+  hi CocFloating guibg=#1d2021
   hi link CocCodeLens Comment
   hi link CocErrorSign ALEErrorSign
   hi link CocWarningSign ALEWarningSign
