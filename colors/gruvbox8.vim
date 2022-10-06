@@ -59,12 +59,12 @@ if &background ==# 'dark'
   hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
   hi Conceal guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
   hi Cursor guifg=NONE guibg=NONE gui=reverse ctermfg=NONE ctermbg=NONE cterm=reverse
-  hi DiffAdd guifg=#b8bb26 guibg=#1d2021 gui=reverse cterm=reverse
-  hi DiffChange guifg=#8ec07c guibg=#1d2021 gui=reverse cterm=reverse
-  hi DiffDelete guifg=#fb4934 guibg=#1d2021 gui=reverse cterm=reverse
-  hi DiffText guifg=#fabd2f guibg=#1d2021 gui=reverse cterm=reverse
+  hi DiffAdd guifg=NONE guibg=#1d2021
+  hi DiffChange guifg=NONE guibg=#1d2021
+  hi DiffDelete guifg=#6a3832 guibg=#1d2021
+  hi DiffText guifg=NONE guibg=#161919
   hi Directory guifg=#b8bb26 guibg=NONE gui=bold cterm=bold
-  hi EndOfBuffer guifg=#1d2021 guibg=NONE gui=NONE cterm=NONE
+  hi EndOfBuffer guifg=#3c3836 guibg=NONE gui=NONE cterm=NONE
   hi IncSearch guifg=NONE guibg=#002636 gui=NONE cterm=NONE
   hi CurSearch guifg=NONE guibg=#002636 gui=NONE cterm=NONE
   hi ModeMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
