@@ -4,13 +4,6 @@ augroup vimRc
   autocmd!
 augroup END
 
-# unload some plugins
-g:loaded_getscriptPlugin = true
-g:loaded_logiPat = true
-g:loaded_vimballPlugin = true
-g:loaded_vimball = true
-g:html_indent_style1 = 'inc'
-
 # load matchit
 packadd! matchit
 
@@ -47,9 +40,9 @@ def PackInit()
   minpac#add('basilgood/vim-options')
 enddef
 
-command! PackUpdate PackInit() | call minpac#update()
-command! PackClean  PackInit() | call minpac#clean()
-command! PackStatus packadd minpac | call minpac#status()
+command! PackUpdate PackInit() | minpac#update()
+command! PackClean  PackInit() | minpac#clean()
+command! PackStatus packadd minpac | minpac#status()
 
 filetype plugin indent on
 
