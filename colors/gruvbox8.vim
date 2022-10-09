@@ -48,14 +48,14 @@ if &background ==# 'dark'
   hi PmenuSel guifg=#504945 guibg=#83a598 gui=bold cterm=bold
   hi PmenuThumb guifg=NONE guibg=#7c6f64 gui=NONE cterm=NONE
   hi SpecialKey guifg=#444444 guibg=NONE gui=NONE cterm=NONE
-  hi StatusLine guifg=#504945 guibg=NONE gui=NONE cterm=NONE
+  hi StatusLine guifg=#665c54 guibg=NONE gui=NONE cterm=NONE
   hi StatusLineNC guifg=#3c3836 guibg=NONE gui=NONE cterm=NONE
   hi TabLine guifg=#7c6f64 guibg=#3c3836 gui=NONE cterm=NONE
   hi TabLineFill guifg=#7c6f64 guibg=#3c3836 gui=NONE cterm=NONE
   hi TabLineSel guifg=#b8bb26 guibg=#3c3836 gui=NONE cterm=NONE
   hi ToolbarButton guifg=#fbf1c7 guibg=#665c54 gui=bold cterm=bold
   hi ToolbarLine guifg=NONE guibg=#665c54 gui=NONE cterm=NONE
-  hi Visual guifg=NONE guibg=#302d2c gui=NONE cterm=NONE
+  hi Visual guifg=NONE guibg=#393634 gui=NONE cterm=NONE
   hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
   hi Conceal guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
   hi Cursor guifg=NONE guibg=NONE gui=reverse ctermfg=NONE ctermbg=NONE cterm=reverse
@@ -65,8 +65,8 @@ if &background ==# 'dark'
   hi DiffText guifg=NONE guibg=#161919
   hi Directory guifg=#b8bb26 guibg=NONE gui=bold cterm=bold
   hi EndOfBuffer guifg=#3c3836 guibg=NONE gui=NONE cterm=NONE
-  hi IncSearch guifg=NONE guibg=#002636 gui=NONE cterm=NONE
-  hi CurSearch guifg=NONE guibg=#002636 gui=NONE cterm=NONE
+  hi IncSearch guifg=NONE guibg=#1b4b4a gui=NONE cterm=NONE
+  hi CurSearch guifg=NONE guibg=#1b4b4a gui=NONE cterm=NONE
   hi ModeMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
   hi MoreMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
   hi Question guifg=#fe8019 guibg=NONE gui=bold cterm=bold
