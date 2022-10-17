@@ -113,6 +113,7 @@ g:coc_user_config['suggest.noselect'] = true
 g:coc_user_config['suggest.enablePreselect'] = false
 g:coc_user_config['diagnostic.virtualText'] = true
 g:coc_user_config['diagnostic.virtualTextPrefix'] = ' ▪ '
+g:coc_user_config['diagnostic.virtualTextFormat'] = '%source: %message'
 g:coc_user_config['diagnostic.enableMessage'] = 'never'
 g:coc_user_config['diagnostic.errorSign'] = 'E'
 g:coc_user_config['diagnostic.warningSign'] = 'W'
