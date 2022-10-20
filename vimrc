@@ -279,7 +279,7 @@ else
 endif
 set backspace=indent,eol,start
 &laststatus = 2
-set statusline=[%{pathshorten(expand('%'))}]%y%#error#%m%r%h%*
+set statusline=[%#function#%{winnr()}%*][%{pathshorten(expand('%'))}]%y%#error#%m%r%h%*
 
 # mappings
 nnoremap <silent> <c-w>d :bp<bar>bd#<cr>
