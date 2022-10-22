@@ -190,6 +190,9 @@ autocmd vimRc FileType fugitive {
   nmap <buffer> gb gq:gb<cr>
 }
 
+# jsx
+g:vim_jsx_pretty_template_tags = ['html', 'js', 'ts']
+
 # floaterm
 g:floaterm_height = 0.9
 g:floaterm_width = 0.9
@@ -218,9 +221,9 @@ g:smoothie_remapped_commands = [
 ]
 
 # options
-&t_EI ..= "\e[2 q"
-&t_SR ..= "\e[4 q"
-&t_SI ..= "\e[6 q"
+&t_EI = "\e[2 q"
+&t_SR = "\e[4 q"
+&t_SI = "\e[6 q"
 set t_ut=
 set t_md=
 set path=.,**
@@ -293,6 +296,9 @@ nnoremap <silent> 3<C-g> :echon system('cat .git/HEAD')->split('\n')<CR>
 nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>syntax sync fromstart<cr><c-l>
 nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
+for i in range(0, 9)
+  execute 'nnoremap <leader>' .. i i .. '<c-w>w'
+endfor
 
 # autocmds
 # keep cursor position
