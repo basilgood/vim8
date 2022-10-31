@@ -1,4 +1,5 @@
 vim9script
+runtime defaults.vim
 
 augroup vimRc
   autocmd!
@@ -17,14 +18,17 @@ def PackInit()
   minpac#init()
   minpac#add('k-takata/minpac', {'type': 'opt'})
   minpac#add('junegunn/fzf.vim')
-  minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+  minpac#add('prabirshrestha/asyncomplete.vim')
+  minpac#add('prabirshrestha/asyncomplete-lsp.vim')
+  minpac#add('prabirshrestha/vim-lsp')
+  minpac#add('mattn/vim-lsp-settings')
   minpac#add('tpope/vim-fugitive')
+  minpac#add('airblade/vim-gitgutter')
   minpac#add('maxmellon/vim-jsx-pretty')
   minpac#add('yuezk/vim-js')
   minpac#add('LnL7/vim-nix')
+  minpac#add('basilgood/istanbul.vim')
   minpac#add('sgur/vim-editorconfig')
-  minpac#add('voldikss/vim-floaterm')
-  minpac#add('fcpg/vim-altscreen')
   minpac#add('tpope/vim-commentary')
   minpac#add('tpope/vim-surround')
   minpac#add('tpope/vim-repeat')
@@ -32,11 +36,12 @@ def PackInit()
   minpac#add('tommcdo/vim-exchange')
   minpac#add('linjiX/vim-star')
   minpac#add('markonm/traces.vim')
+  minpac#add('fcpg/vim-altscreen')
   minpac#add('sgur/cmdline-completion')
   minpac#add('stefandtw/quickfix-reflector.vim')
   minpac#add('AndrewRadev/quickpeek.vim')
   minpac#add('toombs-caeman/vim-smoothie')
-  minpac#add('basilgood/vim-enfocado')
+  minpac#add('basilgood/night-owl.vim', {'type': 'opt'})
 enddef
 
 command! PackUpdate PackInit() | minpac#update()
@@ -46,11 +51,10 @@ command! PackStatus packadd minpac | minpac#status()
 filetype plugin indent on
 
 # netrw
-g:netrw_list_hide = ',^\.\=/\=$'
+g:netrw_list_hide = ',^\./$'
 g:netrw_banner = 0
-g:netrw_altfile = 1
 g:netrw_preview = 1
-g:netrw_alto = 0
+g:netrw_alto = 'spr'
 g:netrw_use_errorwindow = 0
 g:netrw_special_syntax = 1
 
@@ -89,90 +93,47 @@ enddef
 
 command! -nargs=* Rg RipgrepFzf(<q-args>)
 
-# coc.nvim
-g:coc_global_extensions = [
-  'coc-coverage',
-  'coc-css',
-  'coc-diagnostic',
-  'coc-docthis',
-  'coc-eslint',
-  'coc-git',
-  'coc-html',
-  'coc-html-css-support',
-  'coc-json',
-  'coc-markdownlint',
-  'coc-snippets',
-  'coc-tsserver',
-  'coc-vimlsp',
-]
-
-g:coc_user_config = {}
-g:coc_user_config['languageserver'] = {}
-g:coc_user_config['diagnostic-languageserver'] = {}
-g:coc_user_config['suggest.noselect'] = true
-g:coc_user_config['suggest.enablePreselect'] = false
-g:coc_user_config['diagnostic.virtualText'] = true
-g:coc_user_config['diagnostic.virtualTextPrefix'] = ' ▪ '
-g:coc_user_config['diagnostic.virtualTextFormat'] = '%source: %message'
-g:coc_user_config['diagnostic.enableMessage'] = 'never'
-g:coc_user_config['diagnostic.errorSign'] = 'E'
-g:coc_user_config['diagnostic.warningSign'] = 'W'
-g:coc_user_config['diagnostic.infoSign'] = 'I'
-g:coc_user_config['diagnostic.hintSign'] = 'H'
-g:coc_user_config['signature.target'] = 'echo'
-g:coc_user_config['signature.floatConfig.border'] = true
-g:coc_user_config['git.conflict.enabled'] = false
-g:coc_user_config['html.filetypes'] = ['html', 'javascript']
-g:coc_user_config['html-css-support.enabledLanguages'] = ['html', 'javascript']
-g:coc_user_config['coverage.jsonReportPath'] = './.tmp/coverage/coverage-final.json'
-g:coc_user_config['coverage.uncoveredSign.text'] = '☂ '
-g:coc_user_config['coverage.uncoveredSign.hlGroup'] = 'CocGitRemovedSign'
-g:coc_user_config['languageserver']['rnix'] = {
-  command: 'rnix-lsp',
-  filetypes: ['nix']
-}
-g:coc_user_config['diagnostic-languageserver']['mergeConfig'] = true
-g:coc_user_config['diagnostic-languageserver']['filetypes.yaml'] = 'yamllint'
-g:coc_user_config['diagnostic-languageserver']['formatters.yamlfix'] = {
-  command: 'yamlfix',
-  args: ['-']
-}
-g:coc_user_config['diagnostic-languageserver']['formatters.prettier'] = {
-  command: 'prettier'
-}
-g:coc_user_config['diagnostic-languageserver']['formatFiletypes'] = {
-  yaml: 'yamlfix',
-  javascript: 'prettier'
+# lsp
+g:lsp_use_native_client = 1
+g:lsp_preview_float = 1
+g:lsp_diagnostics_echo_cursor = 1
+g:lsp_diagnostics_highlights_enabled = 0
+g:lsp_document_highlight_enabled = 0
+g:lsp_format_sync_timeout = 1000
+g:lsp_documentation_float_docked = 1
+g:lsp_semantic_enabled = 1
+g:lsp_settings = {
+  'efm-langserver': {
+    'disabled': 0,
+    'args': ['-c=' .. expand('~/.vim/efm-langserver/config.yaml')],
+  },
 }
 
-nmap gd <Plug>(coc-definition)
-nmap gr <Plug>(coc-references)
-nmap K :call CocAction('doHover')<cr>
-nmap <c-k> :call CocAction('showSignatureHelp')<cr>
-nmap <leader>a <Plug>(coc-codeaction)
-nmap <leader>d <cmd>CocDiagnostics<cr>
-nmap <leader>l <cmd>CocList<cr>
-nmap <leader>L <cmd>CocListResume<cr>
+def OnLspBufferEnabled()
+  setlocal omnifunc=lsp#complete
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gD <plug>(lsp-peek-definition)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> K <plug>(lsp-hover-float)
+  nmap <buffer> <c-k> <plug>(lsp-signature-help)
+  nmap <buffer> [e <Plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]e <Plug>(lsp-next-diagnostic)
+  inoremap <buffer> <expr><c-u> lsp#scroll(+4)
+  inoremap <buffer> <expr><c-d> lsp#scroll(-4)
+  nmap <buffer> <leader>a <plug>(lsp-code-action-float)
+  nmap <buffer> <leader>d <plug>(lsp-document-diagnostics)
+  g:lsp_format_sync_timeout = 1000
+  nnoremap <buffer> gQ :LspDocumentFormatSync --server=efm-langserver<CR>
+  cabbrev fm LspDocumentFormatSync --server=efm-langserver
+enddef
 
-command! -nargs=0 Format call CocAction('format')
-command! -nargs=0 OI call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd vimRc User lsp_buffer_enabled OnLspBufferEnabled()
 
-inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#next(1) : '<tab>'
-inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "<c-h>"
-inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "<cr><c-r>=coc#on_enter()<cr>"
-g:coc_snippet_next = '<tab>'
-g:coc_snippet_prev = '<s-tab>'
-nmap [e <Plug>(coc-diagnostic-prev)
-nmap ]e <Plug>(coc-diagnostic-next)
-nmap <expr> ]c &diff ? ']c' : '<Plug>(coc-git-nextchunk)'
-nmap <expr> [c &diff ? '[c' : '<Plug>(coc-git-prevchunk)'
-nnoremap <silent> ghu :CocCommand git.chunkUndo<cr>
-nnoremap <silent> ghs :CocCommand git.chunkStage<cr>
-nnoremap <silent> ghp :CocCommand git.chunkInfo<cr>
-nnoremap <silent> ghl :CocCommand git.browserOpen<cr>
-nnoremap <silent> ghc :CocCommand git.showCommit<cr>
-nnoremap <silent> ghf :CocCommand git.foldUnchanged<cr>
-nnoremap <silent> ghb :CocCommand git.showBlameDoc<cr>
+# asyncomplete
+g:asyncomplete_popup_delay = 300
+set complete-=t
+inoremap <silent><expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
+inoremap <expr><S-TAB> pumvisible() ? '<C-p>' : '<C-h>'
 
 # fugitive
 cabbrev gl tab G log --all --graph --oneline --decorate
@@ -192,12 +153,6 @@ autocmd vimRc FileType fugitive {
 
 # jsx
 g:vim_jsx_pretty_template_tags = ['html', 'js', 'ts']
-
-# floaterm
-g:floaterm_height = 0.9
-g:floaterm_width = 0.9
-g:floaterm_autoclose = 2
-g:floaterm_keymap_toggle = '<C-_>'
 
 # star
 vmap <silent> * <Plug>(star-*)
@@ -220,69 +175,46 @@ g:smoothie_remapped_commands = [
   'gg', 'G', 'n', 'N', '{', '}', '``'
 ]
 
+# traces
+g:traces_num_range_preview = 1
+
+# istanbul
+g:istanbul#jsonPath = ['.tmp/coverage/coverage-final.json']
+
 # options
 &t_EI = "\e[2 q"
 &t_SR = "\e[4 q"
 &t_SI = "\e[6 q"
 set t_ut=
-set t_md=
 set path=.,**
-set wildignore+=*/node_modules/*,*/.git/*,*/recordings/*,*/pack
-set hidden
-set gdefault
-set autoread autowrite autowriteall
-set noswapfile
-set nowritebackup
-set undofile undodir=/tmp/,.
-set autoindent smartindent
-set expandtab
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set shiftround
-set nostartofline
-set nojoinspaces
-set nowrap
-&showbreak = '↳ '
-set breakindent
-set breakindentopt=sbr
-set noshowmode
+set noswapfile hidden gdefault
+set autoread autowriteall  nowritebackup
+set undofile undodir=~/.cache/vim/,.
 set matchpairs-=<:>
-set nrformats-=octal
-set number
-set mouse=a ttymouse=sgr
-set signcolumn=yes
-set splitright splitbelow
-set fillchars=diff:-,vert:│
-set virtualedit=onemore
-set sidescrolloff=10 sidescroll=1
+set autoindent expandtab tabstop=2 shiftwidth=0 softtabstop=-1
+set number ttymouse=sgr signcolumn=yes fillchars=vert:│
+set splitright splitbelow virtualedit=onemore
+set nowrap nostartofline noshowmode hlsearch
+set sidescrolloff=5 sidescroll=1
 set sessionoptions=buffers,curdir,folds,tabpages,winsize
-set lazyredraw
-set timeoutlen=3000
-set ttimeoutlen=50
-set updatetime=100
-set incsearch hlsearch
-set pumheight=10
+set lazyredraw timeoutlen=3000 updatetime=100
 set diffopt+=context:3,indent-heuristic,algorithm:patience
 set list
-set listchars=tab:🢭\ ,trail:·,nbsp:␣,extends:❯,precedes:❮
+set listchars=tab:▸\ ,trail:·,nbsp:␣,extends:❯,precedes:❮
 autocmd vimRc InsertEnter * set listchars-=trail:⋅
 autocmd vimRc InsertLeave * set listchars+=trail:⋅
-set shortmess=asOIc
-set confirm
-set wildmenu
+set shortmess=aAIoOsc
+set pumheight=10
 set wildmode=longest:full,full
 set wildoptions=pum
 set wildignorecase
-set wildcharm=<C-Z>
 if executable('rg')
-  &grepprg = 'rg --vimgrep'
+  set grepprg=rg\ --vimgrep
 else
-  &grepprg = 'grep -rnHI'
+  set grepprg=grep\ -rnHI
 endif
-set backspace=indent,eol,start
-&laststatus = 2
-set statusline=[%#function#%{winnr()}%*][%{pathshorten(expand('%'))}]%y%#error#%m%r%h%*
+set laststatus=2
+set statusline=%{pathshorten(expand('%'))}%h%r%#error#%m%*%=%{&ft}%4c:%l/%L
 
 # mappings
 nnoremap <silent> <c-w>d :bp<bar>bd#<cr>
@@ -296,18 +228,10 @@ nnoremap <silent> 3<C-g> :echon system('cat .git/HEAD')->split('\n')<CR>
 nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>syntax sync fromstart<cr><c-l>
 nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
-for i in range(0, 9)
-  execute 'nnoremap <leader>' .. i i .. '<c-w>w'
-endfor
+nnoremap <leader>y "+y
+xnoremap <leader>y "+y
 
 # autocmds
-# keep cursor position
-autocmd vimRc BufReadPost * {
-  if line("'\"") > 1 && line("'\"") <= line("$") && &filetype != 'gitcommit'
-    exe 'normal! g`"'
-  endif
-  }
-
 # qf and help widows full width
 autocmd vimRc FileType qf,help wincmd J
 
@@ -358,7 +282,6 @@ nnoremap <leader>s :SS<cr>
 
 # colorscheme
 set termguicolors
-g:enfocado_plugins = ['fzf', 'floaterm']
-colorscheme enfocado
+colo night-owl
 
 set secure
