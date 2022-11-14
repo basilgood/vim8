@@ -1,19 +1,17 @@
 vim9script
 runtime defaults.vim
+runtime! macros/matchit.vim
 
 augroup vimRc
   autocmd!
 augroup END
 
-# install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
-# plugins
 plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-vinegar'
 # Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -35,8 +33,32 @@ Plug 'sgur/cmdline-completion'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'AndrewRadev/quickpeek.vim'
 Plug 'toombs-caeman/vim-smoothie'
-Plug 'basilgood/tokyonight-vim'
+Plug 'aswathkk/DarkScene.vim'
 plug#end()
+
+# netrw
+g:netrw_list_hide = ',^\./$'
+g:netrw_banner = 0
+g:netrw_preview = 1
+g:netrw_alto = 'spr'
+g:netrw_use_errorwindow = 0
+g:netrw_special_syntax = 1
+
+autocmd vimRc FileType netrw nmap <buffer> . mfmx
+autocmd vimRc CursorHold * {
+  if buffer_name() == $HOME .. '/.vim'
+    set ft=netrw
+  endif
+}
+
+def Ls(): void
+  var file = expand('%:t')
+  execute 'Explore' expand('%:h')
+  search(file, 'wc')
+enddef
+
+command Ex Ls()
+cnoreabbrev <silent> ee Ex
 
 # fzf
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
@@ -128,6 +150,7 @@ g:coc_snippet_next = '<tab>'
 g:coc_snippet_prev = '<s-tab>'
 nmap [e <Plug>(coc-diagnostic-prev)
 nmap ]e <Plug>(coc-diagnostic-next)
+nmap <leader><leader> <Plug>(coc-diagnostic-info)
 nmap <expr> ]c &diff ? ']c' : '<Plug>(coc-git-nextchunk)'
 nmap <expr> [c &diff ? '[c' : '<Plug>(coc-git-prevchunk)'
 nnoremap <silent> ghu :CocCommand git.chunkUndo<cr>
@@ -223,7 +246,7 @@ else
   set grepprg=grep\ -rnHI
 endif
 set laststatus=2
-set statusline=%{pathshorten(expand('%'))}%h%r%#error#%m%*%=%{&ft}%4c:%l/%L
+set statusline=%{pathshorten(expand('%'))}%h%r%#error#%m%*%=[%{strlen(&ft)?&ft:'none'}]%4c:%l/%L
 
 # mappings
 nnoremap <silent> <c-w>d :bp<bar>bd#<cr>
@@ -232,6 +255,7 @@ cnoremap <c-a> <Home>
 cnoremap <c-e> <End>
 nnoremap vv viw
 xnoremap il g_o^
+onoremap il :<C-u>normal vil<CR>
 vnoremap . :normal .<CR>
 nnoremap <silent> 3<C-g> :echon system('cat .git/HEAD')->split('\n')<CR>
 nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>syntax sync fromstart<cr><c-l>
@@ -291,6 +315,6 @@ nnoremap <leader>s :SS<cr>
 
 # colorscheme
 set termguicolors
-colorscheme tokyonight
+colorscheme darkscene
 
 set secure
