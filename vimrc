@@ -33,18 +33,23 @@ Plug 'sgur/cmdline-completion'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'AndrewRadev/quickpeek.vim'
 Plug 'toombs-caeman/vim-smoothie'
-Plug 'aswathkk/DarkScene.vim'
+Plug 'basilgood/tokyonight-vim'
 plug#end()
 
 # netrw
-g:netrw_list_hide = ',^\./$'
+g:netrw_list_hide = '^./$,^../$'
 g:netrw_banner = 0
 g:netrw_preview = 1
 g:netrw_alto = 'spr'
 g:netrw_use_errorwindow = 0
 g:netrw_special_syntax = 1
 
-autocmd vimRc FileType netrw nmap <buffer> . mfmx
+autocmd vimRc FileType netrw {
+  nmap <buffer> . mfmx
+  nmap <buffer> cp mtmc
+  nmap <buffer> mo mtmm
+}
+
 autocmd vimRc CursorHold * {
   if buffer_name() == $HOME .. '/.vim'
     set ft=netrw
@@ -53,12 +58,12 @@ autocmd vimRc CursorHold * {
 
 def Ls(): void
   var file = expand('%:t')
-  execute 'Explore' expand('%:h')
+  execute 'Explore' expand('%:p:h')
   search(file, 'wc')
 enddef
 
-command Ex Ls()
-cnoreabbrev <silent> ee Ex
+command! Ex Ls()
+nnoremap <silent> - :Ex<cr>
 
 # fzf
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
@@ -66,7 +71,7 @@ g:fzf_layout = {'window': {'width': 1, 'height': 1, 'border': 'sharp'}}
 g:fzf_preview_window = ['up:85%', 'ctrl-/']
 nnoremap <c-p> :Files<cr>
 cnoreabbrev ff Files %:p:h
-cnoreabbrev note Files ~/Notes
+cnoreabbrev nt Files ~/Notes
 nnoremap <bs> :Buffers<cr>
 
 def RipgrepFzf(query: string)
@@ -315,6 +320,6 @@ nnoremap <leader>s :SS<cr>
 
 # colorscheme
 set termguicolors
-colorscheme darkscene
+colorscheme tokyonight
 
 set secure
