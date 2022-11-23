@@ -12,10 +12,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 plug#begin('~/.vim/plugged')
-# Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
+Plug 'junegunn/fzf.vim', {'on': ['Files', 'Buffers', 'Rg']}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'vim-autoformat/vim-autoformat', {'on': 'Autoformat'}
 Plug 'tpope/vim-fugitive'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'yuezk/vim-js'
@@ -33,7 +32,7 @@ Plug 'sgur/cmdline-completion'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'AndrewRadev/quickpeek.vim'
 Plug 'toombs-caeman/vim-smoothie'
-Plug 'basilgood/tokyonight-vim'
+Plug 'sainnhe/gruvbox-material'
 plug#end()
 
 # netrw
@@ -151,8 +150,8 @@ command! -nargs=0 OI call CocAction('runCommand', 'editor.action.organizeImport'
 inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#next(1) : '<tab>'
 inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "<c-h>"
 inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "<cr><c-r>=coc#on_enter()<cr>"
-g:coc_snippet_next = '<tab>'
-g:coc_snippet_prev = '<s-tab>'
+g:coc_snippet_next = '<c-l>'
+g:coc_snippet_prev = '<c-h>'
 nmap [e <Plug>(coc-diagnostic-prev)
 nmap ]e <Plug>(coc-diagnostic-next)
 nmap <leader><leader> <Plug>(coc-diagnostic-info)
@@ -184,12 +183,6 @@ autocmd vimRc FileType fugitive {
   nmap <buffer> gl gq:gl<cr>
   nmap <buffer> gb gq:gb<cr>
 }
-
-# autoformat
-g:formatters_javascript = ['prettier']
-g:formatdef_custom_nix = '"nixpkgs-fmt"'
-g:formatters_nix = ['custom_nix']
-cabbrev af Autoformat
 
 # floaterm
 g:floaterm_height = 0.9
@@ -266,8 +259,8 @@ nnoremap <silent> 3<C-g> :echon system('cat .git/HEAD')->split('\n')<CR>
 nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>syntax sync fromstart<cr><c-l>
 nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
-nnoremap <leader>y "+y
-xnoremap <leader>y "+y
+nnoremap S :%s/
+xnoremap s :s/
 
 # autocmds
 # qf and help widows full width
@@ -320,6 +313,9 @@ nnoremap <leader>s :SS<cr>
 
 # colorscheme
 set termguicolors
-colorscheme tokyonight
+g:gruvbox_material_foreground = 'original'
+g:gruvbox_material_background = 'hard'
+g:gruvbox_material_better_performance = 1
+colorscheme gruvbox-material
 
 set secure
