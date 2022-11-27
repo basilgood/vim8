@@ -37,6 +37,7 @@ plug#end()
 
 # netrw
 g:netrw_list_hide = '^./$,^../$'
+g:netrw_cursor = 0
 g:netrw_banner = 0
 g:netrw_preview = 1
 g:netrw_alto = 'spr'
@@ -47,6 +48,7 @@ autocmd vimRc FileType netrw {
   nmap <buffer> . mfmx
   nmap <buffer> cp mtmc
   nmap <buffer> mo mtmm
+  nmap <buffer> <tab> mf
 }
 
 autocmd vimRc CursorHold * {
@@ -165,8 +167,11 @@ nnoremap <silent> ghc :CocCommand git.showCommit<cr>
 nnoremap <silent> ghf :CocCommand git.foldUnchanged<cr>
 nnoremap <silent> ghb :CocCommand git.showBlameDoc<cr>
 
+# lit
+g:htl_all_templates = 1
+g:htl_css_templates = 1
+
 # fugitive
-autocmd vimRc CmdlineEnter,BufReadPost * ++once plug#load('vim-fugitive')
 cabbrev gl tab G log --all --graph --oneline --decorate
 cabbrev gs tab G
 cabbrev gb tab G branch
@@ -234,7 +239,7 @@ set listchars=tab:▸\ ,trail:·,nbsp:␣,extends:❯,precedes:❮
 autocmd vimRc InsertEnter * set listchars-=trail:⋅
 autocmd vimRc InsertLeave * set listchars+=trail:⋅
 set shortmess=aAIoOsc
-set pumheight=10
+set pumheight=5
 set wildmode=longest:full,full
 set wildoptions=pum
 set wildignorecase
@@ -244,7 +249,7 @@ else
   set grepprg=grep\ -rnHI
 endif
 set laststatus=2
-set statusline=%{pathshorten(expand('%'))}%h%r%#error#%m%*%=[%{strlen(&ft)?&ft:'none'}]%4c:%l/%L
+set statusline=%{pathshorten(expand('%'))}%h%r%#error#%m%*%=[%{strlen(&ft)?&ft:'none'}]%7c:%l/%L
 
 # mappings
 nnoremap <silent> <c-w>d :bp<bar>bd#<cr>
@@ -313,9 +318,6 @@ nnoremap <leader>s :SS<cr>
 
 # colorscheme
 set termguicolors
-g:gruvbox_material_foreground = 'original'
-g:gruvbox_material_background = 'hard'
-g:gruvbox_material_better_performance = 1
-colorscheme gruvbox-material
+colorscheme gruvbox8
 
 set secure
