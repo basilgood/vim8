@@ -32,7 +32,6 @@ Plug 'sgur/cmdline-completion'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'AndrewRadev/quickpeek.vim'
 Plug 'toombs-caeman/vim-smoothie'
-Plug 'sainnhe/gruvbox-material'
 plug#end()
 
 # netrw
