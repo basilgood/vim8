@@ -14,6 +14,7 @@ endif
 plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim', {'on': ['Files', 'Buffers', 'Rg']}
+Plug 'tpope/vim-vinegar'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 Plug 'maxmellon/vim-jsx-pretty'
@@ -33,37 +34,6 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'AndrewRadev/quickpeek.vim'
 Plug 'toombs-caeman/vim-smoothie'
 plug#end()
-
-# netrw
-g:netrw_list_hide = '^./$,^../$'
-g:netrw_cursor = 0
-g:netrw_banner = 0
-g:netrw_preview = 1
-g:netrw_alto = 'spr'
-g:netrw_use_errorwindow = 0
-g:netrw_special_syntax = 1
-
-autocmd vimRc FileType netrw {
-  nmap <buffer> . mfmx
-  nmap <buffer> cp mtmc
-  nmap <buffer> mo mtmm
-  nmap <buffer> <tab> mf
-}
-
-autocmd vimRc CursorHold * {
-  if buffer_name() == $HOME .. '/.vim'
-    set ft=netrw
-  endif
-}
-
-def Ls(): void
-  var file = expand('%:t')
-  execute 'Explore' expand('%:p:h')
-  search(file, 'wc')
-enddef
-
-command! Ex Ls()
-nnoremap <silent> - :Ex<cr>
 
 # fzf
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
@@ -110,7 +80,8 @@ g:coc_user_config['diagnostic.errorSign'] = 'E'
 g:coc_user_config['diagnostic.warningSign'] = 'W'
 g:coc_user_config['diagnostic.infoSign'] = 'I'
 g:coc_user_config['diagnostic.hintSign'] = 'H'
-g:coc_user_config['diagnostic.enableMessage'] = false
+g:coc_user_config['diagnostic.checkCurrentLine'] = true
+g:coc_user_config['diagnostic.enableMessage'] = 'jump'
 g:coc_user_config['signature.target'] = 'echo'
 g:coc_user_config['git.conflict.enabled'] = false
 g:coc_user_config['html.filetypes'] = ['html', 'javascript']
@@ -140,6 +111,7 @@ nmap gd <Plug>(coc-definition)
 nmap gr <Plug>(coc-references)
 nmap K :call CocAction('doHover')<cr>
 nmap <c-k> :call CocAction('showSignatureHelp')<cr>
+nmap <leader><leader> :call CocAction('diagnosticPreview')<cr>
 nmap <leader>a <Plug>(coc-codeaction)
 nmap <leader>d <cmd>CocDiagnostics<cr>
 nmap <leader>l <cmd>CocList<cr>
