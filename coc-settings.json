@@ -1,0 +1,82 @@
+{
+  "suggest.noselect": true,
+  "suggest.enablePreselect": false,
+  "diagnostic.errorSign": "E",
+  "diagnostic.warningSign": "W",
+  "diagnostic.infoSign": "I",
+  "diagnostic.hintSign": "H",
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.enableMessage": "jump",
+  "diagnostic.format": "%message [%source]",
+  "diagnostic.separateRelatedInformationAsDiagnostics": true,
+  "signature.target": "echo",
+  "git.conflict.enabled": false,
+  "snippets.ultisnips.enable": false,
+  "html.filetypes": [
+    "html",
+    "htmldjango",
+    "astro",
+    "jinja",
+    "javascript"
+  ],
+  "html-css-support.enabledLanguages": [
+    "html",
+    "htmldjango",
+    "astro",
+    "jinja",
+    "javascript"
+  ],
+  "htmldjango.djlint.indent": 2,
+  "htmldjango.djhtml.tabWidth": 2,
+  "htmldjango.djlint.formatJs": true,
+  "htmldjango.djlint.formatCss": true,
+  "htmldjango.djlint.preserveBlankLines": true,
+  "coverage.jsonReportPath": "./.tmp/coverage/coverage-final.json",
+  "coverage.uncoveredSign.text": "☂",
+  "coverage.uncoveredSign.hlGroup": "CocGitRemovedSign",
+  "markdownlint.config": {
+    "line-length": false
+  },
+  "languageserver": {
+    "rnix": {
+      "command": "rnix-lsp",
+      "args": [
+        "--stdio"
+      ],
+      "filetypes": [
+        "nix"
+      ]
+    }
+  },
+  "diagnostic-languageserver.mergeConfig": true,
+  "diagnostic-languageserver.filetypes": {
+    "yaml": "yamllint",
+    "sh": "sh"
+  },
+  "diagnostic-languageserver.formatters": {
+    "yamlfix": {
+      "command": "yamlfix",
+      "args": [
+        "-"
+      ]
+    },
+    "shfmt": {
+      "command": "shfmt",
+      "args": [
+        "-i",
+        2,
+        "-ci",
+        "-sr"
+      ]
+    },
+    "prettier": {
+      "command": "prettier"
+    }
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "yaml": "yamlfix",
+    "javascript": "prettier",
+    "astro": "prettier",
+    "sh": "shfmt"
+  }
+}

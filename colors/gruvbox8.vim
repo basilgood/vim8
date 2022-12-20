@@ -135,7 +135,7 @@ if &background ==# 'dark'
   hi link CocWarningSign ALEWarningSign
   hi link CocInfoSign ALEInfoSign
   hi link CocHintSign ALEInfoSign
-  hi link CocHintLine ALEInfoSign
+  hi link CocHintLine NONE
   hi link CocErrorHighlight ALEError
   hi link CocWarningHighlight ALEWarning
   hi link CocInfoHighlight ALEInfo
@@ -151,6 +151,8 @@ if &background ==# 'dark'
   hi diffFile guifg=#fe8019 guibg=NONE gui=NONE cterm=NONE
   hi diffNewFile guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
   hi diffLine guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
+
+  hi link htmlEndTag htmlTag
 endif
 
 " vim: et ts=2 sw=2

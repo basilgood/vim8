@@ -12,14 +12,15 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
-Plug 'junegunn/fzf.vim', {'on': ['Files', 'Buffers', 'Rg']}
-Plug 'tpope/vim-vinegar'
+Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-fugitive'
+Plug 'honza/vim-snippets'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'yuezk/vim-js'
+Plug 'wuelnerdotexe/vim-astro'
 Plug 'sgur/vim-editorconfig'
+Plug 'tpope/vim-fugitive'
+Plug 'rhysd/conflict-marker.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'fcpg/vim-altscreen'
 Plug 'tpope/vim-commentary'
@@ -32,16 +33,35 @@ Plug 'markonm/traces.vim'
 Plug 'sgur/cmdline-completion'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'AndrewRadev/quickpeek.vim'
-Plug 'toombs-caeman/vim-smoothie'
+Plug 'opalmay/vim-smoothie'
+Plug 'basilgood/vim-enfocado'
 plug#end()
+
+# netrw
+g:netrw_list_hide = '^./$,^../$'
+g:netrw_banner = 0
+g:netrw_preview = 1
+g:netrw_alto = 'spr'
+g:netrw_use_errorwindow = 0
+g:netrw_special_syntax = 1
+
+autocmd vimRc FileType netrw nmap <buffer> . mfmx
+
+def Ls(): void
+  var file = expand('%:t')
+  execute 'Explore' expand('%:p:h')
+  search(file, 'wc')
+enddef
+
+command! Ex Ls()
+cabbrev ee Ex
 
 # fzf
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
-g:fzf_layout = {'window': {'width': 1, 'height': 1, 'border': 'sharp'}}
-g:fzf_preview_window = ['up:85%', 'ctrl-/']
+g:fzf_layout = {'window': {'width': 0.8, 'height': 0.9, 'border': 'sharp'}}
+g:fzf_preview_window = ['up:80%', 'ctrl-/']
 nnoremap <c-p> :Files<cr>
-cnoreabbrev ff Files %:p:h
-cnoreabbrev nt Files ~/Notes
+cabbrev ff Files %:p:h
 nnoremap <bs> :Buffers<cr>
 
 def RipgrepFzf(query: string)
@@ -64,48 +84,13 @@ g:coc_global_extensions = [
   'coc-html',
   'coc-css',
   'coc-html-css-support',
+  'coc-htmldjango',
   'coc-json',
   'coc-markdownlint',
   'coc-snippets',
   'coc-tsserver',
   'coc-vimlsp',
 ]
-
-g:coc_user_config = {}
-g:coc_user_config['languageserver'] = {}
-g:coc_user_config['diagnostic-languageserver'] = {}
-g:coc_user_config['suggest.noselect'] = true
-g:coc_user_config['suggest.enablePreselect'] = false
-g:coc_user_config['diagnostic.errorSign'] = 'E'
-g:coc_user_config['diagnostic.warningSign'] = 'W'
-g:coc_user_config['diagnostic.infoSign'] = 'I'
-g:coc_user_config['diagnostic.hintSign'] = 'H'
-g:coc_user_config['diagnostic.checkCurrentLine'] = true
-g:coc_user_config['diagnostic.enableMessage'] = 'jump'
-g:coc_user_config['signature.target'] = 'echo'
-g:coc_user_config['git.conflict.enabled'] = false
-g:coc_user_config['html.filetypes'] = ['html', 'javascript']
-g:coc_user_config['html-css-support.enabledLanguages'] = ['html', 'javascript']
-g:coc_user_config['coverage.jsonReportPath'] = './.tmp/coverage/coverage-final.json'
-g:coc_user_config['coverage.uncoveredSign.text'] = '☂ '
-g:coc_user_config['coverage.uncoveredSign.hlGroup'] = 'CocGitRemovedSign'
-g:coc_user_config['languageserver']['rnix'] = {
-  command: 'rnix-lsp',
-  filetypes: ['nix']
-}
-g:coc_user_config['diagnostic-languageserver']['mergeConfig'] = true
-g:coc_user_config['diagnostic-languageserver']['filetypes.yaml'] = 'yamllint'
-g:coc_user_config['diagnostic-languageserver']['formatters.yamlfix'] = {
-  command: 'yamlfix',
-  args: ['-']
-}
-g:coc_user_config['diagnostic-languageserver']['formatters.prettier'] = {
-  command: 'prettier'
-}
-g:coc_user_config['diagnostic-languageserver']['formatFiletypes'] = {
-  yaml: 'yamlfix',
-  javascript: 'prettier'
-}
 
 nmap gd <Plug>(coc-definition)
 nmap gr <Plug>(coc-references)
@@ -137,10 +122,6 @@ nnoremap <silent> ghl :CocCommand git.browserOpen<cr>
 nnoremap <silent> ghc :CocCommand git.showCommit<cr>
 nnoremap <silent> ghf :CocCommand git.foldUnchanged<cr>
 nnoremap <silent> ghb :CocCommand git.showBlameDoc<cr>
-
-# lit
-g:htl_all_templates = 1
-g:htl_css_templates = 1
 
 # fugitive
 cabbrev gl tab G log --all --graph --oneline --decorate
@@ -178,15 +159,6 @@ g:quickpeek_popup_options = {
 g:quickpeek_window_settings = ['cursorline', 'number']
 autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
-# smoothie
-g:smoothie_remapped_commands = [
-  '<C-D>', '<C-U>', '<C-F>', '<C-B>',
-  '<S-Down>', '<PageDown>', '<S-Up>', '<PageUp>',
-  'z+', 'z^', 'zt', 'z<CR>',
-  'z.', 'zz', 'z-', 'zb',
-  'gg', 'G', 'n', 'N', '{', '}', '``'
-]
-
 # options
 &t_EI = "\e[2 q"
 &t_SR = "\e[4 q"
@@ -205,10 +177,7 @@ set sidescrolloff=5 sidescroll=1
 set sessionoptions=buffers,curdir,folds,tabpages,winsize
 set lazyredraw timeoutlen=3000 updatetime=100
 set diffopt+=context:3,indent-heuristic,algorithm:patience
-set list
-set listchars=tab:▸\ ,trail:·,nbsp:␣,extends:❯,precedes:❮
-autocmd vimRc InsertEnter * set listchars-=trail:⋅
-autocmd vimRc InsertLeave * set listchars+=trail:⋅
+set list listchars=tab:┆\ ,lead:·,trail:·,nbsp:␣
 set shortmess=aAIoOsc
 set pumheight=5
 set wildmode=longest:full,full
@@ -225,6 +194,7 @@ set statusline=%{pathshorten(expand('%'))}%h%r%#error#%m%*%=[%{strlen(&ft)?&ft:'
 # mappings
 nnoremap <silent> <c-w>d :bp<bar>bd#<cr>
 nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
+nnoremap <silent> <C-w>t :tabe %<cr>
 cnoremap <c-a> <Home>
 cnoremap <c-e> <End>
 nnoremap vv viw
@@ -263,6 +233,7 @@ autocmd vimRc BufNewFile,BufReadPost config      setfiletype config
 autocmd vimRc BufNewFile,BufReadPost *.lock      setfiletype config
 autocmd vimRc BufNewFile,BufReadPost .babelrc    setfiletype json
 autocmd vimRc BufNewFile,BufReadPost *.txt       setfiletype markdown
+autocmd vimRc BufWinEnter *.njk       setfiletype htmldjango
 autocmd vimRc BufNewFile,BufReadPost *.json  setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufNewFile,BufReadPost *.json  setlocal formatoptions=
 autocmd vimRc BufNewFile,BufReadPost *.html,*.javascript  setlocal matchpairs-=<:>
@@ -273,6 +244,9 @@ def SynGroup(): void
   echo synIDattr(s, 'name') .. ' -> ' .. synIDattr(synIDtrans(s), 'name')
 enddef
 command HL SynGroup()
+
+# sudo edit
+cabbrev w!! w !sudo tee > /dev/null %
 
 # sessions
 const session_path = expand('~/.cache/vim/sessions/')
@@ -289,6 +263,6 @@ nnoremap <leader>s :SS<cr>
 
 # colorscheme
 set termguicolors
-colorscheme gruvbox8
+colorscheme enfocado
 
 set secure
