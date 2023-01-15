@@ -55,25 +55,15 @@ def Ls(): void
 enddef
 
 command! Ex Ls()
-cabbrev ee Ex
+nnoremap <silent> - :Ex<cr>
 
 # fzf
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
-g:fzf_layout = {'window': {'width': 0.8, 'height': 0.9, 'border': 'sharp'}}
-g:fzf_preview_window = ['up:80%', 'ctrl-/']
+g:fzf_layout = {'window': {'width': 0.7, 'height': 0.8, 'border': 'sharp'}}
+g:fzf_preview_window = ['up:70%', 'ctrl-/']
 nnoremap <c-p> :Files<cr>
 cabbrev ff Files %:p:h
 nnoremap <bs> :Buffers<cr>
-
-def RipgrepFzf(query: string)
-  final command_fmt = 'rg --column --line-number --no-heading --color=always '
-  final initial_command = printf(command_fmt .. shellescape(query))
-  final reload_command = printf(command_fmt .. ('%s'), '{q}')
-  final spec = {'options': ['--phony', '--query', query, '--bind', 'change:reload:eval ' .. reload_command]}
-  fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), 0)
-enddef
-
-command! -nargs=* Rg RipgrepFzf(<q-args>)
 
 # coc.nvim
 g:coc_global_extensions = [
@@ -124,24 +114,6 @@ nnoremap <silent> ghc :CocCommand git.showCommit<cr>
 nnoremap <silent> ghf :CocCommand git.foldUnchanged<cr>
 nnoremap <silent> ghb :CocCommand git.showBlameDoc<cr>
 
-# fugitive
-cabbrev gl tab G log --all --graph --oneline --decorate
-cabbrev gs tab G
-cabbrev gb tab G branch
-cabbrev gp G push
-cabbrev gpf G push -f
-
-autocmd vimRc FileType git {
-  nmap <buffer> gl :q<cr>:gl<cr>
-  nmap <buffer> gb :q<cr>:gb<cr>
-  nmap <buffer> gs :q<cr>:gs<cr>
-}
-
-autocmd vimRc FileType fugitive {
-  nmap <buffer> gl gq:gl<cr>
-  nmap <buffer> gb gq:gb<cr>
-}
-
 # floaterm
 g:floaterm_height = 0.9
 g:floaterm_width = 0.9
@@ -178,7 +150,7 @@ set sidescrolloff=5 sidescroll=1
 set sessionoptions=buffers,curdir,folds,tabpages,winsize
 set lazyredraw timeoutlen=3000 updatetime=100
 set diffopt+=context:3,indent-heuristic,algorithm:patience
-set list listchars=tab:┆\ ,lead:·,trail:·,nbsp:␣
+set list listchars=tab:▸🞌,lead:·,trail:·,nbsp:␣
 set shortmess=aAIoOsc
 set pumheight=5
 set wildmode=longest:full,full
@@ -190,7 +162,7 @@ else
   set grepprg=grep\ -rnHI
 endif
 set laststatus=2
-set statusline=%{pathshorten(expand('%'))}%h%r%#error#%m%*%=[%{strlen(&ft)?&ft:'none'}]%7c:%l/%L
+set statusline=%{expand('%:p:h:t')}/%t%h%r%#error#%m%*%=[%{strlen(&ft)?&ft:'none'}]%*%4c:%l/%L
 
 # mappings
 nnoremap <silent> <c-w>d :bp<bar>bd#<cr>
@@ -264,6 +236,7 @@ nnoremap <leader>s :SS<cr>
 
 # colorscheme
 set termguicolors
+set background=dark
 colorscheme enfocado
 
 set secure
