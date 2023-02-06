@@ -73,6 +73,7 @@ g:coc_global_extensions = [
   'coc-eslint',
   'coc-git',
   'coc-html',
+  'coc-lit-html',
   'coc-css',
   'coc-html-css-support',
   'coc-htmldjango',
@@ -118,7 +119,7 @@ nnoremap <silent> ghb :CocCommand git.showBlameDoc<cr>
 g:floaterm_height = 0.9
 g:floaterm_width = 0.9
 g:floaterm_autoclose = 2
-g:floaterm_keymap_toggle = '<C-_>'
+g:floaterm_keymap_toggle = '<C-q>'
 
 # star
 vmap <silent> * <Plug>(star-*)
@@ -178,8 +179,6 @@ nnoremap <silent> 3<C-g> :echon system('cat .git/HEAD')->split('\n')<CR>
 nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>syntax sync fromstart<cr><c-l>
 nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
-nnoremap S :%s/
-xnoremap s :s/
 
 # autocmds
 # qf and help widows full width

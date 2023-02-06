@@ -1,14 +1,26 @@
 {
+  "coc.preferences.enableMessageDialog": true,
+  "dialog.floatBorderHighlight": "FloatBorder",
+  "floatFactory.floatConfig": {
+    "rounded": true,
+    "border": true,
+    "borderhighlight": "FloatBorder",
+    "maxWidth": 50
+  },
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
-  "suggest.triggerCompletionWait": 60,
+  "suggest.insertMode": "replace",
+  "suggest.pumFloatConfig": {
+    "highlight": "CocSuggestFloating"
+  },
   "suggest.timeout": 10000,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "diagnostic.infoSign": "",
   "diagnostic.hintSign": "",
   "diagnostic.checkCurrentLine": true,
-  "diagnostic.enableMessage": "jump",
+  "diagnostic.enableMessage": "never",
+  "diagnostic.virtualText": true,
   "diagnostic.format": "%message [%source]",
   "diagnostic.separateRelatedInformationAsDiagnostics": true,
   "signature.target": "echo",
