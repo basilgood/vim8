@@ -29,13 +29,13 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'basilgood/hlyank.vim'
 Plug 'tommcdo/vim-exchange'
-Plug 'linjiX/vim-star', {'on': '<Plug>(star-'}
+Plug 'linjiX/vim-star'
 Plug 'markonm/traces.vim'
+Plug 'monkoose/vim9-stargate'
 Plug 'sgur/cmdline-completion'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'AndrewRadev/quickpeek.vim'
 Plug 'opalmay/vim-smoothie'
-Plug 'basilgood/vim-enfocado'
 plug#end()
 
 # netrw
@@ -80,6 +80,7 @@ g:coc_global_extensions = [
   'coc-json',
   'coc-markdownlint',
   'coc-snippets',
+  'coc-rust-analyzer',
   'coc-tsserver',
   'coc-vimlsp',
 ]
@@ -89,10 +90,12 @@ nmap gr <Plug>(coc-references)
 nmap K :call CocAction('doHover')<cr>
 nmap <c-k> :call CocAction('showSignatureHelp')<cr>
 nmap <leader><leader> :call CocAction('diagnosticPreview')<cr>
-nmap <leader>a <Plug>(coc-codeaction)
+nmap <F2> <Plug>(coc-rename)
+nmap <F4> <Plug>(coc-codeaction)
 nmap <leader>d <cmd>CocDiagnostics<cr>
 nmap <leader>l <cmd>CocList<cr>
 nmap <leader>L <cmd>CocListResume<cr>
+nnoremap gq :call CocAction('format')<cr>
 
 command! -nargs=0 Format call CocAction('format')
 command! -nargs=0 OI call CocAction('runCommand', 'editor.action.organizeImport')
@@ -102,18 +105,17 @@ inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "<c-h>"
 inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "<cr><c-r>=coc#on_enter()<cr>"
 g:coc_snippet_next = '<c-l>'
 g:coc_snippet_prev = '<c-h>'
-nmap [e <Plug>(coc-diagnostic-prev)
-nmap ]e <Plug>(coc-diagnostic-next)
+nmap [d <Plug>(coc-diagnostic-prev)
+nmap ]d <Plug>(coc-diagnostic-next)
 nmap <leader><leader> <Plug>(coc-diagnostic-info)
 nmap <expr> ]c &diff ? ']c' : '<Plug>(coc-git-nextchunk)'
 nmap <expr> [c &diff ? '[c' : '<Plug>(coc-git-prevchunk)'
 nnoremap <silent> ghu :CocCommand git.chunkUndo<cr>
 nnoremap <silent> ghs :CocCommand git.chunkStage<cr>
 nnoremap <silent> ghp :CocCommand git.chunkInfo<cr>
-nnoremap <silent> ghl :CocCommand git.browserOpen<cr>
+nnoremap <silent> ghb :CocCommand git.browserOpen<cr>
 nnoremap <silent> ghc :CocCommand git.showCommit<cr>
-nnoremap <silent> ghf :CocCommand git.foldUnchanged<cr>
-nnoremap <silent> ghb :CocCommand git.showBlameDoc<cr>
+nnoremap <silent> ghg :CocCommand git.showBlameDoc<cr>
 
 # floaterm
 g:floaterm_height = 0.9
@@ -124,6 +126,9 @@ g:floaterm_keymap_toggle = '<C-q>'
 # star
 vmap <silent> * <Plug>(star-*)
 nmap <silent> * <Plug>(star-*)
+
+# stargate
+noremap s :call stargate#OKvim(1)<cr>
 
 # quickpeek
 g:quickpeek_popup_options = {
@@ -145,13 +150,13 @@ set undofile undodir=~/.cache/vim/,.
 set matchpairs-=<:>
 set autoindent expandtab tabstop=2 shiftwidth=0 softtabstop=-1
 set number ttymouse=sgr signcolumn=yes fillchars=vert:│
-set splitright splitbelow virtualedit=onemore
+set splitright splitbelow
 set nowrap nostartofline noshowmode hlsearch
 set sidescrolloff=5 sidescroll=1
 set sessionoptions=buffers,curdir,folds,tabpages,winsize
-set lazyredraw timeoutlen=3000 updatetime=100
+set lazyredraw updatetime=250
 set diffopt+=context:3,indent-heuristic,algorithm:patience
-set list listchars=tab:▸🞌,lead:·,trail:·,nbsp:␣
+set list listchars=tab:🢝\ ,lead:·,trail:·,nbsp:␣
 set shortmess=aAIoOsc
 set pumheight=5
 set wildmode=longest:full,full
@@ -163,7 +168,7 @@ else
   set grepprg=grep\ -rnHI
 endif
 set laststatus=2
-set statusline=%{expand('%:p:h:t')}/%t%h%r%#error#%m%*%=[%{strlen(&ft)?&ft:'none'}]%*%4c:%l/%L
+set statusline=%2{mode()}\ \|\ %t%m%r%=%c,%l/%L\ \ %y
 
 # mappings
 nnoremap <silent> <c-w>d :bp<bar>bd#<cr>
@@ -199,6 +204,7 @@ autocmd vimRc BufWritePre * {
 }
 
 # filetypes
+g:markdown_fenced_languages = ['ruby', 'html', 'javascript', 'css', 'bash=sh', 'sh']
 autocmd vimRc BufNewFile,BufReadPost *.md,*.markdown setlocal conceallevel=2 concealcursor=n
 autocmd vimRc BufNewFile,BufReadPost *.gitignore setfiletype gitignore
 autocmd vimRc BufNewFile,BufReadPost config      setfiletype config
@@ -231,11 +237,11 @@ autocmd! vimRc VimLeavePre * {
 command! -nargs=0 SS {
   execute 'source ' .. session_path .. split(getcwd(), '/')[-1]
 }
-nnoremap <leader>s :SS<cr>
+nnoremap <silent><leader>s :SS<cr>
 
 # colorscheme
 set termguicolors
 set background=dark
-colorscheme enfocado
+colorscheme selenized_bw
 
 set secure
