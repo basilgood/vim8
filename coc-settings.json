@@ -10,9 +10,6 @@
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "suggest.insertMode": "replace",
-  "suggest.pumFloatConfig": {
-    "highlight": "CocSuggestFloating"
-  },
   "suggest.timeout": 10000,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
@@ -45,6 +42,11 @@
   "htmldjango.djlint.formatJs": true,
   "htmldjango.djlint.formatCss": true,
   "htmldjango.djlint.preserveBlankLines": true,
+  "rust-analyzer.checkOnSave": true,
+  "rust-analyzer.lens.enable": true,
+  "rust-analyzer.updates.prompt": true,
+  "rust-analyzer.signatureInfo.detail": "parameters",
+  "inlayHint.enable": false,
   "coverage.jsonReportPath": "./.tmp/coverage/coverage-final.json",
   "coverage.uncoveredSign.text": "☂",
   "coverage.uncoveredSign.hlGroup": "CocGitRemovedSign",
@@ -52,11 +54,8 @@
     "line-length": false
   },
   "languageserver": {
-    "rnix": {
-      "command": "rnix-lsp",
-      "args": [
-        "--stdio"
-      ],
+    "nix": {
+      "command": "nil",
       "filetypes": [
         "nix"
       ]
@@ -74,6 +73,9 @@
         "-"
       ]
     },
+    "alejandra": {
+      "command": "alejandra"
+    },
     "shfmt": {
       "command": "shfmt",
       "args": [
@@ -89,6 +91,7 @@
   },
   "diagnostic-languageserver.formatFiletypes": {
     "yaml": "yamlfix",
+    "nix": "alejandra",
     "javascript": "prettier",
     "astro": "prettier",
     "sh": "shfmt"
