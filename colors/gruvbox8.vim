@@ -26,9 +26,9 @@ hi! link vCursor Cursor
 
 if &background ==# 'dark'
   if (has('termguicolors') && &termguicolors) || has('gui_running')
-    let g:terminal_ansi_colors = ['#282828', '#cc241d', '#98971a', '#d79921', '#458588', '#b16286', '#689d6a', '#a89984', '#928374', '#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#ebdbb2']
+    let g:terminal_ansi_colors = ['#1b1b1b', '#cc241d', '#98971a', '#d79921', '#458588', '#b16286', '#689d6a', '#a89984', '#928374', '#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#ebdbb2']
   endif
-  hi Normal guifg=#ebdbb2 guibg=#282828 gui=NONE cterm=NONE
+  hi Normal guifg=#ebdbb2 guibg=#1b1b1b gui=NONE cterm=NONE
   hi CursorLineNr guifg=#fabd2f guibg=#3c3836 gui=NONE cterm=NONE
   hi FoldColumn guifg=#928374 guibg=#3c3836 gui=NONE cterm=NONE
   hi SignColumn guifg=#ebdbb2 guibg=#3c3836 gui=NONE cterm=NONE
