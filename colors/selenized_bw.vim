@@ -13,9 +13,10 @@ let g:terminal_ansi_colors = ['#252525', '#ed4a46', '#70b433', '#dbb32d',
       \ '#368aeb', '#eb6eb7', '#3fc5b7', '#777777', '#3b3b3b', '#ff5e56',
       \ '#83c746', '#efc541', '#4f9cfe', '#ff81ca', '#56d8c9', '#dedede']
 hi Normal guifg=#b9b9b9 guibg=#181818 guisp=NONE gui=NONE cterm=NONE
-hi IncSearch guifg=#e67f43 guibg=NONE guisp=NONE gui=reverse cterm=reverse
-hi Search guifg=#dbb32d guibg=NONE guisp=NONE gui=reverse cterm=reverse
-hi! link QuickFixLine Search
+hi IncSearch guifg=#223249 guibg=#FF9E3B guisp=NONE gui=reverse cterm=reverse
+hi CurSearch guifg=#223249 guibg=#FF9E3B guisp=NONE gui=reverse cterm=reverse
+hi Search guifg=#224649 guibg=#b9b9b9 guisp=NONE gui=reverse cterm=reverse
+hi! link QuickFixLine CursorLine
 hi Visual guifg=NONE guibg=#3b3b3b guisp=NONE gui=NONE cterm=NONE
 hi MatchParen guifg=#efc541 guibg=#3b3b3b guisp=NONE gui=bold cterm=bold
 hi Cursor guifg=NONE guibg=NONE guisp=NONE gui=reverse ctermfg=NONE ctermbg=NONE cterm=reverse
@@ -104,6 +105,13 @@ hi VisualNOS guifg=NONE guibg=NONE guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE
 hi WarningMsg guifg=NONE guibg=NONE guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi WildMenu guifg=NONE guibg=NONE guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 
+hi GitGutterAdd guifg=#70b433 guibg=#181818
+hi GitGutterChange guifg=#fabd2f guibg=#181818
+hi GitGutterChangeDelete guifg=#fb4934 guibg=#181818
+hi GitGutterDelete guifg=#fb4934 guibg=#181818
+hi ALEWarningSign guifg=#EBCB8B guibg=#181818
+hi ALEErrorSign guifg=#fb4934 guibg=#181818
+hi ALEInfoSign guifg=#83a598 guibg=#181818
 hi CocUnderline    cterm=undercurl gui=undercurl
 hi CocGitAddedSign guifg=#70b433 guibg=#181818
 hi CocGitChangeRemovedSign guifg=#fb4934 guibg=#181818
