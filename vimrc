@@ -17,6 +17,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'yuezk/vim-js'
+Plug 'jonsmithers/vim-html-template-literals'
 Plug 'wuelnerdotexe/vim-astro'
 Plug 'LnL7/vim-nix'
 Plug 'sgur/vim-editorconfig'
@@ -40,9 +41,11 @@ plug#end()
 
 # netrw
 g:netrw_list_hide = '^./$,^../$'
+g:netrw_bufsettings = 'noma nomod nonu nobl nowrap ro nornu nocul'
 g:netrw_banner = 0
 g:netrw_preview = 1
 g:netrw_alto = 'spr'
+g:netrw_altfile = 1
 g:netrw_use_errorwindow = 0
 g:netrw_special_syntax = 1
 
@@ -117,6 +120,11 @@ nnoremap <silent> ghb :CocCommand git.browserOpen<cr>
 nnoremap <silent> ghc :CocCommand git.showCommit<cr>
 nnoremap <silent> ghg :CocCommand git.showBlameDoc<cr>
 
+# lit
+g:html_indent_style1 = 'inc'
+g:htl_css_templates = 1
+g:htl_all_templates = 1
+
 # floaterm
 g:floaterm_height = 0.9
 g:floaterm_width = 0.9
@@ -186,17 +194,12 @@ nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
 
 # autocmds
-# qf and help widows full width
-autocmd vimRc FileType qf,help wincmd J
-
-# update diff
 autocmd vimRc InsertLeave * {
   if &diff
     diffupdate
   endif
 }
 
-# mkdir
 autocmd vimRc BufWritePre * {
   if !isdirectory(expand('%:h', v:true))
     mkdir(expand('%:h', v:true), 'p')
@@ -215,6 +218,8 @@ autocmd vimRc BufWinEnter *.njk       setfiletype htmldjango
 autocmd vimRc BufNewFile,BufReadPost *.json  setlocal conceallevel=0 concealcursor=
 autocmd vimRc BufNewFile,BufReadPost *.json  setlocal formatoptions=
 autocmd vimRc BufNewFile,BufReadPost *.html,*.javascript  setlocal matchpairs-=<:>
+autocmd vimRc FileType qf,help wincmd J
+autocmd vimRc FileType * set formatoptions-=o
 
 # highlight groups
 def SynGroup(): void
@@ -235,7 +240,7 @@ autocmd! vimRc VimLeavePre * {
   execute 'mksession! ' .. session_path .. split(getcwd(), '/')[-1]
 }
 command! -nargs=0 SS {
-  execute 'source ' .. session_path .. split(getcwd(), '/')[-1]
+  silent! execute 'source ' .. session_path .. split(getcwd(), '/')[-1]
 }
 nnoremap <silent><leader>s :SS<cr>
 
