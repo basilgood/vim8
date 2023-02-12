@@ -12,6 +12,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
@@ -90,15 +91,14 @@ g:coc_global_extensions = [
 ]
 
 nmap gd <Plug>(coc-definition)
-nmap gr <Plug>(coc-references)
+nmap gy <Plug>(coc-type-definition)
+nmap <leader>r <Plug>(coc-references)
 nmap K :call CocAction('doHover')<cr>
 nmap <c-k> :call CocAction('showSignatureHelp')<cr>
-nmap <leader><leader> :call CocAction('diagnosticPreview')<cr>
 nmap <F2> <Plug>(coc-rename)
-nmap <F4> <Plug>(coc-codeaction)
+nmap <F4> <Plug>(coc-codeaction-cursor)
+nmap <F8> <Plug>(coc-refactor)
 nmap <leader>d <cmd>CocDiagnostics<cr>
-nmap <leader>l <cmd>CocList<cr>
-nmap <leader>L <cmd>CocListResume<cr>
 nnoremap gq :call CocAction('format')<cr>
 
 command! -nargs=0 Format call CocAction('format')
@@ -180,9 +180,8 @@ set laststatus=2
 set statusline=%2{mode()}\ \|\ %t%m%r%=%c,%l/%L\ \ %y
 
 # mappings
-nnoremap <silent> <c-w>d :bp<bar>bd#<cr>
+nnoremap <silent> <c-w>d :b#<bar>bd#<cr>
 nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
-nnoremap <silent> <C-w>t :tabe %<cr>
 cnoremap <c-a> <Home>
 cnoremap <c-e> <End>
 nnoremap vv viw
