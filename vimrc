@@ -96,8 +96,8 @@ nmap <leader>r <Plug>(coc-references)
 nmap K :call CocAction('doHover')<cr>
 nmap <c-k> :call CocAction('showSignatureHelp')<cr>
 nmap <F2> <Plug>(coc-rename)
+nmap <F3> <Plug>(coc-refactor)
 nmap <F4> <Plug>(coc-codeaction-cursor)
-nmap <F8> <Plug>(coc-refactor)
 nmap <leader>d <cmd>CocDiagnostics<cr>
 nnoremap gq :call CocAction('format')<cr>
 
