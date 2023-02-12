@@ -15,7 +15,7 @@ let g:terminal_ansi_colors = ['#252525', '#ed4a46', '#70b433', '#dbb32d',
 hi Normal guifg=#b9b9b9 guibg=#181818 guisp=NONE gui=NONE cterm=NONE
 hi IncSearch guifg=#223249 guibg=#FF9E3B guisp=NONE gui=reverse cterm=reverse
 hi CurSearch guifg=#223249 guibg=#FF9E3B guisp=NONE gui=reverse cterm=reverse
-hi Search guifg=#224649 guibg=#b9b9b9 guisp=NONE gui=reverse cterm=reverse
+hi Search guifg=#324922 guibg=#b9b9b9 guisp=NONE gui=reverse cterm=reverse
 hi! link QuickFixLine CursorLine
 hi Visual guifg=NONE guibg=#3b3b3b guisp=NONE gui=NONE cterm=NONE
 hi MatchParen guifg=#efc541 guibg=#3b3b3b guisp=NONE gui=bold cterm=bold
