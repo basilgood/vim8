@@ -32,11 +32,12 @@ Plug 'basilgood/hlyank.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'linjiX/vim-star'
 Plug 'markonm/traces.vim'
-Plug 'monkoose/vim9-stargate'
+Plug 'romainl/vim-cool'
 Plug 'sgur/cmdline-completion'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'AndrewRadev/quickpeek.vim'
 Plug 'opalmay/vim-smoothie'
+Plug 'simeji/winresizer'
 plug#end()
 
 # netrw
@@ -135,9 +136,6 @@ g:floaterm_keymap_toggle = '<C-q>'
 vmap <silent> * <Plug>(star-*)
 nmap <silent> * <Plug>(star-*)
 
-# stargate
-noremap s :call stargate#OKvim(1)<cr>
-
 # quickpeek
 g:quickpeek_popup_options = {
   borderchars: ['-', '|', '-', '|', '+', '+', '+', '+'],
@@ -145,6 +143,9 @@ g:quickpeek_popup_options = {
 }
 g:quickpeek_window_settings = ['cursorline', 'number']
 autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
+
+# winresizer
+g:winresizer_start_key = 'gw'
 
 # options
 &t_EI = "\e[2 q"
