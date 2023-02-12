@@ -1,5 +1,6 @@
 {
   "coc.preferences.enableMessageDialog": true,
+  "coc.preferences.useQuickfixForLocations": true,
   "dialog.floatBorderHighlight": "FloatBorder",
   "floatFactory.floatConfig": {
     "rounded": true,
