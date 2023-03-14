@@ -39,6 +39,7 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'AndrewRadev/quickpeek.vim'
 Plug 'opalmay/vim-smoothie'
 Plug 'simeji/winresizer'
+Plug 'basilgood/cinnamon-vim'
 plug#end()
 
 # netrw
