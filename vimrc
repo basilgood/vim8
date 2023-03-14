@@ -128,10 +128,13 @@ g:htl_css_templates = 1
 g:htl_all_templates = 1
 
 # floaterm
+g:floaterm_borderchars = '─│─│╭╮╯╰'
 g:floaterm_height = 0.9
 g:floaterm_width = 0.9
 g:floaterm_autoclose = 2
 g:floaterm_keymap_toggle = '<C-q>'
+
+command Lz execute 'FloatermNew --autoclose=1 lazygit'
 
 # star
 vmap <silent> * <Plug>(star-*)
