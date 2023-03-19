@@ -15,12 +15,12 @@ plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'honza/vim-snippets'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'yuezk/vim-js'
 Plug 'jonsmithers/vim-html-template-literals'
 Plug 'wuelnerdotexe/vim-astro'
 Plug 'LnL7/vim-nix'
+Plug 'bbrtj/vim-vorg-md'
 Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/conflict-marker.vim'
@@ -39,15 +39,18 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'AndrewRadev/quickpeek.vim'
 Plug 'opalmay/vim-smoothie'
 Plug 'simeji/winresizer'
-Plug 'basilgood/cinnamon-vim'
+Plug 'basilgood/istanbul.vim'
+Plug 'glidenote/memolist.vim'
+Plug 'cocopon/shadeline.vim'
+Plug 'sainnhe/gruvbox-material'
 plug#end()
 
 # netrw
-g:netrw_list_hide = '^./$,^../$'
+g:netrw_list_hide = '^\./$,^\.\./$'
 g:netrw_bufsettings = 'noma nomod nonu nobl nowrap ro nornu nocul'
 g:netrw_banner = 0
 g:netrw_preview = 1
-g:netrw_alto = 'spr'
+g:netrw_alto = 0
 g:netrw_altfile = 1
 g:netrw_use_errorwindow = 0
 g:netrw_special_syntax = 1
@@ -73,7 +76,6 @@ nnoremap <bs> :Buffers<cr>
 
 # coc.nvim
 g:coc_global_extensions = [
-  'coc-coverage',
   'coc-diagnostic',
   'coc-docthis',
   'coc-eslint',
@@ -100,7 +102,7 @@ nmap <F2> <Plug>(coc-rename)
 nmap <F3> <Plug>(coc-refactor)
 nmap <F4> <Plug>(coc-codeaction-cursor)
 nmap <leader>d <cmd>CocDiagnostics<cr>
-nnoremap gq :call CocAction('format')<cr>
+nnoremap Q :call CocAction('format')<cr>
 
 command! -nargs=0 Format call CocAction('format')
 command! -nargs=0 OI call CocAction('runCommand', 'editor.action.organizeImport')
@@ -127,6 +129,11 @@ g:html_indent_style1 = 'inc'
 g:htl_css_templates = 1
 g:htl_all_templates = 1
 
+# istanbul
+g:istanbul#jsonPath = ['.tmp/coverage/coverage-final.json']
+nnoremap ]k :IstanbulNext<cr>
+nnoremap [k :IstanbulBack<cr>
+
 # floaterm
 g:floaterm_borderchars = '─│─│╭╮╯╰'
 g:floaterm_height = 0.9
@@ -143,13 +150,27 @@ nmap <silent> * <Plug>(star-*)
 # quickpeek
 g:quickpeek_popup_options = {
   borderchars: ['-', '|', '-', '|', '+', '+', '+', '+'],
-  title:       'Preview',
 }
 g:quickpeek_window_settings = ['cursorline', 'number']
 autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
 # winresizer
 g:winresizer_start_key = 'gw'
+
+# memo
+g:memolist_path = $HOME .. '/Notes/'
+g:memolist_filename_prefix_none = 1
+
+# shadeline
+g:shadeline = {}
+g:shadeline.active = {
+  left:  ['fname', 'flags'],
+  right: ['filetype', 'ruler']
+}
+g:shadeline.inactive = {
+  left:  ['fname', 'flags'],
+  right: ['filetype']
+}
 
 # options
 &t_EI = "\e[2 q"
@@ -162,6 +183,9 @@ set autoread autowriteall  nowritebackup
 set undofile undodir=~/.cache/vim/,.
 set matchpairs-=<:>
 set autoindent expandtab tabstop=2 shiftwidth=0 softtabstop=-1
+set cinoptions+=j1,J1
+set cinoptions+=Ws
+set cinoptions+=m1
 set number ttymouse=sgr signcolumn=yes fillchars=vert:│
 set splitright splitbelow
 set nowrap nostartofline noshowmode hlsearch
@@ -181,7 +205,7 @@ else
   set grepprg=grep\ -rnHI
 endif
 set laststatus=2
-set statusline=%2{mode()}\ \|\ %t%m%r%=%c,%l/%L\ \ %y
+# set statusline=%2{mode()}\ \|\ %t%m%r%=%c,%l/%L\ \ %y
 
 # mappings
 nnoremap <silent> <c-w>d :b#<bar>bd#<cr>
@@ -196,6 +220,8 @@ nnoremap <silent> 3<C-g> :echon system('cat .git/HEAD')->split('\n')<CR>
 nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>syntax sync fromstart<cr><c-l>
 nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
+nnoremap <silent> gs *Ncgn
+xnoremap <silent> gs "zy/<c-r>z<cr>Ncgn
 
 # autocmds
 autocmd vimRc InsertLeave * {
@@ -224,6 +250,7 @@ autocmd vimRc BufNewFile,BufReadPost *.json  setlocal formatoptions=
 autocmd vimRc BufNewFile,BufReadPost *.html,*.javascript  setlocal matchpairs-=<:>
 autocmd vimRc FileType qf,help wincmd J
 autocmd vimRc FileType * set formatoptions-=o
+autocmd vimRc FileChangedShellPost * checktime
 
 # highlight groups
 def SynGroup(): void
@@ -251,6 +278,6 @@ nnoremap <silent><leader>s :SS<cr>
 # colorscheme
 set termguicolors
 set background=dark
-colorscheme selenized_bw
+colorscheme gruvbox-material
 
 set secure
