@@ -47,10 +47,6 @@
   "rust-analyzer.lens.enable": true,
   "rust-analyzer.updates.prompt": true,
   "rust-analyzer.signatureInfo.detail": "parameters",
-  "inlayHint.enable": false,
-  "coverage.jsonReportPath": "./.tmp/coverage/coverage-final.json",
-  "coverage.uncoveredSign.text": "☂",
-  "coverage.uncoveredSign.hlGroup": "CocGitRemovedSign",
   "markdownlint.config": {
     "line-length": false
   },
