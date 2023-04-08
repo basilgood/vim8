@@ -26,7 +26,6 @@ Plug 'bbrtj/vim-vorg-md'
 Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'gotchane/vim-git-commit-prefix'
 Plug 'airblade/vim-gitgutter'
 Plug 'Eliot00/git-lens.vim'
 Plug 'rhysd/conflict-marker.vim'
@@ -312,6 +311,7 @@ hi SpecialKey ctermfg=11 guifg=#323c4d
 hi NonText ctermfg=11 guifg=#323c4d
 hi QuickFixLine guibg=#232936
 hi MatchParen guifg=#b5a262 guibg=#323c4d
+hi CurSearch cterm=reverse gui=reverse
 hi DiffAdd ctermbg=NONE guibg=NONE guifg=NONE
 hi DiffChange ctermbg=NONE guibg=NONE guifg=NONE
 hi DiffDelete guifg=#b15e7c guibg=NONE
