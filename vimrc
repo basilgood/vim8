@@ -148,17 +148,8 @@ nnoremap [d <Plug>(ale_previous_wrap)
 nnoremap Q :ALEFix<cr>
 
 # toggle autoformat
-g:autoFormat = 0
 def ToggleAutoFormat()
-  if g:autoFormat == 0
-    g:autoFormat = 1
-    augroup AutoFmt
-      autocmd BufWritePre <buffer> ALEFix
-    augroup END
-  else
-    g:autoFormat = 0
-    autocmd! AutoFmt
-  endif
+  g:ale_fix_on_save = !g:ale_fix_on_save
 enddef
 command! FM ToggleAutoFormat()
 nnoremap <leader>f :FM<cr>
