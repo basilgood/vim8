@@ -11,25 +11,15 @@
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "suggest.insertMode": "replace",
-  "suggest.timeout": 10000,
-  "diagnostic.errorSign": "",
-  "diagnostic.warningSign": "",
-  "diagnostic.infoSign": "",
-  "diagnostic.hintSign": "",
-  "diagnostic.checkCurrentLine": true,
-  "diagnostic.enableMessage": "never",
-  "diagnostic.virtualText": true,
-  "diagnostic.format": "%message [%source]",
-  "diagnostic.separateRelatedInformationAsDiagnostics": true,
+  "suggest.detailField": "abbr",
   "signature.target": "echo",
-  "git.conflict.enabled": false,
+  "diagnostic.displayByAle": true,
   "snippets.ultisnips.enable": false,
   "html.filetypes": [
     "html",
     "htmldjango",
     "astro",
-    "jinja",
-    "javascript"
+    "jinja"
   ],
   "html-css-support.enabledLanguages": [
     "html",
@@ -49,48 +39,5 @@
   "rust-analyzer.signatureInfo.detail": "parameters",
   "markdownlint.config": {
     "line-length": false
-  },
-  "languageserver": {
-    "nix": {
-      "command": "nil",
-      "filetypes": [
-        "nix"
-      ]
-    }
-  },
-  "diagnostic-languageserver.mergeConfig": true,
-  "diagnostic-languageserver.filetypes": {
-    "yaml": "yamllint",
-    "sh": "sh"
-  },
-  "diagnostic-languageserver.formatters": {
-    "yamlfix": {
-      "command": "yamlfix",
-      "args": [
-        "-"
-      ]
-    },
-    "alejandra": {
-      "command": "alejandra"
-    },
-    "shfmt": {
-      "command": "shfmt",
-      "args": [
-        "-i",
-        2,
-        "-ci",
-        "-sr"
-      ]
-    },
-    "prettier": {
-      "command": "prettier"
-    }
-  },
-  "diagnostic-languageserver.formatFiletypes": {
-    "yaml": "yamlfix",
-    "nix": "alejandra",
-    "javascript": "prettier",
-    "astro": "prettier",
-    "sh": "shfmt"
   }
 }
