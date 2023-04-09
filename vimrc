@@ -226,6 +226,7 @@ set pumheight=5
 set wildmode=longest:full,full
 set wildoptions=pum
 set wildignorecase
+set wildcharm=<c-z>
 if executable('rg')
   set grepprg=rg\ --vimgrep
 else
