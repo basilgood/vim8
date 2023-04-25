@@ -14,13 +14,10 @@ endif
 plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
 Plug 'dense-analysis/ale'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'yuezk/vim-js'
+Plug 'pangloss/vim-javascript'
 Plug 'jonsmithers/vim-html-template-literals'
-Plug 'wuelnerdotexe/vim-astro'
 Plug 'LnL7/vim-nix'
 Plug 'bbrtj/vim-vorg-md'
 Plug 'sgur/vim-editorconfig'
@@ -47,8 +44,7 @@ Plug 'opalmay/vim-smoothie'
 Plug 'simeji/winresizer'
 Plug 'basilgood/istanbul.vim'
 Plug 'glidenote/memolist.vim'
-Plug 'tyrannicaltoucan/vim-deep-space'
-Plug 'liuchengxu/space-vim-dark'
+Plug 'sainnhe/edge'
 plug#end()
 
 # netrw
@@ -83,12 +79,9 @@ nnoremap <bs> :Buffers<cr>
 # coc.nvim
 autocmd vimRc BufReadPost * plug#load('coc.nvim')
 g:coc_global_extensions = [
-  'coc-docthis',
   'coc-html',
-  'coc-lit-html',
   'coc-css',
   'coc-html-css-support',
-  'coc-htmldjango',
   'coc-json',
   'coc-markdownlint',
   'coc-snippets',
@@ -96,6 +89,38 @@ g:coc_global_extensions = [
   'coc-tsserver',
   'coc-vimlsp',
 ]
+
+g:coc_user_config = {
+  coc: {
+    preferences: {
+      enableMessageDialog: true,
+      useQuickfixForLocations: true
+    },
+  },
+  suggest: {
+    noselect: true,
+    enablePreselect: false,
+    insertMode: 'replace',
+    detailField: 'abbr'
+  },
+  signature: {target: 'echo'},
+  diagnostic: {displayByAle: v:true},
+  html: {
+    filetypes: ['html', 'htmldjango', 'astro', 'jinja', 'javascript']
+  },
+  html-css-support: {
+    enabledLanguages: ['html', 'htmldjango', 'astro', 'jinja', 'javascript'],
+  },
+  rust-analyzer: {
+    checkOnSave: true,
+    lens: {enable: true},
+    updates: {prompt: true},
+    signatureInfo: {detail: 'parameters'},
+  },
+  markdownlint: {
+    config: { 'line-length': false }
+  }
+}
 
 inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#next(1) : '<tab>'
 inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "<c-h>"
@@ -153,7 +178,7 @@ def ToggleAutoFormat()
   g:ale_fix_on_save = !g:ale_fix_on_save
 enddef
 command! FM ToggleAutoFormat()
-nnoremap <leader>f :FM<cr>
+nnoremap <leader><leader> :FM<cr>
 
 # lit
 g:html_indent_style1 = 'inc'
@@ -181,6 +206,8 @@ command! Lz execute 'FloatermNew --autoclose=1 lazygit'
 # star
 vmap <silent> * <Plug>(star-*)
 nmap <silent> * <Plug>(star-*)
+nnoremap <silent> gs <Plug>(star-*)cgn
+xnoremap <silent> gs <Plug>(star-*)cgn
 
 # block comments
 xmap <silent> ?  :<c-u>CToggleComment<CR>
@@ -236,7 +263,7 @@ set laststatus=2
 set statusline=%{expand('%:p:h:t')}/%t%r%m%=%c,%l/%L%y
 
 # mappings
-nnoremap <silent> <c-w>d :b#<bar>bd#<cr>
+nnoremap <silent> <c-w>d :b#<bar>bw#<cr>
 nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
 cnoremap <c-a> <Home>
 cnoremap <c-e> <End>
@@ -248,8 +275,6 @@ nnoremap <silent> 3<C-g> :echon system('cat .git/HEAD')->split('\n')<CR>
 nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>syntax sync fromstart<cr><c-l>
 nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
-nnoremap <silent> gs *Ncgn
-xnoremap <silent> gs "zy/<c-r>z<cr>Ncgn
 
 # autocmds
 autocmd vimRc InsertLeave * {
@@ -307,18 +332,6 @@ nnoremap <silent><leader>s :SS<cr>
 set termguicolors
 set background=dark
 
-colorscheme deep-space
-hi SpecialKey ctermfg=11 guifg=#323c4d
-hi NonText ctermfg=11 guifg=#323c4d
-hi QuickFixLine guibg=#232936
-hi MatchParen guifg=#b5a262 guibg=#323c4d
-hi CurSearch cterm=reverse gui=reverse
-hi DiffAdd ctermbg=NONE guibg=NONE guifg=NONE
-hi DiffChange ctermbg=NONE guibg=NONE guifg=NONE
-hi DiffDelete guifg=#b15e7c guibg=NONE
-hi DiffText guifg=NONE guibg=#252c3a
-hi clear ALEError
-hi clear ALEWarning
-hi clear ALEInfo
+colorscheme edge
 
 set secure
