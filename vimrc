@@ -19,14 +19,12 @@ Plug 'dense-analysis/ale'
 Plug 'pangloss/vim-javascript'
 Plug 'jonsmithers/vim-html-template-literals'
 Plug 'LnL7/vim-nix'
-Plug 'bbrtj/vim-vorg-md'
 Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 Plug 'Eliot00/git-lens.vim'
 Plug 'rhysd/conflict-marker.vim'
-Plug 'voldikss/vim-floaterm'
 Plug 'fcpg/vim-altscreen'
 Plug 'tpope/vim-commentary'
 Plug 'yaocccc/vim-comment'
@@ -43,8 +41,7 @@ Plug 'AndrewRadev/quickpeek.vim'
 Plug 'opalmay/vim-smoothie'
 Plug 'simeji/winresizer'
 Plug 'basilgood/istanbul.vim'
-Plug 'glidenote/memolist.vim'
-Plug 'sainnhe/edge'
+Plug 'basilgood/cinnamon-vim'
 plug#end()
 
 # netrw
@@ -58,14 +55,7 @@ g:netrw_use_errorwindow = 0
 g:netrw_special_syntax = 1
 
 autocmd vimRc FileType netrw nmap <buffer> . mfmx
-
-def Ls(): void
-  var file = expand('%:t')
-  execute 'Explore' expand('%:p:h')
-  search(file, 'wc')
-enddef
-
-command! Ex Ls()
+command! Ex edit %:p:h
 nnoremap <silent> - :Ex<cr>
 
 # fzf
@@ -116,6 +106,11 @@ g:coc_user_config = {
     lens: {enable: true},
     updates: {prompt: true},
     signatureInfo: {detail: 'parameters'},
+    inlayHints: {
+      typeHints: {enable: false},
+      parameterHints: {enable: false},
+      chainingHints: {enable: false},
+    },
   },
   markdownlint: {
     config: { 'line-length': false }
@@ -146,8 +141,8 @@ g:gitgutter_preview_win_floating = 1
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
-nnoremap ghd :GitGutterDiffOrig<cr>
-nnoremap ghb :call ToggleGitLens()<cr>
+nnoremap <silent> ghd :GitGutterDiffOrig<cr>
+nnoremap <silent> ghb :call ToggleGitLens()<cr>
 autocmd vimRc BufWritePost * GitGutter
 
 # ale
@@ -190,19 +185,6 @@ g:istanbul#jsonPath = ['.tmp/coverage/coverage-final.json']
 nnoremap ]k :IstanbulNext<cr>
 nnoremap [k :IstanbulBack<cr>
 
-# floaterm
-g:floaterm_height = 0.9
-g:floaterm_width = 0.9
-g:floaterm_autoclose = 2
-g:floaterm_keymap_toggle = '<F1>'
-g:floaterm_keymap_new = '<leader>c'
-g:floaterm_keymap_kill = '<leader>k'
-g:floaterm_keymap_next = '<leader>l'
-g:floaterm_keymap_prev = '<leader>h'
-g:floaterm_opener = 'vsplit'
-
-command! Lz execute 'FloatermNew --autoclose=1 lazygit'
-
 # star
 vmap <silent> * <Plug>(star-*)
 nmap <silent> * <Plug>(star-*)
@@ -222,11 +204,6 @@ autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
 # winresizer
 g:winresizer_start_key = 'gw'
-
-# memo
-g:memolist_path = $HOME .. '/Notes/'
-g:memolist_filename_prefix_none = 1
-g:memolist_fzf = 1
 
 # options
 &t_EI = "\e[2 q"
@@ -332,6 +309,6 @@ nnoremap <silent><leader>s :SS<cr>
 set termguicolors
 set background=dark
 
-colorscheme edge
+colorscheme kanagawa
 
 set secure
