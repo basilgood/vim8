@@ -14,49 +14,36 @@ endif
 plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
 Plug 'dense-analysis/ale'
+
 Plug 'pangloss/vim-javascript'
 Plug 'jonsmithers/vim-html-template-literals'
 Plug 'LnL7/vim-nix'
+Plug 'rust-lang/rust.vim'
+
 Plug 'sgur/vim-editorconfig'
+
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'airblade/vim-gitgutter'
-Plug 'Eliot00/git-lens.vim'
-Plug 'rhysd/conflict-marker.vim'
-Plug 'fcpg/vim-altscreen'
+
 Plug 'tpope/vim-commentary'
 Plug 'yaocccc/vim-comment'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'basilgood/hlyank.vim'
+Plug 'ubaldot/vim-highlight-yanked'
 Plug 'tommcdo/vim-exchange'
 Plug 'linjiX/vim-star'
 Plug 'markonm/traces.vim'
-Plug 'romainl/vim-cool'
 Plug 'sgur/cmdline-completion'
+Plug 'fcpg/vim-altscreen'
+
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'AndrewRadev/quickpeek.vim'
-Plug 'opalmay/vim-smoothie'
-Plug 'simeji/winresizer'
-Plug 'basilgood/istanbul.vim'
+
+Plug 'basilgood/vim-options'
 Plug 'basilgood/cinnamon-vim'
 plug#end()
-
-# netrw
-g:netrw_list_hide = '^\./$,^\.\./$'
-g:netrw_bufsettings = 'noma nomod nonu nobl nowrap ro nornu nocul'
-g:netrw_banner = 0
-g:netrw_preview = 1
-g:netrw_alto = 0
-g:netrw_altfile = 1
-g:netrw_use_errorwindow = 0
-g:netrw_special_syntax = 1
-
-autocmd vimRc FileType netrw nmap <buffer> . mfmx
-command! Ex edit %:p:h
-nnoremap <silent> - :Ex<cr>
 
 # fzf
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
@@ -69,15 +56,11 @@ nnoremap <bs> :Buffers<cr>
 # coc.nvim
 autocmd vimRc BufReadPost * plug#load('coc.nvim')
 g:coc_global_extensions = [
-  'coc-html',
-  'coc-css',
-  'coc-html-css-support',
-  'coc-json',
-  'coc-markdownlint',
-  'coc-snippets',
-  'coc-rust-analyzer',
   'coc-tsserver',
+  'coc-css',
+  'coc-rust-analyzer',
   'coc-vimlsp',
+  'coc-snippets',
 ]
 
 g:coc_user_config = {
@@ -92,6 +75,9 @@ g:coc_user_config = {
     enablePreselect: false,
     insertMode: 'replace',
     detailField: 'abbr'
+  },
+  workspace: {
+    ignoredFolders: ['$HOME', '$HOME/.cargo/**', '$HOME/.rustup/**', '/nix/store/**'],
   },
   signature: {target: 'echo'},
   diagnostic: {displayByAle: v:true},
@@ -114,9 +100,25 @@ g:coc_user_config = {
   },
   markdownlint: {
     config: { 'line-length': false }
+  },
+  git: {
+    addGBlameToVirtualText: true,
+    signPriority: 8,
+    floatConfig: { border: true }
   }
 }
 
+g:coc_git_hide_blame_virtual_text = 1
+def g:ToggleBlame()
+  g:coc_git_hide_blame_virtual_text = !get(g:, 'coc_git_hide_blame_virtual_text', 0)
+enddef
+
+nnoremap <silent> ghb :call ToggleBlame()<cr>
+nmap [c <Plug>(coc-git-prevchunk)
+nmap ]c <Plug>(coc-git-nextchunk)
+nmap ghp <Plug>(coc-git-chunkinfo)
+nnoremap ghu :CocCommand git.chunkUndo<cr>
+nnoremap <silent> <leader>g  :<C-u>CocList --normal gstatus<CR>
 inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#next(1) : '<tab>'
 inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "<c-h>"
 inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "<cr><c-r>=coc#on_enter()<cr>"
@@ -130,20 +132,11 @@ nmap K :call CocAction('doHover')<cr>
 nmap <c-k> :call CocAction('showSignatureHelp')<cr>
 nmap <F2> <Plug>(coc-rename)
 nmap <F3> <Plug>(coc-refactor)
-nmap <F4> <Plug>(coc-codeaction-cursor)
+nmap <F4> <Plug>(coc-codeaction-line)
+nmap <F5> <Plug>(coc-codeaction)
 nmap <leader>d <cmd>CocDiagnostics<cr>
 
 command! -nargs=0 OI call CocAction('runCommand', 'editor.action.organizeImport')
-
-# git
-g:gitgutter_sign_priority = 8
-g:gitgutter_preview_win_floating = 1
-nmap ghs <Plug>(GitGutterStageHunk)
-nmap ghu <Plug>(GitGutterUndoHunk)
-nmap ghp <Plug>(GitGutterPreviewHunk)
-nnoremap <silent> ghd :GitGutterDiffOrig<cr>
-nnoremap <silent> ghb :call ToggleGitLens()<cr>
-autocmd vimRc BufWritePost * GitGutter
 
 # ale
 g:ale_completion_enabled = 0
@@ -162,6 +155,7 @@ g:ale_fixers = {
   json: ['fixjson'],
   nix: ['alejandra'],
   yaml: ['yamlfix'],
+  rust: ['rustfmt'],
 }
 
 nnoremap ]d <Plug>(ale_next_wrap)
@@ -169,21 +163,16 @@ nnoremap [d <Plug>(ale_previous_wrap)
 nnoremap Q :ALEFix<cr>
 
 # toggle autoformat
-def ToggleAutoFormat()
+def g:ToggleAutoFormat()
   g:ale_fix_on_save = !g:ale_fix_on_save
+  echo 'autoformat ' .. g:ale_fix_on_save
 enddef
-command! FM ToggleAutoFormat()
-nnoremap <leader><leader> :FM<cr>
+nnoremap <silent><leader>f :call ToggleAutoFormat()<cr>
 
 # lit
 g:html_indent_style1 = 'inc'
 g:htl_css_templates = 1
 g:htl_all_templates = 1
-
-# istanbul
-g:istanbul#jsonPath = ['.tmp/coverage/coverage-final.json']
-nnoremap ]k :IstanbulNext<cr>
-nnoremap [k :IstanbulBack<cr>
 
 # star
 vmap <silent> * <Plug>(star-*)
@@ -202,113 +191,7 @@ g:quickpeek_popup_options = {
 g:quickpeek_window_settings = ['cursorline', 'number']
 autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
-# winresizer
-g:winresizer_start_key = 'gw'
-
-# options
-&t_EI = "\e[2 q"
-&t_SR = "\e[4 q"
-&t_SI = "\e[6 q"
-set t_ut=
-set path=.,**
-set noswapfile hidden gdefault
-set autoread autowriteall  nowritebackup
-set undofile undodir=~/.cache/vim/,.
-set matchpairs-=<:>
-set autoindent smartindent
-set expandtab tabstop=2 shiftwidth=2 softtabstop=2
-set number ttymouse=sgr signcolumn=yes fillchars=vert:│
-set splitright splitbelow
-set nowrap nostartofline noshowmode hlsearch
-set sidescrolloff=5 sidescroll=1
-set sessionoptions=buffers,curdir,folds,tabpages,winsize
-set lazyredraw updatetime=250
-set diffopt+=context:3,indent-heuristic,algorithm:patience
-set list listchars=tab:🢝\ ,lead:·,trail:·,nbsp:␣
-set shortmess=aAIoOsc
-set pumheight=5
-set wildmode=longest:full,full
-set wildoptions=pum
-set wildignorecase
-set wildcharm=<c-z>
-if executable('rg')
-  set grepprg=rg\ --vimgrep
-else
-  set grepprg=grep\ -rnHI
-endif
-set laststatus=2
-set statusline=%{expand('%:p:h:t')}/%t%r%m%=%c,%l/%L%y
-
-# mappings
-nnoremap <silent> <c-w>d :b#<bar>bw#<cr>
-nnoremap <silent> <C-w>z :wincmd z<Bar>cclose<Bar>lclose<CR>
-cnoremap <c-a> <Home>
-cnoremap <c-e> <End>
-nnoremap vv viw
-xnoremap il g_o^
-onoremap il :<C-u>normal vil<CR>
-vnoremap . :normal .<CR>
-nnoremap <silent> 3<C-g> :echon system('cat .git/HEAD')->split('\n')<CR>
-nnoremap <silent> <C-l> :noh<bar>diffupdate<bar>syntax sync fromstart<cr><c-l>
-nnoremap [q :cprev<cr>
-nnoremap ]q :cnext<cr>
-
-# autocmds
-autocmd vimRc InsertLeave * {
-  if &diff
-    diffupdate
-  endif
-}
-
-autocmd vimRc BufWritePre * {
-  if !isdirectory(expand('%:h', v:true))
-    mkdir(expand('%:h', v:true), 'p')
-  endif
-}
-
-# filetypes
-g:markdown_fenced_languages = ['ruby', 'html', 'javascript', 'css', 'bash=sh', 'sh', 'lua', 'vim']
-autocmd vimRc BufNewFile,BufReadPost *.md,*.markdown setlocal conceallevel=2 concealcursor=n
-autocmd vimRc BufNewFile,BufReadPost *.gitignore setfiletype gitignore
-autocmd vimRc BufNewFile,BufReadPost config      setfiletype config
-autocmd vimRc BufNewFile,BufReadPost *.lock      setfiletype config
-autocmd vimRc BufNewFile,BufReadPost .babelrc    setfiletype json
-autocmd vimRc BufNewFile,BufReadPost *.txt       setfiletype markdown
-autocmd vimRc BufWinEnter *.njk       setfiletype htmldjango
-autocmd vimRc BufNewFile,BufReadPost *.json  setlocal conceallevel=0 concealcursor=
-autocmd vimRc BufNewFile,BufReadPost *.json  setlocal formatoptions=
-autocmd vimRc BufNewFile,BufReadPost *.html,*.javascript  setlocal matchpairs-=<:>
-autocmd vimRc FileType qf,help wincmd J
-autocmd vimRc FileType * set formatoptions-=o
-autocmd vimRc FileChangedShellPost * checktime
-
-# highlight groups
-def SynGroup(): void
-  const s = synID(line('.'), col('.'), 1)
-  echo synIDattr(s, 'name') .. ' -> ' .. synIDattr(synIDtrans(s), 'name')
-enddef
-command HL SynGroup()
-
-# sudo edit
-cabbrev w!! w !sudo tee > /dev/null %
-
-# sessions
-const session_path = expand('~/.cache/vim/sessions/')
-if !isdirectory(session_path)
-  mkdir(session_path, 'p')
-endif
-autocmd! vimRc VimLeavePre * {
-  execute 'mksession! ' .. session_path .. split(getcwd(), '/')[-1]
-}
-command! -nargs=0 SS {
-  silent! execute 'source ' .. session_path .. split(getcwd(), '/')[-1]
-}
-nnoremap <silent><leader>s :SS<cr>
-
 # colorscheme
-set termguicolors
-set background=dark
-
-colorscheme kanagawa
+colorscheme gruvbox8
 
 set secure
