@@ -58,9 +58,12 @@ autocmd vimRc BufReadPost * plug#load('coc.nvim')
 g:coc_global_extensions = [
   'coc-tsserver',
   'coc-css',
+  'coc-html',
   'coc-rust-analyzer',
   'coc-vimlsp',
+  'coc-json',
   'coc-snippets',
+  'coc-git',
 ]
 
 g:coc_user_config = {
@@ -142,9 +145,6 @@ command! -nargs=0 OI call CocAction('runCommand', 'editor.action.organizeImport'
 g:ale_completion_enabled = 0
 g:ale_disable_lsp = 1
 g:ale_virtualtext_cursor = 0
-g:ale_sign_error = 'E'
-g:ale_sign_warning = 'W'
-g:ale_sign_info = 'I'
 g:ale_echo_msg_format = '[%linter%]: %s'
 g:ale_sh_shfmt_options = '-i 2 -ci -sr'
 g:ale_fixers = {
