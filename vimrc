@@ -1,51 +1,56 @@
 vim9script
+
 runtime defaults.vim
-runtime! macros/matchit.vim
+packadd matchit
 
 augroup vimRc
   autocmd!
 augroup END
 
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if has('vim_starting')
+  const minpac_dir = $HOME .. '/.vim/pack/minpac/opt/minpac'
+  if !isdirectory(minpac_dir)
+    silent execute '!git clone --depth 1 https://github.com/k-takata/minpac ' .. minpac_dir
+  endif
 endif
 
-plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+command! PackUpdate PackInit() | minpac#update()
+command! PackClean  PackInit() | minpac#clean()
+command! -nargs=+ Pack minpac#add(<args>)
 
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
-Plug 'dense-analysis/ale'
-
-Plug 'pangloss/vim-javascript'
-Plug 'jonsmithers/vim-html-template-literals'
-Plug 'LnL7/vim-nix'
-Plug 'rust-lang/rust.vim'
-
-Plug 'sgur/vim-editorconfig'
-
-Plug 'tpope/vim-fugitive'
-
-Plug 'tpope/vim-commentary'
-Plug 'yaocccc/vim-comment'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'ubaldot/vim-highlight-yanked'
-Plug 'tommcdo/vim-exchange'
-Plug 'linjiX/vim-star'
-Plug 'markonm/traces.vim'
-Plug 'sgur/cmdline-completion'
-Plug 'fcpg/vim-altscreen'
-
-Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'AndrewRadev/quickpeek.vim'
-
-Plug 'basilgood/vim-options'
-Plug 'basilgood/cinnamon-vim'
-plug#end()
+def PackInit()
+  packadd minpac
+  call minpac#init()
+  Pack 'k-takata/minpac', {'type': 'opt'}
+  Pack 'sgur/vim-editorconfig'
+  Pack 'junegunn/fzf'
+  Pack 'junegunn/fzf.vim', {'type': 'opt'}
+  Pack 'yegappan/lsp', {'type': 'opt'}
+  Pack 'dense-analysis/ale', {'type': 'opt'}
+  Pack 'rstacruz/vim-closer'
+  Pack 'thezeroalpha/vim-relatively-complete'
+  Pack 'pangloss/vim-javascript'
+  Pack 'jonsmithers/vim-html-template-literals'
+  Pack 'HerringtonDarkholme/yats.vim'
+  Pack 'tpope/vim-commentary'
+  Pack 'tpope/vim-surround'
+  Pack 'tpope/vim-repeat'
+  Pack 'ubaldot/vim-highlight-yanked'
+  Pack 'linjiX/vim-star'
+  Pack 'markonm/traces.vim'
+  Pack 'sgur/cmdline-completion'
+  Pack 'fcpg/vim-altscreen'
+  Pack 'stefandtw/quickfix-reflector.vim'
+  Pack 'AndrewRadev/quickpeek.vim'
+  Pack 'tpope/vim-fugitive'
+  Pack 'airblade/vim-gitgutter'
+  Pack 'Eliot00/git-lens.vim'
+  Pack 'basilgood/vim-options'
+  Pack 'sainnhe/everforest', {'type': 'opt'}
+enddef
 
 # fzf
+silent! packadd fzf.vim
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
 g:fzf_layout = {'window': {'width': 0.7, 'height': 0.8, 'border': 'sharp'}}
 g:fzf_preview_window = ['up:70%', 'ctrl-/']
@@ -53,103 +58,68 @@ nnoremap <c-p> :Files<cr>
 cabbrev ff Files %:p:h
 nnoremap <bs> :Buffers<cr>
 
-# coc.nvim
-autocmd vimRc BufReadPost * plug#load('coc.nvim')
-g:coc_global_extensions = [
-  'coc-tsserver',
-  'coc-css',
-  'coc-html',
-  'coc-rust-analyzer',
-  'coc-vimlsp',
-  'coc-json',
-  'coc-snippets',
-  'coc-git',
+# lsp
+silent! packadd lsp
+var lspServers = [
+  {
+    name: 'tsserver',
+    filetype: ['javascript', 'typescript'],
+    path: 'typescript-language-server',
+    args: ['--stdio'],
+  },
+  {
+    name: 'vimls',
+    filetype: ['vim'],
+    path: 'vim-language-server',
+    args: ['--stdio']
+  },
+  {
+    name: 'rust-analyzer',
+    filetype: ['rust'],
+    path: 'rust-analyzer',
+    args: [],
+    syncInit: true,
+  },
 ]
+silent! call LspOptionsSet({
+  aleSupport: true,
+  noNewlineInCompletion: true,
+  showDiagInPopup: false,
+  echoSignature: true,
+  usePopupInCodeAction: true,
+})
+silent! call LspAddServer(lspServers)
 
-g:coc_user_config = {
-  coc: {
-    preferences: {
-      enableMessageDialog: true,
-      useQuickfixForLocations: true
-    },
-  },
-  suggest: {
-    noselect: true,
-    enablePreselect: false,
-    insertMode: 'replace',
-    detailField: 'abbr'
-  },
-  workspace: {
-    ignoredFolders: ['$HOME', '$HOME/.cargo/**', '$HOME/.rustup/**', '/nix/store/**'],
-  },
-  signature: {target: 'echo'},
-  diagnostic: {displayByAle: v:true},
-  html: {
-    filetypes: ['html', 'htmldjango', 'astro', 'jinja', 'javascript']
-  },
-  html-css-support: {
-    enabledLanguages: ['html', 'htmldjango', 'astro', 'jinja', 'javascript'],
-  },
-  rust-analyzer: {
-    checkOnSave: true,
-    lens: {enable: true},
-    updates: {prompt: true},
-    signatureInfo: {detail: 'parameters'},
-    inlayHints: {
-      typeHints: {enable: false},
-      parameterHints: {enable: false},
-      chainingHints: {enable: false},
-    },
-  },
-  markdownlint: {
-    config: { 'line-length': false }
-  },
-  git: {
-    addGBlameToVirtualText: true,
-    signPriority: 8,
-    floatConfig: { border: true }
-  }
-}
-
-g:coc_git_hide_blame_virtual_text = 1
-def g:ToggleBlame()
-  g:coc_git_hide_blame_virtual_text = !get(g:, 'coc_git_hide_blame_virtual_text', 0)
+def OnLspAttach()
+  nnoremap <buffer> gd   <cmd>LspGotoDefinition<CR>
+  nnoremap <buffer> gD   <cmd>LspPeekDefinition<CR>
+  nnoremap <buffer> gr   <cmd>LspReferences<CR>
+  nnoremap <buffer> K    <cmd>LspHover<CR>
+  nnoremap <buffer> <F2> <cmd>LspRename<CR>
+  nnoremap <buffer> <F4> <cmd>LspCodeAction<CR>
 enddef
+autocmd User LspAttached OnLspAttach()
 
-nnoremap <silent> ghb :call ToggleBlame()<cr>
-nmap [c <Plug>(coc-git-prevchunk)
-nmap ]c <Plug>(coc-git-nextchunk)
-nmap ghp <Plug>(coc-git-chunkinfo)
-nnoremap ghu :CocCommand git.chunkUndo<cr>
-nnoremap <silent> <leader>g  :<C-u>CocList --normal gstatus<CR>
-inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#next(1) : '<tab>'
-inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "<c-h>"
-inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "<cr><c-r>=coc#on_enter()<cr>"
-g:coc_snippet_next = '<c-l>'
-g:coc_snippet_prev = '<c-h>'
-
-nmap gd <Plug>(coc-definition)
-nmap gy <Plug>(coc-type-definition)
-nmap <leader>r <Plug>(coc-references)
-nmap K :call CocAction('doHover')<cr>
-nmap <c-k> :call CocAction('showSignatureHelp')<cr>
-nmap <F2> <Plug>(coc-rename)
-nmap <F3> <Plug>(coc-refactor)
-nmap <F4> <Plug>(coc-codeaction-line)
-nmap <F5> <Plug>(coc-codeaction)
-nmap <leader>d <cmd>CocDiagnostics<cr>
-
-command! -nargs=0 OI call CocAction('runCommand', 'editor.action.organizeImport')
+inoremap <silent><expr> <tab> pumvisible() ? '<c-n>' : '<tab>'
+inoremap <expr><s-tab> pumvisible() ? '<c-p>' : '<c-h>'
+inoremap <expr> <cr> pumvisible() ? '<c-y>' : '<cr>'
 
 # ale
-g:ale_completion_enabled = 0
+silent! packadd ale
 g:ale_disable_lsp = 1
 g:ale_virtualtext_cursor = 0
-g:ale_echo_msg_format = '[%linter%]: %s'
+g:ale_sign_error = '▸▸'
+g:ale_sign_warning = '▸ '
+g:ale_sign_info = '▸ '
+g:ale_echo_msg_error_str = 'E'
+g:ale_echo_msg_warning_str = 'W'
+g:ale_echo_msg_info_str = 'I'
+g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 g:ale_sh_shfmt_options = '-i 2 -ci -sr'
 g:ale_fixers = {
   sh: ['shfmt'],
   javascript: ['prettier'],
+  typescript: ['prettier'],
   html: ['prettier'],
   css: ['prettier'],
   json: ['fixjson'],
@@ -164,10 +134,19 @@ nnoremap Q :ALEFix<cr>
 
 # toggle autoformat
 def g:ToggleAutoFormat()
+  echo 'autoformat ' .. !g:ale_fix_on_save
   g:ale_fix_on_save = !g:ale_fix_on_save
-  echo 'autoformat ' .. g:ale_fix_on_save
 enddef
-nnoremap <silent><leader>f :call ToggleAutoFormat()<cr>
+nnoremap <silent><leader>f <cmd>call ToggleAutoFormat()<cr>
+
+# git
+g:gitgutter_sign_priority = 8
+g:gitgutter_preview_win_floating = 1
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+nmap ghp <Plug>(GitGutterPreviewHunk)
+nnoremap ghd :Gvdiffsplit!<cr>
+nnoremap <silent> ghb :call ToggleGitLens()<cr>
 
 # lit
 g:html_indent_style1 = 'inc'
@@ -180,9 +159,9 @@ nmap <silent> * <Plug>(star-*)
 nnoremap <silent> gs <Plug>(star-*)cgn
 xnoremap <silent> gs <Plug>(star-*)cgn
 
-# block comments
-xmap <silent> ?  :<c-u>CToggleComment<CR>
-smap <silent> ?  <c-g>:<c-u>CToggleComment<CR>
+# traces
+g:traces_normal_preview = 1
+g:traces_num_range_preview = 1
 
 # quickpeek
 g:quickpeek_popup_options = {
@@ -191,7 +170,18 @@ g:quickpeek_popup_options = {
 g:quickpeek_window_settings = ['cursorline', 'number']
 autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
+filetype plugin indent on
+
 # colorscheme
-colorscheme gruvbox8
+silent! packadd! everforest
+set background=dark
+g:everforest_disable_italic_comment = 1
+autocmd vimRc ColorScheme everforest {
+  hi DiffDelete guifg=#514045 guibg=#232326
+  hi DiffText guibg=#444444 guifg=NONE
+  hi DiffChange guibg=#232326
+  hi DiffAdd ctermbg=234 guibg=#232326
+}
+colorscheme everforest
 
 set secure
