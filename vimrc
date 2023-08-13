@@ -23,30 +23,29 @@ def PackInit()
   call minpac#init()
   Pack 'k-takata/minpac', {'type': 'opt'}
   Pack 'sgur/vim-editorconfig'
-  Pack 'junegunn/fzf'
   Pack 'junegunn/fzf.vim', {'type': 'opt'}
-  Pack 'yegappan/lsp', {'type': 'opt'}
+  Pack 'neoclide/coc.nvim', {'branch': 'release'}
   Pack 'dense-analysis/ale', {'type': 'opt'}
-  Pack 'rstacruz/vim-closer'
-  Pack 'thezeroalpha/vim-relatively-complete'
-  Pack 'pangloss/vim-javascript'
-  Pack 'jonsmithers/vim-html-template-literals'
+  Pack 'maxmellon/vim-jsx-pretty'
+  Pack 'yuezk/vim-js'
   Pack 'HerringtonDarkholme/yats.vim'
   Pack 'tpope/vim-commentary'
   Pack 'tpope/vim-surround'
   Pack 'tpope/vim-repeat'
+  Pack 'tommcdo/vim-exchange'
   Pack 'ubaldot/vim-highlight-yanked'
   Pack 'linjiX/vim-star'
   Pack 'markonm/traces.vim'
   Pack 'sgur/cmdline-completion'
-  Pack 'fcpg/vim-altscreen'
   Pack 'stefandtw/quickfix-reflector.vim'
   Pack 'AndrewRadev/quickpeek.vim'
+  Pack 'fcpg/vim-altscreen'
+  Pack 'rstacruz/vim-closer'
   Pack 'tpope/vim-fugitive'
   Pack 'airblade/vim-gitgutter'
   Pack 'Eliot00/git-lens.vim'
   Pack 'basilgood/vim-options'
-  Pack 'sainnhe/everforest', {'type': 'opt'}
+  Pack 'basilgood/oceanic-next'
 enddef
 
 # fzf
@@ -54,63 +53,105 @@ silent! packadd fzf.vim
 $FZF_DEFAULT_COMMAND = 'fd -tf -L -H -E=.git -E=node_modules --strip-cwd-prefix'
 g:fzf_layout = {'window': {'width': 0.7, 'height': 0.8, 'border': 'sharp'}}
 g:fzf_preview_window = ['up:70%', 'ctrl-/']
-nnoremap <c-p> :Files<cr>
+nnoremap <c-p> <cmd>Files<cr>
 cabbrev ff Files %:p:h
-nnoremap <bs> :Buffers<cr>
+nnoremap <bs> <cmd>Buffers<cr>
+nnoremap <leader>g <cmd>Rg<cr>
 
-# lsp
-silent! packadd lsp
-var lspServers = [
-  {
-    name: 'tsserver',
-    filetype: ['javascript', 'typescript'],
-    path: 'typescript-language-server',
-    args: ['--stdio'],
-  },
-  {
-    name: 'vimls',
-    filetype: ['vim'],
-    path: 'vim-language-server',
-    args: ['--stdio']
-  },
-  {
-    name: 'rust-analyzer',
-    filetype: ['rust'],
-    path: 'rust-analyzer',
-    args: [],
-    syncInit: true,
-  },
+# coc
+g:coc_global_extensions = [
+  'coc-tsserver',
+  'coc-eslint',
+  'coc-lit-html',
+  'coc-html-css-support',
+  'coc-css',
+  'coc-json',
+  'coc-markdownlint',
+  'coc-vimlsp',
+  'coc-snippets',
 ]
-silent! call LspOptionsSet({
-  aleSupport: true,
-  noNewlineInCompletion: true,
-  showDiagInPopup: false,
-  echoSignature: true,
-  usePopupInCodeAction: true,
-})
-silent! call LspAddServer(lspServers)
 
-def OnLspAttach()
-  nnoremap <buffer> gd   <cmd>LspGotoDefinition<CR>
-  nnoremap <buffer> gD   <cmd>LspPeekDefinition<CR>
-  nnoremap <buffer> gr   <cmd>LspReferences<CR>
-  nnoremap <buffer> K    <cmd>LspHover<CR>
-  nnoremap <buffer> <F2> <cmd>LspRename<CR>
-  nnoremap <buffer> <F4> <cmd>LspCodeAction<CR>
+g:coc_user_config = {
+  coc: {
+    preferences: {
+      enableMessageDialog: true,
+      useQuickfixForLocations: true
+    },
+  },
+  suggest: {
+    noselect: true,
+    enablePreselect: false,
+    insertMode: 'replace',
+    detailField: 'abbr'
+  },
+  signature: {target: 'echo'},
+  diagnostic: { displayByAle: true },
+  html: {
+    filetypes: ['html', 'htmldjango', 'astro', 'jinja', 'javascript']
+  },
+  html-css-support: {
+    enabledLanguages: ['html', 'astro', 'jinja', 'javascript'],
+  },
+  rust-analyzer: {
+    checkOnSave: true,
+    lens: {enable: true},
+    updates: {prompt: true},
+    signatureInfo: {detail: 'parameters'},
+  },
+  markdownlint: {
+    config: { 'line-length': false }
+  },
+  javascript: {
+    implementationsCodeLens: { enabled: true },
+    referencesCodeLens: { enabled: true, showOnAllFunctions: true },
+  },
+  typescript: {
+    implementationsCodeLens: { enabled: true },
+    referencesCodeLens: { enabled: true, showOnAllFunctions: true },
+  },
+  languageserver: {
+    nix: {
+      command: 'nil',
+      filetypes: [
+        'nix'
+      ],
+    },
+  },
+}
+
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "<cr><c-r>=coc#on_enter()<cr>"
+def CheckBackspace(): bool
+  var col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 enddef
-autocmd User LspAttached OnLspAttach()
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <F2> <Plug>(coc-rename)
+nmap <silent> <F4> <Plug>(coc-codeaction)
+nmap <silent> K  <cmd>call CocActionAsync('definitionHover')<cr>
+nnoremap <silent><nowait> <leader>d  <cmd>CocList diagnostics<cr>
+nnoremap <silent> <leader>c  <cmd>CocCommand<cr>
+nnoremap Q <cmd>call CocActionAsync('format')<cr>
 
-inoremap <silent><expr> <tab> pumvisible() ? '<c-n>' : '<tab>'
-inoremap <expr><s-tab> pumvisible() ? '<c-p>' : '<c-h>'
-inoremap <expr> <cr> pumvisible() ? '<c-y>' : '<cr>'
+command! -nargs=0 Format :call CocActionAsync('format')
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 # ale
 silent! packadd ale
 g:ale_disable_lsp = 1
 g:ale_virtualtext_cursor = 0
-g:ale_sign_error = '▸▸'
-g:ale_sign_warning = '▸ '
-g:ale_sign_info = '▸ '
+g:lsp_ale_diagnostics_severity = 'hint'
+g:ale_sign_error = '🞬'
+g:ale_sign_warning = ''
+g:ale_sign_info = ''
 g:ale_echo_msg_error_str = 'E'
 g:ale_echo_msg_warning_str = 'W'
 g:ale_echo_msg_info_str = 'I'
@@ -126,6 +167,10 @@ g:ale_fixers = {
   nix: ['alejandra'],
   yaml: ['yamlfix'],
   rust: ['rustfmt'],
+}
+g:al_linters = {
+  javascript: [],
+  typescript: []
 }
 
 nnoremap ]d <Plug>(ale_next_wrap)
@@ -172,16 +217,6 @@ autocmd vimRc Filetype qf nnoremap <buffer> <tab> :QuickpeekToggle<cr>
 
 filetype plugin indent on
 
-# colorscheme
-silent! packadd! everforest
-set background=dark
-g:everforest_disable_italic_comment = 1
-autocmd vimRc ColorScheme everforest {
-  hi DiffDelete guifg=#514045 guibg=#232326
-  hi DiffText guibg=#444444 guifg=NONE
-  hi DiffChange guibg=#232326
-  hi DiffAdd ctermbg=234 guibg=#232326
-}
-colorscheme everforest
+colorscheme OceanicNext
 
 set secure
